@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <title>
-        Categories |
         
         今日营业中
     </title>
@@ -48,7 +47,7 @@
         <ul class="menu-list">
             
                 <li class="menu-item">
-                    <a class=""
+                    <a class="active"
                        href="/"
                     >
                         首页
@@ -64,7 +63,7 @@
                 </li>
             
                 <li class="menu-item">
-                    <a class="active"
+                    <a class=""
                        href="/categories"
                     >
                         分类
@@ -90,7 +89,7 @@
         <ul class="drawer-menu-list">
             
                 <li class="drawer-menu-item flex-center">
-                    <a class=""
+                    <a class="active"
                        href="/">首页</a>
                 </li>
             
@@ -100,7 +99,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/categories">分类</a>
                 </li>
             
@@ -124,14 +123,156 @@
                 <main class="main-content normal-code-theme">
 
                     
-                        <div class="fade-in-down-animation">
-    <div class="category-list-container">
-        <div class="category-list-content">
-            <ul class="all-category-list"><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/Swift/">Swift</a><span class="all-category-list-count">12</span></li></ul>
-        </div>
-        <div class="category-comments">
-            
-        </div>
+                        <div class="home-content-container fade-in-down-animation">
+    <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2020/12/17/8--RxSwift-%E6%8F%92%E5%85%A5%E5%8F%91%E9%80%81%E5%90%88%E5%B9%B6%E5%8E%8B%E7%BC%A9-startWith%E3%80%81merge%E3%80%81zip/">
+                        RxSwift-插入发送合并压缩-startWith、merge、zipignoreElement
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        startWith在订阅的时候插入发送事件，后加入的先发送。完成事件发送时不会插入。
+12345678let ob &#x3D; PublishSubject&lt;String&gt;()ob.startWith(&quot;插入1&quot;)....
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Thu Dec 17 2020 14:16:55 GMT+0800">2020-12-17</span></span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/Swift/">Swift</a>
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/RxSwift/">RxSwift</a>
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2020/12/17/8--RxSwift-%E6%8F%92%E5%85%A5%E5%8F%91%E9%80%81%E5%90%88%E5%B9%B6%E5%8E%8B%E7%BC%A9-startWith%E3%80%81merge%E3%80%81zip/">Read more <i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2020/12/17/9--RxSwift-%E8%BD%AC%E6%95%B0%E7%BB%84%E3%80%81%E7%B4%AF%E8%AE%A1%E6%93%8D%E4%BD%9C-toArray%E3%80%81reduce/">
+                        RxSwift-转数组、累计操作-toArray、reduce
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        toArray将所有的事件集合在一起作为一个数组发出，需要发送onCompleted事件
+123456789let ob &#x3D; PublishSubject&lt;String&gt;()ob.toArray().subscribe &#12...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Thu Dec 17 2020 14:16:55 GMT+0800">2020-12-17</span></span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/Swift/">Swift</a>
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/RxSwift/">RxSwift</a>
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2020/12/17/9--RxSwift-%E8%BD%AC%E6%95%B0%E7%BB%84%E3%80%81%E7%B4%AF%E8%AE%A1%E6%93%8D%E4%BD%9C-toArray%E3%80%81reduce/">Read more <i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2020/12/17/hello-world/">
+                        利用 hexo 和 github 搭建自己的 blog
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        Hexo
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Thu Dec 17 2020 14:16:55 GMT+0800">2020-12-17</span></span>
+        
+        
+    </div>
+
+    <a href="/2020/12/17/hello-world/">Read more <i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+    </ul>
+
+    <div class="home-paginator">
+        <div class="paginator">
+    
+        <a class="prev btn"
+           href="/"
+        >Prev</a>
+    
+
+    
+</div>
+
     </div>
 </div>
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <title>
-        利用 hexo 和 github 搭建自己的 blog |
+        RxSwift-Observable订阅、监听 |
         
         今日营业中
     </title>
@@ -128,7 +128,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">利用 hexo 和 github 搭建自己的 blog</span>
+            <span class="title-hover-animation">RxSwift-Observable订阅、监听</span>
         </div>
 
         
@@ -147,6 +147,28 @@
         <i class="fas fa-calendar"></i> 2020-12-17 14:16:55
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Swift/">Swift</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/RxSwift/">RxSwift</a>
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -161,18 +183,21 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a><a class="link"   target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" >Hexo<i class="fas fa-external-link-alt"></i></a></h1>
+            <h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="监听-do"><a href="#监听-do" class="headerlink" title="监听 do"></a>监听 do</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">ob.do &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; afterNext: &#123; element in</span><br><span class="line">    print(&quot;afterNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; afterError: &#123; error in</span><br><span class="line">    print(&quot;afterError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; afterCompleted: &#123;</span><br><span class="line">    print(&quot;afterCompleted&quot;)</span><br><span class="line">&#125; onSubscribe: &#123;</span><br><span class="line">    print(&quot;onSubscribe&quot;)</span><br><span class="line">&#125; onSubscribed: &#123;</span><br><span class="line">    print(&quot;onSubscribed&quot;)</span><br><span class="line">&#125; onDispose: &#123;</span><br><span class="line">    print(&quot;onDispose&quot;)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;&#x2F; 这里是订阅部分</span><br><span class="line">.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：利用 hexo 和 github 搭建自己的 blog</li>
+        <li>Post title：RxSwift-Observable订阅、监听</li>
         <li>Post author：xxxixxxx</li>
         <li>Create time：2020-12-17 14:16:55</li>
         <li>
-            Post link：https://xxxixxx.github.io/2020/12/17/hello-world/
+            Post link：https://xxxixxx.github.io/2020/12/17/2--RxSwift-Observable订阅、监听/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -189,18 +214,33 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2020/12/17/9--RxSwift-%E8%BD%AC%E6%95%B0%E7%BB%84%E3%80%81%E7%B4%AF%E8%AE%A1%E6%93%8D%E4%BD%9C-toArray%E3%80%81reduce/"
+                           href="/2020/12/17/12--RxSwift-Single%E3%80%81Completab%E3%80%81Maybe/"
                         >
                             <span class="left arrow-icon flex-center" >
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">RxSwift-转数组、累计操作-toArray、reduce</span>
+                                <span class="post-nav-title-item">RxSwift-Single、Completab、Maybe</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
                     </div>
                 
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/12/17/3--RxSwift-%E7%BB%91%E5%AE%9A-bind%E3%80%81bindTo%E3%80%81Binder/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">RxSwift-绑定-bind、bindTo、Binder</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center" >
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
                 
             </div>
         
@@ -346,7 +386,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo"><span class="nav-number">1.</span> <span class="nav-text">Hexo</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A2%E9%98%85"><span class="nav-number">1.</span> <span class="nav-text">订阅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E5%90%AC-do"><span class="nav-number">2.</span> <span class="nav-text">监听 do</span></a></li></ol>
     </div>
 </div>
         

@@ -1,6 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>RxSwift-创建可观察序列</title>
+    <url>/2020/12/17/1--RxSwift-%E5%88%9B%E5%BB%BA%E5%8F%AF%E8%A7%82%E5%AF%9F%E5%BA%8F%E5%88%97/</url>
+    <content><![CDATA[<h3 id="empty-方法初始化"><a href="#empty-方法初始化" class="headerlink" title="empty() 方法初始化"></a>empty() 方法初始化</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 创建了一个空内容的 Observable</span><br><span class="line">let ob &#x3D; Observable&lt;Int&gt;.empty()</span><br><span class="line">&#x2F;&#x2F; 先简单的写一种订阅的方法</span><br><span class="line">ob.subscribe &#123; print(&quot;执行了&quot;) &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="just-方法-传入默认值初始化"><a href="#just-方法-传入默认值初始化" class="headerlink" title="just() 方法 传入默认值初始化"></a>just() 方法 传入默认值初始化</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 这里不用给定泛型，会根据 just 自动推倒出</span><br><span class="line">let ob &#x3D; Observable.just(&quot;初始化默认值&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="of-方法-传入可变数量的值，但必须是同一类型"><a href="#of-方法-传入可变数量的值，但必须是同一类型" class="headerlink" title="of() 方法 传入可变数量的值，但必须是同一类型"></a>of() 方法 传入可变数量的值，但必须是同一类型</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;可&quot;, &quot;变&quot;, &quot;数&quot;, &quot;量&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="from-传入数组初始化"><a href="#from-传入数组初始化" class="headerlink" title="from() 传入数组初始化"></a>from() 传入数组初始化</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.from([&quot;数&quot;, &quot;组&quot;])</span><br></pre></td></tr></table></figure>
+
+<h3 id="never-永远不会发出-event-的-Observable-序列"><a href="#never-永远不会发出-event-的-Observable-序列" class="headerlink" title="never() 永远不会发出 event 的 Observable 序列"></a>never() 永远不会发出 event 的 Observable 序列</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable&lt;Any&gt;.never()</span><br></pre></td></tr></table></figure>
+
+<h3 id="error-直接发送一个错误"><a href="#error-直接发送一个错误" class="headerlink" title="error() 直接发送一个错误"></a>error() 直接发送一个错误</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">enum OBError: Error &#123;</span><br><span class="line">    case abc</span><br><span class="line">&#125;</span><br><span class="line">let ob &#x3D; Observable&lt;OBError&gt;.error(OBError.abc)</span><br></pre></td></tr></table></figure>
+
+<h3 id="interval-每一秒发送一次"><a href="#interval-每一秒发送一次" class="headerlink" title="interval() 每一秒发送一次"></a>interval() 每一秒发送一次</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable&lt;Int&gt;.interval(1, scheduler: MainScheduler.asyncInstance)</span><br></pre></td></tr></table></figure>
+
+<h3 id="timer-定时发送"><a href="#timer-定时发送" class="headerlink" title="timer() 定时发送"></a>timer() 定时发送</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 3 秒后，仅发送一次</span><br><span class="line">let ob &#x3D; Observable&lt;Int&gt;.timer(3, scheduler: MainScheduler.instance)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3 秒后，每 2 秒发送一次</span><br><span class="line">let ob &#x3D; Observable&lt;Int&gt;.timer(3, period: 2, scheduler: MainScheduler.asyncInstance)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>RxSwift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RxSwift-延迟、超时、delay、timeout</title>
+    <url>/2020/12/17/10--RxSwift-%E5%BB%B6%E8%BF%9F%E3%80%81%E8%B6%85%E6%97%B6%E3%80%81delay%E3%80%81timeout/</url>
+    <content><![CDATA[<h1 id="delay"><a href="#delay" class="headerlink" title="delay"></a>delay</h1><p>对所有发送事件(包括<code>onCompleted</code>)后延迟 n 秒接收</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.delay(RxTimeInterval.seconds(2), scheduler: MainScheduler.asyncInstance).subscribe &#123; event in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;发送了&quot;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="timeout"><a href="#timeout" class="headerlink" title="timeout"></a>timeout</h1><p> 设置超时时间，超过规定时间的事件将发送  <code>error</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.timeout(RxTimeInterval.seconds(3), scheduler: MainScheduler.instance).subscribe &#123; event in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;发送1&quot;)</span><br><span class="line">DispatchQueue.global().asyncAfter(deadline: .now() + 4) &#123;</span><br><span class="line">    ob.onNext(&quot;超时发送&quot;)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;next(发送1)</span><br><span class="line">&#x2F;&#x2F;error(Sequence timeout.)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>RxSwift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RxSwift-错误处理、重试-catchError、retry</title>
+    <url>/2020/12/17/11--RxSwift-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E3%80%81%E9%87%8D%E8%AF%95-catchError%E3%80%81retry/</url>
+    <content><![CDATA[<h1 id="catchError"><a href="#catchError" class="headerlink" title="catchError"></a>catchError</h1><p>当发送了<code>error</code>事件后可以返回一个新的序列</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">enum ObError: Error &#123;</span><br><span class="line">    case error1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let ob1 &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">let ob2 &#x3D; PublishSubject.of(&quot;A&quot;, &quot;B&quot;)</span><br><span class="line"></span><br><span class="line">ob1.catchError &#123; (error) -&gt; Observable&lt;String&gt; in</span><br><span class="line">    print(error)</span><br><span class="line">    return ob2</span><br><span class="line">&#125;.subscribe &#123; event in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob1.onNext(&quot;111&quot;)</span><br><span class="line">ob1.onError(ObError.error1)</span><br><span class="line">&#x2F;&#x2F;next(111)</span><br><span class="line">&#x2F;&#x2F;error1</span><br><span class="line">&#x2F;&#x2F;next(A)</span><br><span class="line">&#x2F;&#x2F;next(B)</span><br><span class="line">&#x2F;&#x2F;completed</span><br></pre></td></tr></table></figure>
+<h1 id="retry"><a href="#retry" class="headerlink" title="retry"></a>retry</h1><p>当发送了<code>error</code>后可以重新发送</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var isFail &#x3D; true</span><br><span class="line">let obs &#x3D; Observable&lt;String&gt;.create &#123; (ob) -&gt; Disposable in</span><br><span class="line">    ob.onNext(&quot;成功1&quot;)</span><br><span class="line">    if isFail &#123;</span><br><span class="line">        ob.onError(ObError.error1)</span><br><span class="line">        isFail &#x3D; false</span><br><span class="line">    &#125;</span><br><span class="line">    ob.onNext(&quot;重试成功&quot;)</span><br><span class="line">    ob.onCompleted()</span><br><span class="line">    return Disposables.create()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obs.retry(2).subscribe &#123; event in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">next(成功1)</span><br><span class="line">next(成功1)</span><br><span class="line">next(重试成功)</span><br><span class="line">completed</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>RxSwift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RxSwift-Single、Completab、Maybe</title>
+    <url>/2020/12/17/12--RxSwift-Single%E3%80%81Completab%E3%80%81Maybe/</url>
+    <content><![CDATA[<h1 id="Single"><a href="#Single" class="headerlink" title="Single"></a>Single</h1><p>只发出一次事件，常用于网络请求</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">enum DataError: Error &#123;</span><br><span class="line">    case error1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func getData() -&gt; Single&lt;[String: Any]&gt; &#123;</span><br><span class="line">    return Single&lt;[String: Any]&gt;.create &#123; (single) -&gt; Disposable in</span><br><span class="line">        single(.success([&quot;&quot;: 1]))</span><br><span class="line">&#x2F;&#x2F;                single(.error(DataError.error1))</span><br><span class="line">        return Disposables.create &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getData().subscribe &#123; req in</span><br><span class="line">    switch req &#123;</span><br><span class="line">    case .success(let value):</span><br><span class="line">        print(value)</span><br><span class="line">    case .error(let error):</span><br><span class="line">        print(error)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Completable"><a href="#Completable" class="headerlink" title="Completable"></a>Completable</h1><p>只会发出<code>completed</code>或<code>error</code> 事件，用于只关心操作结果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func cancel() -&gt; Completable &#123;</span><br><span class="line">    return Completable.create &#123; (comp) -&gt; Disposable in</span><br><span class="line">        comp(.completed)</span><br><span class="line">&#x2F;&#x2F;                comp(.error(ObError.error1))</span><br><span class="line">        return Disposables.create &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cancel().subscribe &#123; rep in</span><br><span class="line">    switch rep &#123;</span><br><span class="line">    case .completed:</span><br><span class="line">        print(&quot;成功&quot;)</span><br><span class="line">    case let .error(error):</span><br><span class="line">        print(error)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Maybe"><a href="#Maybe" class="headerlink" title="Maybe"></a>Maybe</h1><p>也是只能发出一个事件，正常的<code>event</code>或<code>completed </code>或<code>error</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">func test() -&gt; Maybe&lt;String&gt; &#123;</span><br><span class="line">    return Maybe&lt;String&gt;.create &#123; (mayBe) -&gt; Disposable in</span><br><span class="line">        mayBe(.success(&quot;成功&quot;))</span><br><span class="line">&#x2F;&#x2F;                mayBe(.completed)</span><br><span class="line">&#x2F;&#x2F;                mayBe(.error(ObError.error1))</span><br><span class="line">        return Disposables.create &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test().subscribe &#123; event in</span><br><span class="line">    switch event &#123;</span><br><span class="line">    case .success(let value):</span><br><span class="line">        print(value)</span><br><span class="line">    case .completed:</span><br><span class="line">        print(&quot;completed&quot;)</span><br><span class="line">    case .error(let error):</span><br><span class="line">        print(error)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>RxSwift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RxSwift-Observable订阅、监听</title>
+    <url>/2020/12/17/2--RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
+    <content><![CDATA[<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="监听-do"><a href="#监听-do" class="headerlink" title="监听 do"></a>监听 do</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">ob.do &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; afterNext: &#123; element in</span><br><span class="line">    print(&quot;afterNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; afterError: &#123; error in</span><br><span class="line">    print(&quot;afterError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; afterCompleted: &#123;</span><br><span class="line">    print(&quot;afterCompleted&quot;)</span><br><span class="line">&#125; onSubscribe: &#123;</span><br><span class="line">    print(&quot;onSubscribe&quot;)</span><br><span class="line">&#125; onSubscribed: &#123;</span><br><span class="line">    print(&quot;onSubscribed&quot;)</span><br><span class="line">&#125; onDispose: &#123;</span><br><span class="line">    print(&quot;onDispose&quot;)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;&#x2F; 这里是订阅部分</span><br><span class="line">.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>RxSwift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RxSwift-绑定-bind、bindTo、Binder</title>
+    <url>/2020/12/17/3--RxSwift-%E7%BB%91%E5%AE%9A-bind%E3%80%81bindTo%E3%80%81Binder/</url>
+    <content><![CDATA[<h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable&lt;Int&gt;.interval(1, scheduler: MainScheduler.asyncInstance)</span><br><span class="line"></span><br><span class="line">ob.map &#123;</span><br><span class="line">&#x2F;&#x2F; 对值进一步处理然后返回</span><br><span class="line">    &quot;count &quot; + &quot;\($0)&quot;</span><br><span class="line">&#125;</span><br><span class="line">.bind &#123; text in</span><br><span class="line">    countLab.text &#x3D; text</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">ob.bind &#123; x in</span><br><span class="line">    print(x)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+<h3 id="Binder-bindTo"><a href="#Binder-bindTo" class="headerlink" title="Binder + bindTo"></a>Binder + bindTo</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable&lt;Int&gt;.interval(1, scheduler: MainScheduler.asyncInstance)</span><br><span class="line">let observer: Binder&lt;String&gt; &#x3D; Binder(countLab) &#123; lab, text in</span><br><span class="line">    lab.text &#x3D; text</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ob.map &#123;</span><br><span class="line">    &quot;c&quot; + &quot;\($0)&quot;</span><br><span class="line">&#125;</span><br><span class="line">.bind(to: observer)</span><br><span class="line">.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>RxSwift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RxSwift-自定义可绑属性</title>
+    <url>/2020/12/17/4--RxSwift-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%AF%E7%BB%91%E5%B1%9E%E6%80%A7/</url>
+    <content><![CDATA[<h3 id="对-Reactive-进行扩展"><a href="#对-Reactive-进行扩展" class="headerlink" title="对 Reactive 进行扩展"></a>对 Reactive 进行扩展</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 给 UILabel 增加了 fontSize 可绑属性</span><br><span class="line">extension Reactive where Base: UILabel &#123;</span><br><span class="line">    public var fontSize: Binder&lt;CGFloat&gt; &#123;</span><br><span class="line">        return Binder(base) &#123; lab, size in</span><br><span class="line">            lab.font &#x3D; UIFont.systemFont(ofSize: size)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 使用</span><br><span class="line">let ob &#x3D; Observable&lt;Int&gt;.interval(1, scheduler: MainScheduler.asyncInstance)</span><br><span class="line">ob.map &#123; CGFloat($0) + 10.0 &#125;</span><br><span class="line">    .bind(to: lab.rx.fontSize) &#x2F;&#x2F; 这里要使用 .rx</span><br><span class="line">    .disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>RxSwift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RxSwift-发送、订阅-Subjects、Variables</title>
+    <url>/2020/12/17/5--RxSwift-%E5%8F%91%E9%80%81%E3%80%81%E8%AE%A2%E9%98%85-Subjects%E3%80%81Variables/</url>
+    <content><![CDATA[<h1 id="Subjects-介绍"><a href="#Subjects-介绍" class="headerlink" title="Subjects 介绍"></a>Subjects 介绍</h1><h3 id="1-Subjects-是订阅者，也是Observable"><a href="#1-Subjects-是订阅者，也是Observable" class="headerlink" title="1. Subjects 是订阅者，也是Observable"></a>1. <code>Subjects</code> 是订阅者，也是<code>Observable</code></h3><ul>
+<li>订阅者：它能动态的接收新的值。</li>
+<li><code>Observable</code>： 当<code>Subjects</code>有了新值后会通过<code>Event</code>将新值发出给他的所有订阅者。</li>
+</ul>
+<hr>
+<h3 id="2-常用的方法"><a href="#2-常用的方法" class="headerlink" title="2. 常用的方法"></a>2. 常用的方法</h3><p><code>onNext(:)：</code>是<code> on(.next(:))</code> 的简便写法。该方法相当于 <code>subject</code> 接收到一个<code>.next</code> 事件。<br><code>onError(:)：</code>是<code>on(.error(:))</code>的简便写法。该方法相当于 <code>subject</code> 接收到一个<code> .error</code> 事件。<br><code>onCompleted()：</code>是 <code>on(.completed)</code>的简便写法。该方法相当于 <code>subject</code> 接收到一个 <code>.completed</code>事件。</p>
+<hr>
+<h3 id="3-Subjects-有四种PublishSubject、BehaviorSubject、ReplaySubject、Variable"><a href="#3-Subjects-有四种PublishSubject、BehaviorSubject、ReplaySubject、Variable" class="headerlink" title="3. Subjects 有四种PublishSubject、BehaviorSubject、ReplaySubject、Variable"></a>3. <code>Subjects</code> 有四种<code>PublishSubject</code>、<code>BehaviorSubject</code>、<code>ReplaySubject</code>、<code>Variable</code></h3><h5 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h5><ul>
+<li>都是<code>Observable</code>，他们的订阅者都能接收他们发出的新的<code>Event</code></li>
+<li>直到 <code>Subject</code> 发出 <code>.complete</code> 或者 <code>.error</code> 的 <code>Event</code> 后，该 <code>Subject</code> 便终结了，同时它也就不会再发出<code>.next</code>事件。</li>
+<li>对于那些在<code> Subject</code> 终结后再订阅他的订阅者，也能收到 <code>subject</code>发出的一条<code> .complete</code> 或<code> .error</code>的<code> event</code>，告诉这个新的订阅者它已经终结了。<h5 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h5></li>
+<li> <code>PublishSubject</code><br>最普通的<code>Subject</code>，不需要初始值就能初始化。<br>他的订阅者只能收到他们订阅后的 <code>Event</code>。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let sub &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line"></span><br><span class="line">sub.onNext(&quot;订阅之前的不能接收到&quot;)</span><br><span class="line"></span><br><span class="line">sub.subscribe &#123; event in</span><br><span class="line">    print(event.element)</span><br><span class="line">&#x2F;&#x2F;Optional(&quot;订阅之后的可以接收到&quot;)</span><br><span class="line">&#x2F;&#x2F;nil</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">sub.onNext(&quot;订阅之后的可以接收到&quot;)</span><br><span class="line">&#x2F;&#x2F;结束</span><br><span class="line">sub.onCompleted()</span><br><span class="line">&#x2F;&#x2F;&#x2F; 结束之后添加的订阅能收到 completed</span><br><span class="line">sub.subscribe &#123; event in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sub.onNext(&quot;结束后发的都收不到&quot;)</span><br></pre></td></tr></table></figure></li>
+<li><code>BehaviorSubject</code><br>需要一个默认值初始化<br>当一个订阅者订阅之后会立马收到上一个<code>Event</code>，之后就是正常情况发一个收一个。<br><code>onCompleted()</code>之后的订阅者也只能收到<code>Completed</code>。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let sub &#x3D; BehaviorSubject(value: &quot;默认值&quot;)</span><br><span class="line"></span><br><span class="line">sub.subscribe &#123; event in</span><br><span class="line">    print(&quot;订阅1&quot;, event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">sub.onNext(&quot;发送1&quot;)</span><br><span class="line">sub.subscribe &#123; event in</span><br><span class="line">    print(&quot;订阅2&quot;, event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">sub.onCompleted()</span><br><span class="line">sub.subscribe &#123; event in</span><br><span class="line">    print(&quot;订阅3&quot;, event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">订阅1 next(默认值)</span><br><span class="line">订阅1 next(发送1)</span><br><span class="line">订阅2 next(发送1)</span><br><span class="line">订阅1 completed</span><br><span class="line">订阅2 completed</span><br><span class="line">订阅3 completed</span><br></pre></td></tr></table></figure></li>
+<li><code>ReplaySubject</code><br>创建的时候需要一个参数<code>bufferSize</code>设置记录个数<br>新添加的订阅会接收到之前发送的两个  <code>Event</code>，如果不足两个就只接收一个。<br>如果超过两个只接收最新的两个。<br>如果订阅时已经结束除了会接收到最新的两个<code>Event</code>外还有结束的<code>complete </code>或<code>error </code>。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let sub &#x3D; ReplaySubject&lt;String&gt;.create(bufferSize: 2)</span><br><span class="line"></span><br><span class="line">sub.subscribe &#123; event in</span><br><span class="line">    print(&quot;订阅1&quot;, event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">sub.onNext(&quot;发送1&quot;)</span><br><span class="line">print(&quot;-------&quot;)</span><br><span class="line">sub.subscribe &#123; event in</span><br><span class="line">    print(&quot;订阅2&quot;, event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">sub.onNext(&quot;发送2&quot;)</span><br><span class="line">sub.onNext(&quot;发送3&quot;)</span><br><span class="line">sub.onNext(&quot;发送4&quot;)</span><br><span class="line">print(&quot;-------&quot;)</span><br><span class="line">sub.subscribe &#123; event in</span><br><span class="line">    print(&quot;订阅3&quot;, event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">sub.onCompleted()</span><br><span class="line">print(&quot;-------&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 不仅会收到最后的两个 event 还有 Completed</span><br><span class="line">sub.subscribe &#123; event in</span><br><span class="line">    print(&quot;订阅4&quot;, event)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">订阅1 next(发送1)</span><br><span class="line">-------</span><br><span class="line">订阅2 next(发送1)</span><br><span class="line">订阅1 next(发送2)</span><br><span class="line">订阅2 next(发送2)</span><br><span class="line">订阅1 next(发送3)</span><br><span class="line">订阅2 next(发送3)</span><br><span class="line">订阅1 next(发送4)</span><br><span class="line">订阅2 next(发送4)</span><br><span class="line">-------</span><br><span class="line">订阅3 next(发送3)</span><br><span class="line">订阅3 next(发送4)</span><br><span class="line">订阅1 completed</span><br><span class="line">订阅2 completed</span><br><span class="line">订阅3 completed</span><br><span class="line">-------</span><br><span class="line">订阅4 next(发送3)</span><br><span class="line">订阅4 next(发送4)</span><br><span class="line">订阅4 completed</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>BehaviorRelay </code><br>基本同 <code>BehaviorSubject </code>功能一样，但是不能主动调用<code>onCompleted</code>和<code>error </code>，会在<code>BehaviorRelay </code>释放前调用<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let sub &#x3D; BehaviorRelay(value: &quot;初始值&quot;)</span><br><span class="line"></span><br><span class="line">sub.subscribe &#123; event in</span><br><span class="line">    print(&quot;第一次订阅&quot;, event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">sub.accept(&quot;新值1&quot;)</span><br><span class="line">sub.subscribe &#123; event in</span><br><span class="line">    print(&quot;第二次订阅&quot;, event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>RxSwift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RxSwift-订阅操作过滤1-map、buffer、filter</title>
+    <url>/2020/12/17/6--RxSwift-%E8%AE%A2%E9%98%85%E6%93%8D%E4%BD%9C%E8%BF%87%E6%BB%A41-map%E3%80%81buffer%E3%80%81filter/</url>
+    <content><![CDATA[<h1 id="map"><a href="#map" class="headerlink" title="map"></a>map</h1><p>同 <code>Swift</code>中 <code>map</code> 用法一样，对值进行处理并返回</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let sub &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line"></span><br><span class="line">sub.map &#123; $0 + &quot;mmmmm&quot; &#125;</span><br><span class="line">    .subscribe &#123; event in</span><br><span class="line">        print(event.element)</span><br><span class="line">    &#125;</span><br><span class="line">    .disposed(by: disposeBag)</span><br><span class="line">sub.onNext(&quot;a&quot;)</span><br><span class="line">&#x2F;&#x2F;Optional(&quot;ammmmm&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="buffer"><a href="#buffer" class="headerlink" title="buffer"></a>buffer</h1><p><code>timeSpan </code> 缓存间隔时间、              <code>count </code>缓存个数 、  <code>scheduler </code>线程<br>发送两个<code>event</code>后会触发订阅。满 2 秒也会触发订阅 ，如果<code>event</code> 没有发送空数组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let sub &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">sub.buffer(timeSpan: 2, count: 2, scheduler: MainScheduler.asyncInstance)</span><br><span class="line">    .subscribe &#123; event in</span><br><span class="line">        print(&quot;订阅1&quot;, event)</span><br><span class="line">    &#125;.disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">sub.onNext(&quot;发送1&quot;)</span><br><span class="line">sub.onNext(&quot;发送2&quot;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h1><p>过滤 同<code>Swift</code>中<code>filter</code>一样</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(10, 11, 12, 99, 33, 55, 77)</span><br><span class="line">ob.filter &#123; $0 &gt; 20</span><br><span class="line">&#125;.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;).disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>RxSwift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RxSwift-订阅操作过滤2-distinctUntilChanged、single、elementAt、ignoreElement</title>
+    <url>/2020/12/17/7--RxSwift-%E8%AE%A2%E9%98%85%E6%93%8D%E4%BD%9C%E8%BF%87%E6%BB%A42-distinctUntilChanged%E3%80%81single%E3%80%81elementAt%E3%80%81ignoreElement/</url>
+    <content><![CDATA[<h1 id="distinctUntilChanged"><a href="#distinctUntilChanged" class="headerlink" title="distinctUntilChanged"></a>distinctUntilChanged</h1><p>过滤连续重复的事件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(1, 1, 1, 3, 5, 7, 9, 9)</span><br><span class="line">ob.distinctUntilChanged().subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#x2F;&#x2F;1 3 5 7 9</span><br><span class="line">&#125;).disposed(by: disposeBag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="single"><a href="#single" class="headerlink" title="single"></a>single</h1><p>只发送一次正常事件，如果没有或者超过 1 个会发送 <code>error</code> 事件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(1,2)</span><br><span class="line">ob.single().subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;, onError: &#123; error in</span><br><span class="line">    print(&quot;错误&quot;,error)</span><br><span class="line">&#125;).disposed(by: disposeBag)</span><br><span class="line">&#x2F;&#x2F;        1</span><br><span class="line">&#x2F;&#x2F;        错误 Sequence contains more than one element.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;----- single 增加过滤</span><br><span class="line">let ob &#x3D; Observable.of(1, 2, 1)</span><br><span class="line">ob.single &#123; $0 &#x3D;&#x3D; 2 &#125;.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;, onError: &#123; error in</span><br><span class="line">    print(&quot;错误&quot;, error)</span><br><span class="line">&#125;).disposed(by: disposeBag)</span><br><span class="line">&#x2F;&#x2F;        2</span><br></pre></td></tr></table></figure>
+
+<h1 id="elementAt"><a href="#elementAt" class="headerlink" title="elementAt"></a>elementAt</h1><p>获取指定位置的事件，0 开始。 如果没有发生该指定位置事件 会发送错误</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(0, 1, 2, 3, 4)</span><br><span class="line">ob.elementAt(2).subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;, onError: &#123; error in</span><br><span class="line">    print(error)</span><br><span class="line">&#125;).disposed(by: disposeBag)</span><br><span class="line">&#x2F;&#x2F;2</span><br></pre></td></tr></table></figure>
+
+<h1 id="ignoreElements"><a href="#ignoreElements" class="headerlink" title="ignoreElements"></a>ignoreElements</h1><p>会忽略所有主动发送的<code>event</code>事件，只保留 <code>error</code> 事件和 <code>Completed</code>事件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(0,1,2,3,4)</span><br><span class="line">ob.ignoreElements().subscribe &#123;</span><br><span class="line">    print(&quot;Completed&quot;)</span><br><span class="line">&#125; onError: &#123; (error) in</span><br><span class="line">    print(error)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+<h1 id="take"><a href="#take" class="headerlink" title="take"></a>take</h1><p>只取前 n 个事件，数量达到或不足会发送 <code>Completed</code>。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(0, 1, 2, 3)</span><br><span class="line">ob.take(2).subscribe &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+<h1 id="takeLast"><a href="#takeLast" class="headerlink" title="takeLast"></a>takeLast</h1><p>只取后 n 个事件，数量达到或不足会发送 <code>Completed</code>。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(0, 1, 2, 3, 4)</span><br><span class="line">ob.takeLast(12).subscribe &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+<h1 id="skip"><a href="#skip" class="headerlink" title="skip"></a>skip</h1><p>跳过前 n 个事件，发送完剩下的事件后会发送<code>onCompleted</code>。不足 n 个直接发送<code>onCompleted</code>。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(0,1,2,3,4,5)</span><br><span class="line">ob.skip(4).subscribe &#123; (element) in</span><br><span class="line">    print(element)</span><br><span class="line">&#125; onError: &#123; (error) in</span><br><span class="line">    print(error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+<h1 id="debounce"><a href="#debounce" class="headerlink" title="debounce"></a>debounce</h1><p>当两个事件的发送间隔大于约定时间时才会收到该事件，常用的例子是搜索时延迟搜索</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.debounce(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).subscribe(onNext: &#123; element in</span><br><span class="line">    print(&quot;收&quot;, element, CFAbsoluteTimeGetCurrent())</span><br><span class="line">&#125;).disposed(by: disposeBag)</span><br><span class="line">print(&quot;发&quot;, &quot;aaa&quot;, CFAbsoluteTimeGetCurrent())</span><br><span class="line">ob.onNext(&quot;aaa&quot;)</span><br><span class="line">DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) &#123;</span><br><span class="line">    print(&quot;发&quot;, &quot;bbb&quot;, CFAbsoluteTimeGetCurrent())</span><br><span class="line">    ob.onNext(&quot;bbb&quot;)</span><br><span class="line">&#125;</span><br><span class="line">DispatchQueue.global().asyncAfter(deadline: .now() + 1.5) &#123;</span><br><span class="line">    print(&quot;发&quot;, &quot;ccc&quot;, CFAbsoluteTimeGetCurrent())</span><br><span class="line">    ob.onNext(&quot;ccc&quot;)</span><br><span class="line">&#125;</span><br><span class="line">DispatchQueue.global().asyncAfter(deadline: .now() + 3.5) &#123;</span><br><span class="line">    print(&quot;发&quot;, &quot;ddd&quot;, CFAbsoluteTimeGetCurrent())</span><br><span class="line">    ob.onNext(&quot;ddd&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;发 aaa 627481044.719082</span><br><span class="line">&#x2F;&#x2F;发 bbb 627481045.241852</span><br><span class="line">&#x2F;&#x2F;发 ccc 627481046.231139</span><br><span class="line">&#x2F;&#x2F;收 ccc 627481047.233378</span><br><span class="line">&#x2F;&#x2F;发 ddd 627481048.552644</span><br><span class="line">&#x2F;&#x2F;收 ddd 627481049.55595</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>RxSwift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RxSwift-插入发送合并压缩-startWith、merge、zipignoreElement</title>
+    <url>/2020/12/17/8--RxSwift-%E6%8F%92%E5%85%A5%E5%8F%91%E9%80%81%E5%90%88%E5%B9%B6%E5%8E%8B%E7%BC%A9-startWith%E3%80%81merge%E3%80%81zip/</url>
+    <content><![CDATA[<h1 id="startWith"><a href="#startWith" class="headerlink" title="startWith"></a>startWith</h1><p>在订阅的时候插入发送事件，后加入的先发送。完成事件发送时不会插入。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.startWith(&quot;插入1&quot;).startWith(&quot;插入2&quot;).subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;).disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;发送1&quot;)</span><br><span class="line">插入2</span><br><span class="line">插入1</span><br><span class="line">发送1</span><br></pre></td></tr></table></figure>
+
+<h1 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h1><p>合并操作，将多个 <code>Observable</code> 合并成一个</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob1 &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">let ob2 &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">Observable.of(ob1,ob2).merge().subscribe &#123; (event) in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob1.onNext(&quot;ob1 发1&quot;)</span><br><span class="line">ob2.onNext(&quot;ob2 发1&quot;)</span><br><span class="line">ob1.onNext(&quot;ob1 发2&quot;)</span><br><span class="line">ob2.onNext(&quot;ob2 发2&quot;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h1><p>将 n 个<code>Observable</code>压缩成一个发送事件，必须每个都参与的发送完才会发送一次事件。参与的成对发送完</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob1 &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">let ob2 &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">Observable.zip(ob1,ob2).subscribe &#123; (event) in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ob1.onNext(&quot;ob1  2&quot;)</span><br><span class="line">ob1.onNext(&quot;ob1  3&quot;)</span><br><span class="line">ob2.onNext(&quot;ob2  A&quot;)</span><br><span class="line">ob2.onNext(&quot;ob2  B&quot;)</span><br><span class="line">ob2.onNext(&quot;ob2  C&quot;)</span><br><span class="line">ob1.onNext(&quot;ob1  1&quot;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;next((&quot;ob1  2&quot;, &quot;ob2  A&quot;))</span><br><span class="line">&#x2F;&#x2F;next((&quot;ob1  3&quot;, &quot;ob2  B&quot;))</span><br><span class="line">&#x2F;&#x2F;next((&quot;ob1  1&quot;, &quot;ob2  C&quot;))</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>RxSwift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RxSwift-转数组、累计操作-toArray、reduce</title>
+    <url>/2020/12/17/9--RxSwift-%E8%BD%AC%E6%95%B0%E7%BB%84%E3%80%81%E7%B4%AF%E8%AE%A1%E6%93%8D%E4%BD%9C-toArray%E3%80%81reduce/</url>
+    <content><![CDATA[<h1 id="toArray"><a href="#toArray" class="headerlink" title="toArray"></a>toArray</h1><p>将所有的事件集合在一起作为一个数组发出，需要发送<code>onCompleted</code>事件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.toArray().subscribe &#123; strArr in</span><br><span class="line">    print(strArr)</span><br><span class="line">&#125; onError: &#123; _ in</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;1&quot;)</span><br><span class="line">ob.onNext(&quot;2&quot;)</span><br><span class="line">ob.onNext(&quot;3&quot;)</span><br><span class="line">ob.onCompleted()</span><br></pre></td></tr></table></figure>
+
+<h1 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h1><p>累计操作，将每一次的事件都累积在一起在发送<code>onCompleted</code>时统一发送。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.reduce(&quot;初始值&quot;, accumulator: +).subscribe &#123; event in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;1&quot;)</span><br><span class="line">ob.onNext(&quot;2&quot;)</span><br><span class="line">ob.onNext(&quot;3&quot;)</span><br><span class="line">ob.onCompleted()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>RxSwift</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>利用 hexo 和 github 搭建自己的 blog</title>
     <url>/2020/12/17/hello-world/</url>
     <content><![CDATA[<h1 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a><a class="link"   href="https://hexo.io/zh-cn/" >Hexo<i class="fas fa-external-link-alt"></i></a></h1>]]></content>
