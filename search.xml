@@ -242,6 +242,76 @@
       </tags>
   </entry>
   <entry>
+    <title>Flutter 开发错误 StatefulWidget createState must return a subtype of State</title>
+    <url>/2020/12/17/Flutter-%E5%BC%80%E5%8F%91%E9%94%99%E8%AF%AF-StatefulWidget-createState-must-return-a-subtype-of-State/</url>
+    <content><![CDATA[<p>报错如下:</p>
+<p>StatefulWidget.createState must return a subtype of State</p>
+<p>The createState function for XXXX2 returned a state of type _XXXXState, which is not a subtype of State<XXXX2>, violating the contract for createState.</p>
+<p>错误分析：<br>其实就是返回的 Widget 类型不对，<br>大意了，修改正确即可。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2331323-a44eecc36a9468ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误图"></p>
+]]></content>
+      <categories>
+        <category>Flutter</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Flutter 本地图片配置工具 FlutterGen</title>
+    <url>/2020/12/17/Flutter-%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7-FlutterGen/</url>
+    <content><![CDATA[<h1 id="github-gt-FlutterGen"><a href="#github-gt-FlutterGen" class="headerlink" title="github -&gt; FlutterGen"></a><a class="link"   href="https://github.com/FlutterGen" >github -&gt; FlutterGen<i class="fas fa-external-link-alt"></i></a></h1><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 推荐使用 Homebrew 安装</span><br><span class="line">$ brew install FlutterGen&#x2F;tap&#x2F;fluttergen</span><br></pre></td></tr></table></figure>
+
+<p>#使用前先把 assets: 配置好</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">assets:</span><br><span class="line">    - assets&#x2F;images&#x2F;cat.png</span><br></pre></td></tr></table></figure>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ fluttergen -c example&#x2F;pubspec.yaml</span><br></pre></td></tr></table></figure>
+
+<h1 id="VSCode-中-终端使用"><a href="#VSCode-中-终端使用" class="headerlink" title="VSCode 中 终端使用"></a>VSCode 中 终端使用</h1><p><img src="https://upload-images.jianshu.io/upload_images/2331323-645686099e6124e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="VSCode"></p>
+]]></content>
+      <categories>
+        <category>Flutter</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Flutter 配置相关</title>
+    <url>/2020/12/17/Flutter-%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%85%B3/</url>
+    <content><![CDATA[<h3 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h3><blockquote>
+<p>CocoaPods requires your terminal to be using UTF-8 encoding<br>Consider adding the following to ~/.profile:<br>export LANG=en_US.UTF-8</p>
+</blockquote>
+<p>解决方案</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.打开终端 输入命令open -e .bash_profile</span><br><span class="line">2.在终端输入 export LANG&#x3D;en_US.UTF-8 保存</span><br><span class="line">3.重启VSCode</span><br><span class="line"></span><br><span class="line">⚠️⚠️安装zsh导致全局配置还不行的话⚠️⚠️</span><br><span class="line">1. vim ~&#x2F;.zshrc</span><br><span class="line">2. 按E进入编辑 （大写E）</span><br><span class="line">3. 在最后一行加入  export LANG&#x3D;en_US.UTF-8</span><br><span class="line">4. 按ESC退出编辑  键入 :wq 保存退出</span><br><span class="line">5. 重启VSCode</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="问题二"><a href="#问题二" class="headerlink" title="问题二"></a>问题二</h3><blockquote>
+<p>-bash: flutter: command not found</p>
+</blockquote>
+<p>解决方案</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.打开终端 输入命令open -e .bash_profile</span><br><span class="line">2.在终端输入 </span><br><span class="line"></span><br><span class="line">export PUB_HOSTED_URL&#x3D;https:&#x2F;&#x2F;pub.flutter-io.cn</span><br><span class="line">export FLUTTER_STORAGE_BASE_URL&#x3D;https:&#x2F;&#x2F;storage.flutter-io.cn</span><br><span class="line">export PATH&#x3D;$&#123;PATH&#125;:&#x2F;Users&#x2F;(你的用户名)&#x2F;flutter&#x2F;bin:$PATH</span><br><span class="line">export PATH&#x3D;$&#123;PATH&#125;:&#x2F;Users&#x2F;(你的用户名)&#x2F;flutter&#x2F;bin</span><br><span class="line">export NO_PROXY&#x3D;localhost,127.0.0.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3.终端输入 source ~&#x2F;.bash_profile保存</span><br><span class="line"></span><br><span class="line">⚠️⚠️安装zsh导致全局配置还不行的话⚠️⚠️</span><br><span class="line">1. vim ~&#x2F;.zshrc</span><br><span class="line">2. 按E进入编辑 （大写E）</span><br><span class="line">3. 在最后一行加入  </span><br><span class="line">export PATH&#x3D;&#x2F;Users&#x2F;z&#x2F;flutter&#x2F;bin:$PATH</span><br><span class="line">export NO_PROXY&#x3D;localhost,127.0.0.1</span><br><span class="line"></span><br><span class="line">4. 按ESC退出编辑  键入 :wq 保存退出</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Flutter</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Flutter 工程修复</title>
+    <url>/2020/12/17/Flutter%E5%B7%A5%E7%A8%8B%E4%BF%AE%E5%A4%8D/</url>
+    <content><![CDATA[<p>Flutter工程 误删iOS、误删Android等文件时</p>
+<p>解决方案</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">打开终端输入</span><br><span class="line">flutter create 工程目录</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Flutter</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Flutter 依赖库查询</title>
+    <url>/2020/12/17/Flutter%E6%9F%A5%E8%AF%A2%E4%BE%9D%E8%B5%96%E5%BA%93%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC/</url>
+    <content><![CDATA[<blockquote>
+<p>地址为 <a class="link"   href="https://pub.flutter-io.cn/packages" >https://pub.flutter-io.cn/packages<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<p><a class="link"   href="https://pub.flutter-io.cn/packages" >点我前往查询<i class="fas fa-external-link-alt"></i></a></p>
+]]></content>
+      <categories>
+        <category>Flutter</category>
+      </categories>
+  </entry>
+  <entry>
     <title>SnapKit适配刘海屏、异形屏</title>
     <url>/2020/12/17/SnapKit%E9%80%82%E9%85%8D%E5%88%98%E6%B5%B7%E5%B1%8F%E3%80%81%E5%BC%82%E5%BD%A2%E5%B1%8F/</url>
     <content><![CDATA[<h3 id="🌰-适配底部安全距离"><a href="#🌰-适配底部安全距离" class="headerlink" title="🌰 适配底部安全距离"></a>🌰 适配底部安全距离</h3><p>在 ViewController 的 view 中使用</p>
@@ -453,6 +523,30 @@
       <categories>
         <category>Swift</category>
       </categories>
+  </entry>
+  <entry>
+    <title>VSCode Flutter 配置</title>
+    <url>/2020/12/17/VSCode-Flutter-%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><ul>
+<li>Dart</li>
+<li>Flutter</li>
+<li>Flutter Generators</li>
+<li>Flutter Widget Snippets</li>
+<li>Flutter Helpers</li>
+<li>[FF] Flutter Files</li>
+<li>Awesome Flutter Snippets<h1 id="运行配置"><a href="#运行配置" class="headerlink" title="运行配置"></a>运行配置</h1><code>shift + cmd + d</code> 添加以下配置，这样就不用每次都在终端输入命令了<br><img src="https://upload-images.jianshu.io/upload_images/2331323-c47d75e75723b671.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="操作图"></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;debug&quot;, &#x2F;&#x2F;debug 模式</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;dart&quot;,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;profile&quot;, &#x2F;&#x2F;profile 模式 可解决非联机调试白屏</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;dart&quot;,</span><br><span class="line">            &quot;flutterMode&quot;: &quot;profile&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;release&quot;, &#x2F;&#x2F;release 模式 可解决非联机调试白屏</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;dart&quot;,</span><br><span class="line">            &quot;flutterMode&quot;: &quot;release&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="搜索关键词"><a href="#搜索关键词" class="headerlink" title="搜索关键词"></a>搜索关键词</h3><p>VSCode 插件<br>VSCode Flutter 调试配置<br>VSCode Flutter release 模式<br>Flutter release<br>Flutter 启动白屏</p>
+<h1 id="如果有帮助求点赞！"><a href="#如果有帮助求点赞！" class="headerlink" title="如果有帮助求点赞！"></a>如果有帮助求点赞！</h1>]]></content>
+      <categories>
+        <category>Flutter</category>
+      </categories>
+      <tags>
+        <tag>VSCode</tag>
+      </tags>
   </entry>
   <entry>
     <title>iOS 常用代码块</title>
