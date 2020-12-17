@@ -242,8 +242,248 @@
       </tags>
   </entry>
   <entry>
+    <title>iOS 常用代码块</title>
+    <url>/2020/12/17/Xcode-%E4%BB%A3%E7%A0%81%E5%9D%97/</url>
+    <content><![CDATA[<p>一些常用的代码块</p>
+<h1 id="点我直达"><a href="#点我直达" class="headerlink" title="点我直达"></a><a class="link"   href="https://github.com/xxxIxxxx/CodeSnippets" >点我直达<i class="fas fa-external-link-alt"></i></a></h1><h1 id="Xcode-路径"><a href="#Xcode-路径" class="headerlink" title="Xcode 路径"></a>Xcode 路径</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;Xcode&#x2F;UserData&#x2F;CodeSnippets</span><br></pre></td></tr></table></figure>
+
+<p>打开路径将文件拖进去<br>代码块添加后需要重启 Xcode</p>
+<h1 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a>Swift</h1><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lazytab</td>
+<td>懒加载属性 tableView</td>
+</tr>
+<tr>
+<td>mk</td>
+<td>//MARK: -</td>
+</tr>
+<tr>
+<td>snpmake</td>
+<td>SnapKit make 布局</td>
+</tr>
+<tr>
+<td>snpremake</td>
+<td>SnapKit remake 布局</td>
+</tr>
+<tr>
+<td>initBtn</td>
+<td>UIButton 初始化</td>
+</tr>
+<tr>
+<td>initCCell</td>
+<td>UICollectionViewCell 初始化</td>
+</tr>
+<tr>
+<td>initImgV</td>
+<td>UIImageView 初始化</td>
+</tr>
+<tr>
+<td>initLab</td>
+<td>UILable 初始化</td>
+</tr>
+<tr>
+<td>initTCell</td>
+<td>UITableViewCell 初始化</td>
+</tr>
+<tr>
+<td>initView</td>
+<td>UIView 初始化</td>
+</tr>
+<tr>
+<td>ssself</td>
+<td>guard let  strongSelf = self</td>
+</tr>
+</tbody></table>
+<h1 id="OC"><a href="#OC" class="headerlink" title="OC"></a>OC</h1><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>initBtn</td>
+<td>UIButton 初始化</td>
+</tr>
+<tr>
+<td>initImgV</td>
+<td>UIImageView 初始化</td>
+</tr>
+<tr>
+<td>initLab</td>
+<td>UILable 初始化</td>
+</tr>
+<tr>
+<td>initCell</td>
+<td>UITableViewCell 初始化</td>
+</tr>
+<tr>
+<td>initView</td>
+<td>UIView 初始化</td>
+</tr>
+<tr>
+<td>initTextF</td>
+<td>UITextField 初始化</td>
+</tr>
+<tr>
+<td>pna</td>
+<td>@property (nonatomic, assign)</td>
+</tr>
+<tr>
+<td>pns</td>
+<td>@property (nonatomic, strong)</td>
+</tr>
+<tr>
+<td>pnc</td>
+<td>@property (nonatomic, copy)</td>
+</tr>
+<tr>
+<td>td</td>
+<td>//TODO:</td>
+</tr>
+<tr>
+<td>mas_make</td>
+<td>Masonry make 布局</td>
+</tr>
+<tr>
+<td>mas_remake</td>
+<td>Masonry remake 布局</td>
+</tr>
+<tr>
+<td>mas_update</td>
+<td>Masonry update 布局</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>iOS 代码块</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>利用 hexo 和 github 搭建自己的 blog</title>
     <url>/2020/12/17/hello-world/</url>
     <content><![CDATA[<h1 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a><a class="link"   href="https://hexo.io/zh-cn/" >Hexo<i class="fas fa-external-link-alt"></i></a></h1>]]></content>
+  </entry>
+  <entry>
+    <title>解决导入 `objc/Runtime.h` 和 `objc/message.h` 头文件后，敲击代码不提示 / Runtime 代码不提示</title>
+    <url>/2020/12/17/iOS-Runtime/</url>
+    <content><![CDATA[<h1 id="解决导入-objc-Runtime-h-和-objc-message-h-头文件后，敲击代码不提示-Runtime-代码不提示"><a href="#解决导入-objc-Runtime-h-和-objc-message-h-头文件后，敲击代码不提示-Runtime-代码不提示" class="headerlink" title="解决导入 objc/Runtime.h 和 objc/message.h 头文件后，敲击代码不提示 / Runtime 代码不提示"></a>解决导入 <code>objc/Runtime.h</code> 和 <code>objc/message.h</code> 头文件后，敲击代码不提示 / Runtime 代码不提示</h1><p>Build Settings 搜索 <code>objc_msg</code><br><img src="https://upload-images.jianshu.io/upload_images/2331323-d1f64b02dd132e27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Build Settings 修改"></p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>Runtime</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WKWebView 加载 html</title>
+    <url>/2020/12/17/iOS-WKWebView-loadHTMLString-%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87-%E4%B8%BA%E5%9B%BE%E7%89%87%E6%B7%BB%E5%8A%A0%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6/</url>
+    <content><![CDATA[<h1 id="本文主要是针对后台返回数据是-html-标签的数据加载"><a href="#本文主要是针对后台返回数据是-html-标签的数据加载" class="headerlink" title="本文主要是针对后台返回数据是 html 标签的数据加载"></a>本文主要是针对后台返回数据是 html 标签的数据加载</h1><h1 id="异步加载-html-标签内的-img-标签，给-img-标签添加点击事件"><a href="#异步加载-html-标签内的-img-标签，给-img-标签添加点击事件" class="headerlink" title="异步加载 html 标签内的 img 标签，给 img 标签添加点击事件"></a>异步加载 html 标签内的 img 标签，给 img 标签添加点击事件</h1><hr>
+<h1 id="例如返回的数据格式如下"><a href="#例如返回的数据格式如下" class="headerlink" title="例如返回的数据格式如下"></a>例如返回的数据格式如下</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  一、《望天门山》 作者：唐代李白 1、原文</span><br><span class="line">  天门中断楚江开，碧水东流至此回。两岸青山相对出，孤帆一bai片日边来。 2、译文</span><br><span class="line">  天门山从中间断裂是楚江把它冲开，碧水向东浩然奔流到这里折回。</span><br><span class="line">  两岸高耸的青山隔着长江相峙而立，江面上一叶孤舟像从日边驶来。</span><br><span class="line">  &lt;img</span><br><span class="line">    src&#x3D;&quot;https:&#x2F;&#x2F;wx2.sinaimg.cn&#x2F;large&#x2F;006CHHsBly1gkxrs7785ej31402eoe84.jpg&quot;</span><br><span class="line">  &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">完整的 html 标签数据</span><br></pre></td></tr></table></figure>
+<p> 这些数据一般都是使用了富文本编辑器编辑的内容，而且各种标签样式都有可能使用到，所以最好还是使用 WKWebView 来加载！<br> 但是如果内容含有 img 标签的话就会等待所有的图片加载完才会展示出整体的样式，这样比较影响体验。<br> 所以应该考虑异步加载图片，而不影响文字等标签样式的展示。</p>
+<h1 id="Demo下载"><a href="#Demo下载" class="headerlink" title="Demo下载"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXWebView" >Demo下载<i class="fas fa-external-link-alt"></i></a></h1><h4 id="1-先将图片链接中的-scheme-替换为自定义的-scheme"><a href="#1-先将图片链接中的-scheme-替换为自定义的-scheme" class="headerlink" title="1.先将图片链接中的 scheme 替换为自定义的 scheme"></a>1.先将图片链接中的 scheme 替换为自定义的 scheme</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)changeImageScheme &#123;</span><br><span class="line">    self.htmlString &#x3D; [self.htmlString stringByReplacingOccurrencesOfString:self.oriImageUrl withString:self.xxxCustomImageUrl];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-在-html-标签中添加函数"><a href="#2-在-html-标签中添加函数" class="headerlink" title="2.在 html 标签中添加函数"></a>2.在 html 标签中添加函数</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)addJsScript &#123;</span><br><span class="line">    </span><br><span class="line">    NSString *htmlLab &#x3D; @&quot;&lt;&#x2F;html&gt;&quot;;</span><br><span class="line">    NSString *scriptLab1 &#x3D; @&quot;&lt;&#x2F;script&gt;&quot;;</span><br><span class="line">    </span><br><span class="line">    NSString *jsFunctionString &#x3D; @&quot;function xxxGetAllImg() &#123; return document.getElementsByTagName(\&quot;img\&quot;); &#125;\</span><br><span class="line">    function xxxUpdateImage(url, imgData) &#123;  var list &#x3D; Array.from(xxxGetAllImg()); for (let item of list) &#123;  if ((item.src &#x3D;&#x3D; url)) &#123; item.src &#x3D; imgData;   break; &#125; &#125; &#125;        &quot;;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    if (![self.htmlString containsString:htmlLab]) &#123;</span><br><span class="line">        [self addHtmlLab];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    if ([self.htmlString containsString:scriptLab1]) &#123;</span><br><span class="line">     </span><br><span class="line">        NSString *scriptString &#x3D; [NSString stringWithFormat:@&quot;%@%@&quot;,jsFunctionString,scriptLab1];</span><br><span class="line">        self.htmlString &#x3D; [self.htmlString stringByReplacingOccurrencesOfString:scriptLab1 withString:scriptString];</span><br><span class="line">        </span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        NSString *scriptLab0 &#x3D; @&quot;&lt;script&gt;&quot;;</span><br><span class="line">        NSString *scriptString &#x3D; [NSString stringWithFormat:@&quot;%@%@%@%@&quot;,scriptLab0,jsFunctionString,scriptLab1,htmlLab];</span><br><span class="line">        self.htmlString &#x3D; [self.htmlString stringByReplacingOccurrencesOfString:htmlLab withString:scriptString];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-定义一个实现-WKURLSchemeHandler-协议的类"><a href="#3-定义一个实现-WKURLSchemeHandler-协议的类" class="headerlink" title="3.定义一个实现 WKURLSchemeHandler 协议的类"></a>3.定义一个实现 WKURLSchemeHandler 协议的类</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@interface XXXCustomSchemeHanlder : NSObject &lt;WKURLSchemeHandler&gt;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy) NSString *oriImageUrl;</span><br><span class="line">@property (nonatomic, copy) NSString *oriImageScheme;</span><br><span class="line">@property (nonatomic, strong) UIImage *placeholderImage;</span><br><span class="line">@property (nonatomic, copy) void(^updateImageBlock)(void);</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="4-实现协议方法-用于拦截图片加载"><a href="#4-实现协议方法-用于拦截图片加载" class="headerlink" title="4.实现协议方法 用于拦截图片加载"></a>4.实现协议方法 用于拦截图片加载</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- (void)webView:(nonnull WKWebView *)webView startURLSchemeTask:(nonnull id&lt;WKURLSchemeTask&gt;)urlSchemeTask &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    UIImage *image &#x3D; self.placeholderImage;</span><br><span class="line">    NSData *data &#x3D; UIImageJPEGRepresentation(image, 1.0);</span><br><span class="line">    NSURLResponse *response &#x3D; [[NSURLResponse alloc] initWithURL:urlSchemeTask.request.URL MIMEType:@&quot;image&#x2F;jpeg&quot; expectedContentLength:data.length textEncodingName:nil];</span><br><span class="line">    [urlSchemeTask didReceiveResponse:response];</span><br><span class="line">    [urlSchemeTask didReceiveData:data];</span><br><span class="line">    [urlSchemeTask didFinish];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    if (self.updateImageBlock) &#123;</span><br><span class="line">        self.updateImageBlock();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSString *htmlImageUrlStr &#x3D; [NSString stringWithFormat:@&quot;%@&quot;,urlSchemeTask.request.URL];</span><br><span class="line">    NSString *dloadImageUrlStr &#x3D; [htmlImageUrlStr stringByReplacingOccurrencesOfString:XXXCustomImageScheme withString:self.oriImageScheme];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        </span><br><span class="line">        [self readImageForKey:dloadImageUrlStr htmlImageUrlStr:htmlImageUrlStr webView:webView];</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)readImageForKey:(NSString *)dloadImageUrlStr htmlImageUrlStr:(NSString *)htmlImageUrlStr webView:(WKWebView *)webView &#123;</span><br><span class="line">    </span><br><span class="line">    __weak typeof(self) weakSelf &#x3D; self;</span><br><span class="line">    NSURL *url &#x3D; [NSURL URLWithString:dloadImageUrlStr];</span><br><span class="line">    [[SDWebImageManager sharedManager] loadImageWithURL:url options:SDWebImageRetryFailed progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) &#123;</span><br><span class="line">        if (image || data) &#123;</span><br><span class="line">            NSData *imgData &#x3D; data;</span><br><span class="line">            if (!imgData) &#123;</span><br><span class="line">                imgData &#x3D; UIImageJPEGRepresentation(image, 1);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                [weakSelf callJsUpdateImage:webView imageData:imgData htmlImageUrlStr:htmlImageUrlStr];</span><br><span class="line">            &#125;);</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        if (error) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)callJsUpdateImage:(WKWebView *)webView imageData:(NSData *)imageData htmlImageUrlStr:(NSString *)imageUrlString &#123;</span><br><span class="line">    </span><br><span class="line">    __weak typeof(self) weakSelf &#x3D; self;</span><br><span class="line">    NSString *imageDataStr &#x3D; [NSString stringWithFormat:@&quot;data:image&#x2F;png;base64,%@&quot;,[imageData base64EncodedString]];</span><br><span class="line">    NSString *func &#x3D; [NSString stringWithFormat:@&quot;xxxUpdateImage(&#39;%@&#39;,&#39;%@&#39;)&quot;,imageUrlString,imageDataStr];</span><br><span class="line">    [webView evaluateJavaScript:func completionHandler:^(id _Nullable response, NSError * _Nullable error) &#123;</span><br><span class="line">        if (weakSelf.updateImageBlock &amp;&amp; !error) &#123;</span><br><span class="line">            weakSelf.updateImageBlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-初始化-WKWebView-并配置拦截信息"><a href="#5-初始化-WKWebView-并配置拦截信息" class="headerlink" title="5.初始化 WKWebView 并配置拦截信息"></a>5.初始化 WKWebView 并配置拦截信息</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">WKWebViewConfiguration *config &#x3D; [[WKWebViewConfiguration alloc] init];</span><br><span class="line">XXXCustomSchemeHanlder *schemeHandler &#x3D; XXXCustomSchemeHanlder.new;</span><br><span class="line"></span><br><span class="line">schemeHandler.oriImageScheme &#x3D; self.oriImageScheme;</span><br><span class="line">schemeHandler.oriImageUrl &#x3D; self.oriImageUrl;</span><br><span class="line">schemeHandler.placeholderImage &#x3D; self.placeholderImage;</span><br><span class="line"></span><br><span class="line">__weak typeof(self) weakSelf &#x3D; self;</span><br><span class="line">schemeHandler.updateImageBlock &#x3D; ^ &#123;</span><br><span class="line">    [weakSelf updateHeight];</span><br><span class="line">&#125;;</span><br><span class="line">[config setURLSchemeHandler:schemeHandler forURLScheme:XXXCustomImageScheme];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">WKWebView  *webView &#x3D; [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) configuration:config];</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-更新高度"><a href="#6-更新高度" class="headerlink" title="6. 更新高度"></a>6. 更新高度</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- (void)updateHeight &#123;</span><br><span class="line">    [self nowUpdateHeight];</span><br><span class="line">    [self delayUpdateHeight];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)nowUpdateHeight &#123;</span><br><span class="line">    </span><br><span class="line">    __weak typeof(self) weakSelf &#x3D; self;</span><br><span class="line">    [self.webView evaluateJavaScript:@&quot;document.body.offsetHeight&quot; completionHandler:^(id _Nullable result,NSError * _Nullable error) &#123;</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F; 高度会有一点少 ，手动补上 20</span><br><span class="line">        CGFloat height &#x3D; [result floatValue] + 20.0;</span><br><span class="line">        weakSelf.webView.height &#x3D; height;</span><br><span class="line">        weakSelf.height &#x3D; height;</span><br><span class="line">        if (weakSelf.loadOverHeight) &#123;</span><br><span class="line">            weakSelf.loadOverHeight(height);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)delayUpdateHeight &#123;</span><br><span class="line">    </span><br><span class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, DelayTime * NSEC_PER_SEC), dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        [self nowUpdateHeight];</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Demo下载-1"><a href="#Demo下载-1" class="headerlink" title="Demo下载"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXWebView" >Demo下载<i class="fas fa-external-link-alt"></i></a></h1>]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>WKWebView</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>iOS 与 web 交互传图</title>
+    <url>/2020/12/17/iOS-%E4%B8%8E-web-%E4%BA%A4%E4%BA%92-%E4%BC%A0%E5%9B%BE/</url>
+    <content><![CDATA[<p>web 端将图片 base64 编码后传给 iOS 端，会在 base64 编码前加上 <code>data:image/png;base64,</code> 需要先把这一串给去掉后进行解码，然后转 data 再转为 image </p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>iOS 修改状态栏的颜色 preferredStatusBarStyle</title>
+    <url>/2020/12/17/iOS-%E4%BF%AE%E6%94%B9%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E9%A2%9C%E8%89%B2-preferredStatusBarStyle/</url>
+    <content><![CDATA[<h3 id="⚠️⚠️⚠️首先要在项目的-Info-plist-文件里设置-View-controller-based-status-bar-appearance-为-YES，如果没有就不用添加⚠️-⚠️⚠️"><a href="#⚠️⚠️⚠️首先要在项目的-Info-plist-文件里设置-View-controller-based-status-bar-appearance-为-YES，如果没有就不用添加⚠️-⚠️⚠️" class="headerlink" title="⚠️⚠️⚠️首先要在项目的 Info.plist 文件里设置 View controller-based status bar appearance 为 YES，如果没有就不用添加⚠️ ⚠️⚠️"></a>⚠️⚠️⚠️首先要在项目的 Info.plist 文件里设置 View controller-based status bar appearance 为 YES，如果没有就不用添加⚠️ ⚠️⚠️</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">1. 重写 UINavigationController 的 childViewControllerForStatusBarStyle</span><br><span class="line">可以写在基类的 UINavigationController 中，也可以使用Category</span><br><span class="line">*&#x2F;</span><br><span class="line">- (UIViewController *)childViewControllerForStatusBarStyle &#123;</span><br><span class="line">    return self.topViewController;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;Swift </span><br><span class="line">override var childForStatusBarStyle: UIViewController? &#123;</span><br><span class="line">        return topViewController</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">2.  在需要改变状态栏颜色的 UIViewController 中实现 preferredStatusBarStyle</span><br><span class="line">*&#x2F;</span><br><span class="line">- (UIStatusBarStyle)preferredStatusBarStyle &#123;</span><br><span class="line">   return UIStatusBarStyleLightContent;</span><br><span class="line">   &#x2F;&#x2F; return UIStatusBarStyleDefault;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;Swift</span><br><span class="line">override var preferredStatusBarStyle: UIStatusBarStyle &#123;</span><br><span class="line">      return .lightContent</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">3. 当触发某个条件需要改变状态栏颜色时在 UIViewController 中调用</span><br><span class="line">然后在 - (UIStatusBarStyle)preferredStatusBarStyle; 中判断你的条件是否满足改变颜色</span><br><span class="line">*&#x2F;</span><br><span class="line">[self setNeedsStatusBarAppearanceUpdate];</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;Swift</span><br><span class="line">setNeedsStatusBarAppearanceUpdate()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>iOS修改状态栏颜色<br>OC 修改状态栏颜色<br>Swift修改状态栏颜色</p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>UI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>iOS占位图、空白页面</title>
+    <url>/2020/12/17/iOS%E5%8D%A0%E4%BD%8D%E5%9B%BE%E3%80%81%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2/</url>
+    <content><![CDATA[<h1 id="iOS占位图、空白页面-Github直达"><a href="#iOS占位图、空白页面-Github直达" class="headerlink" title="iOS占位图、空白页面 Github直达"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXPlaceholder" >iOS占位图、空白页面 Github直达<i class="fas fa-external-link-alt"></i></a></h1><h1 id="iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew"><a href="#iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew" class="headerlink" title="iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew"></a>iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew</h1><h1 id="😄😄😄"><a href="#😄😄😄" class="headerlink" title="😄😄😄"></a>😄😄😄</h1><p><img src="http://upload-images.jianshu.io/upload_images/2331323-337781e6ecaac4ae.gif?imageMogr2/auto-orient/strip" alt="tableView使用效果"></p>
+<p> <img src="http://upload-images.jianshu.io/upload_images/2331323-37d81ba5477c72c3.gif?imageMogr2/auto-orient/strip" alt="view使用效果"></p>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a><em>注意</em></h1><h5 id="1-当tableView、collectionView-有数据时（row-gt-0，item-gt-0）不显示占位图"><a href="#1-当tableView、collectionView-有数据时（row-gt-0，item-gt-0）不显示占位图" class="headerlink" title="1.当tableView、collectionView 有数据时（row&gt;0，item&gt;0）不显示占位图"></a>1.当tableView、collectionView 有数据时（row&gt;0，item&gt;0）不显示占位图</h5><h5 id="2-当scrollView-contentSize-height-gt-scrollView-frame-size-height-时临时禁用滑动属性（tableView、collectionView优先遵循第一条）"><a href="#2-当scrollView-contentSize-height-gt-scrollView-frame-size-height-时临时禁用滑动属性（tableView、collectionView优先遵循第一条）" class="headerlink" title="2.当scrollView.contentSize.height &gt; scrollView.frame.size.height 时临时禁用滑动属性（tableView、collectionView优先遵循第一条）"></a>2.当scrollView.contentSize.height &gt; scrollView.frame.size.height 时临时禁用滑动属性（tableView、collectionView优先遵循第一条）</h5><h5 id="3-建议导入demo中的XXXPlaceholderEX文件夹"><a href="#3-建议导入demo中的XXXPlaceholderEX文件夹" class="headerlink" title="3.建议导入demo中的XXXPlaceholderEX文件夹"></a>3.建议导入demo中的XXXPlaceholderEX文件夹</h5><h5 id="4-占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件"><a href="#4-占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件" class="headerlink" title="4.占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件"></a>4.占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件</h5><h5 id="5-我觉得用法还是挺简单的，看下demo吧😂"><a href="#5-我觉得用法还是挺简单的，看下demo吧😂" class="headerlink" title="5.我觉得用法还是挺简单的，看下demo吧😂"></a>5.我觉得用法还是挺简单的，看下demo吧😂</h5><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod repo update</span><br><span class="line">rm ~&#x2F;Library&#x2F;Caches&#x2F;CocoaPods&#x2F;search_index.json  (清除搜索缓存)</span><br><span class="line">pod &#39;XXXPlaceholder&#39;, &#39;~&gt; 0.0.1&#39;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>参照demo创建占位图</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;self为tableView</span><br><span class="line">self.xxx_emptyView &#x3D; [XXXPlaceholderView emptyView];</span><br><span class="line">self.xxx_noNetworkView &#x3D; [XXXPlaceholderView noNetworkView];</span><br><span class="line">&#x2F;&#x2F;占位图会自动添加点击事件</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>tableView、collectionView 展示占位图调用</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">刷新数据源 tableView、collectionView专用</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_reloadData;</span><br><span class="line"> </span><br><span class="line">&#x2F;**</span><br><span class="line">刷新数据源 tableView、collectionView专用</span><br><span class="line">@param clickBlock 占位图点击事件Block</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_reloadDataWithClickBlock:  (nullable   XXXPlaceholderClickBlock)clickBlock;</span><br><span class="line"></span><br><span class="line">[self.tableView xxx_reloadDataWithClickBlock:^&#123;</span><br><span class="line">           &#x2F;&#x2F;这里做再次请求</span><br><span class="line">        &#125;];</span><br></pre></td></tr></table></figure></li>
+<li><p>view使用 </p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &#x2F;**</span><br><span class="line"> 展示无数据占位图</span><br><span class="line"> *&#x2F;</span><br><span class="line">- (void)xxx_showEmptyView;</span><br><span class="line"></span><br><span class="line"> &#x2F;**</span><br><span class="line">展示无数据占位图</span><br><span class="line">@param clickBlock 占位图点击事件Block</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_showEmptyViewWithClickBlock:(nullable XXXPlaceholderClickBlock)clickBlock;</span><br><span class="line"></span><br><span class="line"> &#x2F;**</span><br><span class="line">展示无网络占位图</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_showNoNetWorkView;</span><br><span class="line"></span><br><span class="line"> &#x2F;**</span><br><span class="line">展示无网络占位图</span><br><span class="line">@param clickBlock 占位图点击事件Block</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_showNoNetWorkViewWithClickBlock:(nullable XXXPlaceholderClickBlock)clickBlock;</span><br><span class="line"></span><br><span class="line"> &#x2F;**</span><br><span class="line"> 移出所有占位图</span><br><span class="line"> *&#x2F;</span><br><span class="line">- (void)xxx_removePlaceholderView;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<h1 id="Github直达"><a href="#Github直达" class="headerlink" title="Github直达"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXPlaceholder" >Github直达<i class="fas fa-external-link-alt"></i></a></h1></li>
+</ol>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>iOS拖拽卡片</title>
+    <url>/2020/12/17/iOS%E6%8B%96%E6%8B%BD%E5%8D%A1%E7%89%87%E5%8F%A0%E5%8A%A0%E5%8D%A1%E7%89%87/</url>
+    <content><![CDATA[<h1 id="github-XXXCardStore"><a href="#github-XXXCardStore" class="headerlink" title="github XXXCardStore"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXCardStore" >github XXXCardStore<i class="fas fa-external-link-alt"></i></a></h1><p><img src="http://upload-images.jianshu.io/upload_images/2331323-86f449d502adaa19.gif?imageMogr2/auto-orient/strip" alt="效果图"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2331323-70de1ba83f9ad822.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="说明图"></p>
+<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><ol>
+<li>pod search XXXCardStore<br>如未搜索到 请执行 pod repo update 进行更新，然后清除搜索缓存 rm ~/Library/Caches/CocoaPods/search_index.json</li>
+<li>pod ‘XXXCardStore’</li>
+<li>import &lt; XXXCardStore .h&gt;</li>
+</ol>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">XXXCardStore *xxx &#x3D; [XXXCardStore new];</span><br><span class="line">    [self.view addSubview:xxx];</span><br><span class="line">    xxx.frame &#x3D; CGRectMake(50, 100, 300, 200);</span><br><span class="line">    xxx.cardOffset &#x3D; 10.0;</span><br><span class="line">    xxx.isInfiniteLoop &#x3D;YES;</span><br><span class="line">    xxx.delegate &#x3D; self;</span><br><span class="line">    xxx.imgUrlStrArr &#x3D; @[@&quot;http:&#x2F;&#x2F;f.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;203fb80e7bec54e7c340af43b2389b504fc26a3b.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;d.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;0d338744ebf81a4c6231d43ddb2a6059242da6c6.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;a.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;4e4a20a4462309f788a28152790e0cf3d6cad6a4.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;d.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;810a19d8bc3eb135101902e6ad1ea8d3fc1f4494.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;f.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;86d6277f9e2f0708a5559f5de224b899a901f21f.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;h.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;ca1349540923dd5441e81235da09b3de9d8248d7.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;c.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;faedab64034f78f09d3f2eae72310a55b3191cb2.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;d.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;622762d0f703918f037f88975a3d269758eec4c5.jpg&quot;</span><br><span class="line">                         ];</span><br><span class="line">    [xxx reloadData];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)tapCard:(NSInteger)index cardStore:(UIView *)xxxCardStore&#123;</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;--- tap   &#x3D;&#x3D;&#x3D;  %ld&quot;,index);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="自定义卡片内容"><a href="#自定义卡片内容" class="headerlink" title="自定义卡片内容"></a>自定义卡片内容</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> 自定义卡片内容</span><br><span class="line"> </span><br><span class="line"> @param customCard 你的customView 内部试图未清除</span><br><span class="line"> @param index 需要准备的 card的 index</span><br><span class="line"> @param xxxCardStore xxxCardStore 主体</span><br><span class="line"> *&#x2F;</span><br><span class="line">- (void)customCardView:(UIView *)customCard index:(NSInteger)index cardStore:(UIView *)xxxCardStore;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>iOS mask 遮罩，彩色文本</title>
+    <url>/2020/12/17/iOS%E6%B8%90%E5%8F%98%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97%E3%80%81iOS-mask-%E9%81%AE%E7%BD%A9/</url>
+    <content><![CDATA[<h1 id="iOS渐变彩色文字、iOS-mask-遮罩"><a href="#iOS渐变彩色文字、iOS-mask-遮罩" class="headerlink" title="iOS渐变彩色文字、iOS mask 遮罩"></a>iOS渐变彩色文字、iOS mask 遮罩</h1><p><img src="https://upload-images.jianshu.io/upload_images/2331323-2f3e46c5908444fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
+<p><a class="link"   href="https://github.com/ibireme/YYCategories" >使用到了YYCategories<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="彩色文字"><a href="#彩色文字" class="headerlink" title="彩色文字"></a>彩色文字</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UIView *colorBgView &#x3D; [UIView new];</span><br><span class="line">    [self.view addSubview:colorBgView];</span><br><span class="line">    colorBgView.frame &#x3D; CGRectMake(0, 300, UIScreen.mainScreen.bounds.size.width, 40);</span><br><span class="line">        </span><br><span class="line">&#x2F;&#x2F;这里用了YYCategories</span><br><span class="line">    UIBezierPath *colorTextPath &#x3D; [UIBezierPath bezierPathWithText:@&quot;哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈&quot; font:[UIFont systemFontOfSize:28]];</span><br><span class="line">    CAShapeLayer *colorTextLayer &#x3D; [CAShapeLayer layer];</span><br><span class="line">    colorTextLayer.path &#x3D; colorTextPath.CGPath;</span><br><span class="line">    colorTextLayer.frame &#x3D; CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 30);</span><br><span class="line">    colorBgView.layer.mask &#x3D; colorTextLayer;</span><br><span class="line">    </span><br><span class="line">    CAGradientLayer *colorLayer &#x3D; CAGradientLayer.new;</span><br><span class="line">    colorLayer.colors &#x3D; @[(__bridge id)UIColor.redColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.orangeColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.greenColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.blueColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.yellowColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.purpleColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.blackColor.CGColor,];</span><br><span class="line">    colorLayer.startPoint &#x3D; CGPointMake(0, 0.5);</span><br><span class="line">    colorLayer.endPoint &#x3D; CGPointMake(1, 0.5);</span><br><span class="line">    colorLayer.frame &#x3D; CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 40);</span><br><span class="line">    [colorBgView.layer addSublayer:colorLayer];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="过渡遮罩"><a href="#过渡遮罩" class="headerlink" title="过渡遮罩"></a>过渡遮罩</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"> &#x2F;&#x2F;&#x2F;黑色背景view</span><br><span class="line">    UIView *indicatorView &#x3D; [UIView new];</span><br><span class="line">    [self.view addSubview:indicatorView];</span><br><span class="line">    indicatorView.backgroundColor &#x3D; UIColor.blackColor;</span><br><span class="line">    indicatorView.layer.cornerRadius &#x3D; 20;</span><br><span class="line">    indicatorView.layer.masksToBounds &#x3D; YES;</span><br><span class="line">    indicatorView.frame &#x3D; CGRectMake(0, 195, 100, 40);</span><br><span class="line">    self.indicatorView &#x3D; indicatorView;</span><br><span class="line">    </span><br><span class="line">  &#x2F;&#x2F;这里用了YYCategories</span><br><span class="line">    UIBezierPath *textPath &#x3D; [UIBezierPath bezierPathWithText:@&quot;哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈&quot; font:[UIFont systemFontOfSize:28]];</span><br><span class="line">    CAShapeLayer *textLayer &#x3D; [CAShapeLayer layer];</span><br><span class="line">    textLayer.path &#x3D; textPath.CGPath;</span><br><span class="line">    textLayer.frame &#x3D; CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 30);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    UIView *darkView &#x3D; [UIView new];</span><br><span class="line">    [self.view addSubview:darkView];</span><br><span class="line">    darkView.backgroundColor &#x3D; UIColor.darkGrayColor;</span><br><span class="line">    darkView.frame &#x3D; CGRectMake(0, 200, UIScreen.mainScreen.bounds.size.width, 30);</span><br><span class="line">    darkView.layer.mask &#x3D; textLayer;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    UIView *whiteView &#x3D; [UIView new];</span><br><span class="line">    [darkView addSubview:whiteView];</span><br><span class="line">    whiteView.backgroundColor &#x3D; UIColor.whiteColor;</span><br><span class="line">    whiteView.layer.cornerRadius &#x3D; 20;</span><br><span class="line">    whiteView.layer.masksToBounds &#x3D; YES;</span><br><span class="line">    whiteView.frame &#x3D; CGRectMake(0, -5, 100, 40);</span><br><span class="line">    self.whiteView &#x3D; whiteView;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;也可以使用layer</span><br><span class="line">&#x2F;&#x2F;    CALayer *darkLayer &#x3D; CALayer.new;</span><br><span class="line">&#x2F;&#x2F;    [self.view.layer addSublayer:darkLayer];</span><br><span class="line">&#x2F;&#x2F;    darkLayer.backgroundColor &#x3D; UIColor.darkGrayColor.CGColor;</span><br><span class="line">&#x2F;&#x2F;    darkLayer.frame &#x3D; CGRectMake(0, 200, UIScreen.mainScreen.bounds.size.width, 30);</span><br><span class="line">&#x2F;&#x2F;    darkLayer.mask &#x3D; textLayer;</span><br><span class="line">&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;    CAShapeLayer *whiteLayer &#x3D; CAShapeLayer.new;</span><br><span class="line">&#x2F;&#x2F;    [darkLayer addSublayer:whiteLayer];</span><br><span class="line">&#x2F;&#x2F;    whiteLayer.backgroundColor &#x3D; UIColor.whiteColor.CGColor;</span><br><span class="line">&#x2F;&#x2F;    whiteLayer.fillColor &#x3D; UIColor.whiteColor.CGColor;</span><br><span class="line">&#x2F;&#x2F;    whiteLayer.strokeColor &#x3D; UIColor.whiteColor.CGColor;</span><br><span class="line">&#x2F;&#x2F;    whiteLayer.borderColor &#x3D; UIColor.whiteColor.CGColor;</span><br><span class="line">&#x2F;&#x2F;    whiteLayer.cornerRadius &#x3D; 20;</span><br><span class="line">&#x2F;&#x2F;    whiteLayer.masksToBounds &#x3D; YES;</span><br><span class="line">&#x2F;&#x2F;    whiteLayer.frame &#x3D; CGRectMake(0, -5, 100, 40);</span><br><span class="line">&#x2F;&#x2F;    self.whiteLayer &#x3D; whiteLayer;</span><br><span class="line">    </span><br><span class="line">    UISlider *slider &#x3D; UISlider.new;</span><br><span class="line">    [self.view addSubview:slider];</span><br><span class="line">    [slider addTarget:self action:@selector(changeFrame:) forControlEvents:UIControlEventValueChanged];</span><br><span class="line">    slider.frame &#x3D; CGRectMake(0, 260, UIScreen.mainScreen.bounds.size.width, 30);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">----------</span><br><span class="line"></span><br><span class="line">- (void)changeFrame:(UISlider *)slider &#123;</span><br><span class="line"> </span><br><span class="line">    CGFloat x &#x3D; UIScreen.mainScreen.bounds.size.width *slider.value;</span><br><span class="line">    self.indicatorView.frame &#x3D; CGRectMake(x, 195, 100, 40);</span><br><span class="line">    self.whiteView.frame &#x3D; CGRectMake(x, -5, 100, 40);</span><br><span class="line">    self.whiteLayer.frame &#x3D; CGRectMake(x, -5, 100, 40);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
   </entry>
 </search>

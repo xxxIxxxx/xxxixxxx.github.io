@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <title>
-        RxSwift-转数组、累计操作-toArray、reduce |
+        解决导入 `objc/Runtime.h` 和 `objc/message.h` 头文件后，敲击代码不提示 / Runtime 代码不提示 |
         
         今日营业中
     </title>
@@ -128,7 +128,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">RxSwift-转数组、累计操作-toArray、reduce</span>
+            <span class="title-hover-animation">解决导入 `objc/Runtime.h` 和 `objc/message.h` 头文件后，敲击代码不提示 / Runtime 代码不提示</span>
         </div>
 
         
@@ -152,7 +152,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/Swift/">Swift</a>
+                        <a href="/categories/iOS/">iOS</a>
                     </li>
                 
             </ul>
@@ -164,7 +164,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/RxSwift/">RxSwift</a>
+                        <a href="/tags/Runtime/">Runtime</a>
                     </li>
                 
             </ul>
@@ -183,11 +183,7 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="toArray"><a href="#toArray" class="headerlink" title="toArray"></a>toArray</h1><p>将所有的事件集合在一起作为一个数组发出，需要发送<code>onCompleted</code>事件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.toArray().subscribe &#123; strArr in</span><br><span class="line">    print(strArr)</span><br><span class="line">&#125; onError: &#123; _ in</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;1&quot;)</span><br><span class="line">ob.onNext(&quot;2&quot;)</span><br><span class="line">ob.onNext(&quot;3&quot;)</span><br><span class="line">ob.onCompleted()</span><br></pre></td></tr></table></figure>
-
-<h1 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h1><p>累计操作，将每一次的事件都累积在一起在发送<code>onCompleted</code>时统一发送。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.reduce(&quot;初始值&quot;, accumulator: +).subscribe &#123; event in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;1&quot;)</span><br><span class="line">ob.onNext(&quot;2&quot;)</span><br><span class="line">ob.onNext(&quot;3&quot;)</span><br><span class="line">ob.onCompleted()</span><br></pre></td></tr></table></figure>
+            <h1 id="解决导入-objc-Runtime-h-和-objc-message-h-头文件后，敲击代码不提示-Runtime-代码不提示"><a href="#解决导入-objc-Runtime-h-和-objc-message-h-头文件后，敲击代码不提示-Runtime-代码不提示" class="headerlink" title="解决导入 objc/Runtime.h 和 objc/message.h 头文件后，敲击代码不提示 / Runtime 代码不提示"></a>解决导入 <code>objc/Runtime.h</code> 和 <code>objc/message.h</code> 头文件后，敲击代码不提示 / Runtime 代码不提示</h1><p>Build Settings 搜索 <code>objc_msg</code><br><img src="https://upload-images.jianshu.io/upload_images/2331323-d1f64b02dd132e27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Build Settings 修改"></p>
 
         </div>
 
@@ -195,11 +191,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：RxSwift-转数组、累计操作-toArray、reduce</li>
+        <li>Post title：解决导入 `objc/Runtime.h` 和 `objc/message.h` 头文件后，敲击代码不提示 / Runtime 代码不提示</li>
         <li>Post author：xxxixxxx</li>
         <li>Create time：2020-12-17 14:35:35</li>
         <li>
-            Post link：https://xxxixxx.github.io/2020/12/17/9--RxSwift-转数组、累计操作-toArray、reduce/
+            Post link：https://xxxixxx.github.io/2020/12/17/iOS-Runtime/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -216,13 +212,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2020/12/17/8--RxSwift-%E6%8F%92%E5%85%A5%E5%8F%91%E9%80%81%E5%90%88%E5%B9%B6%E5%8E%8B%E7%BC%A9-startWith%E3%80%81merge%E3%80%81zip/"
+                           href="/2020/12/17/hello-world/"
                         >
                             <span class="left arrow-icon flex-center" >
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">RxSwift-插入发送合并压缩-startWith、merge、zipignoreElement</span>
+                                <span class="post-nav-title-item">利用 hexo 和 github 搭建自己的 blog</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -232,10 +228,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2020/12/17/Xcode-%E4%BB%A3%E7%A0%81%E5%9D%97/"
+                           href="/2020/12/17/iOS-WKWebView-loadHTMLString-%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87-%E4%B8%BA%E5%9B%BE%E7%89%87%E6%B7%BB%E5%8A%A0%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">iOS 常用代码块</span>
+                                <span class="post-nav-title-item">WKWebView 加载 html</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center" >
@@ -388,7 +384,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#toArray"><span class="nav-number">1.</span> <span class="nav-text">toArray</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reduce"><span class="nav-number">2.</span> <span class="nav-text">reduce</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%AF%BC%E5%85%A5-objc-Runtime-h-%E5%92%8C-objc-message-h-%E5%A4%B4%E6%96%87%E4%BB%B6%E5%90%8E%EF%BC%8C%E6%95%B2%E5%87%BB%E4%BB%A3%E7%A0%81%E4%B8%8D%E6%8F%90%E7%A4%BA-Runtime-%E4%BB%A3%E7%A0%81%E4%B8%8D%E6%8F%90%E7%A4%BA"><span class="nav-number">1.</span> <span class="nav-text">解决导入 objc&#x2F;Runtime.h 和 objc&#x2F;message.h 头文件后，敲击代码不提示 &#x2F; Runtime 代码不提示</span></a></li></ol>
     </div>
 </div>
         

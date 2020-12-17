@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <title>
-        RxSwift-转数组、累计操作-toArray、reduce |
         
         今日营业中
     </title>
@@ -48,7 +47,7 @@
         <ul class="menu-list">
             
                 <li class="menu-item">
-                    <a class=""
+                    <a class="active"
                        href="/"
                     >
                         首页
@@ -90,7 +89,7 @@
         <ul class="drawer-menu-list">
             
                 <li class="drawer-menu-item flex-center">
-                    <a class=""
+                    <a class="active"
                        href="/">首页</a>
                 </li>
             
@@ -124,162 +123,64 @@
                 <main class="main-content normal-code-theme">
 
                     
-                        <div class="fade-in-down-animation">
-    <div class="article-content-container">
-
-        <div class="article-title">
-            <span class="title-hover-animation">RxSwift-转数组、累计操作-toArray、reduce</span>
-        </div>
-
+                        <div class="home-content-container fade-in-down-animation">
+    <ul class="home-article-list">
         
-            <div class="article-header">
-                <div class="avatar">
-                    <img src="/images/avatar.png">
-                </div>
-                <div class="info">
-                    <div class="author">
-                        <span>xxxixxxx</span>
-                        <span class="level">Lv3</span>
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fas fa-calendar"></i> 2020-12-17 14:35:35
-    </span>
-    
-        <span class="article-categories article-meta-item">
-            <i class="fas fa-folder"></i>
-            <ul>
-                
-                    <li>
-                        <a href="/categories/Swift/">Swift</a>
-                    </li>
-                
-            </ul>
-        </span>
-    
-    
-        <span class="article-tags article-meta-item">
-            <i class="fas fa-tags"></i>
-            <ul>
-                
-                    <li>
-                        <a href="/tags/RxSwift/">RxSwift</a>
-                    </li>
-                
-            </ul>
-        </span>
-    
+            <li class="home-article-item">
 
-    
-    
-    
-    
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2020/12/17/iOS%E6%B8%90%E5%8F%98%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97%E3%80%81iOS-mask-%E9%81%AE%E7%BD%A9/">
+                        iOS mask 遮罩，彩色文本
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        iOS渐变彩色文字、iOS mask 遮罩
+使用到了YYCategories
+彩色文字123456789101112131415161718192021222324UIView *colorBgView &#x3D; [UIView new];   ...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Thu Dec 17 2020 14:35:35 GMT+0800">2020-12-17</span></span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/iOS/">iOS</a>
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+    </div>
+
+    <a href="/2020/12/17/iOS%E6%B8%90%E5%8F%98%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97%E3%80%81iOS-mask-%E9%81%AE%E7%BD%A9/">Read more <i class="fas fa-angle-right"></i></a>
 </div>
 
-                    </div>
-                </div>
-            </div>
+            </li>
         
-
-        <div class="article-content markdown-body">
-            <h1 id="toArray"><a href="#toArray" class="headerlink" title="toArray"></a>toArray</h1><p>将所有的事件集合在一起作为一个数组发出，需要发送<code>onCompleted</code>事件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.toArray().subscribe &#123; strArr in</span><br><span class="line">    print(strArr)</span><br><span class="line">&#125; onError: &#123; _ in</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;1&quot;)</span><br><span class="line">ob.onNext(&quot;2&quot;)</span><br><span class="line">ob.onNext(&quot;3&quot;)</span><br><span class="line">ob.onCompleted()</span><br></pre></td></tr></table></figure>
-
-<h1 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h1><p>累计操作，将每一次的事件都累积在一起在发送<code>onCompleted</code>时统一发送。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.reduce(&quot;初始值&quot;, accumulator: +).subscribe &#123; event in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;1&quot;)</span><br><span class="line">ob.onNext(&quot;2&quot;)</span><br><span class="line">ob.onNext(&quot;3&quot;)</span><br><span class="line">ob.onCompleted()</span><br></pre></td></tr></table></figure>
-
-        </div>
-
-        
-            <div class="post-copyright-info">
-                <div class="article-copyright-info-container">
-    <ul>
-        <li>Post title：RxSwift-转数组、累计操作-toArray、reduce</li>
-        <li>Post author：xxxixxxx</li>
-        <li>Create time：2020-12-17 14:35:35</li>
-        <li>
-            Post link：https://xxxixxx.github.io/2020/12/17/9--RxSwift-转数组、累计操作-toArray、reduce/
-        </li>
-        <li>
-            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
-        </li>
     </ul>
-</div>
 
-            </div>
-        
-
-        
-            <div class="article-nav">
-                
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2020/12/17/8--RxSwift-%E6%8F%92%E5%85%A5%E5%8F%91%E9%80%81%E5%90%88%E5%B9%B6%E5%8E%8B%E7%BC%A9-startWith%E3%80%81merge%E3%80%81zip/"
-                        >
-                            <span class="left arrow-icon flex-center" >
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">RxSwift-插入发送合并压缩-startWith、merge、zipignoreElement</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next">
-                        <a class="next"
-                           rel="next"
-                           href="/2020/12/17/Xcode-%E4%BB%A3%E7%A0%81%E5%9D%97/"
-                        >
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">iOS 常用代码块</span>
-                                <span class="post-nav-item">Next posts</span>
-                            </span>
-                            <span class="right arrow-icon flex-center" >
-                              <i class="fas fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
-
-        
-            <div class="comment-container">
-                <div class="comments-container">
-    <div id="comment-anchor"></div>
+    <div class="home-paginator">
+        <div class="paginator">
     
-        
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <div id="gitalk-container"></div>
-    <script>
-        let __gitalk__pathname = decodeURI(location.pathname);
-        const __gitalk__pathnameLength = __gitalk__pathname.length;
-        const __gitalk__pathnameMaxLength = 50;
-        if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
-            __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
-        }
-        const gitalk = new Gitalk({
-            clientID: '05d6078a4c7600db559a',
-            clientSecret: 'c90735f7625a510bac9883b7348b99b60f7fc9a7',
-            repo: 'blogTalk',
-            owner: 'xxxIxxxx',
-            admin: ['xxxIxxxx'],
-            id: __gitalk__pathname,
-            language: 'en'
-        })
-        gitalk.render('gitalk-container')
-    </script>
-
+        <a class="prev btn"
+           href="/page/2/"
+        >Prev</a>
+    
 
     
 </div>
 
-            </div>
-        
     </div>
 </div>
 
@@ -320,16 +221,8 @@
         
 
         
-            <li class="go-comment">
-                <i class="fas fa-comment"></i>
-            </li>
-        
 
         <!-- TOC aside toggle -->
-        
-            <li class="tools-item page-aside-toggle">
-                <i class="fas fa-outdent"></i>
-            </li>
         
 
     </ul>
@@ -386,12 +279,6 @@
     <!-- page aside -->
     <aside class="page-aside">
         
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#toArray"><span class="nav-number">1.</span> <span class="nav-text">toArray</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reduce"><span class="nav-number">2.</span> <span class="nav-text">reduce</span></a></li></ol>
-    </div>
-</div>
-        
     </aside>
 
     <!-- image viewer -->
@@ -442,17 +329,6 @@
     <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/local-search.js"></script>
 
 
-
-
-    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/left-side-toggle.js"></script>
-
-    
-        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/code-copy.js"></script>
-    
-
-    
-        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/toc.js"></script>
-    
 
 
 </body>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <title>
-        RxSwift-转数组、累计操作-toArray、reduce |
+        iOS 常用代码块 |
         
         今日营业中
     </title>
@@ -128,7 +128,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">RxSwift-转数组、累计操作-toArray、reduce</span>
+            <span class="title-hover-animation">iOS 常用代码块</span>
         </div>
 
         
@@ -152,7 +152,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/Swift/">Swift</a>
+                        <a href="/categories/iOS/">iOS</a>
                     </li>
                 
             </ul>
@@ -164,7 +164,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/RxSwift/">RxSwift</a>
+                        <a href="/tags/iOS-%E4%BB%A3%E7%A0%81%E5%9D%97/">iOS 代码块</a>
                     </li>
                 
             </ul>
@@ -183,11 +183,122 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="toArray"><a href="#toArray" class="headerlink" title="toArray"></a>toArray</h1><p>将所有的事件集合在一起作为一个数组发出，需要发送<code>onCompleted</code>事件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.toArray().subscribe &#123; strArr in</span><br><span class="line">    print(strArr)</span><br><span class="line">&#125; onError: &#123; _ in</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;1&quot;)</span><br><span class="line">ob.onNext(&quot;2&quot;)</span><br><span class="line">ob.onNext(&quot;3&quot;)</span><br><span class="line">ob.onCompleted()</span><br></pre></td></tr></table></figure>
+            <p>一些常用的代码块</p>
+<h1 id="点我直达"><a href="#点我直达" class="headerlink" title="点我直达"></a><a class="link"   target="_blank" rel="noopener" href="https://github.com/xxxIxxxx/CodeSnippets" >点我直达<i class="fas fa-external-link-alt"></i></a></h1><h1 id="Xcode-路径"><a href="#Xcode-路径" class="headerlink" title="Xcode 路径"></a>Xcode 路径</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;Xcode&#x2F;UserData&#x2F;CodeSnippets</span><br></pre></td></tr></table></figure>
 
-<h1 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h1><p>累计操作，将每一次的事件都累积在一起在发送<code>onCompleted</code>时统一发送。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.reduce(&quot;初始值&quot;, accumulator: +).subscribe &#123; event in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;1&quot;)</span><br><span class="line">ob.onNext(&quot;2&quot;)</span><br><span class="line">ob.onNext(&quot;3&quot;)</span><br><span class="line">ob.onCompleted()</span><br></pre></td></tr></table></figure>
+<p>打开路径将文件拖进去<br>代码块添加后需要重启 Xcode</p>
+<h1 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a>Swift</h1><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lazytab</td>
+<td>懒加载属性 tableView</td>
+</tr>
+<tr>
+<td>mk</td>
+<td>//MARK: -</td>
+</tr>
+<tr>
+<td>snpmake</td>
+<td>SnapKit make 布局</td>
+</tr>
+<tr>
+<td>snpremake</td>
+<td>SnapKit remake 布局</td>
+</tr>
+<tr>
+<td>initBtn</td>
+<td>UIButton 初始化</td>
+</tr>
+<tr>
+<td>initCCell</td>
+<td>UICollectionViewCell 初始化</td>
+</tr>
+<tr>
+<td>initImgV</td>
+<td>UIImageView 初始化</td>
+</tr>
+<tr>
+<td>initLab</td>
+<td>UILable 初始化</td>
+</tr>
+<tr>
+<td>initTCell</td>
+<td>UITableViewCell 初始化</td>
+</tr>
+<tr>
+<td>initView</td>
+<td>UIView 初始化</td>
+</tr>
+<tr>
+<td>ssself</td>
+<td>guard let  strongSelf = self</td>
+</tr>
+</tbody></table>
+<h1 id="OC"><a href="#OC" class="headerlink" title="OC"></a>OC</h1><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>initBtn</td>
+<td>UIButton 初始化</td>
+</tr>
+<tr>
+<td>initImgV</td>
+<td>UIImageView 初始化</td>
+</tr>
+<tr>
+<td>initLab</td>
+<td>UILable 初始化</td>
+</tr>
+<tr>
+<td>initCell</td>
+<td>UITableViewCell 初始化</td>
+</tr>
+<tr>
+<td>initView</td>
+<td>UIView 初始化</td>
+</tr>
+<tr>
+<td>initTextF</td>
+<td>UITextField 初始化</td>
+</tr>
+<tr>
+<td>pna</td>
+<td>@property (nonatomic, assign)</td>
+</tr>
+<tr>
+<td>pns</td>
+<td>@property (nonatomic, strong)</td>
+</tr>
+<tr>
+<td>pnc</td>
+<td>@property (nonatomic, copy)</td>
+</tr>
+<tr>
+<td>td</td>
+<td>//TODO:</td>
+</tr>
+<tr>
+<td>mas_make</td>
+<td>Masonry make 布局</td>
+</tr>
+<tr>
+<td>mas_remake</td>
+<td>Masonry remake 布局</td>
+</tr>
+<tr>
+<td>mas_update</td>
+<td>Masonry update 布局</td>
+</tr>
+</tbody></table>
 
         </div>
 
@@ -195,11 +306,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：RxSwift-转数组、累计操作-toArray、reduce</li>
+        <li>Post title：iOS 常用代码块</li>
         <li>Post author：xxxixxxx</li>
         <li>Create time：2020-12-17 14:35:35</li>
         <li>
-            Post link：https://xxxixxx.github.io/2020/12/17/9--RxSwift-转数组、累计操作-toArray、reduce/
+            Post link：https://xxxixxx.github.io/2020/12/17/Xcode-代码块/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -216,13 +327,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2020/12/17/8--RxSwift-%E6%8F%92%E5%85%A5%E5%8F%91%E9%80%81%E5%90%88%E5%B9%B6%E5%8E%8B%E7%BC%A9-startWith%E3%80%81merge%E3%80%81zip/"
+                           href="/2020/12/17/9--RxSwift-%E8%BD%AC%E6%95%B0%E7%BB%84%E3%80%81%E7%B4%AF%E8%AE%A1%E6%93%8D%E4%BD%9C-toArray%E3%80%81reduce/"
                         >
                             <span class="left arrow-icon flex-center" >
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">RxSwift-插入发送合并压缩-startWith、merge、zipignoreElement</span>
+                                <span class="post-nav-title-item">RxSwift-转数组、累计操作-toArray、reduce</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -232,10 +343,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2020/12/17/Xcode-%E4%BB%A3%E7%A0%81%E5%9D%97/"
+                           href="/2020/12/17/hello-world/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">iOS 常用代码块</span>
+                                <span class="post-nav-title-item">利用 hexo 和 github 搭建自己的 blog</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center" >
@@ -388,7 +499,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#toArray"><span class="nav-number">1.</span> <span class="nav-text">toArray</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reduce"><span class="nav-number">2.</span> <span class="nav-text">reduce</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%82%B9%E6%88%91%E7%9B%B4%E8%BE%BE"><span class="nav-number">1.</span> <span class="nav-text">点我直达</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Xcode-%E8%B7%AF%E5%BE%84"><span class="nav-number">2.</span> <span class="nav-text">Xcode 路径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift"><span class="nav-number">3.</span> <span class="nav-text">Swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OC"><span class="nav-number">4.</span> <span class="nav-text">OC</span></a></li></ol>
     </div>
 </div>
         

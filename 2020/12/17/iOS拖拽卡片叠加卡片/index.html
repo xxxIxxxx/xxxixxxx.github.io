@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <title>
-        RxSwift-转数组、累计操作-toArray、reduce |
+        iOS拖拽卡片 |
         
         今日营业中
     </title>
@@ -128,7 +128,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">RxSwift-转数组、累计操作-toArray、reduce</span>
+            <span class="title-hover-animation">iOS拖拽卡片</span>
         </div>
 
         
@@ -152,23 +152,12 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/Swift/">Swift</a>
+                        <a href="/categories/iOS/">iOS</a>
                     </li>
                 
             </ul>
         </span>
     
-    
-        <span class="article-tags article-meta-item">
-            <i class="fas fa-tags"></i>
-            <ul>
-                
-                    <li>
-                        <a href="/tags/RxSwift/">RxSwift</a>
-                    </li>
-                
-            </ul>
-        </span>
     
 
     
@@ -183,11 +172,17 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="toArray"><a href="#toArray" class="headerlink" title="toArray"></a>toArray</h1><p>将所有的事件集合在一起作为一个数组发出，需要发送<code>onCompleted</code>事件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.toArray().subscribe &#123; strArr in</span><br><span class="line">    print(strArr)</span><br><span class="line">&#125; onError: &#123; _ in</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;1&quot;)</span><br><span class="line">ob.onNext(&quot;2&quot;)</span><br><span class="line">ob.onNext(&quot;3&quot;)</span><br><span class="line">ob.onCompleted()</span><br></pre></td></tr></table></figure>
+            <h1 id="github-XXXCardStore"><a href="#github-XXXCardStore" class="headerlink" title="github XXXCardStore"></a><a class="link"   target="_blank" rel="noopener" href="https://github.com/xxxIxxxx/XXXCardStore" >github XXXCardStore<i class="fas fa-external-link-alt"></i></a></h1><p><img src="http://upload-images.jianshu.io/upload_images/2331323-86f449d502adaa19.gif?imageMogr2/auto-orient/strip" alt="效果图"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2331323-70de1ba83f9ad822.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="说明图"></p>
+<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><ol>
+<li>pod search XXXCardStore<br>如未搜索到 请执行 pod repo update 进行更新，然后清除搜索缓存 rm ~/Library/Caches/CocoaPods/search_index.json</li>
+<li>pod ‘XXXCardStore’</li>
+<li>import &lt; XXXCardStore .h&gt;</li>
+</ol>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">XXXCardStore *xxx &#x3D; [XXXCardStore new];</span><br><span class="line">    [self.view addSubview:xxx];</span><br><span class="line">    xxx.frame &#x3D; CGRectMake(50, 100, 300, 200);</span><br><span class="line">    xxx.cardOffset &#x3D; 10.0;</span><br><span class="line">    xxx.isInfiniteLoop &#x3D;YES;</span><br><span class="line">    xxx.delegate &#x3D; self;</span><br><span class="line">    xxx.imgUrlStrArr &#x3D; @[@&quot;http:&#x2F;&#x2F;f.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;203fb80e7bec54e7c340af43b2389b504fc26a3b.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;d.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;0d338744ebf81a4c6231d43ddb2a6059242da6c6.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;a.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;4e4a20a4462309f788a28152790e0cf3d6cad6a4.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;d.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;810a19d8bc3eb135101902e6ad1ea8d3fc1f4494.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;f.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;86d6277f9e2f0708a5559f5de224b899a901f21f.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;h.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;ca1349540923dd5441e81235da09b3de9d8248d7.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;c.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;faedab64034f78f09d3f2eae72310a55b3191cb2.jpg&quot;,</span><br><span class="line">                         @&quot;http:&#x2F;&#x2F;d.hiphotos.baidu.com&#x2F;image&#x2F;pic&#x2F;item&#x2F;622762d0f703918f037f88975a3d269758eec4c5.jpg&quot;</span><br><span class="line">                         ];</span><br><span class="line">    [xxx reloadData];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)tapCard:(NSInteger)index cardStore:(UIView *)xxxCardStore&#123;</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;--- tap   &#x3D;&#x3D;&#x3D;  %ld&quot;,index);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h1 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h1><p>累计操作，将每一次的事件都累积在一起在发送<code>onCompleted</code>时统一发送。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.reduce(&quot;初始值&quot;, accumulator: +).subscribe &#123; event in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;1&quot;)</span><br><span class="line">ob.onNext(&quot;2&quot;)</span><br><span class="line">ob.onNext(&quot;3&quot;)</span><br><span class="line">ob.onCompleted()</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义卡片内容"><a href="#自定义卡片内容" class="headerlink" title="自定义卡片内容"></a>自定义卡片内容</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> 自定义卡片内容</span><br><span class="line"> </span><br><span class="line"> @param customCard 你的customView 内部试图未清除</span><br><span class="line"> @param index 需要准备的 card的 index</span><br><span class="line"> @param xxxCardStore xxxCardStore 主体</span><br><span class="line"> *&#x2F;</span><br><span class="line">- (void)customCardView:(UIView *)customCard index:(NSInteger)index cardStore:(UIView *)xxxCardStore;</span><br></pre></td></tr></table></figure>
 
         </div>
 
@@ -195,11 +190,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：RxSwift-转数组、累计操作-toArray、reduce</li>
+        <li>Post title：iOS拖拽卡片</li>
         <li>Post author：xxxixxxx</li>
         <li>Create time：2020-12-17 14:35:35</li>
         <li>
-            Post link：https://xxxixxx.github.io/2020/12/17/9--RxSwift-转数组、累计操作-toArray、reduce/
+            Post link：https://xxxixxx.github.io/2020/12/17/iOS拖拽卡片叠加卡片/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -216,13 +211,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2020/12/17/8--RxSwift-%E6%8F%92%E5%85%A5%E5%8F%91%E9%80%81%E5%90%88%E5%B9%B6%E5%8E%8B%E7%BC%A9-startWith%E3%80%81merge%E3%80%81zip/"
+                           href="/2020/12/17/iOS%E5%8D%A0%E4%BD%8D%E5%9B%BE%E3%80%81%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2/"
                         >
                             <span class="left arrow-icon flex-center" >
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">RxSwift-插入发送合并压缩-startWith、merge、zipignoreElement</span>
+                                <span class="post-nav-title-item">iOS占位图、空白页面</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -232,10 +227,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2020/12/17/Xcode-%E4%BB%A3%E7%A0%81%E5%9D%97/"
+                           href="/2020/12/17/iOS%E6%B8%90%E5%8F%98%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97%E3%80%81iOS-mask-%E9%81%AE%E7%BD%A9/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">iOS 常用代码块</span>
+                                <span class="post-nav-title-item">iOS mask 遮罩，彩色文本</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center" >
@@ -388,7 +383,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#toArray"><span class="nav-number">1.</span> <span class="nav-text">toArray</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reduce"><span class="nav-number">2.</span> <span class="nav-text">reduce</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#github-XXXCardStore"><span class="nav-number">1.</span> <span class="nav-text">github XXXCardStore</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5"><span class="nav-number">1.0.1.</span> <span class="nav-text">导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.0.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8D%A1%E7%89%87%E5%86%85%E5%AE%B9"><span class="nav-number">1.0.3.</span> <span class="nav-text">自定义卡片内容</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         
