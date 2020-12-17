@@ -89,6 +89,7 @@ comment:
   # See: https://github.com/gitalk/gitalk
   gitalk:
     enable: true
+    admin: xxxixxxx
     github_id: xxxIxxxx # GitHub repo owner
     repository: blogTalk # Repository name to store issues
     client_id: 05d6078a4c7600db559a # GitHub Application Client ID
