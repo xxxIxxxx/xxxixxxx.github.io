@@ -151,7 +151,7 @@ home_article:
 # ---------------------------------------------------------------------------------------
 code_copy:
   enable: true
-  style: mac # values: default | mac
+  style: default # values: default | mac
 
 # ---------------------------------------------------------------------------------------
 # Table of Contents in the Sidebar
