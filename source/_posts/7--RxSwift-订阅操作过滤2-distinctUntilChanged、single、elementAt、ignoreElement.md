@@ -2,6 +2,7 @@
 title: RxSwift-订阅操作过滤2-distinctUntilChanged、single、elementAt、ignoreElement
 categories: [Swift]
 tags: [RxSwift]
+date: 2020-11-17
 ---
 # distinctUntilChanged 
 过滤连续重复的事件

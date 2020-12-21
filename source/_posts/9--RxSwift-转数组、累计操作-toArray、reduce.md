@@ -2,6 +2,7 @@
 title: RxSwift-转数组、累计操作-toArray、reduce
 categories: [Swift]
 tags: [RxSwift]
+date: 2020-11-19
 ---
 # toArray
 将所有的事件集合在一起作为一个数组发出，需要发送`onCompleted`事件

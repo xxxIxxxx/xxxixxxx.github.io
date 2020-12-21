@@ -1,7 +1,8 @@
 ---
-title: iOS-报错-'sharedApplication'-is-unavailable--not-available-on-iOS-(App-E
+title: iOS-报错-'sharedApplication'-is-unavailable--not-available-on-iOS
 categories: [iOS]
 tags: [App Extension,Widget]
+date: 2020-11-20
 ---
 
 

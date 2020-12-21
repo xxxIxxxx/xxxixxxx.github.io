@@ -2,7 +2,8 @@
 title: Flutter 开发错误 StatefulWidget createState must return a subtype of State
 categories: [Flutter]
 tags: []
-+ sticky:  #9999
+sticky:  #9999
+date: 2020-12-01
 ---
 
 报错如下:

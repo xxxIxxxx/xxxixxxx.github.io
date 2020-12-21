@@ -2,6 +2,7 @@
 title: RxSwift-自定义可绑属性
 categories: [Swift]
 tags: [RxSwift]
+date: 2020-11-14
 ---
 ### 对 Reactive 进行扩展
 ```

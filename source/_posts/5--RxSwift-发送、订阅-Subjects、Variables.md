@@ -2,6 +2,7 @@
 title: RxSwift-发送、订阅-Subjects、Variables
 categories: [Swift]
 tags: [RxSwift]
+date: 2020-11-15
 ---
 
 # Subjects 介绍

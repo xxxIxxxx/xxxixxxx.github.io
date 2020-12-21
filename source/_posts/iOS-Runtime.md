@@ -1,9 +1,12 @@
 
 ---
-title: 解决导入 `objc/Runtime.h` 和 `objc/message.h` 头文件后，敲击代码不提示 / Runtime 代码不提示
+title: 解决导入 objc/Runtime.h 和 objc/message.h 头文件后，敲击代码不提示 / Runtime 代码不提示 
 categories: [iOS]
 tags: [Runtime]
+date: 2020-12-02
+
 ---
+
 # 解决导入 `objc/Runtime.h` 和 `objc/message.h` 头文件后，敲击代码不提示 / Runtime 代码不提示
 
 Build Settings 搜索 `objc_msg`

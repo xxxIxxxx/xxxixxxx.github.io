@@ -2,7 +2,8 @@
 title: Swift获取值的类型
 categories: [Swift]
 tags: []
-+ sticky:  #9999
+sticky:  #9999
+date: 2020-11-19
 ---
 
 使用 `type(of:)` 函数

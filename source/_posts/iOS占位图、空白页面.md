@@ -1,6 +1,7 @@
 ---
 title: iOS占位图、空白页面
 categories: [iOS]
+date: 2020-11-24
 ---
 # [iOS占位图、空白页面 Github直达](https://github.com/xxxIxxxx/XXXPlaceholder)
 # iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew

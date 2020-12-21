@@ -2,6 +2,7 @@
 title: RxSwift-错误处理、重试-catchError、retry
 categories: [Swift]
 tags: [RxSwift]
+date: 2020-11-21
 ---
 # catchError
 当发送了`error`事件后可以返回一个新的序列

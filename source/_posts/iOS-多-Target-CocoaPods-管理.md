@@ -2,7 +2,8 @@
 title: iOS 多 Target CocoaPods 管理
 categories: [iOS]
 tags: [CocoaPods,Target]
-+ sticky:  #9999
+sticky:  #9999
+date: 2020-11-28
 ---
 
 # 1. iOS 多 Target CocoaPods 管理，直接来看例子

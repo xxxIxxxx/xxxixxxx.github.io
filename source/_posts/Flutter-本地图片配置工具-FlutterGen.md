@@ -2,7 +2,8 @@
 title: Flutter 本地图片配置工具 FlutterGen
 categories: [Flutter]
 tags: []
-+ sticky:  #9999
+sticky:  #9999
+date: 2020-12-02
 ---
 
 

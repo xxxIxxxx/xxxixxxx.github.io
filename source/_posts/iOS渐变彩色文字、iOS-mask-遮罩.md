@@ -1,6 +1,7 @@
 ---
 title: iOS mask 遮罩，彩色文本
 categories: [iOS]
+date: 2020-11-20
 ---
 # iOS渐变彩色文字、iOS mask 遮罩
 

@@ -2,7 +2,8 @@
 title: VSCode Flutter 配置
 categories: [Flutter]
 tags: [VSCode]
-+ sticky:  #9999
+sticky:  #9999
+date: 2020-11-19
 ---
 
 # 插件

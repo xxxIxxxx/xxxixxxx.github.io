@@ -2,6 +2,7 @@
 title: RxSwift-绑定-bind、bindTo、Binder
 categories: [Swift]
 tags: [RxSwift]
+date: 2020-11-13
 ---
 ### bind
 ```

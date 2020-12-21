@@ -2,7 +2,8 @@
 title: Swift GCD 的串行队列与并行队列
 categories: [Swift]
 tags: [GCD,多线程]
-+ sticky:  #9999
+sticky:  #9999
+date: 2020-11-07
 ---
 
 队列|异步是否阻塞当前线程|同步是否阻塞当前线程|执行顺序

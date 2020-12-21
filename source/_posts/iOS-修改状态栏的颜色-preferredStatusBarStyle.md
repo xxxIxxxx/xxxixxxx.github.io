@@ -2,6 +2,7 @@
 title: iOS 修改状态栏的颜色 preferredStatusBarStyle
 categories: [iOS]
 tags: [UI]
+date: 2020-11-02
 ---
 ### ⚠️⚠️⚠️首先要在项目的 Info.plist 文件里设置 View controller-based status bar appearance 为 YES，如果没有就不用添加⚠️ ⚠️⚠️
 ```

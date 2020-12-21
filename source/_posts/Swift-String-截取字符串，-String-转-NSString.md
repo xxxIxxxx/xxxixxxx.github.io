@@ -2,7 +2,8 @@
 title: Swift String 截取字符串，String 转 NSString
 categories: [Swift]
 tags: []
-+ sticky:  #9999
+sticky:  #9999
+date: 2020-11-09
 ---
 
 # String 转 NSString，转为 NSString 后 OC 的方法就能使用了

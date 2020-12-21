@@ -2,6 +2,7 @@
 title: RxSwift-插入发送合并压缩-startWith、merge、zipignoreElement
 categories: [Swift]
 tags: [RxSwift]
+date: 2020-11-18
 ---
 # startWith
 在订阅的时候插入发送事件，后加入的先发送。完成事件发送时不会插入。

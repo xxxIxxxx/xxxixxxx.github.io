@@ -2,7 +2,8 @@
 title:  Swift 类型转换 
 tags: 
 categories: [Swift]
-+ sticky:  #9999
+sticky:  #9999
+date: 2020-12-21 16:57:00
 ---
 
 # Swift 类型转换 as 的使用

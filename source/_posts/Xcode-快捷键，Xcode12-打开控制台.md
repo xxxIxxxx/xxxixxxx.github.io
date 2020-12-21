@@ -2,7 +2,8 @@
 title: Xcode-快捷键，Xcode12-打开控制台
 categories: [Xcode]
 tags: [快捷键]
-+ sticky:  #9999
+sticky:  #9999
+date: 2020-11-22
 ---
 
 

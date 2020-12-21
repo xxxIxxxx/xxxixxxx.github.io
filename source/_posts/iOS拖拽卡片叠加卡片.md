@@ -1,6 +1,7 @@
 ---
 title: iOS拖拽卡片
 categories: [iOS]
+date: 2020-11-22
 ---
 # [github XXXCardStore](https://github.com/xxxIxxxx/XXXCardStore)
 
