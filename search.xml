@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>RxSwift-创建可观察序列</title>
-    <url>/2020/12/21/1--RxSwift-%E5%88%9B%E5%BB%BA%E5%8F%AF%E8%A7%82%E5%AF%9F%E5%BA%8F%E5%88%97/</url>
+    <url>/2020/11/11/1--RxSwift-%E5%88%9B%E5%BB%BA%E5%8F%AF%E8%A7%82%E5%AF%9F%E5%BA%8F%E5%88%97/</url>
     <content><![CDATA[<h3 id="empty-方法初始化"><a href="#empty-方法初始化" class="headerlink" title="empty() 方法初始化"></a>empty() 方法初始化</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 创建了一个空内容的 Observable</span><br><span class="line">let ob &#x3D; Observable&lt;Int&gt;.empty()</span><br><span class="line">&#x2F;&#x2F; 先简单的写一种订阅的方法</span><br><span class="line">ob.subscribe &#123; print(&quot;执行了&quot;) &#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="just-方法-传入默认值初始化"><a href="#just-方法-传入默认值初始化" class="headerlink" title="just() 方法 传入默认值初始化"></a>just() 方法 传入默认值初始化</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 这里不用给定泛型，会根据 just 自动推倒出</span><br><span class="line">let ob &#x3D; Observable.just(&quot;初始化默认值&quot;)</span><br></pre></td></tr></table></figure>
@@ -28,7 +28,7 @@
   </entry>
   <entry>
     <title>RxSwift-延迟、超时、delay、timeout</title>
-    <url>/2020/12/21/10--RxSwift-%E5%BB%B6%E8%BF%9F%E3%80%81%E8%B6%85%E6%97%B6%E3%80%81delay%E3%80%81timeout/</url>
+    <url>/2020/11/20/10--RxSwift-%E5%BB%B6%E8%BF%9F%E3%80%81%E8%B6%85%E6%97%B6%E3%80%81delay%E3%80%81timeout/</url>
     <content><![CDATA[<h1 id="delay"><a href="#delay" class="headerlink" title="delay"></a>delay</h1><p>对所有发送事件(包括<code>onCompleted</code>)后延迟 n 秒接收</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.delay(RxTimeInterval.seconds(2), scheduler: MainScheduler.asyncInstance).subscribe &#123; event in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;发送了&quot;)</span><br></pre></td></tr></table></figure>
 
@@ -44,7 +44,7 @@
   </entry>
   <entry>
     <title>RxSwift-错误处理、重试-catchError、retry</title>
-    <url>/2020/12/21/11--RxSwift-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E3%80%81%E9%87%8D%E8%AF%95-catchError%E3%80%81retry/</url>
+    <url>/2020/11/21/11--RxSwift-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E3%80%81%E9%87%8D%E8%AF%95-catchError%E3%80%81retry/</url>
     <content><![CDATA[<h1 id="catchError"><a href="#catchError" class="headerlink" title="catchError"></a>catchError</h1><p>当发送了<code>error</code>事件后可以返回一个新的序列</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">enum ObError: Error &#123;</span><br><span class="line">    case error1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let ob1 &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">let ob2 &#x3D; PublishSubject.of(&quot;A&quot;, &quot;B&quot;)</span><br><span class="line"></span><br><span class="line">ob1.catchError &#123; (error) -&gt; Observable&lt;String&gt; in</span><br><span class="line">    print(error)</span><br><span class="line">    return ob2</span><br><span class="line">&#125;.subscribe &#123; event in</span><br><span class="line">    print(event)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob1.onNext(&quot;111&quot;)</span><br><span class="line">ob1.onError(ObError.error1)</span><br><span class="line">&#x2F;&#x2F;next(111)</span><br><span class="line">&#x2F;&#x2F;error1</span><br><span class="line">&#x2F;&#x2F;next(A)</span><br><span class="line">&#x2F;&#x2F;next(B)</span><br><span class="line">&#x2F;&#x2F;completed</span><br></pre></td></tr></table></figure>
 <h1 id="retry"><a href="#retry" class="headerlink" title="retry"></a>retry</h1><p>当发送了<code>error</code>后可以重新发送</p>
@@ -59,7 +59,7 @@
   </entry>
   <entry>
     <title>RxSwift-Single、Completab、Maybe</title>
-    <url>/2020/12/21/12--RxSwift-Single%E3%80%81Completab%E3%80%81Maybe/</url>
+    <url>/2020/11/22/12--RxSwift-Single%E3%80%81Completab%E3%80%81Maybe/</url>
     <content><![CDATA[<h1 id="Single"><a href="#Single" class="headerlink" title="Single"></a>Single</h1><p>只发出一次事件，常用于网络请求</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">enum DataError: Error &#123;</span><br><span class="line">    case error1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func getData() -&gt; Single&lt;[String: Any]&gt; &#123;</span><br><span class="line">    return Single&lt;[String: Any]&gt;.create &#123; (single) -&gt; Disposable in</span><br><span class="line">        single(.success([&quot;&quot;: 1]))</span><br><span class="line">&#x2F;&#x2F;                single(.error(DataError.error1))</span><br><span class="line">        return Disposables.create &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getData().subscribe &#123; req in</span><br><span class="line">    switch req &#123;</span><br><span class="line">    case .success(let value):</span><br><span class="line">        print(value)</span><br><span class="line">    case .error(let error):</span><br><span class="line">        print(error)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
 
@@ -78,7 +78,7 @@
   </entry>
   <entry>
     <title>RxSwift-Observable订阅、监听</title>
-    <url>/2020/12/21/2--RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
+    <url>/2020/11/12/2--RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <h3 id="监听-do"><a href="#监听-do" class="headerlink" title="监听 do"></a>监听 do</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">ob.do &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; afterNext: &#123; element in</span><br><span class="line">    print(&quot;afterNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; afterError: &#123; error in</span><br><span class="line">    print(&quot;afterError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; afterCompleted: &#123;</span><br><span class="line">    print(&quot;afterCompleted&quot;)</span><br><span class="line">&#125; onSubscribe: &#123;</span><br><span class="line">    print(&quot;onSubscribe&quot;)</span><br><span class="line">&#125; onSubscribed: &#123;</span><br><span class="line">    print(&quot;onSubscribed&quot;)</span><br><span class="line">&#125; onDispose: &#123;</span><br><span class="line">    print(&quot;onDispose&quot;)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;&#x2F; 这里是订阅部分</span><br><span class="line">.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -92,7 +92,7 @@
   </entry>
   <entry>
     <title>RxSwift-绑定-bind、bindTo、Binder</title>
-    <url>/2020/12/21/3--RxSwift-%E7%BB%91%E5%AE%9A-bind%E3%80%81bindTo%E3%80%81Binder/</url>
+    <url>/2020/11/13/3--RxSwift-%E7%BB%91%E5%AE%9A-bind%E3%80%81bindTo%E3%80%81Binder/</url>
     <content><![CDATA[<h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable&lt;Int&gt;.interval(1, scheduler: MainScheduler.asyncInstance)</span><br><span class="line"></span><br><span class="line">ob.map &#123;</span><br><span class="line">&#x2F;&#x2F; 对值进一步处理然后返回</span><br><span class="line">    &quot;count &quot; + &quot;\($0)&quot;</span><br><span class="line">&#125;</span><br><span class="line">.bind &#123; text in</span><br><span class="line">    countLab.text &#x3D; text</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line">ob.bind &#123; x in</span><br><span class="line">    print(x)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
 <h3 id="Binder-bindTo"><a href="#Binder-bindTo" class="headerlink" title="Binder + bindTo"></a>Binder + bindTo</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable&lt;Int&gt;.interval(1, scheduler: MainScheduler.asyncInstance)</span><br><span class="line">let observer: Binder&lt;String&gt; &#x3D; Binder(countLab) &#123; lab, text in</span><br><span class="line">    lab.text &#x3D; text</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ob.map &#123;</span><br><span class="line">    &quot;c&quot; + &quot;\($0)&quot;</span><br><span class="line">&#125;</span><br><span class="line">.bind(to: observer)</span><br><span class="line">.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
 ]]></content>
@@ -105,7 +105,7 @@
   </entry>
   <entry>
     <title>RxSwift-自定义可绑属性</title>
-    <url>/2020/12/21/4--RxSwift-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%AF%E7%BB%91%E5%B1%9E%E6%80%A7/</url>
+    <url>/2020/11/14/4--RxSwift-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%AF%E7%BB%91%E5%B1%9E%E6%80%A7/</url>
     <content><![CDATA[<h3 id="对-Reactive-进行扩展"><a href="#对-Reactive-进行扩展" class="headerlink" title="对 Reactive 进行扩展"></a>对 Reactive 进行扩展</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 给 UILabel 增加了 fontSize 可绑属性</span><br><span class="line">extension Reactive where Base: UILabel &#123;</span><br><span class="line">    public var fontSize: Binder&lt;CGFloat&gt; &#123;</span><br><span class="line">        return Binder(base) &#123; lab, size in</span><br><span class="line">            lab.font &#x3D; UIFont.systemFont(ofSize: size)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 使用</span><br><span class="line">let ob &#x3D; Observable&lt;Int&gt;.interval(1, scheduler: MainScheduler.asyncInstance)</span><br><span class="line">ob.map &#123; CGFloat($0) + 10.0 &#125;</span><br><span class="line">    .bind(to: lab.rx.fontSize) &#x2F;&#x2F; 这里要使用 .rx</span><br><span class="line">    .disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
@@ -117,7 +117,7 @@
   </entry>
   <entry>
     <title>RxSwift-发送、订阅-Subjects、Variables</title>
-    <url>/2020/12/21/5--RxSwift-%E5%8F%91%E9%80%81%E3%80%81%E8%AE%A2%E9%98%85-Subjects%E3%80%81Variables/</url>
+    <url>/2020/11/15/5--RxSwift-%E5%8F%91%E9%80%81%E3%80%81%E8%AE%A2%E9%98%85-Subjects%E3%80%81Variables/</url>
     <content><![CDATA[<h1 id="Subjects-介绍"><a href="#Subjects-介绍" class="headerlink" title="Subjects 介绍"></a>Subjects 介绍</h1><h3 id="1-Subjects-是订阅者，也是Observable"><a href="#1-Subjects-是订阅者，也是Observable" class="headerlink" title="1. Subjects 是订阅者，也是Observable"></a>1. <code>Subjects</code> 是订阅者，也是<code>Observable</code></h3><ul>
 <li>订阅者：它能动态的接收新的值。</li>
 <li><code>Observable</code>： 当<code>Subjects</code>有了新值后会通过<code>Event</code>将新值发出给他的所有订阅者。</li>
@@ -157,7 +157,7 @@
   </entry>
   <entry>
     <title>RxSwift-订阅操作过滤1-map、buffer、filter</title>
-    <url>/2020/12/21/6--RxSwift-%E8%AE%A2%E9%98%85%E6%93%8D%E4%BD%9C%E8%BF%87%E6%BB%A41-map%E3%80%81buffer%E3%80%81filter/</url>
+    <url>/2020/11/16/6--RxSwift-%E8%AE%A2%E9%98%85%E6%93%8D%E4%BD%9C%E8%BF%87%E6%BB%A41-map%E3%80%81buffer%E3%80%81filter/</url>
     <content><![CDATA[<h1 id="map"><a href="#map" class="headerlink" title="map"></a>map</h1><p>同 <code>Swift</code>中 <code>map</code> 用法一样，对值进行处理并返回</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let sub &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line"></span><br><span class="line">sub.map &#123; $0 + &quot;mmmmm&quot; &#125;</span><br><span class="line">    .subscribe &#123; event in</span><br><span class="line">        print(event.element)</span><br><span class="line">    &#125;</span><br><span class="line">    .disposed(by: disposeBag)</span><br><span class="line">sub.onNext(&quot;a&quot;)</span><br><span class="line">&#x2F;&#x2F;Optional(&quot;ammmmm&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h1 id="buffer"><a href="#buffer" class="headerlink" title="buffer"></a>buffer</h1><p><code>timeSpan </code> 缓存间隔时间、              <code>count </code>缓存个数 、  <code>scheduler </code>线程<br>发送两个<code>event</code>后会触发订阅。满 2 秒也会触发订阅 ，如果<code>event</code> 没有发送空数组</p>
@@ -175,7 +175,7 @@
   </entry>
   <entry>
     <title>RxSwift-订阅操作过滤2-distinctUntilChanged、single、elementAt、ignoreElement</title>
-    <url>/2020/12/21/7--RxSwift-%E8%AE%A2%E9%98%85%E6%93%8D%E4%BD%9C%E8%BF%87%E6%BB%A42-distinctUntilChanged%E3%80%81single%E3%80%81elementAt%E3%80%81ignoreElement/</url>
+    <url>/2020/11/17/7--RxSwift-%E8%AE%A2%E9%98%85%E6%93%8D%E4%BD%9C%E8%BF%87%E6%BB%A42-distinctUntilChanged%E3%80%81single%E3%80%81elementAt%E3%80%81ignoreElement/</url>
     <content><![CDATA[<h1 id="distinctUntilChanged"><a href="#distinctUntilChanged" class="headerlink" title="distinctUntilChanged"></a>distinctUntilChanged</h1><p>过滤连续重复的事件</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(1, 1, 1, 3, 5, 7, 9, 9)</span><br><span class="line">ob.distinctUntilChanged().subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#x2F;&#x2F;1 3 5 7 9</span><br><span class="line">&#125;).disposed(by: disposeBag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -208,7 +208,7 @@
   </entry>
   <entry>
     <title>RxSwift-插入发送合并压缩-startWith、merge、zipignoreElement</title>
-    <url>/2020/12/21/8--RxSwift-%E6%8F%92%E5%85%A5%E5%8F%91%E9%80%81%E5%90%88%E5%B9%B6%E5%8E%8B%E7%BC%A9-startWith%E3%80%81merge%E3%80%81zip/</url>
+    <url>/2020/11/18/8--RxSwift-%E6%8F%92%E5%85%A5%E5%8F%91%E9%80%81%E5%90%88%E5%B9%B6%E5%8E%8B%E7%BC%A9-startWith%E3%80%81merge%E3%80%81zip/</url>
     <content><![CDATA[<h1 id="startWith"><a href="#startWith" class="headerlink" title="startWith"></a>startWith</h1><p>在订阅的时候插入发送事件，后加入的先发送。完成事件发送时不会插入。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.startWith(&quot;插入1&quot;).startWith(&quot;插入2&quot;).subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;).disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;发送1&quot;)</span><br><span class="line">插入2</span><br><span class="line">插入1</span><br><span class="line">发送1</span><br></pre></td></tr></table></figure>
 
@@ -227,7 +227,7 @@
   </entry>
   <entry>
     <title>RxSwift-转数组、累计操作-toArray、reduce</title>
-    <url>/2020/12/21/9--RxSwift-%E8%BD%AC%E6%95%B0%E7%BB%84%E3%80%81%E7%B4%AF%E8%AE%A1%E6%93%8D%E4%BD%9C-toArray%E3%80%81reduce/</url>
+    <url>/2020/11/19/9--RxSwift-%E8%BD%AC%E6%95%B0%E7%BB%84%E3%80%81%E7%B4%AF%E8%AE%A1%E6%93%8D%E4%BD%9C-toArray%E3%80%81reduce/</url>
     <content><![CDATA[<h1 id="toArray"><a href="#toArray" class="headerlink" title="toArray"></a>toArray</h1><p>将所有的事件集合在一起作为一个数组发出，需要发送<code>onCompleted</code>事件</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; PublishSubject&lt;String&gt;()</span><br><span class="line">ob.toArray().subscribe &#123; strArr in</span><br><span class="line">    print(strArr)</span><br><span class="line">&#125; onError: &#123; _ in</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br><span class="line">ob.onNext(&quot;1&quot;)</span><br><span class="line">ob.onNext(&quot;2&quot;)</span><br><span class="line">ob.onNext(&quot;3&quot;)</span><br><span class="line">ob.onCompleted()</span><br></pre></td></tr></table></figure>
 
@@ -243,7 +243,7 @@
   </entry>
   <entry>
     <title>Flutter 开发错误 StatefulWidget createState must return a subtype of State</title>
-    <url>/2020/12/21/Flutter-%E5%BC%80%E5%8F%91%E9%94%99%E8%AF%AF-StatefulWidget-createState-must-return-a-subtype-of-State/</url>
+    <url>/2020/12/01/Flutter-%E5%BC%80%E5%8F%91%E9%94%99%E8%AF%AF-StatefulWidget-createState-must-return-a-subtype-of-State/</url>
     <content><![CDATA[<p>报错如下:</p>
 <p>StatefulWidget.createState must return a subtype of State</p>
 <p>The createState function for XXXX2 returned a state of type _XXXXState, which is not a subtype of State<XXXX2>, violating the contract for createState.</p>
@@ -256,7 +256,7 @@
   </entry>
   <entry>
     <title>Flutter 本地图片配置工具 FlutterGen</title>
-    <url>/2020/12/21/Flutter-%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7-FlutterGen/</url>
+    <url>/2020/12/02/Flutter-%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7-FlutterGen/</url>
     <content><![CDATA[<h1 id="github-gt-FlutterGen"><a href="#github-gt-FlutterGen" class="headerlink" title="github -&gt; FlutterGen"></a><a class="link"   href="https://github.com/FlutterGen" >github -&gt; FlutterGen<i class="fas fa-external-link-alt"></i></a></h1><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 推荐使用 Homebrew 安装</span><br><span class="line">$ brew install FlutterGen&#x2F;tap&#x2F;fluttergen</span><br></pre></td></tr></table></figure>
 
 <p>#使用前先把 assets: 配置好</p>
@@ -271,7 +271,7 @@
   </entry>
   <entry>
     <title>Flutter 配置相关</title>
-    <url>/2020/12/21/Flutter-%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%85%B3/</url>
+    <url>/2020/12/03/Flutter-%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%85%B3/</url>
     <content><![CDATA[<h3 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h3><blockquote>
 <p>CocoaPods requires your terminal to be using UTF-8 encoding<br>Consider adding the following to ~/.profile:<br>export LANG=en_US.UTF-8</p>
 </blockquote>
@@ -290,7 +290,7 @@
   </entry>
   <entry>
     <title>Flutter 工程修复</title>
-    <url>/2020/12/21/Flutter%E5%B7%A5%E7%A8%8B%E4%BF%AE%E5%A4%8D/</url>
+    <url>/2020/12/04/Flutter%E5%B7%A5%E7%A8%8B%E4%BF%AE%E5%A4%8D/</url>
     <content><![CDATA[<p>Flutter工程 误删iOS、误删Android等文件时</p>
 <p>解决方案</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">打开终端输入</span><br><span class="line">flutter create 工程目录</span><br></pre></td></tr></table></figure>
@@ -301,7 +301,7 @@
   </entry>
   <entry>
     <title>Flutter 依赖库查询</title>
-    <url>/2020/12/21/Flutter%E6%9F%A5%E8%AF%A2%E4%BE%9D%E8%B5%96%E5%BA%93%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC/</url>
+    <url>/2020/12/05/Flutter%E6%9F%A5%E8%AF%A2%E4%BE%9D%E8%B5%96%E5%BA%93%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC/</url>
     <content><![CDATA[<blockquote>
 <p>地址为 <a class="link"   href="https://pub.flutter-io.cn/packages" >https://pub.flutter-io.cn/packages<i class="fas fa-external-link-alt"></i></a></p>
 </blockquote>
@@ -313,7 +313,7 @@
   </entry>
   <entry>
     <title>SnapKit适配刘海屏、异形屏</title>
-    <url>/2020/12/21/SnapKit%E9%80%82%E9%85%8D%E5%88%98%E6%B5%B7%E5%B1%8F%E3%80%81%E5%BC%82%E5%BD%A2%E5%B1%8F/</url>
+    <url>/2020/11/20/SnapKit%E9%80%82%E9%85%8D%E5%88%98%E6%B5%B7%E5%B1%8F%E3%80%81%E5%BC%82%E5%BD%A2%E5%B1%8F/</url>
     <content><![CDATA[<h3 id="🌰-适配底部安全距离"><a href="#🌰-适配底部安全距离" class="headerlink" title="🌰 适配底部安全距离"></a>🌰 适配底部安全距离</h3><p>在 ViewController 的 view 中使用</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">make.bottom.equalTo(view.snp.bottomMargin)</span><br><span class="line">make.top.equalTo(view.snp.topMargin)</span><br><span class="line">make.left.equalTo(view.snp.leftMargin)</span><br><span class="line">make.right.equalTo(view.snp.rightMargin)</span><br></pre></td></tr></table></figure>
 
@@ -330,7 +330,7 @@
   </entry>
   <entry>
     <title>Swift GCD barrier</title>
-    <url>/2020/12/21/Swift-GCD-barrier/</url>
+    <url>/2020/11/02/Swift-GCD-barrier/</url>
     <content><![CDATA[<h1 id="异步读写造成数组越界"><a href="#异步读写造成数组越界" class="headerlink" title="异步读写造成数组越界"></a>异步读写造成数组越界</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let count &#x3D; 100000</span><br><span class="line">var array &#x3D; Array(0 ... count)</span><br><span class="line"></span><br><span class="line">func getLast() -&gt; Int &#123;</span><br><span class="line">&#x2F;&#x2F; ⚠️⚠️ 这里加了判断看似安全，但在异步操作时 判断 array.count &gt; 0 的同时可能就有一个异步的操作改变了数组</span><br><span class="line">    if array.count &gt; 0 &#123;</span><br><span class="line">        return array[array.count - 1]</span><br><span class="line">    &#125;</span><br><span class="line">    return -1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func removeLast() &#123;</span><br><span class="line">    array.removeLast()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DispatchQueue.global().async &#123;</span><br><span class="line">    for _ in 0 ... count &#123;</span><br><span class="line">        removeLast()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DispatchQueue.global().async &#123;</span><br><span class="line">    for _ in 0 ... count &#123;</span><br><span class="line">        print(getLast())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="使用-barrier"><a href="#使用-barrier" class="headerlink" title="使用 barrier"></a>使用 barrier</h1><blockquote>
@@ -348,7 +348,7 @@
   </entry>
   <entry>
     <title>Swift GCD 死锁</title>
-    <url>/2020/12/21/Swift-GCD-%E6%AD%BB%E9%94%81/</url>
+    <url>/2020/11/04/Swift-GCD-%E6%AD%BB%E9%94%81/</url>
     <content><![CDATA[<h1 id="1-串行队列中，在异步任务中添加同步任务"><a href="#1-串行队列中，在异步任务中添加同步任务" class="headerlink" title="1. 串行队列中，在异步任务中添加同步任务"></a>1. 串行队列中，在异步任务中添加同步任务</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; 由于没有定义 attributes 所以是串行队列</span><br><span class="line">let queue &#x3D; DispatchQueue(label: &quot;myQueue&quot;)</span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;----- task 1 -------&quot;)</span><br><span class="line">    queue.sync &#123;</span><br><span class="line">        print(&quot;----- task 2 -------&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">⚠️解决方法</span><br><span class="line">&#x2F;&#x2F;&#x2F; 解决方法将串行改为并行</span><br><span class="line">let queue &#x3D; DispatchQueue(label: &quot;myQueue&quot;, attributes: DispatchQueue.Attributes.concurrent)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
@@ -364,7 +364,7 @@
   </entry>
   <entry>
     <title>Swift GCD 的串行队列与并行队列</title>
-    <url>/2020/12/21/Swift-GCD-%E7%9A%84%E4%B8%B2%E8%A1%8C%E9%98%9F%E5%88%97%E4%B8%8E%E5%B9%B6%E8%A1%8C%E9%98%9F%E5%88%97/</url>
+    <url>/2020/11/07/Swift-GCD-%E7%9A%84%E4%B8%B2%E8%A1%8C%E9%98%9F%E5%88%97%E4%B8%8E%E5%B9%B6%E8%A1%8C%E9%98%9F%E5%88%97/</url>
     <content><![CDATA[<table>
 <thead>
 <tr>
@@ -401,7 +401,7 @@
   </entry>
   <entry>
     <title>Swift String 截取字符串，String 转 NSString</title>
-    <url>/2020/12/21/Swift-String-%E6%88%AA%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C-String-%E8%BD%AC-NSString/</url>
+    <url>/2020/11/09/Swift-String-%E6%88%AA%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C-String-%E8%BD%AC-NSString/</url>
     <content><![CDATA[<h1 id="String-转-NSString，转为-NSString-后-OC-的方法就能使用了"><a href="#String-转-NSString，转为-NSString-后-OC-的方法就能使用了" class="headerlink" title="String 转 NSString，转为 NSString 后 OC 的方法就能使用了"></a>String 转 NSString，转为 NSString 后 OC 的方法就能使用了</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 转为 NSString</span><br><span class="line"> (&quot;ABCD&quot; as NSString)</span><br><span class="line">&#x2F;&#x2F; 调用 NSString 的方法</span><br><span class="line"> (&quot;ABCD&quot; as NSString).substring(to: 1)</span><br></pre></td></tr></table></figure>
 
 <h1 id="Swift-中-String-的字符串截取"><a href="#Swift-中-String-的字符串截取" class="headerlink" title="Swift 中 String 的字符串截取"></a>Swift 中 String 的字符串截取</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">let str &#x3D; &quot;ABCDEFGHIGK&quot;</span><br><span class="line"></span><br><span class="line">       print(&quot;前5个&quot; + &quot;\(str.prefix(5))&quot;)</span><br><span class="line">       &#x2F;&#x2F; 前5个ABCDE</span><br><span class="line"></span><br><span class="line">       print(&quot;前150个&quot; + str.prefix(150))</span><br><span class="line">       &#x2F;&#x2F; 前150个ABCDEFGHIGK</span><br><span class="line"></span><br><span class="line">       print(&quot;后3个&quot; + &quot;\(str.suffix(3))&quot;)</span><br><span class="line">       &#x2F;&#x2F; 后3个IGK</span><br><span class="line"></span><br><span class="line">       print(&quot;后150个&quot; + &quot;\(str.suffix(150))&quot;)</span><br><span class="line">       &#x2F;&#x2F; 后150个ABCDEFGHIGK</span><br><span class="line"></span><br><span class="line">       let startIndex &#x3D; str.index(str.startIndex, offsetBy: 2)</span><br><span class="line">       let endIndex &#x3D; str.index(str.startIndex, offsetBy: 5)</span><br><span class="line"></span><br><span class="line">       print(&quot;2-5是&quot; + str[startIndex ..&lt; endIndex])</span><br><span class="line">       &#x2F;&#x2F; 2-5是CDE</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -412,7 +412,7 @@
   </entry>
   <entry>
     <title>iOS 多线程</title>
-    <url>/2020/12/21/Swift-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
+    <url>/2020/11/10/Swift-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h1 id="1-Thread"><a href="#1-Thread" class="headerlink" title="1. Thread"></a>1. Thread</h1><h4 id="闭包内直接执行代码"><a href="#闭包内直接执行代码" class="headerlink" title="闭包内直接执行代码"></a>闭包内直接执行代码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; 闭包内直接执行代码</span><br><span class="line">Thread.detachNewThread &#123;</span><br><span class="line">                print(&quot;111&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="创建一个方法-开启子线程后去调用"><a href="#创建一个方法-开启子线程后去调用" class="headerlink" title="创建一个方法 开启子线程后去调用"></a>创建一个方法 开启子线程后去调用</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;创建一个方法 开启子线程后去调用</span><br><span class="line">let tr &#x3D; Thread(target: self, selector: #selector(threadTest), object: nil)</span><br><span class="line">&#x2F;&#x2F;开启</span><br><span class="line">tr.start()</span><br><span class="line"></span><br><span class="line">@objc func threadTest () &#123;</span><br><span class="line">        print(&quot;777&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -450,7 +450,7 @@
   </entry>
   <entry>
     <title>Swift 数组</title>
-    <url>/2020/12/21/Swift-%E6%95%B0%E7%BB%84/</url>
+    <url>/2020/11/22/Swift-%E6%95%B0%E7%BB%84/</url>
     <content><![CDATA[<h1 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var list &#x3D; [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;]</span><br><span class="line">list.removeAll&#123; $0 &#x3D;&#x3D; &quot;2&quot; &#125;</span><br><span class="line">&#x2F;&#x2F;[&quot;1&quot;,&quot;3&quot;,&quot;4&quot;]</span><br></pre></td></tr></table></figure>
 
 
@@ -469,7 +469,7 @@
   </entry>
   <entry>
     <title>Swift 添加下标 subscript</title>
-    <url>/2020/12/21/Swift-%E6%B7%BB%E5%8A%A0%E4%B8%8B%E6%A0%87-subscript/</url>
+    <url>/2020/11/23/Swift-%E6%B7%BB%E5%8A%A0%E4%B8%8B%E6%A0%87-subscript/</url>
     <content><![CDATA[<h1 id="关键子-subscript"><a href="#关键子-subscript" class="headerlink" title="关键子 subscript "></a>关键子 <code>subscript </code></h1><p>参数和返回值可以是任意类型（<code>inout</code>输入输出除外）</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct People &#123;</span><br><span class="line">    var name &#x3D; &quot;&quot;, age &#x3D; 0</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 给实例添加下标</span><br><span class="line">    subscript(n: String) -&gt; Int &#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            return age</span><br><span class="line">        &#125;</span><br><span class="line">        set &#123;</span><br><span class="line">            age &#x3D; newValue</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 给结构体添加下标</span><br><span class="line">    static subscript(name: String, age: Int) -&gt; People &#123;</span><br><span class="line">        People(name: name, age: age)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var a &#x3D; People(name: &quot;哈哈哈&quot;, age: 18)</span><br><span class="line">print(a[&quot;哈哈哈&quot;])&#x2F;&#x2F;18</span><br><span class="line">a[&quot;哈哈哈&quot;] &#x3D; 20</span><br><span class="line">print(a[&quot;哈哈哈&quot;])&#x2F;&#x2F;20</span><br><span class="line">let p &#x3D; People[&quot;哈喽&quot;, 20]</span><br><span class="line">print(p)&#x2F;&#x2F;People(name: &quot;哈喽&quot;, age: 20)</span><br></pre></td></tr></table></figure>
 ]]></content>
@@ -482,7 +482,7 @@
   </entry>
   <entry>
     <title>Swift 的一些高阶函数 map、filter、reduce、flatMap、compactMap</title>
-    <url>/2020/12/21/Swift-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-map-filter-reduce-flatMap-compactMap/</url>
+    <url>/2020/11/17/Swift-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-map-filter-reduce-flatMap-compactMap/</url>
     <content><![CDATA[<h1 id="map-对集合里的每一个元素进行操作，然后返回个新的集合"><a href="#map-对集合里的每一个元素进行操作，然后返回个新的集合" class="headerlink" title="map 对集合里的每一个元素进行操作，然后返回个新的集合"></a>map 对集合里的每一个元素进行操作，然后返回个新的集合</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let numbers &#x3D; [1, 3, 5, 7, 9]</span><br><span class="line">&#x2F;&#x2F;&#x2F; 对集合里的每一个元素进行操作，然后返回个新的集合</span><br><span class="line">print(numbers.map &#123; $0 * 10 &#125;)</span><br><span class="line">&#x2F;&#x2F; [10, 30, 50, 70, 90]</span><br></pre></td></tr></table></figure>
 
 <h1 id="filter-过滤集合里面的每一个元素，返回一个满足条件的新的集合"><a href="#filter-过滤集合里面的每一个元素，返回一个满足条件的新的集合" class="headerlink" title="filter 过滤集合里面的每一个元素，返回一个满足条件的新的集合"></a>filter 过滤集合里面的每一个元素，返回一个满足条件的新的集合</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let numbers &#x3D; [1, 3, 5, 7, 9]</span><br><span class="line">&#x2F;&#x2F;&#x2F; 过滤集合里面的每一个元素，返回一个满足条件的新的集合</span><br><span class="line">print(numbers.filter &#123; $0 &gt; 5 &#125;)</span><br><span class="line">&#x2F;&#x2F; [7, 9]</span><br></pre></td></tr></table></figure>
@@ -515,7 +515,7 @@
   </entry>
   <entry>
     <title>第三方库提示</title>
-    <url>/2020/12/21/Swift%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E3%80%81%E4%BB%A3%E7%A0%81%E4%B8%8D%E6%8F%90%E7%A4%BA/</url>
+    <url>/2020/11/11/Swift%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E3%80%81%E4%BB%A3%E7%A0%81%E4%B8%8D%E6%8F%90%E7%A4%BA/</url>
     <content><![CDATA[<h4 id="1-像OC的pch文件一样导入第三方库"><a href="#1-像OC的pch文件一样导入第三方库" class="headerlink" title="1.像OC的pch文件一样导入第三方库"></a>1.像OC的pch文件一样导入第三方库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">创建一个Swift文件，在导入的库前添加 @_exported</span><br><span class="line">🌰</span><br><span class="line"></span><br><span class="line">@_exported import Alamofire</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h4 id="2-Swift导入的第三方库代码没提示"><a href="#2-Swift导入的第三方库代码没提示" class="headerlink" title="2.Swift导入的第三方库代码没提示"></a>2.Swift导入的第三方库代码没提示</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.选择target </span><br><span class="line">2.选择Build Settings </span><br><span class="line">3.搜索 User Header Search Paths</span><br><span class="line">4.填写 $(PODS_ROOT)，并设置为“recursive”  </span><br></pre></td></tr></table></figure>
 
@@ -528,7 +528,7 @@
   </entry>
   <entry>
     <title>Swift获取值的类型</title>
-    <url>/2020/12/21/Swift%E8%8E%B7%E5%8F%96%E5%80%BC%E7%9A%84%E7%B1%BB%E5%9E%8B/</url>
+    <url>/2020/11/19/Swift%E8%8E%B7%E5%8F%96%E5%80%BC%E7%9A%84%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<p>使用 <code>type(of:)</code> 函数</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">let a &#x3D; type(of:&quot;😄&quot;)</span><br><span class="line"></span><br><span class="line">print(a) &#x2F;&#x2F;String</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p><a class="link"   href="https://developer.apple.com/documentation/swift/2885064-type" >直达文档<i class="fas fa-external-link-alt"></i></a></p>
@@ -539,7 +539,7 @@
   </entry>
   <entry>
     <title>VSCode Flutter 配置</title>
-    <url>/2020/12/21/VSCode-Flutter-%E9%85%8D%E7%BD%AE/</url>
+    <url>/2020/11/19/VSCode-Flutter-%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><ul>
 <li>Dart</li>
 <li>Flutter</li>
@@ -563,7 +563,7 @@
   </entry>
   <entry>
     <title>iOS 常用代码块</title>
-    <url>/2020/12/21/Xcode-%E4%BB%A3%E7%A0%81%E5%9D%97/</url>
+    <url>/2020/11/21/Xcode-%E4%BB%A3%E7%A0%81%E5%9D%97/</url>
     <content><![CDATA[<p>一些常用的代码块</p>
 <h1 id="点我直达"><a href="#点我直达" class="headerlink" title="点我直达"></a><a class="link"   href="https://github.com/xxxIxxxx/CodeSnippets" >点我直达<i class="fas fa-external-link-alt"></i></a></h1><h1 id="Xcode-路径"><a href="#Xcode-路径" class="headerlink" title="Xcode 路径"></a>Xcode 路径</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;Xcode&#x2F;UserData&#x2F;CodeSnippets</span><br></pre></td></tr></table></figure>
 
@@ -690,7 +690,7 @@
   </entry>
   <entry>
     <title>Xcode-快捷键，Xcode12-打开控制台</title>
-    <url>/2020/12/21/Xcode-%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8CXcode12-%E6%89%93%E5%BC%80%E6%8E%A7%E5%88%B6%E5%8F%B0/</url>
+    <url>/2020/11/22/Xcode-%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8CXcode12-%E6%89%93%E5%BC%80%E6%8E%A7%E5%88%B6%E5%8F%B0/</url>
     <content><![CDATA[<p> 快捷键 | 说明<br>| - | - |<br>command + shift + y  |  打开控制台<br> command + shift + j | 定位当前文件在导航<br> command + shift + o | 输入后快速跳转到对应文件，还可输入方法名<br> command + shift + L | 打开资源文件<br> command + shift + f | 搜索项目<br> command + shift + k | clean 项目<br> command + shift + t | 新开当前项目<br> command + shift + , | 编辑scheme<br> command + shift + 2 | 打开可用调试设备<br> command + shift + w |  关闭项目<br> command + r | 运行项目<br> command + b | build 项目<br> command + . | 停止当前操作<br> command + 0 | 开启/关闭 导航<br> command + 1，2 … 9 | 实操看下效果吧<br> command + f | 搜索当前文件<br> command + L |  跳转到对应行<br> command + w | 关闭当前文件<br> command + y | 关闭断点调试<br> command + \ | 打断点<br> command + , | 偏好设置<br> command + return | 仅编辑器<br>control + 6 | 显示当前文件的方法，然后可以继续输方法名回车跳转<br>control + 0 | 切换 Target<br>control + 4 | 切换项目<br>command + option + w | 保留当前打开，关闭其他文件</p>
 <p>欢迎补充比较实用的快捷键！</p>
 ]]></content>
@@ -703,17 +703,20 @@
   </entry>
   <entry>
     <title>利用 hexo 和 github 搭建自己的博客</title>
-    <url>/2020/12/21/hello-world/</url>
-    <content><![CDATA[<h1 id="博客迁移自本人简书"><a href="#博客迁移自本人简书" class="headerlink" title="博客迁移自本人简书"></a><a class="link"   href="https://www.jianshu.com/u/192abcc5117c" >博客迁移自本人简书<i class="fas fa-external-link-alt"></i></a></h1><h1 id="Hexo-教程"><a href="#Hexo-教程" class="headerlink" title="Hexo 教程"></a><a class="link"   href="https://hexo.io/zh-cn/" >Hexo 教程<i class="fas fa-external-link-alt"></i></a></h1><h1 id="Hexo-主题-Keep"><a href="#Hexo-主题-Keep" class="headerlink" title="Hexo 主题 Keep"></a><a class="link"   href="https://keep.xpoet.cn/" >Hexo 主题 Keep<i class="fas fa-external-link-alt"></i></a></h1>]]></content>
+    <url>/2020/12/18/hello-world/</url>
+    <content><![CDATA[<h1 id="博客迁移自本人简书"><a href="#博客迁移自本人简书" class="headerlink" title="博客迁移自本人简书"></a><a class="link"   href="https://www.jianshu.com/u/192abcc5117c" >博客迁移自本人简书<i class="fas fa-external-link-alt"></i></a></h1><blockquote>
+<p>迁移的文章时间未同步。为了防止每次发布，时间跟着改变。随机给了一个时间。</p>
+</blockquote>
+<h1 id="Hexo-教程"><a href="#Hexo-教程" class="headerlink" title="Hexo 教程"></a><a class="link"   href="https://hexo.io/zh-cn/" >Hexo 教程<i class="fas fa-external-link-alt"></i></a></h1><h1 id="Hexo-主题-Keep"><a href="#Hexo-主题-Keep" class="headerlink" title="Hexo 主题 Keep"></a><a class="link"   href="https://keep.xpoet.cn/" >Hexo 主题 Keep<i class="fas fa-external-link-alt"></i></a></h1><blockquote>
+<p>Keep主题 精简好看 就是我用的这套主题</p>
+</blockquote>
+]]></content>
   </entry>
   <entry>
     <title></title>
     <url>/2020/12/21/iOS-OC-%E4%B8%8E-Swift-%E6%B7%B7%E7%BC%96/</url>
     <content><![CDATA[<hr>
-<p>title: iOS OC 与 Swift 混编<br>categories: [iOS]<br>tags: [iOS混编]</p>
-<ul>
-<li>sticky:  #9999</li>
-</ul>
+<p>title: iOS OC 与 Swift 混编<br>categories: [iOS]<br>tags: [iOS混编]<br>sticky:  #9999<br>date: 2020-12-06</p>
 <hr>
 <h1 id="1-XXX-Bridging-Header-h"><a href="#1-XXX-Bridging-Header-h" class="headerlink" title="1. XXX-Bridging-Header.h"></a>1. XXX-Bridging-Header.h</h1><p>新建Swift文件时一般会自动提示创建<code>XXX-Bridging-Header.h</code>文件。如果没有那么自己新建一个 Header 文件，命名为<code>项目名-Bridging-Header.h</code><br><img src="https://upload-images.jianshu.io/upload_images/2331323-40814d95e9d8b2f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新建 Header 文件"></p>
 <h1 id="2-打开-Target-gt-BuildSettings-搜索-Header"><a href="#2-打开-Target-gt-BuildSettings-搜索-Header" class="headerlink" title="2. 打开 Target -&gt; BuildSettings 搜索 Header"></a>2. 打开 Target -&gt; BuildSettings 搜索 <code>Header</code></h1><h2 id="User-Header-Search-Paths-填写-SRCROOT"><a href="#User-Header-Search-Paths-填写-SRCROOT" class="headerlink" title="User Header Search Paths 填写 $(SRCROOT)"></a><code>User Header Search Paths</code> 填写 <code>$(SRCROOT)</code></h2><h2 id="Enable-Modules-c-and-objective-C-填写-YES"><a href="#Enable-Modules-c-and-objective-C-填写-YES" class="headerlink" title="Enable Modules(c and objective-C) 填写 YES"></a><code>Enable Modules(c and objective-C)</code> 填写 <code>YES</code></h2><h2 id="Objective-C-Bridging-Header-填写-项目名称-项目名称-Bridging-Header-h-⚠️这里是个路径"><a href="#Objective-C-Bridging-Header-填写-项目名称-项目名称-Bridging-Header-h-⚠️这里是个路径" class="headerlink" title="Objective-C Bridging Header 填写 项目名称/项目名称-Bridging-Header.h ⚠️这里是个路径"></a><code>Objective-C Bridging Header</code> 填写 <code>项目名称/项目名称-Bridging-Header.h</code> ⚠️这里是个路径</h2><h2 id="Objective-C-Generated-Interface-Header-Name-填写-项目名称-Swift-h-这里是-OC-引用-Swift-需要用到的。"><a href="#Objective-C-Generated-Interface-Header-Name-填写-项目名称-Swift-h-这里是-OC-引用-Swift-需要用到的。" class="headerlink" title="Objective-C Generated Interface Header Name 填写 项目名称-Swift.h 这里是 OC 引用 Swift 需要用到的。"></a><code>Objective-C Generated Interface Header Name</code> 填写 <code>项目名称-Swift.h</code> 这里是 OC 引用 Swift 需要用到的。</h2><p><img src="https://upload-images.jianshu.io/upload_images/2331323-c91b49763e023f54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BuildSettings 需要修改的地方"></p>
@@ -729,8 +732,8 @@
 ]]></content>
   </entry>
   <entry>
-    <title>解决导入 `objc/Runtime.h` 和 `objc/message.h` 头文件后，敲击代码不提示 / Runtime 代码不提示</title>
-    <url>/2020/12/21/iOS-Runtime/</url>
+    <title>解决导入 objc/Runtime.h 和 objc/message.h 头文件后，敲击代码不提示 / Runtime 代码不提示</title>
+    <url>/2020/12/02/iOS-Runtime/</url>
     <content><![CDATA[<h1 id="解决导入-objc-Runtime-h-和-objc-message-h-头文件后，敲击代码不提示-Runtime-代码不提示"><a href="#解决导入-objc-Runtime-h-和-objc-message-h-头文件后，敲击代码不提示-Runtime-代码不提示" class="headerlink" title="解决导入 objc/Runtime.h 和 objc/message.h 头文件后，敲击代码不提示 / Runtime 代码不提示"></a>解决导入 <code>objc/Runtime.h</code> 和 <code>objc/message.h</code> 头文件后，敲击代码不提示 / Runtime 代码不提示</h1><p>Build Settings 搜索 <code>objc_msg</code><br><img src="https://upload-images.jianshu.io/upload_images/2331323-d1f64b02dd132e27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Build Settings 修改"></p>
 ]]></content>
       <categories>
@@ -742,8 +745,10 @@
   </entry>
   <entry>
     <title>WKWebView 加载 html</title>
-    <url>/2020/12/21/iOS-WKWebView-loadHTMLString-%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87-%E4%B8%BA%E5%9B%BE%E7%89%87%E6%B7%BB%E5%8A%A0%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6/</url>
-    <content><![CDATA[<h1 id="本文主要是针对后台返回数据是-html-标签的数据加载"><a href="#本文主要是针对后台返回数据是-html-标签的数据加载" class="headerlink" title="本文主要是针对后台返回数据是 html 标签的数据加载"></a>本文主要是针对后台返回数据是 html 标签的数据加载</h1><h1 id="异步加载-html-标签内的-img-标签，给-img-标签添加点击事件"><a href="#异步加载-html-标签内的-img-标签，给-img-标签添加点击事件" class="headerlink" title="异步加载 html 标签内的 img 标签，给 img 标签添加点击事件"></a>异步加载 html 标签内的 img 标签，给 img 标签添加点击事件</h1><hr>
+    <url>/2020/12/17/iOS-WKWebView-loadHTMLString-%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87-%E4%B8%BA%E5%9B%BE%E7%89%87%E6%B7%BB%E5%8A%A0%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6/</url>
+    <content><![CDATA[<blockquote>
+<p>本文主要是针对后台返回数据是 html 标签的数据加载。异步加载 html 标签内的 img 标签，给 img 标签添加点击事件</p>
+</blockquote>
 <h1 id="例如返回的数据格式如下"><a href="#例如返回的数据格式如下" class="headerlink" title="例如返回的数据格式如下"></a>例如返回的数据格式如下</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  一、《望天门山》 作者：唐代李白 1、原文</span><br><span class="line">  天门中断楚江开，碧水东流至此回。两岸青山相对出，孤帆一bai片日边来。 2、译文</span><br><span class="line">  天门山从中间断裂是楚江把它冲开，碧水向东浩然奔流到这里折回。</span><br><span class="line">  两岸高耸的青山隔着长江相峙而立，江面上一叶孤舟像从日边驶来。</span><br><span class="line">  &lt;img</span><br><span class="line">    src&#x3D;&quot;https:&#x2F;&#x2F;wx2.sinaimg.cn&#x2F;large&#x2F;006CHHsBly1gkxrs7785ej31402eoe84.jpg&quot;</span><br><span class="line">  &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">完整的 html 标签数据</span><br></pre></td></tr></table></figure>
 <p> 这些数据一般都是使用了富文本编辑器编辑的内容，而且各种标签样式都有可能使用到，所以最好还是使用 WKWebView 来加载！<br> 但是如果内容含有 img 标签的话就会等待所有的图片加载完才会展示出整体的样式，这样比较影响体验。<br> 所以应该考虑异步加载图片，而不影响文字等标签样式的展示。</p>
 <h1 id="Demo下载"><a href="#Demo下载" class="headerlink" title="Demo下载"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXWebView" >Demo下载<i class="fas fa-external-link-alt"></i></a></h1><h4 id="1-先将图片链接中的-scheme-替换为自定义的-scheme"><a href="#1-先将图片链接中的-scheme-替换为自定义的-scheme" class="headerlink" title="1.先将图片链接中的 scheme 替换为自定义的 scheme"></a>1.先将图片链接中的 scheme 替换为自定义的 scheme</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)changeImageScheme &#123;</span><br><span class="line">    self.htmlString &#x3D; [self.htmlString stringByReplacingOccurrencesOfString:self.oriImageUrl withString:self.xxxCustomImageUrl];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -768,7 +773,7 @@
   </entry>
   <entry>
     <title>iOS Widget 不显示无法添加、iOS Widget 加载网络图片</title>
-    <url>/2020/12/21/iOS-Widget-%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E6%B7%BB%E5%8A%A0-%E3%80%81iOS-Widget-%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87/</url>
+    <url>/2020/12/07/iOS-Widget-%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E6%B7%BB%E5%8A%A0-%E3%80%81iOS-Widget-%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87/</url>
     <content><![CDATA[<h3 id="Intent-Widget-开发"><a href="#Intent-Widget-开发" class="headerlink" title="Intent Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Static-Widget-开发"><a href="#Static-Widget-开发" class="headerlink" title="Static Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/84c180963ac6" >Static Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Demo下载"><a href="#Demo下载" class="headerlink" title="Demo下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo下载<i class="fas fa-external-link-alt"></i></a></h3><h1 id="Widget-在添加时找不到"><a href="#Widget-在添加时找不到" class="headerlink" title="Widget 在添加时找不到"></a>Widget 在添加时找不到</h1><p> 出现这种情况，可能是只配置了可编辑的 <code>Widget</code>。<br>导致<code>NSExtensionPointIdentifier</code>只有这一种类型 <code>com.apple.intents-service</code> 会被识别为 Siri 扩展。</p>
 <h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>再添加一个不可编辑的 <code>Widget</code> 即可。不需要展示出，在 <code>@main</code>方法里不添加就好。<br>确定新添加的<code>NSExtensionPointIdentifier</code>类型为 <code>com.apple.widgetkit-extension</code> 。</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/2331323-7fe44d27ed6af214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="plist"></p>
@@ -785,7 +790,7 @@
   </entry>
   <entry>
     <title>iOS 与 web 交互传图</title>
-    <url>/2020/12/21/iOS-%E4%B8%8E-web-%E4%BA%A4%E4%BA%92-%E4%BC%A0%E5%9B%BE/</url>
+    <url>/2020/12/07/iOS-%E4%B8%8E-web-%E4%BA%A4%E4%BA%92-%E4%BC%A0%E5%9B%BE/</url>
     <content><![CDATA[<p>web 端将图片 base64 编码后传给 iOS 端，会在 base64 编码前加上 <code>data:image/png;base64,</code> 需要先把这一串给去掉后进行解码，然后转 data 再转为 image </p>
 ]]></content>
       <categories>
@@ -794,7 +799,7 @@
   </entry>
   <entry>
     <title>iOS 修改状态栏的颜色 preferredStatusBarStyle</title>
-    <url>/2020/12/21/iOS-%E4%BF%AE%E6%94%B9%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E9%A2%9C%E8%89%B2-preferredStatusBarStyle/</url>
+    <url>/2020/11/02/iOS-%E4%BF%AE%E6%94%B9%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E9%A2%9C%E8%89%B2-preferredStatusBarStyle/</url>
     <content><![CDATA[<h3 id="⚠️⚠️⚠️首先要在项目的-Info-plist-文件里设置-View-controller-based-status-bar-appearance-为-YES，如果没有就不用添加⚠️-⚠️⚠️"><a href="#⚠️⚠️⚠️首先要在项目的-Info-plist-文件里设置-View-controller-based-status-bar-appearance-为-YES，如果没有就不用添加⚠️-⚠️⚠️" class="headerlink" title="⚠️⚠️⚠️首先要在项目的 Info.plist 文件里设置 View controller-based status bar appearance 为 YES，如果没有就不用添加⚠️ ⚠️⚠️"></a>⚠️⚠️⚠️首先要在项目的 Info.plist 文件里设置 View controller-based status bar appearance 为 YES，如果没有就不用添加⚠️ ⚠️⚠️</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">1. 重写 UINavigationController 的 childViewControllerForStatusBarStyle</span><br><span class="line">可以写在基类的 UINavigationController 中，也可以使用Category</span><br><span class="line">*&#x2F;</span><br><span class="line">- (UIViewController *)childViewControllerForStatusBarStyle &#123;</span><br><span class="line">    return self.topViewController;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;Swift </span><br><span class="line">override var childForStatusBarStyle: UIViewController? &#123;</span><br><span class="line">        return topViewController</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">2.  在需要改变状态栏颜色的 UIViewController 中实现 preferredStatusBarStyle</span><br><span class="line">*&#x2F;</span><br><span class="line">- (UIStatusBarStyle)preferredStatusBarStyle &#123;</span><br><span class="line">   return UIStatusBarStyleLightContent;</span><br><span class="line">   &#x2F;&#x2F; return UIStatusBarStyleDefault;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;Swift</span><br><span class="line">override var preferredStatusBarStyle: UIStatusBarStyle &#123;</span><br><span class="line">      return .lightContent</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">3. 当触发某个条件需要改变状态栏颜色时在 UIViewController 中调用</span><br><span class="line">然后在 - (UIStatusBarStyle)preferredStatusBarStyle; 中判断你的条件是否满足改变颜色</span><br><span class="line">*&#x2F;</span><br><span class="line">[self setNeedsStatusBarAppearanceUpdate];</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;Swift</span><br><span class="line">setNeedsStatusBarAppearanceUpdate()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>iOS修改状态栏颜色<br>OC 修改状态栏颜色<br>Swift修改状态栏颜色</p>
@@ -808,7 +813,7 @@
   </entry>
   <entry>
     <title>iOS 多 Target CocoaPods 管理</title>
-    <url>/2020/12/21/iOS-%E5%A4%9A-Target-CocoaPods-%E7%AE%A1%E7%90%86/</url>
+    <url>/2020/11/28/iOS-%E5%A4%9A-Target-CocoaPods-%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<h1 id="1-iOS-多-Target-CocoaPods-管理，直接来看例子"><a href="#1-iOS-多-Target-CocoaPods-管理，直接来看例子" class="headerlink" title="1. iOS 多 Target CocoaPods 管理，直接来看例子"></a>1. iOS 多 Target CocoaPods 管理，直接来看例子</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">platform :ios, &quot;11.0&quot;</span><br><span class="line">source &quot;https:&#x2F;&#x2F;cdn.cocoapods.org&#x2F;&quot;</span><br><span class="line">#source &#39;https:&#x2F;&#x2F;github.com&#x2F;CocoaPods&#x2F;Specs.git&#39;</span><br><span class="line"></span><br><span class="line">#定义公共库</span><br><span class="line">def commonPods</span><br><span class="line">  use_frameworks!</span><br><span class="line"></span><br><span class="line">  pod &quot;KakaJSON&quot;, &quot;~&gt; 1.1.2&quot;</span><br><span class="line">  pod &quot;SnapKit&quot;, &quot;~&gt; 5.0.1&quot;</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">#为 Target1 配置自己独有的库</span><br><span class="line">target &quot;Target1&quot; do</span><br><span class="line">  commonPods</span><br><span class="line">  pod &quot;YYCategories&quot;</span><br><span class="line">  pod &quot;Alamofire&quot;, &quot;~&gt; 5.2.2&quot;</span><br><span class="line">end</span><br><span class="line">#为 Target2 配置自己独有的库</span><br><span class="line">target &quot;Target2&quot; do</span><br><span class="line">  commonPods</span><br><span class="line">  pod &quot;Moya&quot;, &quot;~&gt; 14.0.0&quot;</span><br><span class="line">end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h1 id="2-判断在哪一个-Target，iOS-Target-判断"><a href="#2-判断在哪一个-Target，iOS-Target-判断" class="headerlink" title="2. 判断在哪一个 Target，iOS Target 判断"></a>2. 判断在哪一个 Target，iOS Target 判断</h1><h3 id="Swift-设置"><a href="#Swift-设置" class="headerlink" title="Swift 设置"></a>Swift 设置</h3><p>Build Settings 搜索 <code>swift compiler</code> 具体看图<br><img src="https://upload-images.jianshu.io/upload_images/2331323-da3235308811d72b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加 Target 判断条件"></p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#if MAINTARGET</span><br><span class="line">tipLab.text &#x3D; &quot;mmmm&quot;</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
@@ -825,8 +830,8 @@
       </tags>
   </entry>
   <entry>
-    <title>iOS-报错-&#39;sharedApplication&#39;-is-unavailable--not-available-on-iOS-(App-E</title>
-    <url>/2020/12/21/iOS-%E6%8A%A5%E9%94%99-&#39;sharedApplication&#39;-is-unavailable--not-available-on-iOS-(App-E/</url>
+    <title>iOS-报错-&#39;sharedApplication&#39;-is-unavailable--not-available-on-iOS</title>
+    <url>/2020/11/20/iOS-%E6%8A%A5%E9%94%99-&#39;sharedApplication&#39;-is-unavailable--not-available-on-iOS-(App-E/</url>
     <content><![CDATA[<p>这是因为使用了在 App Extension 内不安全的API</p>
 <h3 id="解决办法见下图"><a href="#解决办法见下图" class="headerlink" title="解决办法见下图"></a>解决办法见下图</h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-2161dedfa7242b3e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="操作步骤图"></p>
 <h3 id="CocoapPods-第三方库-报错同样的解决办法见下图"><a href="#CocoapPods-第三方库-报错同样的解决办法见下图" class="headerlink" title="CocoapPods 第三方库 报错同样的解决办法见下图"></a>CocoapPods 第三方库 报错同样的解决办法见下图</h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-0b33c4b741a47ed7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="操作步骤图"></p>
@@ -841,7 +846,7 @@
   </entry>
   <entry>
     <title>iOS 用户可编辑的 Widget</title>
-    <url>/2020/12/21/iOS14-Widget-%E5%BC%80%E5%8F%91-1/</url>
+    <url>/2020/11/27/iOS14-Widget-%E5%BC%80%E5%8F%91-1/</url>
     <content><![CDATA[<h3 id="本篇是用户可编辑的-Widget"><a href="#本篇是用户可编辑的-Widget" class="headerlink" title="本篇是用户可编辑的 Widget"></a>本篇是用户可编辑的 Widget</h3><h3 id="用户不可编辑的-Widget，点我去看"><a href="#用户不可编辑的-Widget，点我去看" class="headerlink" title="用户不可编辑的 Widget，点我去看"></a><a class="link"   href="https://www.jianshu.com/p/84c180963ac6" >用户不可编辑的 Widget，点我去看<i class="fas fa-external-link-alt"></i></a></h3><h3 id="编辑屏幕-Widget-不显示，Widget-加载网络图片"><a href="#编辑屏幕-Widget-不显示，Widget-加载网络图片" class="headerlink" title="编辑屏幕 Widget 不显示，Widget 加载网络图片"></a><a class="link"   href="https://www.jianshu.com/p/a80d59c94442" >编辑屏幕 Widget 不显示，Widget 加载网络图片<i class="fas fa-external-link-alt"></i></a></h3><h1 id="Demo-下载"><a href="#Demo-下载" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1><h1 id="先来看效果图"><a href="#先来看效果图" class="headerlink" title="先来看效果图"></a>先来看效果图</h1><p><img src="https://upload-images.jianshu.io/upload_images/2331323-196fcdf3f96e1360.JPEG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
 <h1 id="建议将-demo-下载下来对照着看对应-demo-里的-AnimalWidget-文件"><a href="#建议将-demo-下载下来对照着看对应-demo-里的-AnimalWidget-文件" class="headerlink" title="建议将 demo 下载下来对照着看对应 demo 里的 AnimalWidget 文件"></a>建议将 demo 下载下来对照着看对应 demo 里的 AnimalWidget 文件</h1><h3 id="1-新建-Widget-Extension，勾选-Intent。"><a href="#1-新建-Widget-Extension，勾选-Intent。" class="headerlink" title="1. 新建 Widget Extension，勾选 Intent。"></a>1. 新建 Widget Extension，勾选 Intent。</h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-4c736e922128a5f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1. 新建 Widget Extension，勾选 Intent"></p>
 <h3 id="2-点击-AnimalWidget-intentdefinition-文件-添加可编辑的数据类型-具体操作看图吧"><a href="#2-点击-AnimalWidget-intentdefinition-文件-添加可编辑的数据类型-具体操作看图吧" class="headerlink" title="2. 点击 AnimalWidget.intentdefinition 文件 添加可编辑的数据类型 具体操作看图吧"></a>2. 点击 AnimalWidget.intentdefinition 文件 添加可编辑的数据类型 具体操作看图吧</h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-e26dffe1a81d1a99.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2. 点击 AnimalWidget.intentdefinition 文件 具体操作看图吧"></p>
@@ -868,7 +873,7 @@
   </entry>
   <entry>
     <title>iOS14 Widget</title>
-    <url>/2020/12/21/iOS14-Widget-%E5%BC%80%E5%8F%91/</url>
+    <url>/2020/11/26/iOS14-Widget-%E5%BC%80%E5%8F%91/</url>
     <content><![CDATA[<h1 id="Demo-下载"><a href="#Demo-下载" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1><h3 id="这个是用户不可配置的，没有编辑选项的-widget"><a href="#这个是用户不可配置的，没有编辑选项的-widget" class="headerlink" title="这个是用户不可配置的，没有编辑选项的 widget"></a>这个是用户不可配置的，没有编辑选项的 widget</h3><h3 id="Intent-用户可编辑的点我去看"><a href="#Intent-用户可编辑的点我去看" class="headerlink" title="Intent 用户可编辑的点我去看"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent 用户可编辑的点我去看<i class="fas fa-external-link-alt"></i></a></h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-126d13797dd4e2de.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
 <h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 时间线</span><br><span class="line">struct XXXProvider: TimelineProvider &#123;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 占位的展示</span><br><span class="line">    func placeholder(in context: Context) -&gt; XXXSimpleEntry &#123;</span><br><span class="line">        XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData())</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 快照</span><br><span class="line">    func getSnapshot(in context: Context, completion: @escaping (XXXSimpleEntry) -&gt; ()) &#123;</span><br><span class="line">        let entry &#x3D; XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData())</span><br><span class="line">        completion(entry)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#x2F;根据时间线提供需要展示的状态</span><br><span class="line">    func getTimeline(in context: Context, completion: @escaping (Timeline&lt;Entry&gt;) -&gt; ()) &#123;</span><br><span class="line">        </span><br><span class="line">        print(&quot;时间线刷新了&quot; + &quot;\(Date())&quot;)</span><br><span class="line">        </span><br><span class="line">        var entrys: [XXXSimpleEntry] &#x3D; []</span><br><span class="line">        let currentData &#x3D; Date()</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;&#x2F; 提供当前时间后 1个小时内  每一秒的状态 (已经提供了3600个状态，太多会不展示卡死)</span><br><span class="line">        for i in 0...60*60 &#123;</span><br><span class="line">            guard let entryDate &#x3D; Calendar.current.date(byAdding: .second, value: i, to: currentData) else &#123;</span><br><span class="line">                return</span><br><span class="line">            &#125;</span><br><span class="line">            entrys.append(XXXSimpleEntry(date: entryDate, displayTime: XXXData.displayData(entryDate)))</span><br><span class="line">        &#125;</span><br><span class="line">        let timeline &#x3D; Timeline(entries: entrys, policy: .atEnd)</span><br><span class="line">        completion(timeline)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 每一个时间线的实体</span><br><span class="line">struct XXXSimpleEntry: TimelineEntry &#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F;展示该状态的时间</span><br><span class="line">    let date: Date</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 自己配置的数据</span><br><span class="line">    let displayTime: String</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; widget 展示 view</span><br><span class="line">struct XXXWidgetEntryView : View &#123;</span><br><span class="line">    var entry: XXXProvider.Entry</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 返回在这个时间 (entry.date)    你想要展示的widegt样式</span><br><span class="line">    var body: some View &#123;</span><br><span class="line">        ZStack &#123;</span><br><span class="line">            </span><br><span class="line">            Color.orange.edgesIgnoringSafeArea(.all)</span><br><span class="line">            VStack &#123;</span><br><span class="line">                Text(entry.displayTime)</span><br><span class="line">                    .multilineTextAlignment(.center)</span><br><span class="line">                    .foregroundColor(.blue)</span><br><span class="line">                    &#x2F;&#x2F;&#x2F;配置点击链接会在主工程收到拉起事件</span><br><span class="line">                    .widgetURL(URL(string: &quot;widgetDemo:&#x2F;&#x2F;789&quot;))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;widget</span><br><span class="line">struct XXXWidget: Widget &#123;</span><br><span class="line">    let kind: String &#x3D; &quot;XXXWidget&quot;</span><br><span class="line"></span><br><span class="line">    var body: some WidgetConfiguration &#123;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; StaticConfiguration 是静态的，用户不可配置的 长按不会出现编辑</span><br><span class="line">        StaticConfiguration(kind: kind, provider: XXXProvider()) &#123; entry in</span><br><span class="line">            XXXWidgetEntryView(entry: entry)</span><br><span class="line">        &#125;</span><br><span class="line">        .configurationDisplayName(&quot;添加时的标题&quot;)</span><br><span class="line">        .description(&quot;添加时的描述&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;提供预览状态</span><br><span class="line">struct XXXWidget_Previews: PreviewProvider &#123;</span><br><span class="line">    </span><br><span class="line">    static var previews: some View &#123;</span><br><span class="line">        XXXWidgetEntryView(entry: XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData()))</span><br><span class="line">            .previewContext(WidgetPreviewContext(family: .systemSmall))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;主入口</span><br><span class="line">@main</span><br><span class="line">struct AllWidget: WidgetBundle &#123;</span><br><span class="line">    </span><br><span class="line">    @WidgetBundleBuilder</span><br><span class="line">    var body: some Widget &#123;</span><br><span class="line">        XXXWidget()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -887,7 +892,7 @@
   </entry>
   <entry>
     <title>iOS占位图、空白页面</title>
-    <url>/2020/12/21/iOS%E5%8D%A0%E4%BD%8D%E5%9B%BE%E3%80%81%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2/</url>
+    <url>/2020/11/24/iOS%E5%8D%A0%E4%BD%8D%E5%9B%BE%E3%80%81%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2/</url>
     <content><![CDATA[<h1 id="iOS占位图、空白页面-Github直达"><a href="#iOS占位图、空白页面-Github直达" class="headerlink" title="iOS占位图、空白页面 Github直达"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXPlaceholder" >iOS占位图、空白页面 Github直达<i class="fas fa-external-link-alt"></i></a></h1><h1 id="iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew"><a href="#iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew" class="headerlink" title="iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew"></a>iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew</h1><h1 id="😄😄😄"><a href="#😄😄😄" class="headerlink" title="😄😄😄"></a>😄😄😄</h1><p><img src="http://upload-images.jianshu.io/upload_images/2331323-337781e6ecaac4ae.gif?imageMogr2/auto-orient/strip" alt="tableView使用效果"></p>
 <p> <img src="http://upload-images.jianshu.io/upload_images/2331323-37d81ba5477c72c3.gif?imageMogr2/auto-orient/strip" alt="view使用效果"></p>
 <h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a><em>注意</em></h1><h5 id="1-当tableView、collectionView-有数据时（row-gt-0，item-gt-0）不显示占位图"><a href="#1-当tableView、collectionView-有数据时（row-gt-0，item-gt-0）不显示占位图" class="headerlink" title="1.当tableView、collectionView 有数据时（row&gt;0，item&gt;0）不显示占位图"></a>1.当tableView、collectionView 有数据时（row&gt;0，item&gt;0）不显示占位图</h5><h5 id="2-当scrollView-contentSize-height-gt-scrollView-frame-size-height-时临时禁用滑动属性（tableView、collectionView优先遵循第一条）"><a href="#2-当scrollView-contentSize-height-gt-scrollView-frame-size-height-时临时禁用滑动属性（tableView、collectionView优先遵循第一条）" class="headerlink" title="2.当scrollView.contentSize.height &gt; scrollView.frame.size.height 时临时禁用滑动属性（tableView、collectionView优先遵循第一条）"></a>2.当scrollView.contentSize.height &gt; scrollView.frame.size.height 时临时禁用滑动属性（tableView、collectionView优先遵循第一条）</h5><h5 id="3-建议导入demo中的XXXPlaceholderEX文件夹"><a href="#3-建议导入demo中的XXXPlaceholderEX文件夹" class="headerlink" title="3.建议导入demo中的XXXPlaceholderEX文件夹"></a>3.建议导入demo中的XXXPlaceholderEX文件夹</h5><h5 id="4-占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件"><a href="#4-占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件" class="headerlink" title="4.占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件"></a>4.占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件</h5><h5 id="5-我觉得用法还是挺简单的，看下demo吧😂"><a href="#5-我觉得用法还是挺简单的，看下demo吧😂" class="headerlink" title="5.我觉得用法还是挺简单的，看下demo吧😂"></a>5.我觉得用法还是挺简单的，看下demo吧😂</h5><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod repo update</span><br><span class="line">rm ~&#x2F;Library&#x2F;Caches&#x2F;CocoaPods&#x2F;search_index.json  (清除搜索缓存)</span><br><span class="line">pod &#39;XXXPlaceholder&#39;, &#39;~&gt; 0.0.1&#39;</span><br></pre></td></tr></table></figure>
@@ -907,7 +912,7 @@
   </entry>
   <entry>
     <title>iOS拖拽卡片</title>
-    <url>/2020/12/21/iOS%E6%8B%96%E6%8B%BD%E5%8D%A1%E7%89%87%E5%8F%A0%E5%8A%A0%E5%8D%A1%E7%89%87/</url>
+    <url>/2020/11/22/iOS%E6%8B%96%E6%8B%BD%E5%8D%A1%E7%89%87%E5%8F%A0%E5%8A%A0%E5%8D%A1%E7%89%87/</url>
     <content><![CDATA[<h1 id="github-XXXCardStore"><a href="#github-XXXCardStore" class="headerlink" title="github XXXCardStore"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXCardStore" >github XXXCardStore<i class="fas fa-external-link-alt"></i></a></h1><p><img src="http://upload-images.jianshu.io/upload_images/2331323-86f449d502adaa19.gif?imageMogr2/auto-orient/strip" alt="效果图"></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2331323-70de1ba83f9ad822.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="说明图"></p>
 <h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><ol>
@@ -926,7 +931,7 @@
   </entry>
   <entry>
     <title>iOS mask 遮罩，彩色文本</title>
-    <url>/2020/12/21/iOS%E6%B8%90%E5%8F%98%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97%E3%80%81iOS-mask-%E9%81%AE%E7%BD%A9/</url>
+    <url>/2020/11/20/iOS%E6%B8%90%E5%8F%98%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97%E3%80%81iOS-mask-%E9%81%AE%E7%BD%A9/</url>
     <content><![CDATA[<h1 id="iOS渐变彩色文字、iOS-mask-遮罩"><a href="#iOS渐变彩色文字、iOS-mask-遮罩" class="headerlink" title="iOS渐变彩色文字、iOS mask 遮罩"></a>iOS渐变彩色文字、iOS mask 遮罩</h1><p><img src="https://upload-images.jianshu.io/upload_images/2331323-2f3e46c5908444fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
 <p><a class="link"   href="https://github.com/ibireme/YYCategories" >使用到了YYCategories<i class="fas fa-external-link-alt"></i></a></p>
 <h3 id="彩色文字"><a href="#彩色文字" class="headerlink" title="彩色文字"></a>彩色文字</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UIView *colorBgView &#x3D; [UIView new];</span><br><span class="line">    [self.view addSubview:colorBgView];</span><br><span class="line">    colorBgView.frame &#x3D; CGRectMake(0, 300, UIScreen.mainScreen.bounds.size.width, 40);</span><br><span class="line">        </span><br><span class="line">&#x2F;&#x2F;这里用了YYCategories</span><br><span class="line">    UIBezierPath *colorTextPath &#x3D; [UIBezierPath bezierPathWithText:@&quot;哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈&quot; font:[UIFont systemFontOfSize:28]];</span><br><span class="line">    CAShapeLayer *colorTextLayer &#x3D; [CAShapeLayer layer];</span><br><span class="line">    colorTextLayer.path &#x3D; colorTextPath.CGPath;</span><br><span class="line">    colorTextLayer.frame &#x3D; CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 30);</span><br><span class="line">    colorBgView.layer.mask &#x3D; colorTextLayer;</span><br><span class="line">    </span><br><span class="line">    CAGradientLayer *colorLayer &#x3D; CAGradientLayer.new;</span><br><span class="line">    colorLayer.colors &#x3D; @[(__bridge id)UIColor.redColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.orangeColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.greenColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.blueColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.yellowColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.purpleColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.blackColor.CGColor,];</span><br><span class="line">    colorLayer.startPoint &#x3D; CGPointMake(0, 0.5);</span><br><span class="line">    colorLayer.endPoint &#x3D; CGPointMake(1, 0.5);</span><br><span class="line">    colorLayer.frame &#x3D; CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 40);</span><br><span class="line">    [colorBgView.layer addSublayer:colorLayer];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -939,7 +944,7 @@
   </entry>
   <entry>
     <title>在Swift中使用 NSClassFromString</title>
-    <url>/2020/12/21/%E5%9C%A8Swift%E4%B8%AD%E4%BD%BF%E7%94%A8-NSClassFromString/</url>
+    <url>/2020/11/02/%E5%9C%A8Swift%E4%B8%AD%E4%BD%BF%E7%94%A8-NSClassFromString/</url>
     <content><![CDATA[<p>在Swift中使用 NSClassFromString</p>
 <p>需要 <code>工程名</code> + <code> .</code>  +  <code>string</code></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NSClassFromString(Bundle.main.object(forInfoDictionaryKey: &quot;CFBundleName&quot;)! + &quot;.&quot; + &quot;CustomCell&quot;)</span><br></pre></td></tr></table></figure>

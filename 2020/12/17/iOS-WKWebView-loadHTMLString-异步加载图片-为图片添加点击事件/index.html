@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <title>
+        WKWebView 加载 html |
+        
+        今日营业中
+    </title>
+    <link rel="shortcut icon" href="/images/logo.svg">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/logo.svg","img_position":"left","left_side_width":"260px","content_max_width":"900px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"说得越多 声音就越弱"}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":false},"version":"3.0.4"};
+    KEEP.language = {"search":"Search...","prev":"Prev","next":"Next","prev_posts":"Prev posts","next_posts":"Next posts","page":"Page %d","recent_posts":"Recent Posts","share":"Share","powered_by":"Powered by %s","theme":"Theme","rss_feed":"RSS Feed","category":"Category","categories":"Categories","tag":"Tag","tags":"Tags","tagcloud":"Tag Cloud","comment":"Comment","home":"Home","archive":"Archive","archives":"Archives","about":"About","site_uv":"Visitor Count","site_pv":"Totalview","links":"Links","link":"Link","top":"TOP","read_more":"Read more","wordcount":"Words","min2read":"Mins","changelog":"Changelog","copyright":{"author":"Post author","title":"Post title","link":"Post link","create_time":"Create time","license_title":"Copyright Notice","license_content":"All articles in this blog are licensed under %s unless stating additionally."},"ago":{"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days age","week":"%s weeks age","month":"%s months age","year":"%s years age"}};
+  </script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="page-container">
+
+    
+
+    <header class="page-header">
+        <div class="header-progress"></div>
+    </header>
+
+    <main class="page-main">
+
+        <div class="page-main-content">
+
+            <div class="page-main-content-top">
+                <header class="header-wrapper">
+
+    <div class="header-content">
+        <a class="logo-title" href="/">
+            今日营业中
+        </a>
+
+        <ul class="menu-list">
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/"
+                    >
+                        首页
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/archives"
+                    >
+                        归档
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/categories"
+                    >
+                        分类
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/tags"
+                    >
+                        标签
+                    </a>
+                </li>
+            
+        </ul>
+
+        <div class="menu-bar">
+            <div class="menu-bar-middle"></div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+            </div>
+
+            <div class="page-main-content-middle">
+
+                <main class="main-content normal-code-theme">
+
+                    
+                        <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">WKWebView 加载 html</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>xxxixxxx</span>
+                        <span class="level">Lv5</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-calendar"></i> 2020-12-17 00:00:00
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/iOS/">iOS</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/WKWebView/">WKWebView</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <blockquote>
+<p>本文主要是针对后台返回数据是 html 标签的数据加载。异步加载 html 标签内的 img 标签，给 img 标签添加点击事件</p>
+</blockquote>
+<h1 id="例如返回的数据格式如下"><a href="#例如返回的数据格式如下" class="headerlink" title="例如返回的数据格式如下"></a>例如返回的数据格式如下</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  一、《望天门山》 作者：唐代李白 1、原文</span><br><span class="line">  天门中断楚江开，碧水东流至此回。两岸青山相对出，孤帆一bai片日边来。 2、译文</span><br><span class="line">  天门山从中间断裂是楚江把它冲开，碧水向东浩然奔流到这里折回。</span><br><span class="line">  两岸高耸的青山隔着长江相峙而立，江面上一叶孤舟像从日边驶来。</span><br><span class="line">  &lt;img</span><br><span class="line">    src&#x3D;&quot;https:&#x2F;&#x2F;wx2.sinaimg.cn&#x2F;large&#x2F;006CHHsBly1gkxrs7785ej31402eoe84.jpg&quot;</span><br><span class="line">  &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">完整的 html 标签数据</span><br></pre></td></tr></table></figure>
+<p> 这些数据一般都是使用了富文本编辑器编辑的内容，而且各种标签样式都有可能使用到，所以最好还是使用 WKWebView 来加载！<br> 但是如果内容含有 img 标签的话就会等待所有的图片加载完才会展示出整体的样式，这样比较影响体验。<br> 所以应该考虑异步加载图片，而不影响文字等标签样式的展示。</p>
+<h1 id="Demo下载"><a href="#Demo下载" class="headerlink" title="Demo下载"></a><a class="link"   target="_blank" rel="noopener" href="https://github.com/xxxIxxxx/XXXWebView" >Demo下载<i class="fas fa-external-link-alt"></i></a></h1><h4 id="1-先将图片链接中的-scheme-替换为自定义的-scheme"><a href="#1-先将图片链接中的-scheme-替换为自定义的-scheme" class="headerlink" title="1.先将图片链接中的 scheme 替换为自定义的 scheme"></a>1.先将图片链接中的 scheme 替换为自定义的 scheme</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void)changeImageScheme &#123;</span><br><span class="line">    self.htmlString &#x3D; [self.htmlString stringByReplacingOccurrencesOfString:self.oriImageUrl withString:self.xxxCustomImageUrl];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-在-html-标签中添加函数"><a href="#2-在-html-标签中添加函数" class="headerlink" title="2.在 html 标签中添加函数"></a>2.在 html 标签中添加函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">- (void)addJsScript &#123;</span><br><span class="line">    </span><br><span class="line">    NSString *htmlLab &#x3D; @&quot;&lt;&#x2F;html&gt;&quot;;</span><br><span class="line">    NSString *scriptLab1 &#x3D; @&quot;&lt;&#x2F;script&gt;&quot;;</span><br><span class="line">    </span><br><span class="line">    NSString *jsFunctionString &#x3D; @&quot;function xxxGetAllImg() &#123; return document.getElementsByTagName(\&quot;img\&quot;); &#125;\</span><br><span class="line">    function xxxUpdateImage(url, imgData) &#123;  var list &#x3D; Array.from(xxxGetAllImg()); for (let item of list) &#123;  if ((item.src &#x3D;&#x3D; url)) &#123; item.src &#x3D; imgData;   break; &#125; &#125; &#125;        &quot;;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    if (![self.htmlString containsString:htmlLab]) &#123;</span><br><span class="line">        [self addHtmlLab];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    if ([self.htmlString containsString:scriptLab1]) &#123;</span><br><span class="line">     </span><br><span class="line">        NSString *scriptString &#x3D; [NSString stringWithFormat:@&quot;%@%@&quot;,jsFunctionString,scriptLab1];</span><br><span class="line">        self.htmlString &#x3D; [self.htmlString stringByReplacingOccurrencesOfString:scriptLab1 withString:scriptString];</span><br><span class="line">        </span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        NSString *scriptLab0 &#x3D; @&quot;&lt;script&gt;&quot;;</span><br><span class="line">        NSString *scriptString &#x3D; [NSString stringWithFormat:@&quot;%@%@%@%@&quot;,scriptLab0,jsFunctionString,scriptLab1,htmlLab];</span><br><span class="line">        self.htmlString &#x3D; [self.htmlString stringByReplacingOccurrencesOfString:htmlLab withString:scriptString];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-定义一个实现-WKURLSchemeHandler-协议的类"><a href="#3-定义一个实现-WKURLSchemeHandler-协议的类" class="headerlink" title="3.定义一个实现 WKURLSchemeHandler 协议的类"></a>3.定义一个实现 WKURLSchemeHandler 协议的类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@interface XXXCustomSchemeHanlder : NSObject &lt;WKURLSchemeHandler&gt;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy) NSString *oriImageUrl;</span><br><span class="line">@property (nonatomic, copy) NSString *oriImageScheme;</span><br><span class="line">@property (nonatomic, strong) UIImage *placeholderImage;</span><br><span class="line">@property (nonatomic, copy) void(^updateImageBlock)(void);</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="4-实现协议方法-用于拦截图片加载"><a href="#4-实现协议方法-用于拦截图片加载" class="headerlink" title="4.实现协议方法 用于拦截图片加载"></a>4.实现协议方法 用于拦截图片加载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)webView:(nonnull WKWebView *)webView startURLSchemeTask:(nonnull id&lt;WKURLSchemeTask&gt;)urlSchemeTask &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    UIImage *image &#x3D; self.placeholderImage;</span><br><span class="line">    NSData *data &#x3D; UIImageJPEGRepresentation(image, 1.0);</span><br><span class="line">    NSURLResponse *response &#x3D; [[NSURLResponse alloc] initWithURL:urlSchemeTask.request.URL MIMEType:@&quot;image&#x2F;jpeg&quot; expectedContentLength:data.length textEncodingName:nil];</span><br><span class="line">    [urlSchemeTask didReceiveResponse:response];</span><br><span class="line">    [urlSchemeTask didReceiveData:data];</span><br><span class="line">    [urlSchemeTask didFinish];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    if (self.updateImageBlock) &#123;</span><br><span class="line">        self.updateImageBlock();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSString *htmlImageUrlStr &#x3D; [NSString stringWithFormat:@&quot;%@&quot;,urlSchemeTask.request.URL];</span><br><span class="line">    NSString *dloadImageUrlStr &#x3D; [htmlImageUrlStr stringByReplacingOccurrencesOfString:XXXCustomImageScheme withString:self.oriImageScheme];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        </span><br><span class="line">        [self readImageForKey:dloadImageUrlStr htmlImageUrlStr:htmlImageUrlStr webView:webView];</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)readImageForKey:(NSString *)dloadImageUrlStr htmlImageUrlStr:(NSString *)htmlImageUrlStr webView:(WKWebView *)webView &#123;</span><br><span class="line">    </span><br><span class="line">    __weak typeof(self) weakSelf &#x3D; self;</span><br><span class="line">    NSURL *url &#x3D; [NSURL URLWithString:dloadImageUrlStr];</span><br><span class="line">    [[SDWebImageManager sharedManager] loadImageWithURL:url options:SDWebImageRetryFailed progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) &#123;</span><br><span class="line">        if (image || data) &#123;</span><br><span class="line">            NSData *imgData &#x3D; data;</span><br><span class="line">            if (!imgData) &#123;</span><br><span class="line">                imgData &#x3D; UIImageJPEGRepresentation(image, 1);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                [weakSelf callJsUpdateImage:webView imageData:imgData htmlImageUrlStr:htmlImageUrlStr];</span><br><span class="line">            &#125;);</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        if (error) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)callJsUpdateImage:(WKWebView *)webView imageData:(NSData *)imageData htmlImageUrlStr:(NSString *)imageUrlString &#123;</span><br><span class="line">    </span><br><span class="line">    __weak typeof(self) weakSelf &#x3D; self;</span><br><span class="line">    NSString *imageDataStr &#x3D; [NSString stringWithFormat:@&quot;data:image&#x2F;png;base64,%@&quot;,[imageData base64EncodedString]];</span><br><span class="line">    NSString *func &#x3D; [NSString stringWithFormat:@&quot;xxxUpdateImage(&#39;%@&#39;,&#39;%@&#39;)&quot;,imageUrlString,imageDataStr];</span><br><span class="line">    [webView evaluateJavaScript:func completionHandler:^(id _Nullable response, NSError * _Nullable error) &#123;</span><br><span class="line">        if (weakSelf.updateImageBlock &amp;&amp; !error) &#123;</span><br><span class="line">            weakSelf.updateImageBlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-初始化-WKWebView-并配置拦截信息"><a href="#5-初始化-WKWebView-并配置拦截信息" class="headerlink" title="5.初始化 WKWebView 并配置拦截信息"></a>5.初始化 WKWebView 并配置拦截信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">WKWebViewConfiguration *config &#x3D; [[WKWebViewConfiguration alloc] init];</span><br><span class="line">XXXCustomSchemeHanlder *schemeHandler &#x3D; XXXCustomSchemeHanlder.new;</span><br><span class="line"></span><br><span class="line">schemeHandler.oriImageScheme &#x3D; self.oriImageScheme;</span><br><span class="line">schemeHandler.oriImageUrl &#x3D; self.oriImageUrl;</span><br><span class="line">schemeHandler.placeholderImage &#x3D; self.placeholderImage;</span><br><span class="line"></span><br><span class="line">__weak typeof(self) weakSelf &#x3D; self;</span><br><span class="line">schemeHandler.updateImageBlock &#x3D; ^ &#123;</span><br><span class="line">    [weakSelf updateHeight];</span><br><span class="line">&#125;;</span><br><span class="line">[config setURLSchemeHandler:schemeHandler forURLScheme:XXXCustomImageScheme];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">WKWebView  *webView &#x3D; [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) configuration:config];</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-更新高度"><a href="#6-更新高度" class="headerlink" title="6. 更新高度"></a>6. 更新高度</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)updateHeight &#123;</span><br><span class="line">    [self nowUpdateHeight];</span><br><span class="line">    [self delayUpdateHeight];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)nowUpdateHeight &#123;</span><br><span class="line">    </span><br><span class="line">    __weak typeof(self) weakSelf &#x3D; self;</span><br><span class="line">    [self.webView evaluateJavaScript:@&quot;document.body.offsetHeight&quot; completionHandler:^(id _Nullable result,NSError * _Nullable error) &#123;</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F; 高度会有一点少 ，手动补上 20</span><br><span class="line">        CGFloat height &#x3D; [result floatValue] + 20.0;</span><br><span class="line">        weakSelf.webView.height &#x3D; height;</span><br><span class="line">        weakSelf.height &#x3D; height;</span><br><span class="line">        if (weakSelf.loadOverHeight) &#123;</span><br><span class="line">            weakSelf.loadOverHeight(height);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)delayUpdateHeight &#123;</span><br><span class="line">    </span><br><span class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, DelayTime * NSEC_PER_SEC), dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        [self nowUpdateHeight];</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Demo下载-1"><a href="#Demo下载-1" class="headerlink" title="Demo下载"></a><a class="link"   target="_blank" rel="noopener" href="https://github.com/xxxIxxxx/XXXWebView" >Demo下载<i class="fas fa-external-link-alt"></i></a></h1>
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：WKWebView 加载 html</li>
+        <li>Post author：xxxixxxx</li>
+        <li>Create time：2020-12-17 00:00:00</li>
+        <li>
+            Post link：https://xxxixxx.github.io/2020/12/17/iOS-WKWebView-loadHTMLString-异步加载图片-为图片添加点击事件/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/12/18/hello-world/"
+                        >
+                            <span class="left arrow-icon flex-center" >
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">利用 hexo 和 github 搭建自己的博客</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/12/07/iOS-Widget-%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E6%B7%BB%E5%8A%A0-%E3%80%81iOS-Widget-%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">iOS Widget 不显示无法添加、iOS Widget 加载网络图片</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center" >
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <div id="gitalk-container"></div>
+    <script>
+        let __gitalk__pathname = decodeURI(location.pathname);
+        const __gitalk__pathnameLength = __gitalk__pathname.length;
+        const __gitalk__pathnameMaxLength = 50;
+        if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+            __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+        }
+        const gitalk = new Gitalk({
+            clientID: '05d6078a4c7600db559a',
+            clientSecret: 'c90735f7625a510bac9883b7348b99b60f7fc9a7',
+            repo: 'blogTalk',
+            owner: 'xxxIxxxx',
+            admin: ['xxxIxxxx'],
+            id: __gitalk__pathname,
+            language: 'en'
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                    
+                </main>
+
+            </div>
+
+            <div class="page-main-content-bottom">
+                <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span> -
+            
+            2020 <i class="fas fa-heart icon-animate"></i> <a href="/">xxxixxxx</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a> | Theme <a class="theme-version" target="_blank"></a>
+        </div>
+    </div>
+</footer>
+
+            </div>
+        </div>
+    </main>
+
+    <div class="sidebar-tools">
+        <div class="tools-container">
+    <ul class="tools-list">
+        
+            <li class="search popup-trigger">
+                <i class="fas fa-search"></i>
+            </li>
+        
+
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+    </ul>
+</div>
+
+    </div>
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center" href="/atom.xml" target="_blank"><i class="fas fa-rss"></i></a>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-top flex-center">
+            <i class="fas fa-arrow-up"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="tools-ul-1">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+    </ul>
+</div>
+
+    </div>
+
+    <!-- page aside -->
+    <aside class="page-aside">
+        
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%8B%E5%A6%82%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E5%A6%82%E4%B8%8B"><span class="nav-number">1.</span> <span class="nav-text">例如返回的数据格式如下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Demo%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.</span> <span class="nav-text">Demo下载</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%85%88%E5%B0%86%E5%9B%BE%E7%89%87%E9%93%BE%E6%8E%A5%E4%B8%AD%E7%9A%84-scheme-%E6%9B%BF%E6%8D%A2%E4%B8%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84-scheme"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">1.先将图片链接中的 scheme 替换为自定义的 scheme</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%9C%A8-html-%E6%A0%87%E7%AD%BE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%87%BD%E6%95%B0"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">2.在 html 标签中添加函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E5%AE%9E%E7%8E%B0-WKURLSchemeHandler-%E5%8D%8F%E8%AE%AE%E7%9A%84%E7%B1%BB"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">3.定义一个实现 WKURLSchemeHandler 协议的类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%AE%9E%E7%8E%B0%E5%8D%8F%E8%AE%AE%E6%96%B9%E6%B3%95-%E7%94%A8%E4%BA%8E%E6%8B%A6%E6%88%AA%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD"><span class="nav-number">2.0.0.4.</span> <span class="nav-text">4.实现协议方法 用于拦截图片加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%88%9D%E5%A7%8B%E5%8C%96-WKWebView-%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%8B%A6%E6%88%AA%E4%BF%A1%E6%81%AF"><span class="nav-number">2.0.0.5.</span> <span class="nav-text">5.初始化 WKWebView 并配置拦截信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E6%9B%B4%E6%96%B0%E9%AB%98%E5%BA%A6"><span class="nav-number">2.0.0.6.</span> <span class="nav-text">6. 更新高度</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Demo%E4%B8%8B%E8%BD%BD-1"><span class="nav-number">3.</span> <span class="nav-text">Demo下载</span></a></li></ol>
+    </div>
+</div>
+        
+    </aside>
+
+    <!-- image viewer -->
+    <div class="image-viewer-container">
+    <div class="img-box">
+        <img src="">
+    </div>
+</div>
+
+
+</div>
+
+
+
+    <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-icon">
+            <i class="fas fa-search"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/local-search.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/left-side-toggle.js"></script>
+
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/code-copy.js"></script>
+    
+
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/toc.js"></script>
+    
+
+
+</body>
+</html>
