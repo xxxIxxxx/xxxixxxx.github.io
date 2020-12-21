@@ -713,12 +713,9 @@
 ]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/2020/12/21/iOS-OC-%E4%B8%8E-Swift-%E6%B7%B7%E7%BC%96/</url>
-    <content><![CDATA[<hr>
-<p>title: iOS OC 与 Swift 混编<br>categories: [iOS]<br>tags: [iOS混编]<br>sticky:  #9999<br>date: 2020-12-06</p>
-<hr>
-<h1 id="1-XXX-Bridging-Header-h"><a href="#1-XXX-Bridging-Header-h" class="headerlink" title="1. XXX-Bridging-Header.h"></a>1. XXX-Bridging-Header.h</h1><p>新建Swift文件时一般会自动提示创建<code>XXX-Bridging-Header.h</code>文件。如果没有那么自己新建一个 Header 文件，命名为<code>项目名-Bridging-Header.h</code><br><img src="https://upload-images.jianshu.io/upload_images/2331323-40814d95e9d8b2f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新建 Header 文件"></p>
+    <title>iOS OC 与 Swift 混编</title>
+    <url>/2020/12/06/iOS-OC-%E4%B8%8E-Swift-%E6%B7%B7%E7%BC%96/</url>
+    <content><![CDATA[<h1 id="1-XXX-Bridging-Header-h"><a href="#1-XXX-Bridging-Header-h" class="headerlink" title="1. XXX-Bridging-Header.h"></a>1. XXX-Bridging-Header.h</h1><p>新建Swift文件时一般会自动提示创建<code>XXX-Bridging-Header.h</code>文件。如果没有那么自己新建一个 Header 文件，命名为<code>项目名-Bridging-Header.h</code><br><img src="https://upload-images.jianshu.io/upload_images/2331323-40814d95e9d8b2f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新建 Header 文件"></p>
 <h1 id="2-打开-Target-gt-BuildSettings-搜索-Header"><a href="#2-打开-Target-gt-BuildSettings-搜索-Header" class="headerlink" title="2. 打开 Target -&gt; BuildSettings 搜索 Header"></a>2. 打开 Target -&gt; BuildSettings 搜索 <code>Header</code></h1><h2 id="User-Header-Search-Paths-填写-SRCROOT"><a href="#User-Header-Search-Paths-填写-SRCROOT" class="headerlink" title="User Header Search Paths 填写 $(SRCROOT)"></a><code>User Header Search Paths</code> 填写 <code>$(SRCROOT)</code></h2><h2 id="Enable-Modules-c-and-objective-C-填写-YES"><a href="#Enable-Modules-c-and-objective-C-填写-YES" class="headerlink" title="Enable Modules(c and objective-C) 填写 YES"></a><code>Enable Modules(c and objective-C)</code> 填写 <code>YES</code></h2><h2 id="Objective-C-Bridging-Header-填写-项目名称-项目名称-Bridging-Header-h-⚠️这里是个路径"><a href="#Objective-C-Bridging-Header-填写-项目名称-项目名称-Bridging-Header-h-⚠️这里是个路径" class="headerlink" title="Objective-C Bridging Header 填写 项目名称/项目名称-Bridging-Header.h ⚠️这里是个路径"></a><code>Objective-C Bridging Header</code> 填写 <code>项目名称/项目名称-Bridging-Header.h</code> ⚠️这里是个路径</h2><h2 id="Objective-C-Generated-Interface-Header-Name-填写-项目名称-Swift-h-这里是-OC-引用-Swift-需要用到的。"><a href="#Objective-C-Generated-Interface-Header-Name-填写-项目名称-Swift-h-这里是-OC-引用-Swift-需要用到的。" class="headerlink" title="Objective-C Generated Interface Header Name 填写 项目名称-Swift.h 这里是 OC 引用 Swift 需要用到的。"></a><code>Objective-C Generated Interface Header Name</code> 填写 <code>项目名称-Swift.h</code> 这里是 OC 引用 Swift 需要用到的。</h2><p><img src="https://upload-images.jianshu.io/upload_images/2331323-c91b49763e023f54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BuildSettings 需要修改的地方"></p>
 <h1 id="3-pod-需要修改的地方"><a href="#3-pod-需要修改的地方" class="headerlink" title="3. pod 需要修改的地方"></a>3. pod 需要修改的地方</h1><p>Podfile 增加 <code>use_frameworks!</code> 后重新 <code>pod install</code></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">target&#39;XXXXX&#39; do</span><br><span class="line">use_frameworks!</span><br></pre></td></tr></table></figure>
@@ -730,6 +727,12 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class XXXViewController: UIViewController &#123;</span><br><span class="line"></span><br><span class="line">    @objc var name:String &#x3D; &quot;&quot;</span><br><span class="line"></span><br><span class="line">    override func viewDidLoad() &#123;</span><br><span class="line">        super.viewDidLoad()</span><br><span class="line">    &#125;  </span><br><span class="line">    @objc func data()  &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="5-Swift-引用-OC"><a href="#5-Swift-引用-OC" class="headerlink" title="5. Swift 引用 OC"></a>5. Swift 引用 OC</h1><p>把需要引用的文件导入到 <code>项目名-Bridging-Header.h</code> ，即可在 Swift 中引用。</p>
 ]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>iOS混编</tag>
+      </tags>
   </entry>
   <entry>
     <title>解决导入 objc/Runtime.h 和 objc/message.h 头文件后，敲击代码不提示 / Runtime 代码不提示</title>
