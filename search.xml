@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Swift 协议与扩展</title>
+    <url>/2020/12/25/-00001-Swift%E5%8D%8F%E8%AE%AE%E4%B8%8E%E6%89%A9%E5%B1%95/</url>
+    <content><![CDATA[<h1 id="协议-Protocol"><a href="#协议-Protocol" class="headerlink" title="协议 Protocol"></a>协议 Protocol</h1><h2 id="使用-Protocol-关键字创建一个协议"><a href="#使用-Protocol-关键字创建一个协议" class="headerlink" title="使用 Protocol 关键字创建一个协议"></a>使用 Protocol 关键字创建一个协议</h2><blockquote>
+<p>让遵守该协议的 class 与 struct 实现约定一些方法与属性。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">protocol PageNumberProtocol &#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 添加的实例属性</span><br><span class="line">    var pageNumber: Int &#123; get set &#125;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 添加的实例方法</span><br><span class="line">    func add()</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#x2F; 添加的类属性</span><br><span class="line">    static var name: String? &#123; get set &#125;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 添加的类方法</span><br><span class="line">    static func logName()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="遵守协议"><a href="#遵守协议" class="headerlink" title="遵守协议"></a>遵守协议</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct Person: PageNumberProtocol &#123;</span><br><span class="line">    var pageNumber: Int</span><br><span class="line"></span><br><span class="line">    func add() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    static var name: String?</span><br><span class="line"></span><br><span class="line">    static func logName() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Car: PageNumberProtocol &#123;</span><br><span class="line">    var pageNumber: Int &#x3D; 0</span><br><span class="line"></span><br><span class="line">    func add() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    static var name: String?</span><br><span class="line"></span><br><span class="line">    static func logName() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="扩展-extension"><a href="#扩展-extension" class="headerlink" title="扩展 extension"></a>扩展 extension</h1><h2 id="扩展使用的很多应该都很熟悉"><a href="#扩展使用的很多应该都很熟悉" class="headerlink" title="扩展使用的很多应该都很熟悉"></a>扩展使用的很多应该都很熟悉</h2><blockquote>
+<p>分散代码实现</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extension Car &#123;</span><br><span class="line">    func dididi() &#123;</span><br><span class="line">        print(&quot;滴滴滴&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Car().dididi()</span><br></pre></td></tr></table></figure>
+
+<h1 id="Protocl-Extension"><a href="#Protocl-Extension" class="headerlink" title="Protocl + Extension"></a>Protocl + Extension</h1><blockquote>
+<p>给出协议并实现协议，这样遵守协议的 class 和 struct 就能直接使用协议方法。</p>
+</blockquote>
+<h2 id="runtime-添加属性"><a href="#runtime-添加属性" class="headerlink" title="runtime 添加属性"></a>runtime 添加属性</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func getAssociatedObject&lt;T&gt;(_ object: Any, _ key: UnsafeRawPointer) -&gt; T? &#123;</span><br><span class="line">    return objc_getAssociatedObject(object, key) as? T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func setRetainedAssociatedObject&lt;T&gt;(_ object: Any, _ key: UnsafeRawPointer, _ value: T) &#123;</span><br><span class="line">    objc_setAssociatedObject(object, key, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">protocol PageNumberProtocol &#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 添加的实例属性</span><br><span class="line">    var pageNumber: Int &#123; get set &#125;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 添加的实例方法</span><br><span class="line">    func add()</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#x2F; 添加的类属性</span><br><span class="line">    static var name: String? &#123; get set &#125;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 添加的类方法</span><br><span class="line">    static func logName()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="扩展遵守协议"><a href="#扩展遵守协议" class="headerlink" title="扩展遵守协议"></a>扩展遵守协议</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">private var pageNumberKey: Void?</span><br><span class="line"></span><br><span class="line">private var nameKey: Void?</span><br><span class="line"></span><br><span class="line">extension UIViewController: PageNumberProtocol &#123;</span><br><span class="line">    static func logName() &#123;</span><br><span class="line">        debugPrint(name ?? &quot;无名&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static var name: String? &#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            getAssociatedObject(self, &amp;nameKey)</span><br><span class="line">        &#125;</span><br><span class="line">        set &#123;</span><br><span class="line">            setRetainedAssociatedObject(self, &amp;nameKey, newValue)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func add() &#123;</span><br><span class="line">        pageNumber +&#x3D; 1</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var pageNumber: Int &#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            getAssociatedObject(self, &amp;pageNumberKey) ?? 0</span><br><span class="line">        &#125;</span><br><span class="line">        set &#123;</span><br><span class="line">            setRetainedAssociatedObject(self, &amp;pageNumberKey, newValue)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这样所有遵守 PageNumberProtocol 协议的 UIViewController 就都有了协议要求的属性与方法且已经实现了。</p>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>Protocol</tag>
+        <tag>Extension</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RxSwift-创建可观察序列</title>
     <url>/2020/11/11/1--RxSwift-%E5%88%9B%E5%BB%BA%E5%8F%AF%E8%A7%82%E5%AF%9F%E5%BA%8F%E5%88%97/</url>
     <content><![CDATA[<h3 id="empty-方法初始化"><a href="#empty-方法初始化" class="headerlink" title="empty() 方法初始化"></a>empty() 方法初始化</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 创建了一个空内容的 Observable</span><br><span class="line">let ob &#x3D; Observable&lt;Int&gt;.empty()</span><br><span class="line">&#x2F;&#x2F; 先简单的写一种订阅的方法</span><br><span class="line">ob.subscribe &#123; print(&quot;执行了&quot;) &#125;</span><br></pre></td></tr></table></figure>
