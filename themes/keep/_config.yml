@@ -79,16 +79,16 @@ comment:
   # Valine
   # See: https://github.com/xCss/Valine
   valine:
-    enable: false
-    appid: # your leancloud application appid
-    appkey: # your leancloud application appkey
-    meta: # comment input meta, type: Array, values: ['nick', 'mail', 'link']
-    placeholder: # your placeholder
+    enable: true
+    appid: 1zMbU0F6CLL5EFJNQOkNJSSP-gzGzoHsz # your leancloud application appid
+    appkey: zCB8Eokt3Assyi0cPe2SgDOD # your leancloud application appkey
+    meta: ["nick", "mail", "link"] # comment input meta, type: Array, values: ['nick', 'mail', 'link']
+    placeholder: "来交流吧～" # your placeholder
 
   # Gitalk
   # See: https://github.com/gitalk/gitalk
   gitalk:
-    enable: true
+    enable: false
     admin: xxxixxxx
     github_id: xxxIxxxx # GitHub repo owner
     repository: blogTalk # Repository name to store issues
