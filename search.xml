@@ -35,6 +35,25 @@
       </tags>
   </entry>
   <entry>
+    <title>Dart 基础之 类、set、get、构造函数、方法</title>
+    <url>/2020/12/27/-00002-Flutter/</url>
+    <content><![CDATA[<h1 id="类、属性、方法"><a href="#类、属性、方法" class="headerlink" title="类、属性、方法"></a>类、属性、方法</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  String name;</span><br><span class="line">  int age;</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;名字:$name 年龄:$age&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="默认构造函数、初始化列表"><a href="#默认构造函数、初始化列表" class="headerlink" title="默认构造函数、初始化列表"></a>默认构造函数、初始化列表</h1><blockquote>
+<p>存在初始化列表就不能存在默认构造函数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  &#x2F;&#x2F;默认构造函数 简写</span><br><span class="line">  Person(this.name, this.age);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;默认构造函数 全写</span><br><span class="line">  Person(String name, int age) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 初始化列表</span><br><span class="line">  Person()</span><br><span class="line">      : name &#x3D; &#39;李华&#39;,</span><br><span class="line">        age &#x3D; 22 &#123;</span><br><span class="line">    print(this.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="匿名构造函数"><a href="#匿名构造函数" class="headerlink" title="匿名构造函数"></a>匿名构造函数</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  Person.newPeople() &#123;</span><br><span class="line">    name &#x3D; &quot;李四&quot;;</span><br><span class="line">    age &#x3D; 33;</span><br><span class="line">  &#125;</span><br><span class="line">&#x2F;&#x2F; 带参数匿名构造函数</span><br><span class="line">  Person.new2(String name, int age) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="私有属性、私有方法、set方法、get方法"><a href="#私有属性、私有方法、set方法、get方法" class="headerlink" title="私有属性、私有方法、set方法、get方法"></a>私有属性、私有方法、set方法、get方法</h1><blockquote>
+<p>私有属性、私有方法  这个类必须单独在一个文件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  var _money &#x3D; 999999;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK:set 方法</span><br><span class="line">  set gongzi(int value) &#123;</span><br><span class="line">    _money &#x3D; _money + value;</span><br><span class="line">    _printMoney();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK:get方法</span><br><span class="line">  int get money &#123;</span><br><span class="line">    return _money;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK:   私有方法 这个类必须单独在一个文件</span><br><span class="line">  _printMoney() &#123;</span><br><span class="line">    print(money);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
     <title>RxSwift-创建可观察序列</title>
     <url>/2020/11/11/1--RxSwift-%E5%88%9B%E5%BB%BA%E5%8F%AF%E8%A7%82%E5%AF%9F%E5%BA%8F%E5%88%97/</url>
     <content><![CDATA[<h3 id="empty-方法初始化"><a href="#empty-方法初始化" class="headerlink" title="empty() 方法初始化"></a>empty() 方法初始化</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 创建了一个空内容的 Observable</span><br><span class="line">let ob &#x3D; Observable&lt;Int&gt;.empty()</span><br><span class="line">&#x2F;&#x2F; 先简单的写一种订阅的方法</span><br><span class="line">ob.subscribe &#123; print(&quot;执行了&quot;) &#125;</span><br></pre></td></tr></table></figure>

@@ -409,11 +409,69 @@
     <!-- page aside -->
     <aside class="page-aside">
         
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Intent-Widget-%E5%BC%80%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">Intent Widget 开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-Widget-%E5%BC%80%E5%8F%91"><span class="nav-number">2.</span> <span class="nav-text">Static Widget 开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo%E4%B8%8B%E8%BD%BD"><span class="nav-number">3.</span> <span class="nav-text">Demo下载</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Widget-%E5%9C%A8%E6%B7%BB%E5%8A%A0%E6%97%B6%E6%89%BE%E4%B8%8D%E5%88%B0"><span class="nav-number"></span> <span class="nav-text">Widget 在添加时找不到</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">解决方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Widget-%E6%98%AF%E4%B8%8D%E8%83%BD%E5%81%9A%E5%8A%A8%E7%94%BB%E4%B9%9F%E4%B8%8D%E8%83%BD%E5%BC%82%E6%AD%A5%E5%88%B7%E6%96%B0%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%BF%85%E9%A1%BB%E5%90%8C%E6%AD%A5"><span class="nav-number"></span> <span class="nav-text">Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步</span></a>
-    </div>
-</div>
+            .post-toc-wrap {
+  width: 100%;
+  font-size: 0.92rem;
+  box-sizing: border-box;
+
+  .post-toc {
+
+    ol {
+      list-style: none;
+      margin: 0;
+      padding: 0 2px 12px 10px;
+      text-align: left;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+
+      > ol {
+        padding-left: 0;
+      }
+
+      a {
+        transition-property: all;
+        transition();
+      }
+    }
+
+    .nav-item {
+      line-height: 1.8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .nav {
+      .nav-child {
+        display: hexo-config('toc.expand_all') ? block : none;
+      }
+
+      .active > .nav-child {
+        display: block;
+      }
+
+      .active-current > .nav-child {
+        display: block;
+
+        > .nav-item {
+          display: block;
+        }
+      }
+
+      .active > a {
+        color: var(--primary-color);
+      }
+
+      .active-current > a {
+        color: var(--primary-color);
+      }
+    }
+  }
+}
+
+
         
     </aside>
 

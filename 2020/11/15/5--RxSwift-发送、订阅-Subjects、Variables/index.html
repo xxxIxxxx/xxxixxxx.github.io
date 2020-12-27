@@ -429,11 +429,69 @@
     <!-- page aside -->
     <aside class="page-aside">
         
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Subjects-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">Subjects 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Subjects-%E6%98%AF%E8%AE%A2%E9%98%85%E8%80%85%EF%BC%8C%E4%B9%9F%E6%98%AFObservable"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. Subjects 是订阅者，也是Observable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 常用的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Subjects-%E6%9C%89%E5%9B%9B%E7%A7%8DPublishSubject%E3%80%81BehaviorSubject%E3%80%81ReplaySubject%E3%80%81Variable"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. Subjects 有四种PublishSubject、BehaviorSubject、ReplaySubject、Variable</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%B8%E5%90%8C%E7%82%B9"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">相同点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%82%B9"><span class="nav-number">1.0.3.0.2.</span> <span class="nav-text">不同点</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
-    </div>
-</div>
+            .post-toc-wrap {
+  width: 100%;
+  font-size: 0.92rem;
+  box-sizing: border-box;
+
+  .post-toc {
+
+    ol {
+      list-style: none;
+      margin: 0;
+      padding: 0 2px 12px 10px;
+      text-align: left;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+
+      > ol {
+        padding-left: 0;
+      }
+
+      a {
+        transition-property: all;
+        transition();
+      }
+    }
+
+    .nav-item {
+      line-height: 1.8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .nav {
+      .nav-child {
+        display: hexo-config('toc.expand_all') ? block : none;
+      }
+
+      .active > .nav-child {
+        display: block;
+      }
+
+      .active-current > .nav-child {
+        display: block;
+
+        > .nav-item {
+          display: block;
+        }
+      }
+
+      .active > a {
+        color: var(--primary-color);
+      }
+
+      .active-current > a {
+        color: var(--primary-color);
+      }
+    }
+  }
+}
+
+
         
     </aside>
 

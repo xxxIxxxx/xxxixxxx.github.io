@@ -408,11 +408,69 @@
     <!-- page aside -->
     <aside class="page-aside">
         
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Demo-%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">Demo 下载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%99%E4%B8%AA%E6%98%AF%E7%94%A8%E6%88%B7%E4%B8%8D%E5%8F%AF%E9%85%8D%E7%BD%AE%E7%9A%84%EF%BC%8C%E6%B2%A1%E6%9C%89%E7%BC%96%E8%BE%91%E9%80%89%E9%A1%B9%E7%9A%84-widget"><span class="nav-number">1.0.1.</span> <span class="nav-text">这个是用户不可配置的，没有编辑选项的 widget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Intent-%E7%94%A8%E6%88%B7%E5%8F%AF%E7%BC%96%E8%BE%91%E7%9A%84%E7%82%B9%E6%88%91%E5%8E%BB%E7%9C%8B"><span class="nav-number">1.0.2.</span> <span class="nav-text">Intent 用户可编辑的点我去看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="nav-number">1.0.3.</span> <span class="nav-text">代码如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E6%93%8D%E4%BD%9C%E7%9A%84%E8%AF%A6%E7%BB%86%E6%88%AA%E5%9B%BE"><span class="nav-number">1.0.4.</span> <span class="nav-text">部分操作的详细截图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Demo-%E4%B8%8B%E8%BD%BD-1"><span class="nav-number">2.</span> <span class="nav-text">Demo 下载</span></a></li></ol>
-    </div>
-</div>
+            .post-toc-wrap {
+  width: 100%;
+  font-size: 0.92rem;
+  box-sizing: border-box;
+
+  .post-toc {
+
+    ol {
+      list-style: none;
+      margin: 0;
+      padding: 0 2px 12px 10px;
+      text-align: left;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+
+      > ol {
+        padding-left: 0;
+      }
+
+      a {
+        transition-property: all;
+        transition();
+      }
+    }
+
+    .nav-item {
+      line-height: 1.8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .nav {
+      .nav-child {
+        display: hexo-config('toc.expand_all') ? block : none;
+      }
+
+      .active > .nav-child {
+        display: block;
+      }
+
+      .active-current > .nav-child {
+        display: block;
+
+        > .nav-item {
+          display: block;
+        }
+      }
+
+      .active > a {
+        color: var(--primary-color);
+      }
+
+      .active-current > a {
+        color: var(--primary-color);
+      }
+    }
+  }
+}
+
+
         
     </aside>
 

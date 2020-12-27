@@ -416,11 +416,69 @@
     <!-- page aside -->
     <aside class="page-aside">
         
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E7%AF%87%E6%98%AF%E7%94%A8%E6%88%B7%E5%8F%AF%E7%BC%96%E8%BE%91%E7%9A%84-Widget"><span class="nav-number">1.</span> <span class="nav-text">本篇是用户可编辑的 Widget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%B8%8D%E5%8F%AF%E7%BC%96%E8%BE%91%E7%9A%84-Widget%EF%BC%8C%E7%82%B9%E6%88%91%E5%8E%BB%E7%9C%8B"><span class="nav-number">2.</span> <span class="nav-text">用户不可编辑的 Widget，点我去看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E5%B1%8F%E5%B9%95-Widget-%E4%B8%8D%E6%98%BE%E7%A4%BA%EF%BC%8CWidget-%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87"><span class="nav-number">3.</span> <span class="nav-text">编辑屏幕 Widget 不显示，Widget 加载网络图片</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Demo-%E4%B8%8B%E8%BD%BD"><span class="nav-number"></span> <span class="nav-text">Demo 下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%88%E6%9D%A5%E7%9C%8B%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="nav-number"></span> <span class="nav-text">先来看效果图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%BA%E8%AE%AE%E5%B0%86-demo-%E4%B8%8B%E8%BD%BD%E4%B8%8B%E6%9D%A5%E5%AF%B9%E7%85%A7%E7%9D%80%E7%9C%8B%E5%AF%B9%E5%BA%94-demo-%E9%87%8C%E7%9A%84-AnimalWidget-%E6%96%87%E4%BB%B6"><span class="nav-number"></span> <span class="nav-text">建议将 demo 下载下来对照着看对应 demo 里的 AnimalWidget 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%96%B0%E5%BB%BA-Widget-Extension%EF%BC%8C%E5%8B%BE%E9%80%89-Intent%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">1. 新建 Widget Extension，勾选 Intent。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%82%B9%E5%87%BB-AnimalWidget-intentdefinition-%E6%96%87%E4%BB%B6-%E6%B7%BB%E5%8A%A0%E5%8F%AF%E7%BC%96%E8%BE%91%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C%E7%9C%8B%E5%9B%BE%E5%90%A7"><span class="nav-number">2.</span> <span class="nav-text">2. 点击 AnimalWidget.intentdefinition 文件 添加可编辑的数据类型 具体操作看图吧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%B8%BA%E7%AC%AC%E4%BA%8C%E6%AD%A5%E6%96%B0%E5%A2%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E8%AE%BE%E7%BD%AE%E5%AF%B9%E5%BA%94%E7%9A%84%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">3. 为第二步新增的数据类型 设置对应的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%BC%96%E8%BE%91-Info-plist-%EF%B8%8F%E6%98%AF-widget-extension-%E7%9A%84-Info-plist"><span class="nav-number">4.</span> <span class="nav-text">4. 编辑 Info.plist (️是 widget extension 的 Info.plist )</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%88%9B%E5%BB%BA-IntentHandler-swift-%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%8B%E4%BB%A3%E7%A0%81-%E5%8F%AF%E8%83%BD%E4%BC%9A%E6%8A%A5%E9%94%99-%E6%89%BE%E4%B8%8D%E5%88%B0-AnimalWidgetConfigurationIntentHandling-%E3%80%81AnimalWidgetConfigurationIntent-%E5%85%88%E4%B8%8D%E7%AE%A1%E5%85%88%E6%8A%8A%E5%88%AB%E7%9A%84%E9%85%8D%E7%BD%AE%E5%A5%BD"><span class="nav-number">5.</span> <span class="nav-text">5. 创建 IntentHandler.swift 添加一下代码 (可能会报错 找不到 AnimalWidgetConfigurationIntentHandling 、AnimalWidgetConfigurationIntent  先不管先把别的配置好)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E4%BF%AE%E6%94%B9-AnimalWidget-swift-%E5%86%85%E5%AE%B9"><span class="nav-number">6.</span> <span class="nav-text">6. 修改 AnimalWidget.swift 内容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-TimelineEntry"><span class="nav-number">6.1.</span> <span class="nav-text">修改 TimelineEntry</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-IntentTimelineProvider"><span class="nav-number">6.2.</span> <span class="nav-text">修改 IntentTimelineProvider</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%B8%8F-%E6%B6%89%E5%8F%8A%E5%88%B0-AnimalWidgetConfigurationIntent-%E5%8F%AF%E8%83%BD%E4%BC%9A%E6%8A%A5%E9%94%99-%E5%85%88%E4%B8%8D%E7%AE%A1-%EF%B8%8F"><span class="nav-number">6.3.</span> <span class="nav-text">️ 涉及到 AnimalWidgetConfigurationIntent 可能会报错 先不管 ️</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%9C%B0%E6%96%B9%E5%AF%B9%E7%85%A7-demo-%E4%BF%AE%E6%94%B9%E5%B0%B1%E5%8F%AF%E4%BB%A5%E4%BA%86"><span class="nav-number"></span> <span class="nav-text">其他地方对照 demo 修改就可以了</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EF%B8%8F%E5%A6%82%E6%9E%9C%E6%9C%89-Cannot-find-type-%E2%80%98AnimalWidgetConfigurationIntent%E2%80%99-in-scope-%E6%8A%A5%E9%94%99-%E5%B0%9D%E8%AF%95%E5%A4%9A-build-%E5%87%A0%E6%AC%A1%E6%88%96%E8%80%85-%E9%87%8D%E5%90%AF-Xcode%EF%B8%8F"><span class="nav-number"></span> <span class="nav-text">️如果有  Cannot find type ‘AnimalWidgetConfigurationIntent’ in scope 报错 尝试多 build 几次或者 重启 Xcode️</span></a>
-    </div>
-</div>
+            .post-toc-wrap {
+  width: 100%;
+  font-size: 0.92rem;
+  box-sizing: border-box;
+
+  .post-toc {
+
+    ol {
+      list-style: none;
+      margin: 0;
+      padding: 0 2px 12px 10px;
+      text-align: left;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+
+      > ol {
+        padding-left: 0;
+      }
+
+      a {
+        transition-property: all;
+        transition();
+      }
+    }
+
+    .nav-item {
+      line-height: 1.8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .nav {
+      .nav-child {
+        display: hexo-config('toc.expand_all') ? block : none;
+      }
+
+      .active > .nav-child {
+        display: block;
+      }
+
+      .active-current > .nav-child {
+        display: block;
+
+        > .nav-item {
+          display: block;
+        }
+      }
+
+      .active > a {
+        color: var(--primary-color);
+      }
+
+      .active-current > a {
+        color: var(--primary-color);
+      }
+    }
+  }
+}
+
+
         
     </aside>
 

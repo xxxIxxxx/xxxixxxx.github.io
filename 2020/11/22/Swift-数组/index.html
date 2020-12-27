@@ -400,11 +400,69 @@
     <!-- page aside -->
     <aside class="page-aside">
         
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="nav-number">1.</span> <span class="nav-text">删除元素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift-%E6%95%B0%E7%BB%84%E9%81%8D%E5%8E%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">Swift 数组遍历的几种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-for-in-%E4%B8%8D%E5%B8%A6%E7%B4%A2%E5%BC%95"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. for-in 不带索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-forEach-%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8-break-continue-%EF%BC%8C%E5%8F%AA%E8%83%BD%E4%BD%BF%E7%94%A8-return"><span class="nav-number">2.0.2.</span> <span class="nav-text">2. forEach 不能使用 break continue ，只能使用 return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-enumerated-%E5%B8%A6%E7%B4%A2%E5%BC%95-%E5%92%8C-%E5%80%BC"><span class="nav-number">2.0.3.</span> <span class="nav-text">3. enumerated() 带索引 和 值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-while"><span class="nav-number">2.0.4.</span> <span class="nav-text">4. while</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-indices-%E4%B8%8B%E6%A0%87%E7%B4%A2%E5%BC%95-%E9%81%8D%E5%8E%86%E4%B8%8B%E6%A0%87"><span class="nav-number">2.0.5.</span> <span class="nav-text">5. indices 下标索引 遍历下标</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8C%BA%E9%97%B4-for-in-%E5%8C%BA%E9%97%B4-for-%E5%BE%AA%E7%8E%AF"><span class="nav-number">3.</span> <span class="nav-text">区间 for-in 区间 for 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9F%A5%E6%89%BE%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">数组的一些查找操作</span></a></li></ol>
-    </div>
-</div>
+            .post-toc-wrap {
+  width: 100%;
+  font-size: 0.92rem;
+  box-sizing: border-box;
+
+  .post-toc {
+
+    ol {
+      list-style: none;
+      margin: 0;
+      padding: 0 2px 12px 10px;
+      text-align: left;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+
+      > ol {
+        padding-left: 0;
+      }
+
+      a {
+        transition-property: all;
+        transition();
+      }
+    }
+
+    .nav-item {
+      line-height: 1.8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .nav {
+      .nav-child {
+        display: hexo-config('toc.expand_all') ? block : none;
+      }
+
+      .active > .nav-child {
+        display: block;
+      }
+
+      .active-current > .nav-child {
+        display: block;
+
+        > .nav-item {
+          display: block;
+        }
+      }
+
+      .active > a {
+        color: var(--primary-color);
+      }
+
+      .active-current > a {
+        color: var(--primary-color);
+      }
+    }
+  }
+}
+
+
         
     </aside>
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <title>
-        iOS 修改状态栏的颜色 preferredStatusBarStyle |
+        Dart 基础之 类、set、get、构造函数、方法 |
         
         今日营业中
     </title>
@@ -128,7 +128,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">iOS 修改状态栏的颜色 preferredStatusBarStyle</span>
+            <span class="title-hover-animation">Dart 基础之 类、set、get、构造函数、方法</span>
         </div>
 
         
@@ -144,7 +144,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-calendar"></i> 2020-11-02 00:00:00
+        <i class="fas fa-calendar"></i> 2020-12-27 11:30:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -152,23 +152,12 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/iOS/">iOS</a>
+                        <a href="/categories/Dart/">Dart</a>
                     </li>
                 
             </ul>
         </span>
     
-    
-        <span class="article-tags article-meta-item">
-            <i class="fas fa-tags"></i>
-            <ul>
-                
-                    <li>
-                        <a href="/tags/UI/">UI</a>
-                    </li>
-                
-            </ul>
-        </span>
     
 
     
@@ -183,21 +172,29 @@
         
 
         <div class="article-content markdown-body">
-            <h3 id="⚠️⚠️⚠️首先要在项目的-Info-plist-文件里设置-View-controller-based-status-bar-appearance-为-YES，如果没有就不用添加⚠️-⚠️⚠️"><a href="#⚠️⚠️⚠️首先要在项目的-Info-plist-文件里设置-View-controller-based-status-bar-appearance-为-YES，如果没有就不用添加⚠️-⚠️⚠️" class="headerlink" title="⚠️⚠️⚠️首先要在项目的 Info.plist 文件里设置 View controller-based status bar appearance 为 YES，如果没有就不用添加⚠️ ⚠️⚠️"></a>⚠️⚠️⚠️首先要在项目的 Info.plist 文件里设置 View controller-based status bar appearance 为 YES，如果没有就不用添加⚠️ ⚠️⚠️</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">1. 重写 UINavigationController 的 childViewControllerForStatusBarStyle</span><br><span class="line">可以写在基类的 UINavigationController 中，也可以使用Category</span><br><span class="line">*&#x2F;</span><br><span class="line">- (UIViewController *)childViewControllerForStatusBarStyle &#123;</span><br><span class="line">    return self.topViewController;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;Swift </span><br><span class="line">override var childForStatusBarStyle: UIViewController? &#123;</span><br><span class="line">        return topViewController</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">2.  在需要改变状态栏颜色的 UIViewController 中实现 preferredStatusBarStyle</span><br><span class="line">*&#x2F;</span><br><span class="line">- (UIStatusBarStyle)preferredStatusBarStyle &#123;</span><br><span class="line">   return UIStatusBarStyleLightContent;</span><br><span class="line">   &#x2F;&#x2F; return UIStatusBarStyleDefault;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;Swift</span><br><span class="line">override var preferredStatusBarStyle: UIStatusBarStyle &#123;</span><br><span class="line">      return .lightContent</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">3. 当触发某个条件需要改变状态栏颜色时在 UIViewController 中调用</span><br><span class="line">然后在 - (UIStatusBarStyle)preferredStatusBarStyle; 中判断你的条件是否满足改变颜色</span><br><span class="line">*&#x2F;</span><br><span class="line">[self setNeedsStatusBarAppearanceUpdate];</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;Swift</span><br><span class="line">setNeedsStatusBarAppearanceUpdate()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+            <h1 id="类、属性、方法"><a href="#类、属性、方法" class="headerlink" title="类、属性、方法"></a>类、属性、方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  String name;</span><br><span class="line">  int age;</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;名字:$name 年龄:$age&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="默认构造函数、初始化列表"><a href="#默认构造函数、初始化列表" class="headerlink" title="默认构造函数、初始化列表"></a>默认构造函数、初始化列表</h1><blockquote>
+<p>存在初始化列表就不能存在默认构造函数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  &#x2F;&#x2F;默认构造函数 简写</span><br><span class="line">  Person(this.name, this.age);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;默认构造函数 全写</span><br><span class="line">  Person(String name, int age) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 初始化列表</span><br><span class="line">  Person()</span><br><span class="line">      : name &#x3D; &#39;李华&#39;,</span><br><span class="line">        age &#x3D; 22 &#123;</span><br><span class="line">    print(this.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>iOS修改状态栏颜色<br>OC 修改状态栏颜色<br>Swift修改状态栏颜色</p>
+<h1 id="匿名构造函数"><a href="#匿名构造函数" class="headerlink" title="匿名构造函数"></a>匿名构造函数</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  Person.newPeople() &#123;</span><br><span class="line">    name &#x3D; &quot;李四&quot;;</span><br><span class="line">    age &#x3D; 33;</span><br><span class="line">  &#125;</span><br><span class="line">&#x2F;&#x2F; 带参数匿名构造函数</span><br><span class="line">  Person.new2(String name, int age) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h1 id="私有属性、私有方法、set方法、get方法"><a href="#私有属性、私有方法、set方法、get方法" class="headerlink" title="私有属性、私有方法、set方法、get方法"></a>私有属性、私有方法、set方法、get方法</h1><blockquote>
+<p>私有属性、私有方法  这个类必须单独在一个文件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  var _money &#x3D; 999999;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK:set 方法</span><br><span class="line">  set gongzi(int value) &#123;</span><br><span class="line">    _money &#x3D; _money + value;</span><br><span class="line">    _printMoney();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK:get方法</span><br><span class="line">  int get money &#123;</span><br><span class="line">    return _money;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK:   私有方法 这个类必须单独在一个文件</span><br><span class="line">  _printMoney() &#123;</span><br><span class="line">    print(money);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：iOS 修改状态栏的颜色 preferredStatusBarStyle</li>
+        <li>Post title：Dart 基础之 类、set、get、构造函数、方法</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2020-11-02 00:00:00</li>
+        <li>Create time：2020-12-27 11:30:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2020/11/02/iOS-修改状态栏的颜色-preferredStatusBarStyle/
+            Post link：https://xxxixxx.github.io/2020/12/27/-00002-Flutter/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -211,29 +208,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2020/11/02/Swift-GCD-barrier/"
-                        >
-                            <span class="left arrow-icon flex-center" >
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">Swift GCD barrier</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2020/11/02/%E5%9C%A8Swift%E4%B8%AD%E4%BD%BF%E7%94%A8-NSClassFromString/"
+                           href="/2020/12/25/-00001-Swift%E5%8D%8F%E8%AE%AE%E4%B8%8E%E6%89%A9%E5%B1%95/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">在Swift中使用 NSClassFromString</span>
+                                <span class="post-nav-title-item">Swift 协议与扩展</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center" >
