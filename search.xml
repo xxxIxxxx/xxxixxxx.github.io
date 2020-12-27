@@ -93,7 +93,7 @@
       </categories>
   </entry>
   <entry>
-    <title>abstract 抽象类</title>
+    <title>Dart abstract 抽象类</title>
     <url>/2020/12/27/-00003-Dart%E5%9F%BA%E7%A1%805/</url>
     <content><![CDATA[<h1 id="抽象类-相当于协议-接口"><a href="#抽象类-相当于协议-接口" class="headerlink" title="抽象类 相当于协议 接口"></a>抽象类 相当于协议 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">  &#x2F;&#x2F;抽象方法 只有方法名 没有具体实现</span><br><span class="line">  run();</span><br><span class="line"></span><br><span class="line">  String name;</span><br><span class="line"></span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;普通方法&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Animal-an-Animal-抽象类-不能被实例化"><a href="#Animal-an-Animal-抽象类-不能被实例化" class="headerlink" title="Animal an = Animal();   //抽象类 不能被实例化"></a>Animal an = Animal();   //抽象类 不能被实例化</h2><h1 id="继承抽象类"><a href="#继承抽象类" class="headerlink" title="继承抽象类"></a>继承抽象类</h1><blockquote>
@@ -129,6 +129,17 @@
 
 <h1 id="泛型-接口"><a href="#泛型-接口" class="headerlink" title="泛型 接口"></a>泛型 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class ABC&lt;T&gt; &#123;</span><br><span class="line">  addObject(String key);</span><br><span class="line">  setValue(String key, T value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="实现泛型接口"><a href="#实现泛型接口" class="headerlink" title="实现泛型接口"></a>实现泛型接口</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Wq&lt;T&gt; implements ABC&lt;T&gt; &#123;</span><br><span class="line">  @override</span><br><span class="line">  addObject(String key) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  setValue(String key, T value) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Dart 导入库</title>
+    <url>/2020/12/27/-00003-Dart%E5%9F%BA%E7%A1%808/</url>
+    <content><![CDATA[<blockquote>
+<p>如果库冲突了 使用 as 重命名   show 导入部分  hide不导入的部分</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#39;XXX.dart&#39; as lib show Person;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Dart</category>
       </categories>
