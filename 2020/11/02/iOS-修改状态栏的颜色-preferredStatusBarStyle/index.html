@@ -139,7 +139,7 @@
                 <div class="info">
                     <div class="author">
                         <span>xxxixxxx</span>
-                        <span class="level">Lv5</span>
+                        <span class="level">Lv6</span>
                     </div>
                     <div class="meta-info">
                         <div class="article-meta-info">
@@ -403,69 +403,11 @@
     <!-- page aside -->
     <aside class="page-aside">
         
-            .post-toc-wrap {
-  width: 100%;
-  font-size: 0.92rem;
-  box-sizing: border-box;
-
-  .post-toc {
-
-    ol {
-      list-style: none;
-      margin: 0;
-      padding: 0 2px 12px 10px;
-      text-align: left;
-
-      &:last-child {
-        padding-bottom: 0;
-      }
-
-      > ol {
-        padding-left: 0;
-      }
-
-      a {
-        transition-property: all;
-        transition();
-      }
-    }
-
-    .nav-item {
-      line-height: 1.8;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .nav {
-      .nav-child {
-        display: hexo-config('toc.expand_all') ? block : none;
-      }
-
-      .active > .nav-child {
-        display: block;
-      }
-
-      .active-current > .nav-child {
-        display: block;
-
-        > .nav-item {
-          display: block;
-        }
-      }
-
-      .active > a {
-        color: var(--primary-color);
-      }
-
-      .active-current > a {
-        color: var(--primary-color);
-      }
-    }
-  }
-}
-
-
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9A%A0%EF%B8%8F%E2%9A%A0%EF%B8%8F%E2%9A%A0%EF%B8%8F%E9%A6%96%E5%85%88%E8%A6%81%E5%9C%A8%E9%A1%B9%E7%9B%AE%E7%9A%84-Info-plist-%E6%96%87%E4%BB%B6%E9%87%8C%E8%AE%BE%E7%BD%AE-View-controller-based-status-bar-appearance-%E4%B8%BA-YES%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%B2%A1%E6%9C%89%E5%B0%B1%E4%B8%8D%E7%94%A8%E6%B7%BB%E5%8A%A0%E2%9A%A0%EF%B8%8F-%E2%9A%A0%EF%B8%8F%E2%9A%A0%EF%B8%8F"><span class="nav-number">1.</span> <span class="nav-text">⚠️⚠️⚠️首先要在项目的 Info.plist 文件里设置 View controller-based status bar appearance 为 YES，如果没有就不用添加⚠️ ⚠️⚠️</span></a></li></ol>
+    </div>
+</div>
         
     </aside>
 

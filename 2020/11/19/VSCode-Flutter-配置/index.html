@@ -139,7 +139,7 @@
                 <div class="info">
                     <div class="author">
                         <span>xxxixxxx</span>
-                        <span class="level">Lv5</span>
+                        <span class="level">Lv6</span>
                     </div>
                     <div class="meta-info">
                         <div class="article-meta-info">
@@ -413,69 +413,11 @@
     <!-- page aside -->
     <aside class="page-aside">
         
-            .post-toc-wrap {
-  width: 100%;
-  font-size: 0.92rem;
-  box-sizing: border-box;
-
-  .post-toc {
-
-    ol {
-      list-style: none;
-      margin: 0;
-      padding: 0 2px 12px 10px;
-      text-align: left;
-
-      &:last-child {
-        padding-bottom: 0;
-      }
-
-      > ol {
-        padding-left: 0;
-      }
-
-      a {
-        transition-property: all;
-        transition();
-      }
-    }
-
-    .nav-item {
-      line-height: 1.8;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .nav {
-      .nav-child {
-        display: hexo-config('toc.expand_all') ? block : none;
-      }
-
-      .active > .nav-child {
-        display: block;
-      }
-
-      .active-current > .nav-child {
-        display: block;
-
-        > .nav-item {
-          display: block;
-        }
-      }
-
-      .active > a {
-        color: var(--primary-color);
-      }
-
-      .active-current > a {
-        color: var(--primary-color);
-      }
-    }
-  }
-}
-
-
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">插件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">运行配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="nav-number">2.0.1.</span> <span class="nav-text">搜索关键词</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E6%9C%89%E5%B8%AE%E5%8A%A9%E6%B1%82%E7%82%B9%E8%B5%9E%EF%BC%81"><span class="nav-number">3.</span> <span class="nav-text">如果有帮助求点赞！</span></a></li></ol>
+    </div>
+</div>
         
     </aside>
 

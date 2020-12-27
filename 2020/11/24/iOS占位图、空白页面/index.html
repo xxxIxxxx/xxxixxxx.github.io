@@ -139,7 +139,7 @@
                 <div class="info">
                     <div class="author">
                         <span>xxxixxxx</span>
-                        <span class="level">Lv5</span>
+                        <span class="level">Lv6</span>
                     </div>
                     <div class="meta-info">
                         <div class="article-meta-info">
@@ -401,69 +401,11 @@
     <!-- page aside -->
     <aside class="page-aside">
         
-            .post-toc-wrap {
-  width: 100%;
-  font-size: 0.92rem;
-  box-sizing: border-box;
-
-  .post-toc {
-
-    ol {
-      list-style: none;
-      margin: 0;
-      padding: 0 2px 12px 10px;
-      text-align: left;
-
-      &:last-child {
-        padding-bottom: 0;
-      }
-
-      > ol {
-        padding-left: 0;
-      }
-
-      a {
-        transition-property: all;
-        transition();
-      }
-    }
-
-    .nav-item {
-      line-height: 1.8;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .nav {
-      .nav-child {
-        display: hexo-config('toc.expand_all') ? block : none;
-      }
-
-      .active > .nav-child {
-        display: block;
-      }
-
-      .active-current > .nav-child {
-        display: block;
-
-        > .nav-item {
-          display: block;
-        }
-      }
-
-      .active > a {
-        color: var(--primary-color);
-      }
-
-      .active-current > a {
-        color: var(--primary-color);
-      }
-    }
-  }
-}
-
-
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS%E5%8D%A0%E4%BD%8D%E5%9B%BE%E3%80%81%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2-Github%E7%9B%B4%E8%BE%BE"><span class="nav-number">1.</span> <span class="nav-text">iOS占位图、空白页面 Github直达</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS%E5%8D%A0%E4%BD%8D%E5%9B%BE%E3%80%81%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2-%E9%80%82%E7%94%A8%E4%BA%8Eview%E3%80%81tableView%E3%80%81collectionView%E3%80%81scrollvew"><span class="nav-number">2.</span> <span class="nav-text">iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%98%84%F0%9F%98%84%F0%9F%98%84"><span class="nav-number">3.</span> <span class="nav-text">😄😄😄</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">4.</span> <span class="nav-text">注意</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%BD%93tableView%E3%80%81collectionView-%E6%9C%89%E6%95%B0%E6%8D%AE%E6%97%B6%EF%BC%88row-gt-0%EF%BC%8Citem-gt-0%EF%BC%89%E4%B8%8D%E6%98%BE%E7%A4%BA%E5%8D%A0%E4%BD%8D%E5%9B%BE"><span class="nav-number">4.0.0.0.1.</span> <span class="nav-text">1.当tableView、collectionView 有数据时（row&gt;0，item&gt;0）不显示占位图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%BD%93scrollView-contentSize-height-gt-scrollView-frame-size-height-%E6%97%B6%E4%B8%B4%E6%97%B6%E7%A6%81%E7%94%A8%E6%BB%91%E5%8A%A8%E5%B1%9E%E6%80%A7%EF%BC%88tableView%E3%80%81collectionView%E4%BC%98%E5%85%88%E9%81%B5%E5%BE%AA%E7%AC%AC%E4%B8%80%E6%9D%A1%EF%BC%89"><span class="nav-number">4.0.0.0.2.</span> <span class="nav-text">2.当scrollView.contentSize.height &gt; scrollView.frame.size.height 时临时禁用滑动属性（tableView、collectionView优先遵循第一条）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%BB%BA%E8%AE%AE%E5%AF%BC%E5%85%A5demo%E4%B8%AD%E7%9A%84XXXPlaceholderEX%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">4.0.0.0.3.</span> <span class="nav-text">3.建议导入demo中的XXXPlaceholderEX文件夹</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E5%8D%A0%E4%BD%8D%E5%9B%BE%E4%B8%AD%E7%9A%84button%E4%BC%9A%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%EF%BC%8C%E6%97%A0%E9%9C%80%E6%B7%BB%E5%8A%A0%E3%80%82%E6%B2%A1%E6%9C%89button%E4%BC%9A%E7%BB%99%E6%95%B4%E4%B8%AA%E5%8D%A0%E4%BD%8D%E5%9B%BE%E6%B7%BB%E5%8A%A0%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6"><span class="nav-number">4.0.0.0.4.</span> <span class="nav-text">4.占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E6%88%91%E8%A7%89%E5%BE%97%E7%94%A8%E6%B3%95%E8%BF%98%E6%98%AF%E6%8C%BA%E7%AE%80%E5%8D%95%E7%9A%84%EF%BC%8C%E7%9C%8B%E4%B8%8Bdemo%E5%90%A7%F0%9F%98%82"><span class="nav-number">4.0.0.0.5.</span> <span class="nav-text">5.我觉得用法还是挺简单的，看下demo吧😂</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">4.0.1.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Github%E7%9B%B4%E8%BE%BE"><span class="nav-number">5.</span> <span class="nav-text">Github直达</span></a></li></ol>
+    </div>
+</div>
         
     </aside>
 

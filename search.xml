@@ -36,7 +36,7 @@
   </entry>
   <entry>
     <title>Dart 基础之 类、set、get、构造函数、方法</title>
-    <url>/2020/12/27/-00002-Flutter/</url>
+    <url>/2020/12/27/-00003-Dart%E5%9F%BA%E7%A1%801/</url>
     <content><![CDATA[<h1 id="类、属性、方法"><a href="#类、属性、方法" class="headerlink" title="类、属性、方法"></a>类、属性、方法</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  String name;</span><br><span class="line">  int age;</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;名字:$name 年龄:$age&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="默认构造函数、初始化列表"><a href="#默认构造函数、初始化列表" class="headerlink" title="默认构造函数、初始化列表"></a>默认构造函数、初始化列表</h1><blockquote>
 <p>存在初始化列表就不能存在默认构造函数</p>
@@ -49,6 +49,86 @@
 <p>私有属性、私有方法  这个类必须单独在一个文件</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  var _money &#x3D; 999999;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK:set 方法</span><br><span class="line">  set gongzi(int value) &#123;</span><br><span class="line">    _money &#x3D; _money + value;</span><br><span class="line">    _printMoney();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK:get方法</span><br><span class="line">  int get money &#123;</span><br><span class="line">    return _money;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK:   私有方法 这个类必须单独在一个文件</span><br><span class="line">  _printMoney() &#123;</span><br><span class="line">    print(money);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Dart 静态属性、静态方法</title>
+    <url>/2020/12/27/-00003-Dart%E5%9F%BA%E7%A1%802/</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  &#x2F;&#x2F;MARK: 静态属性</span><br><span class="line">  static String name &#x3D; &#39;张三&#39;;</span><br><span class="line">  int age &#x3D; 20;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;MARK:静态方法</span><br><span class="line">  static getInfo() &#123;</span><br><span class="line">    print(name);</span><br><span class="line">    &#x2F;&#x2F; print(age);  静态方法内部不能反问非静态属性</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  printInfo() &#123;</span><br><span class="line">    &#x2F;&#x2F; 非静态方法 可以访问静态成员与非静态 包括方法</span><br><span class="line">    getInfo();</span><br><span class="line">    print(name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Dart ？可选操作 类型判断、类型转换、联缀</title>
+    <url>/2020/12/27/-00003-Dart%E5%9F%BA%E7%A1%803/</url>
+    <content><![CDATA[<h1 id="类"><a href="#类" class="headerlink" title="类"></a>类</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  String name;</span><br><span class="line">  int age;</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;名字：$name  年龄：$age&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="？-可选操作符"><a href="#？-可选操作符" class="headerlink" title="？ 可选操作符"></a>？ 可选操作符</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Person p2;</span><br><span class="line">&#x2F;&#x2F; p2.getInfo();  p2 未初始化  可使用 ？ 可选符操作</span><br><span class="line">&#x2F;&#x2F;MARK:     可选操作符</span><br><span class="line">p2?.getInfo();</span><br></pre></td></tr></table></figure>
+
+<h1 id="is-操作符-类型判断"><a href="#is-操作符-类型判断" class="headerlink" title="is 操作符 类型判断"></a>is 操作符 类型判断</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var p1 &#x3D; Person();</span><br><span class="line">&#x2F;&#x2F;MARK: is  操作符    类型判断</span><br><span class="line">  if (p1 is Person) &#123;</span><br><span class="line">    print(&#39;p1 是 person&#39;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="as-操作符-类型转换"><a href="#as-操作符-类型转换" class="headerlink" title="as 操作符 类型转换"></a>as 操作符 类型转换</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var p3;</span><br><span class="line">p3 &#x3D; Person();</span><br><span class="line">&#x2F;&#x2F; p3.name;   虽然没报错  但是不知道 p3 类型</span><br><span class="line">(p3 as Person).name &#x3D; &#39;王麻子&#39;;</span><br><span class="line">(p3 as Person).age &#x3D; 11;</span><br><span class="line">(p3 as Person).getInfo();</span><br></pre></td></tr></table></figure>
+
+<h1 id="联缀操作符"><a href="#联缀操作符" class="headerlink" title=".. 联缀操作符"></a>.. 联缀操作符</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; .. 联缀 操作符</span><br><span class="line">  Person p4 &#x3D; Person();</span><br><span class="line">  p4</span><br><span class="line">    ..name &#x3D; &#39;哈哈哈&#39;</span><br><span class="line">    ..age &#x3D; 40</span><br><span class="line">    ..getInfo();</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Dart 类的继承</title>
+    <url>/2020/12/27/-00003-Dart%E5%9F%BA%E7%A1%804/</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Person &#123;</span><br><span class="line">  String name;</span><br><span class="line">  int age;</span><br><span class="line"></span><br><span class="line">  Person(this.name, this.age);</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;$name    ---   $age&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  work() &#123;</span><br><span class="line">    print(&quot;object 努力学习&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="继承、重写父类方法"><a href="#继承、重写父类方法" class="headerlink" title="继承、重写父类方法"></a>继承、重写父类方法</h1><blockquote>
+<p>使用 extends 关键字继承</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Zp extends Person &#123;</span><br><span class="line">  String sex;</span><br><span class="line">  Zp(String name, int age, [String sex &#x3D; &#39;男&#39;]) : super(name, age) &#123;</span><br><span class="line">    this.sex &#x3D; sex;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  faGongZi(&#123;int money&#125;) &#123;</span><br><span class="line">    print(&#39;发工资了 $money&#39;);</span><br><span class="line">    super.work();</span><br><span class="line">    work();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK: 重写父类方法</span><br><span class="line">  @override</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;$name 今年 $age  很有钱&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>abstract 抽象类</title>
+    <url>/2020/12/27/-00003-Dart%E5%9F%BA%E7%A1%805/</url>
+    <content><![CDATA[<h1 id="抽象类-相当于协议-接口"><a href="#抽象类-相当于协议-接口" class="headerlink" title="抽象类 相当于协议 接口"></a>抽象类 相当于协议 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">  &#x2F;&#x2F;抽象方法 只有方法名 没有具体实现</span><br><span class="line">  run();</span><br><span class="line"></span><br><span class="line">  String name;</span><br><span class="line"></span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;普通方法&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Animal-an-Animal-抽象类-不能被实例化"><a href="#Animal-an-Animal-抽象类-不能被实例化" class="headerlink" title="Animal an = Animal();   //抽象类 不能被实例化"></a>Animal an = Animal();   //抽象类 不能被实例化</h2><h1 id="继承抽象类"><a href="#继承抽象类" class="headerlink" title="继承抽象类"></a>继承抽象类</h1><blockquote>
+<p>继承自抽象类必须实现抽象方法     继承自抽象类的属性不是必须实现</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Dog extends Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小狗跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="implements-声明、with"><a href="#implements-声明、with" class="headerlink" title="implements 声明、with"></a>implements 声明、with</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Cat implements Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;我是🐱&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小🐱跑的快&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  String name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Duck with Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小鸭跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Dart 多继承</title>
+    <url>/2020/12/27/-00003-Dart%E5%9F%BA%E7%A1%806/</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">  printA() &#123;</span><br><span class="line">    print(&#39;AAAAA&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;A run&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B &#123;</span><br><span class="line">  printB() &#123;</span><br><span class="line">    print(&#39;BBBBBBBBB&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; B.bbb()&#123;&#125;    作为 minxins 的类不能有构造函数</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;B run&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="mixins-混入"><a href="#mixins-混入" class="headerlink" title="mixins 混入"></a>mixins 混入</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;MARK:   mixins 的必须是单独的一个object 类 A不能继承于其他类</span><br><span class="line">class Z with A, B &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="继承-mixins-混入"><a href="#继承-mixins-混入" class="headerlink" title="继承 + mixins 混入"></a>继承 + mixins 混入</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class X extends Person with A, B &#123;</span><br><span class="line">  X.aa() : super.aa();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="A-和-B-共有的方法后继承的覆盖之前的"><a href="#A-和-B-共有的方法后继承的覆盖之前的" class="headerlink" title="A 和 B 共有的方法后继承的覆盖之前的"></a>A 和 B 共有的方法后继承的覆盖之前的</h1>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Dart 泛型</title>
+    <url>/2020/12/27/-00003-Dart%E5%9F%BA%E7%A1%807/</url>
+    <content><![CDATA[<h1 id="方法添加泛型"><a href="#方法添加泛型" class="headerlink" title="方法添加泛型"></a>方法添加泛型</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">T getData&lt;T&gt;(T value) &#123;</span><br><span class="line">  return value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="类添加泛型"><a href="#类添加泛型" class="headerlink" title="类添加泛型"></a>类添加泛型</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Pppp&lt;T&gt; &#123;</span><br><span class="line">  var list &#x3D; List&lt;T&gt;();</span><br><span class="line"></span><br><span class="line">  add(T) &#123;</span><br><span class="line">    list.add(T);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  printList() &#123;</span><br><span class="line">    print(list);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="泛型-接口"><a href="#泛型-接口" class="headerlink" title="泛型 接口"></a>泛型 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class ABC&lt;T&gt; &#123;</span><br><span class="line">  addObject(String key);</span><br><span class="line">  setValue(String key, T value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="实现泛型接口"><a href="#实现泛型接口" class="headerlink" title="实现泛型接口"></a>实现泛型接口</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Wq&lt;T&gt; implements ABC&lt;T&gt; &#123;</span><br><span class="line">  @override</span><br><span class="line">  addObject(String key) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  setValue(String key, T value) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Dart</category>
       </categories>

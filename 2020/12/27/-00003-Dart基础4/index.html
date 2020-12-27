@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <title>
-        Dart 基础之 类、set、get、构造函数、方法 |
+        Dart 类的继承 |
         
         今日营业中
     </title>
@@ -128,7 +128,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Dart 基础之 类、set、get、构造函数、方法</span>
+            <span class="title-hover-animation">Dart 类的继承</span>
         </div>
 
         
@@ -139,12 +139,12 @@
                 <div class="info">
                     <div class="author">
                         <span>xxxixxxx</span>
-                        <span class="level">Lv5</span>
+                        <span class="level">Lv6</span>
                     </div>
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-calendar"></i> 2020-12-27 11:30:00
+        <i class="fas fa-calendar"></i> 2020-12-27 11:48:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -172,29 +172,26 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="类、属性、方法"><a href="#类、属性、方法" class="headerlink" title="类、属性、方法"></a>类、属性、方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  String name;</span><br><span class="line">  int age;</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;名字:$name 年龄:$age&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="默认构造函数、初始化列表"><a href="#默认构造函数、初始化列表" class="headerlink" title="默认构造函数、初始化列表"></a>默认构造函数、初始化列表</h1><blockquote>
-<p>存在初始化列表就不能存在默认构造函数</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  &#x2F;&#x2F;默认构造函数 简写</span><br><span class="line">  Person(this.name, this.age);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;默认构造函数 全写</span><br><span class="line">  Person(String name, int age) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 初始化列表</span><br><span class="line">  Person()</span><br><span class="line">      : name &#x3D; &#39;李华&#39;,</span><br><span class="line">        age &#x3D; 22 &#123;</span><br><span class="line">    print(this.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class Person &#123;</span><br><span class="line">  String name;</span><br><span class="line">  int age;</span><br><span class="line"></span><br><span class="line">  Person(this.name, this.age);</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;$name    ---   $age&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  work() &#123;</span><br><span class="line">    print(&quot;object 努力学习&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="匿名构造函数"><a href="#匿名构造函数" class="headerlink" title="匿名构造函数"></a>匿名构造函数</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  Person.newPeople() &#123;</span><br><span class="line">    name &#x3D; &quot;李四&quot;;</span><br><span class="line">    age &#x3D; 33;</span><br><span class="line">  &#125;</span><br><span class="line">&#x2F;&#x2F; 带参数匿名构造函数</span><br><span class="line">  Person.new2(String name, int age) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="私有属性、私有方法、set方法、get方法"><a href="#私有属性、私有方法、set方法、get方法" class="headerlink" title="私有属性、私有方法、set方法、get方法"></a>私有属性、私有方法、set方法、get方法</h1><blockquote>
-<p>私有属性、私有方法  这个类必须单独在一个文件</p>
+<h1 id="继承、重写父类方法"><a href="#继承、重写父类方法" class="headerlink" title="继承、重写父类方法"></a>继承、重写父类方法</h1><blockquote>
+<p>使用 extends 关键字继承</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  var _money &#x3D; 999999;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK:set 方法</span><br><span class="line">  set gongzi(int value) &#123;</span><br><span class="line">    _money &#x3D; _money + value;</span><br><span class="line">    _printMoney();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK:get方法</span><br><span class="line">  int get money &#123;</span><br><span class="line">    return _money;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK:   私有方法 这个类必须单独在一个文件</span><br><span class="line">  _printMoney() &#123;</span><br><span class="line">    print(money);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Zp extends Person &#123;</span><br><span class="line">  String sex;</span><br><span class="line">  Zp(String name, int age, [String sex &#x3D; &#39;男&#39;]) : super(name, age) &#123;</span><br><span class="line">    this.sex &#x3D; sex;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  faGongZi(&#123;int money&#125;) &#123;</span><br><span class="line">    print(&#39;发工资了 $money&#39;);</span><br><span class="line">    super.work();</span><br><span class="line">    work();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;MARK: 重写父类方法</span><br><span class="line">  @override</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;$name 今年 $age  很有钱&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：Dart 基础之 类、set、get、构造函数、方法</li>
+        <li>Post title：Dart 类的继承</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2020-12-27 11:30:00</li>
+        <li>Create time：2020-12-27 11:48:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2020/12/27/-00002-Flutter/
+            Post link：https://xxxixxx.github.io/2020/12/27/-00003-Dart基础4/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -208,14 +205,29 @@
         
             <div class="article-nav">
                 
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/12/27/-00003-Dart%E5%9F%BA%E7%A1%805/"
+                        >
+                            <span class="left arrow-icon flex-center" >
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">abstract 抽象类</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2020/12/25/-00001-Swift%E5%8D%8F%E8%AE%AE%E4%B8%8E%E6%89%A9%E5%B1%95/"
+                           href="/2020/12/27/-00003-Dart%E5%9F%BA%E7%A1%803/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Swift 协议与扩展</span>
+                                <span class="post-nav-title-item">Dart ？可选操作 类型判断、类型转换、联缀</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center" >
@@ -385,69 +397,11 @@
     <!-- page aside -->
     <aside class="page-aside">
         
-            .post-toc-wrap {
-  width: 100%;
-  font-size: 0.92rem;
-  box-sizing: border-box;
-
-  .post-toc {
-
-    ol {
-      list-style: none;
-      margin: 0;
-      padding: 0 2px 12px 10px;
-      text-align: left;
-
-      &:last-child {
-        padding-bottom: 0;
-      }
-
-      > ol {
-        padding-left: 0;
-      }
-
-      a {
-        transition-property: all;
-        transition();
-      }
-    }
-
-    .nav-item {
-      line-height: 1.8;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .nav {
-      .nav-child {
-        display: hexo-config('toc.expand_all') ? block : none;
-      }
-
-      .active > .nav-child {
-        display: block;
-      }
-
-      .active-current > .nav-child {
-        display: block;
-
-        > .nav-item {
-          display: block;
-        }
-      }
-
-      .active > a {
-        color: var(--primary-color);
-      }
-
-      .active-current > a {
-        color: var(--primary-color);
-      }
-    }
-  }
-}
-
-
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E3%80%81%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">继承、重写父类方法</span></a></li></ol>
+    </div>
+</div>
         
     </aside>
 

@@ -139,7 +139,7 @@
                 <div class="info">
                     <div class="author">
                         <span>xxxixxxx</span>
-                        <span class="level">Lv5</span>
+                        <span class="level">Lv6</span>
                     </div>
                     <div class="meta-info">
                         <div class="article-meta-info">
@@ -411,69 +411,11 @@
     <!-- page aside -->
     <aside class="page-aside">
         
-            .post-toc-wrap {
-  width: 100%;
-  font-size: 0.92rem;
-  box-sizing: border-box;
-
-  .post-toc {
-
-    ol {
-      list-style: none;
-      margin: 0;
-      padding: 0 2px 12px 10px;
-      text-align: left;
-
-      &:last-child {
-        padding-bottom: 0;
-      }
-
-      > ol {
-        padding-left: 0;
-      }
-
-      a {
-        transition-property: all;
-        transition();
-      }
-    }
-
-    .nav-item {
-      line-height: 1.8;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .nav {
-      .nav-child {
-        display: hexo-config('toc.expand_all') ? block : none;
-      }
-
-      .active > .nav-child {
-        display: block;
-      }
-
-      .active-current > .nav-child {
-        display: block;
-
-        > .nav-item {
-          display: block;
-        }
-      }
-
-      .active > a {
-        color: var(--primary-color);
-      }
-
-      .active-current > a {
-        color: var(--primary-color);
-      }
-    }
-  }
-}
-
-
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-XXX-Bridging-Header-h"><span class="nav-number">1.</span> <span class="nav-text">1. XXX-Bridging-Header.h</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%89%93%E5%BC%80-Target-gt-BuildSettings-%E6%90%9C%E7%B4%A2-Header"><span class="nav-number">2.</span> <span class="nav-text">2. 打开 Target -&gt; BuildSettings 搜索 Header</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#User-Header-Search-Paths-%E5%A1%AB%E5%86%99-SRCROOT"><span class="nav-number">2.1.</span> <span class="nav-text">User Header Search Paths 填写 $(SRCROOT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Enable-Modules-c-and-objective-C-%E5%A1%AB%E5%86%99-YES"><span class="nav-number">2.2.</span> <span class="nav-text">Enable Modules(c and objective-C) 填写 YES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Objective-C-Bridging-Header-%E5%A1%AB%E5%86%99-%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0-%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0-Bridging-Header-h-%E2%9A%A0%EF%B8%8F%E8%BF%99%E9%87%8C%E6%98%AF%E4%B8%AA%E8%B7%AF%E5%BE%84"><span class="nav-number">2.3.</span> <span class="nav-text">Objective-C Bridging Header 填写 项目名称&#x2F;项目名称-Bridging-Header.h ⚠️这里是个路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Objective-C-Generated-Interface-Header-Name-%E5%A1%AB%E5%86%99-%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0-Swift-h-%E8%BF%99%E9%87%8C%E6%98%AF-OC-%E5%BC%95%E7%94%A8-Swift-%E9%9C%80%E8%A6%81%E7%94%A8%E5%88%B0%E7%9A%84%E3%80%82"><span class="nav-number">2.4.</span> <span class="nav-text">Objective-C Generated Interface Header Name 填写 项目名称-Swift.h 这里是 OC 引用 Swift 需要用到的。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-pod-%E9%9C%80%E8%A6%81%E4%BF%AE%E6%94%B9%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="nav-number">3.</span> <span class="nav-text">3. pod 需要修改的地方</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-OC-%E5%BC%95%E7%94%A8-Swift"><span class="nav-number">4.</span> <span class="nav-text">4. OC 引用 Swift</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Swift-%E5%BC%95%E7%94%A8-OC"><span class="nav-number">5.</span> <span class="nav-text">5. Swift 引用 OC</span></a></li></ol>
+    </div>
+</div>
         
     </aside>
 
