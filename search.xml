@@ -717,6 +717,16 @@
       </categories>
   </entry>
   <entry>
+    <title>Flutter 组件 ListView</title>
+    <url>/2020/12/28/400-Flutter%E7%BB%84%E4%BB%B6ListView/</url>
+    <content><![CDATA[<h1 id="ListView"><a href="#ListView" class="headerlink" title="ListView"></a>ListView</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ListView(</span><br><span class="line">      padding: EdgeInsets.fromLTRB(18, 20, 18, 50),</span><br><span class="line">      &#x2F;&#x2F; 滑动方向</span><br><span class="line">      scrollDirection: Axis.horizontal,</span><br><span class="line">      children: [</span><br><span class="line">        ListTile(</span><br><span class="line">          leading: Icon(</span><br><span class="line">            Icons.tv,</span><br><span class="line">            color: Colors.amberAccent,</span><br><span class="line">          ),</span><br><span class="line">          trailing: Icon(Icons.ac_unit),</span><br><span class="line">          title: Text(&#39;标题&#39;),</span><br><span class="line">          subtitle: Text(&#39;二级标题啦啦啦啦啦&#39;),</span><br><span class="line">        ),</span><br><span class="line">      ],</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+
+<h1 id="ListView-builder"><a href="#ListView-builder" class="headerlink" title="ListView.builder"></a>ListView.builder</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List&lt;Widget&gt; _getData() &#123;</span><br><span class="line">    List&lt;Widget&gt; widgetList &#x3D; List();</span><br><span class="line">    for (var i &#x3D; 0; i &lt; 30; i++) &#123;</span><br><span class="line">      widgetList.add(Text(</span><br><span class="line">        &#39;$i 哈哈哈哈哈&#39;,</span><br><span class="line">        style: TextStyle(fontSize: 30),</span><br><span class="line">      ));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return widgetList;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  ListView.builder(</span><br><span class="line">      itemCount: _getData().length,</span><br><span class="line">      itemBuilder: (BuildContext context, int index) &#123;</span><br><span class="line">        return _getData()[index];</span><br><span class="line">      &#125;,</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Flutter</category>
+      </categories>
+  </entry>
+  <entry>
     <title>VSCode Flutter 配置</title>
     <url>/2020/11/19/400-VSCode-Flutter-%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><ul>
