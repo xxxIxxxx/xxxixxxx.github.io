@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <title>
-        微信小程序引入模块 |
+        微信小程序引入模块，App.js |
         
         今日营业中
     </title>
@@ -128,7 +128,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">微信小程序引入模块</span>
+            <span class="title-hover-animation">微信小程序引入模块，App.js</span>
         </div>
 
         
@@ -176,13 +176,17 @@
 
 <h1 id="导入创建的模块使用-其他-js-文件内"><a href="#导入创建的模块使用-其他-js-文件内" class="headerlink" title="导入创建的模块使用     其他 .js 文件内"></a>导入创建的模块使用     其他 .js 文件内</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import appConfig from &#39;..&#x2F;..&#x2F;..&#x2F;utils&#x2F;appConfig.js&#39;;</span><br><span class="line">console.log(appConfig.host);</span><br><span class="line">appConfig.sayHi(&#39;朱小明&#39;)</span><br></pre></td></tr></table></figure>
 
+
+<h1 id="获取-App-js"><a href="#获取-App-js" class="headerlink" title="获取 App.js"></a>获取 App.js</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;app.js</span><br><span class="line">App(&#123;</span><br><span class="line">  userToken:&#39;zhu xiao ming&#39;,</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;&#x2F; 省略其他</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let app &#x3D; getApp();</span><br><span class="line">console.log(app.userToken);</span><br></pre></td></tr></table></figure>
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：微信小程序引入模块</li>
+        <li>Post title：微信小程序引入模块，App.js</li>
         <li>Post author：xxxixxxx</li>
         <li>Create time：2021-01-14 15:05:00</li>
         <li>
@@ -379,7 +383,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%A8%A1%E5%9D%97-utils-appConfig-js"><span class="nav-number">1.</span> <span class="nav-text">创建一个模块 utils&#x2F;appConfig.js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%88%9B%E5%BB%BA%E7%9A%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8-%E5%85%B6%E4%BB%96-js-%E6%96%87%E4%BB%B6%E5%86%85"><span class="nav-number">2.</span> <span class="nav-text">导入创建的模块使用     其他 .js 文件内</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%A8%A1%E5%9D%97-utils-appConfig-js"><span class="nav-number">1.</span> <span class="nav-text">创建一个模块 utils&#x2F;appConfig.js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%88%9B%E5%BB%BA%E7%9A%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8-%E5%85%B6%E4%BB%96-js-%E6%96%87%E4%BB%B6%E5%86%85"><span class="nav-number">2.</span> <span class="nav-text">导入创建的模块使用     其他 .js 文件内</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-App-js"><span class="nav-number">3.</span> <span class="nav-text">获取 App.js</span></a></li></ol>
     </div>
 </div>
         

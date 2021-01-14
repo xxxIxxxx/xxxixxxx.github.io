@@ -1245,12 +1245,16 @@
       </categories>
   </entry>
   <entry>
-    <title>微信小程序引入模块</title>
+    <title>微信小程序引入模块，App.js</title>
     <url>/2021/01/14/600-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E5%BC%95%E5%85%A5%E6%A8%A1%E5%9D%97/</url>
     <content><![CDATA[<h1 id="创建一个模块-utils-appConfig-js"><a href="#创建一个模块-utils-appConfig-js" class="headerlink" title="创建一个模块 utils/appConfig.js"></a>创建一个模块 utils/appConfig.js</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const appConfig &#x3D; &#123;</span><br><span class="line">  host: &#39;https:&#x2F;&#x2F;www.baidu.com&#39;,</span><br><span class="line">  sayHi(e) &#123;</span><br><span class="line">    console.log(&#39;hi&#39; + e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default appConfig</span><br></pre></td></tr></table></figure>
 
 <h1 id="导入创建的模块使用-其他-js-文件内"><a href="#导入创建的模块使用-其他-js-文件内" class="headerlink" title="导入创建的模块使用     其他 .js 文件内"></a>导入创建的模块使用     其他 .js 文件内</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import appConfig from &#39;..&#x2F;..&#x2F;..&#x2F;utils&#x2F;appConfig.js&#39;;</span><br><span class="line">console.log(appConfig.host);</span><br><span class="line">appConfig.sayHi(&#39;朱小明&#39;)</span><br></pre></td></tr></table></figure>
-]]></content>
+
+
+<h1 id="获取-App-js"><a href="#获取-App-js" class="headerlink" title="获取 App.js"></a>获取 App.js</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;app.js</span><br><span class="line">App(&#123;</span><br><span class="line">  userToken:&#39;zhu xiao ming&#39;,</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;&#x2F; 省略其他</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let app &#x3D; getApp();</span><br><span class="line">console.log(app.userToken);</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>微信小程序</category>
       </categories>
