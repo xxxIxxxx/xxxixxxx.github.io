@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <title>
+        微信小程序自定义组件、父子组件相互调用传值 |
+        
+        今日营业中
+    </title>
+    <link rel="shortcut icon" href="/null">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":null,"img_position":"left","left_side_width":"260px","content_max_width":"900px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"说得越多 声音就越弱"}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":false},"version":"3.0.4"};
+    KEEP.language = {"search":"Search...","prev":"Prev","next":"Next","prev_posts":"Prev posts","next_posts":"Next posts","page":"Page %d","recent_posts":"Recent Posts","share":"Share","powered_by":"Powered by %s","theme":"Theme","rss_feed":"RSS Feed","category":"Category","categories":"Categories","tag":"Tag","tags":"Tags","tagcloud":"Tag Cloud","comment":"Comment","home":"Home","archive":"Archive","archives":"Archives","about":"About","site_uv":"Visitor Count","site_pv":"Totalview","links":"Links","link":"Link","top":"TOP","read_more":"Read more","wordcount":"Words","min2read":"Mins","changelog":"Changelog","copyright":{"author":"Post author","title":"Post title","link":"Post link","create_time":"Create time","license_title":"Copyright Notice","license_content":"All articles in this blog are licensed under %s unless stating additionally."},"ago":{"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days age","week":"%s weeks age","month":"%s months age","year":"%s years age"}};
+  </script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="page-container">
+
+    
+
+    <header class="page-header">
+        <div class="header-progress"></div>
+    </header>
+
+    <main class="page-main">
+
+        <div class="page-main-content">
+
+            <div class="page-main-content-top">
+                <header class="header-wrapper">
+
+    <div class="header-content">
+        <a class="logo-title" href="/">
+            今日营业中
+        </a>
+
+        <ul class="menu-list">
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/"
+                    >
+                        首页
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/archives"
+                    >
+                        归档
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/categories"
+                    >
+                        分类
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/tags"
+                    >
+                        标签
+                    </a>
+                </li>
+            
+        </ul>
+
+        <div class="menu-bar">
+            <div class="menu-bar-middle"></div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+            </div>
+
+            <div class="page-main-content-middle">
+
+                <main class="main-content normal-code-theme">
+
+                    
+                        <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">微信小程序自定义组件、父子组件相互调用传值</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>xxxixxxx</span>
+                        <span class="level">Lv7</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-calendar"></i> 2021-01-15 15:53:00
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="1-创建-header-组件"><a href="#1-创建-header-组件" class="headerlink" title="1.创建 header 组件"></a>1.创建 header 组件</h1><h2 id="1-1-选中文件夹，右键新建-Component。-暂命名为-header"><a href="#1-1-选中文件夹，右键新建-Component。-暂命名为-header" class="headerlink" title="1.1 选中文件夹，右键新建 Component。 暂命名为 header"></a>1.1 选中文件夹，右键新建 Component。 暂命名为 header</h2><h2 id="1-2-header-js-文件配置组件属性与方法"><a href="#1-2-header-js-文件配置组件属性与方法" class="headerlink" title="1.2 header.js 文件配置组件属性与方法"></a>1.2 header.js 文件配置组件属性与方法</h2><blockquote>
+<p>交互关键方法⚠️ this.triggerEvent(‘subClickEvent’, ‘来自 子组件 的信号这个是 参数’)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">Component(&#123;</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F;组件的属性列表</span><br><span class="line">  properties: &#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 属性名 简化写法</span><br><span class="line">    name: String,</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 属性名</span><br><span class="line">    car: &#123;</span><br><span class="line">      type: String,</span><br><span class="line">      value: &#39;&#39;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 生命周期函数，可以为函数，或一个在methods段中定义的方法名</span><br><span class="line">  lifetimes: &#123;</span><br><span class="line">    attached: function () &#123; &#125;,</span><br><span class="line">    moved: function () &#123; &#125;,</span><br><span class="line">    detached: function () &#123; &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 组件所在页面的生命周期函数</span><br><span class="line">  pageLifetimes: &#123;</span><br><span class="line">    show: function () &#123; &#125;,</span><br><span class="line">    hide: function () &#123; &#125;,</span><br><span class="line">    resize: function () &#123; &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 组件的初始数据</span><br><span class="line">  data: &#123;</span><br><span class="line">    color: &#39;彩色&#39;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 组件的方法列表</span><br><span class="line">  methods: &#123;</span><br><span class="line"></span><br><span class="line">    logP() &#123;</span><br><span class="line">      console.log(&#39;pppppp&#39;);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 组件内部先调用该方法 再调用父方法</span><br><span class="line">    cllParentClick() &#123;</span><br><span class="line">      &#x2F;&#x2F;  触发 subClickEvent 事件， 间接通知在 父组件中 subClickEvent 绑定的 subClick 方法</span><br><span class="line">      &#x2F;&#x2F;  建议  subClickEvent 与  subClick 命名相同，这个刚接触感觉会有一点混乱</span><br><span class="line">      &#x2F;&#x2F; subClickEvent 就是通知名。subClickEvent 这个通知在使用该组件时绑定的，绑定了父组件的 subClick 方法。然后在这里触发了 subClickEvent 通知</span><br><span class="line">      this.triggerEvent(&#39;subClickEvent&#39;, &#39;来自 子组件 的信号这个是 参数&#39;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    btnClick(e) &#123;</span><br><span class="line">      console.log(&#39;开车开车&#39;);</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 私有方法 下划线开头</span><br><span class="line">    _saySelfName() &#123;</span><br><span class="line">      console.log(&#39;header&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="1-3-header-wxml"><a href="#1-3-header-wxml" class="headerlink" title="1.3 header.wxml"></a>1.3 header.wxml</h2><p>header 组件内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;view class&#x3D;&quot;header&quot;&gt;</span><br><span class="line">  &lt;text&gt;name:&#123;&#123;name&#125;&#125;  car:&#123;&#123;car&#125;&#125;&lt;&#x2F;text&gt;</span><br><span class="line">  &lt;button size&#x3D;&quot;default&quot; type&#x3D;&quot;primary&quot; bind:tap&#x3D;&quot;btnClick&quot;&gt;开车开车&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;button size&#x3D;&quot;default&quot; type&#x3D;&quot;primary&quot; bind:tap&#x3D;&quot;cllParentClick&quot;&gt;调用父组件 subClick 方法&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;view&gt;</span><br></pre></td></tr></table></figure>
+<p>header.wxss</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.header &#123;</span><br><span class="line">  background-color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="2-使用-header-组件"><a href="#2-使用-header-组件" class="headerlink" title="2. 使用 header 组件"></a>2. 使用 header 组件</h1><h2 id="2-1-page-json"><a href="#2-1-page-json" class="headerlink" title="2.1 page.json"></a>2.1 page.json</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;usingComponents&quot;: &#123;</span><br><span class="line">    &quot;header&quot;: &quot;..&#x2F;..&#x2F;..&#x2F;components&#x2F;header&#x2F;header&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-page-wxml"><a href="#2-2-page-wxml" class="headerlink" title="2.2 page.wxml"></a>2.2 page.wxml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;header id&#x3D;&#39;comHeader&#39; name&#x3D;&#39;朱小明&#39; car&#x3D;&#39;自行车&#39; bind:subClickEvent&#x3D;&#39;subClick&#39;&gt;&lt;&#x2F;header&gt;</span><br><span class="line">&lt;button bind:tap&#x3D;&quot;getHeaderInfo&quot;&gt;获取组件属性&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里注册的 subClickEvent 事件，当 header 组件触发 subClickEvent 时，调用 page 的  subClick 方法。 建议将 subClickEvent 与 subClick 命名相同</p>
+</blockquote>
+<h2 id="2-3-page-js"><a href="#2-3-page-js" class="headerlink" title="2.3 page.js"></a>2.3 page.js</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; header 组件间接调用该方法</span><br><span class="line">  subClick(e) &#123;</span><br><span class="line">    console.log(e.detail);</span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F; 主动获取 header 组件实例对象</span><br><span class="line">  getHeaderInfo() &#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 获取组件实例对象  记得加 # </span><br><span class="line">    let header &#x3D; this.selectComponent(&#39;#comHeader&#39;);</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 获取属性</span><br><span class="line">    console.log(header.properties.color);</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 调用方法</span><br><span class="line">    header.logP();</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：微信小程序自定义组件、父子组件相互调用传值</li>
+        <li>Post author：xxxixxxx</li>
+        <li>Create time：2021-01-15 15:53:00</li>
+        <li>
+            Post link：https://xxxixxx.github.io/2021/01/15/600-微信小程序-自定义组件/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/01/14/600-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E5%BC%95%E5%85%A5%E6%A8%A1%E5%9D%97/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">微信小程序引入模块，App.js</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center" >
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <div class="valine-container">
+        <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+        <div id="vcomments"></div>
+        <script>
+            new Valine({
+                el: '#vcomments',
+                appId: '1zMbU0F6CLL5EFJNQOkNJSSP-gzGzoHsz',
+                appKey: 'zCB8Eokt3Assyi0cPe2SgDOD',
+                meta: 'nick,mail,link'.split(','),
+                avatar: 'wavatar',
+                enableQQ: true,
+                placeholder: '来交流吧～',
+                lang: 'en'.toLowerCase()
+            });
+
+
+            // Valine 评论列表增加"博主"标识
+            const getValineDomTimer = setInterval(() => {
+                const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                if (vcards.length > 0) {
+
+                    let author = 'xxxixxxx';
+                    if (author) {
+                        author = author.toLocaleLowerCase();
+                    }
+
+                    for (let vcard of vcards) {
+                        const vnick = vcard.querySelector('.vhead .vnick');
+                        if (vnick.innerHTML.toLocaleLowerCase() === author) {
+                            vcard.classList.add('author');
+                        }
+                    }
+                    clearInterval(getValineDomTimer);
+                } else {
+                    clearInterval(getValineDomTimer);
+                }
+            }, 2000);
+        </script>
+    </div>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                    
+                </main>
+
+            </div>
+
+            <div class="page-main-content-bottom">
+                <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">xxxixxxx</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a> | Theme <a class="theme-version" target="_blank"></a>
+        </div>
+    </div>
+</footer>
+
+            </div>
+        </div>
+    </main>
+
+    <div class="sidebar-tools">
+        <div class="tools-container">
+    <ul class="tools-list">
+        
+            <li class="search popup-trigger">
+                <i class="fas fa-search"></i>
+            </li>
+        
+
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+    </ul>
+</div>
+
+    </div>
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center" href="/atom.xml" target="_blank"><i class="fas fa-rss"></i></a>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-top flex-center">
+            <i class="fas fa-arrow-up"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="tools-ul-1">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+    </ul>
+</div>
+
+    </div>
+
+    <!-- page aside -->
+    <aside class="page-aside">
+        
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA-header-%E7%BB%84%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">1.创建 header 组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E9%80%89%E4%B8%AD%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%8C%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BA-Component%E3%80%82-%E6%9A%82%E5%91%BD%E5%90%8D%E4%B8%BA-header"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 选中文件夹，右键新建 Component。 暂命名为 header</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-header-js-%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE%E7%BB%84%E4%BB%B6%E5%B1%9E%E6%80%A7%E4%B8%8E%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 header.js 文件配置组件属性与方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-header-wxml"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 header.wxml</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8-header-%E7%BB%84%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">2. 使用 header 组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-page-json"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 page.json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-page-wxml"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 page.wxml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-page-js"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 page.js</span></a></li></ol></li></ol>
+    </div>
+</div>
+        
+    </aside>
+
+    <!-- image viewer -->
+    <div class="image-viewer-container">
+    <div class="img-box">
+        <img src="">
+    </div>
+</div>
+
+
+</div>
+
+
+
+    <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-icon">
+            <i class="fas fa-search"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/local-search.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/left-side-toggle.js"></script>
+
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/code-copy.js"></script>
+    
+
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/toc.js"></script>
+    
+
+
+</body>
+</html>
