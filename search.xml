@@ -164,6 +164,19 @@
       </tags>
   </entry>
   <entry>
+    <title>Swift 类型转换</title>
+    <url>/2020/12/21/100-Swift-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="Swift-类型转换-as-的使用"><a href="#Swift-类型转换-as-的使用" class="headerlink" title="Swift 类型转换 as 的使用"></a>Swift 类型转换 as 的使用</h1><h2 id="if-let-as"><a href="#if-let-as" class="headerlink" title="if let as"></a>if let as</h2><p> 类型转换，此时 <code>btn</code> 是 <code>Any</code> 类型，使用 <code>as?</code> 将他尝试转为 <code>UIButton</code>类型。并赋值给 <code>a</code>。 实际开发中建议 <code>a</code> 与 <code>btn</code> 命名一致，这里为了便于区分</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">if let a &#x3D; btn as? UIButton &#123;</span><br><span class="line">    print(a)</span><br><span class="line">    &#x2F;&#x2F; 这里 a 为真</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="guard-let-as"><a href="#guard-let-as" class="headerlink" title="guard let as"></a>guard let as</h2><p>和 <code>if let as</code> 基本一致，只是当转换失败时提前退出。适用于一些异步回调里。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">guard let btn &#x3D; btn as? UIButton else &#123; return &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Swift 的一些高阶函数 map、filter、reduce、flatMap、compactMap</title>
     <url>/2020/11/17/100-Swift-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-map-filter-reduce-flatMap-compactMap/</url>
     <content><![CDATA[<h1 id="map-对集合里的每一个元素进行操作，然后返回个新的集合"><a href="#map-对集合里的每一个元素进行操作，然后返回个新的集合" class="headerlink" title="map 对集合里的每一个元素进行操作，然后返回个新的集合"></a>map 对集合里的每一个元素进行操作，然后返回个新的集合</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let numbers &#x3D; [1, 3, 5, 7, 9]</span><br><span class="line">&#x2F;&#x2F;&#x2F; 对集合里的每一个元素进行操作，然后返回个新的集合</span><br><span class="line">print(numbers.map &#123; $0 * 10 &#125;)</span><br><span class="line">&#x2F;&#x2F; [10, 30, 50, 70, 90]</span><br></pre></td></tr></table></figure>
@@ -182,19 +195,6 @@
       <tags>
         <tag>高阶函数</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Swift 类型转换</title>
-    <url>/2020/12/21/100-Swift-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</url>
-    <content><![CDATA[<h1 id="Swift-类型转换-as-的使用"><a href="#Swift-类型转换-as-的使用" class="headerlink" title="Swift 类型转换 as 的使用"></a>Swift 类型转换 as 的使用</h1><h2 id="if-let-as"><a href="#if-let-as" class="headerlink" title="if let as"></a>if let as</h2><p> 类型转换，此时 <code>btn</code> 是 <code>Any</code> 类型，使用 <code>as?</code> 将他尝试转为 <code>UIButton</code>类型。并赋值给 <code>a</code>。 实际开发中建议 <code>a</code> 与 <code>btn</code> 命名一致，这里为了便于区分</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">if let a &#x3D; btn as? UIButton &#123;</span><br><span class="line">    print(a)</span><br><span class="line">    &#x2F;&#x2F; 这里 a 为真</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="guard-let-as"><a href="#guard-let-as" class="headerlink" title="guard let as"></a>guard let as</h2><p>和 <code>if let as</code> 基本一致，只是当转换失败时提前退出。适用于一些异步回调里。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">guard let btn &#x3D; btn as? UIButton else &#123; return &#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Swift</category>
-      </categories>
   </entry>
   <entry>
     <title>Swift 协议与扩展</title>
@@ -268,6 +268,62 @@
       <categories>
         <category>Swift</category>
       </categories>
+  </entry>
+  <entry>
+    <title>TCP 怎么保证可靠传输？</title>
+    <url>/2021/02/04/1000-001TCP%20%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%EF%BC%9F/</url>
+    <content><![CDATA[<h1 id="1-TCP-怎么保证可靠传输？"><a href="#1-TCP-怎么保证可靠传输？" class="headerlink" title="1. TCP 怎么保证可靠传输？"></a>1. TCP 怎么保证可靠传输？</h1><blockquote>
+<p>TCP协议传输的特点主要就是面向字节流、传输可靠、面向连接。</p>
+</blockquote>
+<p>TCP协议保证数据传输可靠性的方式主要有：</p>
+<ol>
+<li><strong>数据分割</strong> 应用数据被分割成 TCP 认为最合适发送的数据块。</li>
+<li><strong>编号</strong> TCP 给发送的每一个包进行编号，接收方对数据包进行排序，把有序数据传送给应用层。</li>
+<li><strong>检验和</strong> TTCP 将保持它首部和数据的检验和。这是一个端到端的检验和，目的是检测数据在传输过程中的任何变化。如果收到段的检验和有差错，TCP 将丢弃这个报文段和不确认收到此报文段。</li>
+<li>TCP 的接收端会丢弃重复的数据。</li>
+<li><strong>流量控制</strong>  TCP 连接的每一方都有固定大小的缓冲空间，TCP的接收端只允许发送端发送接收端缓冲区能接纳的数据。当接收方来不及处理发送方的数据，能提示发送方降低发送的速率，防止包丢失。TCP 使用的流量控制协议是可变大小的滑动窗口协议。 （TCP 利用滑动窗口实现流量控制）</li>
+<li><strong>拥塞控制</strong> 当网络拥塞时，减少数据的发送。</li>
+<li><strong>ARQ协议</strong> 也是为了实现可靠传输的，它的基本原理就是每发完一个分组就停止发送，等待对方确认。在收到确认后再发下一个分组。</li>
+<li><strong>超时重传</strong> 当 TCP 发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段。</li>
+</ol>
+<h1 id="2-ARQ-协议"><a href="#2-ARQ-协议" class="headerlink" title="2. ARQ 协议"></a>2. ARQ 协议</h1><p> <strong>自动重传请求</strong>（Automatic Repeat-reQuest，ARQ）是OSI模型中数据链路层和传输层的错误纠正协议之一。它通过使用确认和超时这两个机制，在不可靠服务的基础上实现可靠的信息传输。如果发送方在发送后一段时间之内没有收到确认帧，它通常会重新发送。ARQ包括停止等待ARQ协议和连续ARQ协议。</p>
+<h2 id="2-1-停止等待ARQ协议"><a href="#2-1-停止等待ARQ协议" class="headerlink" title="2.1 停止等待ARQ协议"></a>2.1 停止等待ARQ协议</h2><ul>
+<li>停止等待协议是为了实现可靠传输的，它的基本原理就是每发完一个分组就停止发送，等待对方确认（回复ACK）。如果过了一段时间（超时时间后），还是没有收到 ACK 确认，说明没有发送成功，需要重新发送，直到收到确认后再发下一个分组；</li>
+<li>在停止等待协议中，若接收方收到重复分组，就丢弃该分组，但同时还要发送确认；</li>
+</ul>
+<p><strong>优点：</strong> 简单<br><strong>缺点：</strong> 信道利用率低，等待时间长</p>
+<h3 id="2-1-1-无差错情况"><a href="#2-1-1-无差错情况" class="headerlink" title="2.1.1 无差错情况"></a>2.1.1 无差错情况</h3><p>发送方发送分组,接收方在规定时间内收到,并且回复确认.发送方再次发送。</p>
+<h3 id="2-1-2-出现差错情况（超时重传）"><a href="#2-1-2-出现差错情况（超时重传）" class="headerlink" title="2.1.2 出现差错情况（超时重传）"></a>2.1.2 出现差错情况（超时重传）</h3><p>停止等待协议中超时重传是指只要超过一段时间仍然没有收到确认，就重传前面发送过的分组（认为刚才发送过的分组丢失了）。因此每发送完一个分组需要设置一个超时计时器，其重传时间应比数据在分组传输的平均往返时间更长一些。 <strong>这种自动重传方式常称为 自动重传请求 ARQ 。</strong></p>
+<p>另外在停止等待协议中若收到重复分组，就丢弃该分组，但同时还要发送确认。连续 ARQ 协议 可提高信道利用率。发送维持一个发送窗口，凡位于发送窗口内的分组可连续发送出去，而不需要等待对方确认。接收方一般采用累积确认，对按序到达的最后一个分组发送确认，表明到这个分组位置的所有分组都已经正确收到了。</p>
+<h3 id="2-1-3-确认丢失和确认迟到"><a href="#2-1-3-确认丢失和确认迟到" class="headerlink" title="2.1.3 确认丢失和确认迟到"></a>2.1.3 确认丢失和确认迟到</h3><ul>
+<li><strong>确认丢失：</strong> 确认消息在传输过程丢失。当A发送M1消息，B收到后，B向A发送了一个M1确认消息，但却在传输过程中丢失。而A并不知道，在超时计时过后，A重传M1消息，B再次收到该消息后采取以下两点措施：1. 丢弃这个重复的M1消息，不向上层交付。 2. 向A发送确认消息。（不会认为已经发送过了，就不再发送。A能重传，就证明B的确认消息丢失）。</li>
+<li><strong>确认迟到</strong> 确认消息在传输过程中迟到。A发送M1消息，B收到并发送确认。在超时时间内没有收到确认消息，A重传M1消息，B仍然收到并继续发送确认消息（B收到了2份M1）。此时A收到了B第二次发送的确认消息。接着发送其他数据。过了一会，A收到了B第一次发送的对M1的确认消息（A也收到了2份确认消息）。处理如下：1. A收到重复的确认后，直接丢弃。2. B收到重复的M1后，也直接丢弃重复的M1。</li>
+</ul>
+<h2 id="2-2-连续ARQ协议"><a href="#2-2-连续ARQ协议" class="headerlink" title="2.2 连续ARQ协议"></a>2.2 连续ARQ协议</h2><p>连续 ARQ 协议可提高信道利用率。发送方维持一个发送窗口，凡位于发送窗口内的分组可以连续发送出去，而不需要等待对方确认。接收方一般采用累计确认，对按序到达的最后一个分组发送确认，表明到这个分组为止的所有分组都已经正确收到了。</p>
+<p><strong>优点：</strong> 信道利用率高，容易实现，即使确认丢失，也不必重传。<br><strong>缺点：</strong> 不能向发送方反映出接收方已经正确收到的所有分组的信息。 比如：发送方发送了 5条 消息，中间第三条丢失（3号），这时接收方只能对前两个发送确认。发送方无法知道后三个分组的下落，而只好把后三个全部重传一次。这也叫 Go-Back-N（回退 N），表示需要退回来重传已经发送过的 N 个消息。</p>
+<h1 id="3-滑动窗口和流量控制"><a href="#3-滑动窗口和流量控制" class="headerlink" title="3. 滑动窗口和流量控制"></a>3. 滑动窗口和流量控制</h1><p><strong>TCP 利用滑动窗口实现流量控制。流量控制是为了控制发送方发送速率，保证接收方来得及接收。</strong> 接收方发送的确认报文中的窗口字段可以用来控制发送方窗口大小，从而影响发送方的发送速率。将窗口字段设置为 0，则发送方不能发送数据。</p>
+<h1 id="4-拥塞控制"><a href="#4-拥塞控制" class="headerlink" title="4. 拥塞控制"></a>4. 拥塞控制</h1><p>在某段时间，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络的性能就要变坏。这种情况就叫拥塞。拥塞控制就是为了防止过多的数据注入到网络中，这样就可以使网络中的路由器或链路不致过载。拥塞控制所要做的都有一个前提，就是网络能够承受现有的网络负荷。拥塞控制是一个全局性的过程，涉及到所有的主机，所有的路由器，以及与降低网络传输性能有关的所有因素。相反，流量控制往往是点对点通信量的控制，是个端到端的问题。流量控制所要做到的就是抑制发送端发送数据的速率，以便使接收端来得及接收。</p>
+<p>为了进行拥塞控制，TCP 发送方要维持一个<strong>拥塞窗口(cwnd)</strong> 的状态变量。拥塞控制窗口的大小取决于网络的拥塞程度，并且动态变化。发送方让自己的发送窗口取为拥塞窗口和接收方的接受窗口中较小的一个。</p>
+<p>TCP的拥塞控制采用了四种算法，即 <strong>慢开始</strong> 、 <strong>拥塞避免</strong> 、<strong>快重传</strong> 和 <strong>快恢复</strong>。在网络层也可以使路由器采用适当的分组丢弃策略（如主动队列管理 AQM），以减少网络拥塞的发生。</p>
+<ul>
+<li><p><strong>慢开始：</strong> 慢开始算法的思路是当主机开始发送数据时，如果立即把大量数据字节注入到网络，那么可能会引起网络阻塞，因为现在还不知道网络的符合情况。经验表明，较好的方法是先探测一下，即由小到大逐渐增大发送窗口，也就是由小到大逐渐增大拥塞窗口数值。cwnd初始值为1，每经过一个传播轮次，cwnd加倍。</p>
+</li>
+<li><p><strong>拥塞避免：</strong> 拥塞避免算法的思路是让拥塞窗口cwnd缓慢增大，即每经过一个往返时间RTT就把发送放的cwnd加1.</p>
+</li>
+<li><p><strong>快重传与快恢复：</strong> 在 TCP/IP 中，快速重传和恢复（fast retransmit and recovery，FRR）是一种拥塞控制算法，它能快速恢复丢失的数据包。没有 FRR，如果数据包丢失了，TCP 将会使用定时器来要求传输暂停。在暂停的这段时间内，没有新的或复制的数据包被发送。有了 FRR，如果接收机接收到一个不按顺序的数据段，它会立即给发送机发送一个重复确认。如果发送机接收到三个重复确认，它会假定确认件指出的数据段丢失了，并立即重传这些丢失的数据段。有了 FRR，就不会因为重传时要求的暂停被耽误。 　当有单独的数据包丢失时，快速重传和恢复（FRR）能最有效地工作。当有多个数据信息包在某一段很短的时间内丢失时，它则不能很有效地工作。</p>
+</li>
+</ul>
+<blockquote>
+<p>摘录于 <a class="link"   href="https://snailclimb.gitee.io/javaguide/#/docs/network/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C?id=%E5%9B%9B-tcp-%E5%8D%8F%E8%AE%AE%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93" >https://snailclimb.gitee.io/javaguide/#/docs/network/计算机网络?id=四-tcp-协议如何保证可靠传输<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>TCP</tag>
+        <tag>ARQ协议</tag>
+      </tags>
   </entry>
   <entry>
     <title>RxSwift-Observable订阅、监听</title>
@@ -597,6 +653,17 @@
       </categories>
   </entry>
   <entry>
+    <title>Dart 导入库</title>
+    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%808/</url>
+    <content><![CDATA[<blockquote>
+<p>如果库冲突了 使用 as 重命名   show 导入部分  hide不导入的部分</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#39;XXX.dart&#39; as lib show Person;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Dart 泛型</title>
     <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%807/</url>
     <content><![CDATA[<h1 id="方法添加泛型"><a href="#方法添加泛型" class="headerlink" title="方法添加泛型"></a>方法添加泛型</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">T getData&lt;T&gt;(T value) &#123;</span><br><span class="line">  return value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -605,17 +672,6 @@
 
 <h1 id="泛型-接口"><a href="#泛型-接口" class="headerlink" title="泛型 接口"></a>泛型 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class ABC&lt;T&gt; &#123;</span><br><span class="line">  addObject(String key);</span><br><span class="line">  setValue(String key, T value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="实现泛型接口"><a href="#实现泛型接口" class="headerlink" title="实现泛型接口"></a>实现泛型接口</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Wq&lt;T&gt; implements ABC&lt;T&gt; &#123;</span><br><span class="line">  @override</span><br><span class="line">  addObject(String key) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  setValue(String key, T value) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Dart</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Dart 导入库</title>
-    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%808/</url>
-    <content><![CDATA[<blockquote>
-<p>如果库冲突了 使用 as 重命名   show 导入部分  hide不导入的部分</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#39;XXX.dart&#39; as lib show Person;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Dart</category>
       </categories>
@@ -668,23 +724,23 @@
       </categories>
   </entry>
   <entry>
-    <title>Flutter 工程修复</title>
-    <url>/2020/12/04/400-Flutter%E5%B7%A5%E7%A8%8B%E4%BF%AE%E5%A4%8D/</url>
-    <content><![CDATA[<p>Flutter工程 误删iOS、误删Android等文件时</p>
-<p>解决方案</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">打开终端输入</span><br><span class="line">flutter create 工程目录</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Flutter</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Flutter 依赖库查询</title>
     <url>/2020/12/05/400-Flutter%E6%9F%A5%E8%AF%A2%E4%BE%9D%E8%B5%96%E5%BA%93%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC/</url>
     <content><![CDATA[<blockquote>
 <p>地址为 <a class="link"   href="https://pub.flutter-io.cn/packages" >https://pub.flutter-io.cn/packages<i class="fas fa-external-link-alt"></i></a></p>
 </blockquote>
 <p><a class="link"   href="https://pub.flutter-io.cn/packages" >点我前往查询<i class="fas fa-external-link-alt"></i></a></p>
+]]></content>
+      <categories>
+        <category>Flutter</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Flutter 工程修复</title>
+    <url>/2020/12/04/400-Flutter%E5%B7%A5%E7%A8%8B%E4%BF%AE%E5%A4%8D/</url>
+    <content><![CDATA[<p>Flutter工程 误删iOS、误删Android等文件时</p>
+<p>解决方案</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">打开终端输入</span><br><span class="line">flutter create 工程目录</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Flutter</category>
@@ -719,18 +775,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Flutter UI 组件 Container、Text</title>
-    <url>/2020/12/28/400-Flutter%E7%BB%84%E4%BB%B6Container%E3%80%81Text/</url>
-    <content><![CDATA[<blockquote>
-<p>Text、Container 组件较为基础同时使用也很频繁，建议自行封装一套使用，避免每次都要输入很多属性。</p>
-</blockquote>
-<h1 id="Text-文本组件"><a href="#Text-文本组件" class="headerlink" title="Text 文本组件"></a>Text 文本组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Text(</span><br><span class="line">      &#39;文本组件&#39;,</span><br><span class="line">      textAlign: TextAlign.center,</span><br><span class="line">      overflow: TextOverflow.ellipsis,</span><br><span class="line">      maxLines: 2,</span><br><span class="line">      style: TextStyle(</span><br><span class="line">        fontSize: 20,</span><br><span class="line">        color: Colors.orange,</span><br><span class="line">        fontWeight: FontWeight.bold,</span><br><span class="line">        fontStyle: FontStyle.italic,</span><br><span class="line">        decoration: TextDecoration.underline,</span><br><span class="line">        decorationColor: Colors.black,</span><br><span class="line">        decorationStyle: TextDecorationStyle.dotted,</span><br><span class="line">        letterSpacing: 2,</span><br><span class="line">      ),</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
-<h1 id="Container-组件"><a href="#Container-组件" class="headerlink" title="Container 组件"></a>Container 组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Container(</span><br><span class="line">      child: Text(&#39;Container 组件&#39;),</span><br><span class="line">      width: 300,</span><br><span class="line">      height: 300,</span><br><span class="line">      decoration: BoxDecoration(</span><br><span class="line">        color: Colors.redAccent,</span><br><span class="line">        borderRadius: BorderRadius.all(Radius.circular(18)),</span><br><span class="line">        border: Border.all(</span><br><span class="line">          color: Colors.blueAccent,</span><br><span class="line">          width: 7,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      &#x2F;&#x2F;内边距</span><br><span class="line">      padding: EdgeInsets.all(18),</span><br><span class="line">      &#x2F;&#x2F;外边距</span><br><span class="line">      margin: EdgeInsets.fromLTRB(50, 50, 0, 0),</span><br><span class="line">      &#x2F;&#x2F; transform: Matrix4.translationValues(100, 0, 0),</span><br><span class="line">      transform: Matrix4.rotationZ(0.1),</span><br><span class="line">      alignment: Alignment.bottomLeft,</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Flutter</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Flutter 组件 GridView</title>
     <url>/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6GridView/</url>
     <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">List&lt;Widget&gt; _getData() &#123;</span><br><span class="line">   var widgetList &#x3D; List&lt;Widget&gt;();</span><br><span class="line">   for (var i &#x3D; 0; i &lt; 30; i++) &#123;</span><br><span class="line">     var c &#x3D; Container(</span><br><span class="line">       &#x2F;&#x2F; alignment: Alignment.topCenter,</span><br><span class="line">       color: Colors.green[100],</span><br><span class="line">       child: Column(</span><br><span class="line">         children: [</span><br><span class="line">           Image(image: Assets.images.cat),</span><br><span class="line">           SizedBox(</span><br><span class="line">             height: 12,</span><br><span class="line">           ),</span><br><span class="line">           Text(</span><br><span class="line">             &#39;哈哈哈 $i&#39;,</span><br><span class="line">             textAlign: TextAlign.center,</span><br><span class="line">             style: TextStyle(fontSize: 24),</span><br><span class="line">           ),</span><br><span class="line">         ],</span><br><span class="line">       ),</span><br><span class="line">     );</span><br><span class="line">     widgetList.add(c);</span><br><span class="line">   &#125;</span><br><span class="line">   return widgetList;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
@@ -738,6 +782,18 @@
 <h1 id="GridView-count"><a href="#GridView-count" class="headerlink" title="GridView.count"></a>GridView.count</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GridView.count(</span><br><span class="line">      scrollDirection: Axis.vertical,</span><br><span class="line">      padding: EdgeInsets.fromLTRB(16, 20, 16, 20),</span><br><span class="line">      crossAxisCount: 2,</span><br><span class="line">      crossAxisSpacing: 8,</span><br><span class="line">      mainAxisSpacing: 10,</span><br><span class="line">      childAspectRatio: 0.8,</span><br><span class="line">      children: this._getData(),</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
 
 <h1 id="GridView-builder"><a href="#GridView-builder" class="headerlink" title="GridView.builder"></a>GridView.builder</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GridView.builder(</span><br><span class="line">      padding: EdgeInsets.all(10),</span><br><span class="line">      itemCount: _getData().length,</span><br><span class="line">      itemBuilder: (context, index) &#123;</span><br><span class="line">        return _getData()[index];</span><br><span class="line">      &#125;,</span><br><span class="line">      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(</span><br><span class="line">        crossAxisCount: 2,</span><br><span class="line">        childAspectRatio: 0.8,</span><br><span class="line">        mainAxisSpacing: 10,</span><br><span class="line">        crossAxisSpacing: 10,</span><br><span class="line">      ),</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Flutter</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Flutter UI 组件 Container、Text</title>
+    <url>/2020/12/28/400-Flutter%E7%BB%84%E4%BB%B6Container%E3%80%81Text/</url>
+    <content><![CDATA[<blockquote>
+<p>Text、Container 组件较为基础同时使用也很频繁，建议自行封装一套使用，避免每次都要输入很多属性。</p>
+</blockquote>
+<h1 id="Text-文本组件"><a href="#Text-文本组件" class="headerlink" title="Text 文本组件"></a>Text 文本组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Text(</span><br><span class="line">      &#39;文本组件&#39;,</span><br><span class="line">      textAlign: TextAlign.center,</span><br><span class="line">      overflow: TextOverflow.ellipsis,</span><br><span class="line">      maxLines: 2,</span><br><span class="line">      style: TextStyle(</span><br><span class="line">        fontSize: 20,</span><br><span class="line">        color: Colors.orange,</span><br><span class="line">        fontWeight: FontWeight.bold,</span><br><span class="line">        fontStyle: FontStyle.italic,</span><br><span class="line">        decoration: TextDecoration.underline,</span><br><span class="line">        decorationColor: Colors.black,</span><br><span class="line">        decorationStyle: TextDecorationStyle.dotted,</span><br><span class="line">        letterSpacing: 2,</span><br><span class="line">      ),</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<h1 id="Container-组件"><a href="#Container-组件" class="headerlink" title="Container 组件"></a>Container 组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Container(</span><br><span class="line">      child: Text(&#39;Container 组件&#39;),</span><br><span class="line">      width: 300,</span><br><span class="line">      height: 300,</span><br><span class="line">      decoration: BoxDecoration(</span><br><span class="line">        color: Colors.redAccent,</span><br><span class="line">        borderRadius: BorderRadius.all(Radius.circular(18)),</span><br><span class="line">        border: Border.all(</span><br><span class="line">          color: Colors.blueAccent,</span><br><span class="line">          width: 7,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      &#x2F;&#x2F;内边距</span><br><span class="line">      padding: EdgeInsets.all(18),</span><br><span class="line">      &#x2F;&#x2F;外边距</span><br><span class="line">      margin: EdgeInsets.fromLTRB(50, 50, 0, 0),</span><br><span class="line">      &#x2F;&#x2F; transform: Matrix4.translationValues(100, 0, 0),</span><br><span class="line">      transform: Matrix4.rotationZ(0.1),</span><br><span class="line">      alignment: Alignment.bottomLeft,</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Flutter</category>
       </categories>
@@ -1046,6 +1102,23 @@
       </tags>
   </entry>
   <entry>
+    <title>iOS Widget 不显示无法添加、iOS Widget 加载网络图片</title>
+    <url>/2020/12/07/500-iOS-Widget-%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E6%B7%BB%E5%8A%A0-%E3%80%81iOS-Widget-%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<h3 id="Intent-Widget-开发"><a href="#Intent-Widget-开发" class="headerlink" title="Intent Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Static-Widget-开发"><a href="#Static-Widget-开发" class="headerlink" title="Static Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/84c180963ac6" >Static Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Demo下载"><a href="#Demo下载" class="headerlink" title="Demo下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo下载<i class="fas fa-external-link-alt"></i></a></h3><h1 id="Widget-在添加时找不到"><a href="#Widget-在添加时找不到" class="headerlink" title="Widget 在添加时找不到"></a>Widget 在添加时找不到</h1><p> 出现这种情况，可能是只配置了可编辑的 <code>Widget</code>。<br>导致<code>NSExtensionPointIdentifier</code>只有这一种类型 <code>com.apple.intents-service</code> 会被识别为 Siri 扩展。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>再添加一个不可编辑的 <code>Widget</code> 即可。不需要展示出，在 <code>@main</code>方法里不添加就好。<br>确定新添加的<code>NSExtensionPointIdentifier</code>类型为 <code>com.apple.widgetkit-extension</code> 。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2331323-7fe44d27ed6af214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="plist"></p>
+<hr>
+<h1 id="Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步"><a href="#Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步" class="headerlink" title="Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步"></a>Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 同步下载图片，Widget 不能异步刷新</span><br><span class="line"></span><br><span class="line">funcgetImage(_imgUrlString:String) -&gt;UIImage? &#123;</span><br><span class="line"></span><br><span class="line"> guardletdata &#x3D;try?Data(contentsOf:URL(string: imgUrlString)!)else&#123;</span><br><span class="line"></span><br><span class="line">        print(&quot;图片下载失败&quot;)</span><br><span class="line"></span><br><span class="line"> returnnil&#125;</span><br><span class="line"></span><br><span class="line">    print(&quot;图片下载成功&quot;)</span><br><span class="line"></span><br><span class="line"> returnUIImage(data: data)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line"></span><br><span class="line">Image(uiImage:getImage(entry.imageUrlStr) ??UIImage(named:&quot;aaaa&quot;)!)</span><br><span class="line"></span><br><span class="line">                        .resizable()</span><br><span class="line"></span><br><span class="line">                        .frame(width:60,</span><br><span class="line"></span><br><span class="line">                               height:60,</span><br><span class="line"></span><br><span class="line">                               alignment: .center)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>Widget</tag>
+        <tag>iOS小组件</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>WKWebView 加载 html</title>
     <url>/2020/12/17/500-iOS-WKWebView-loadHTMLString-%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87-%E4%B8%BA%E5%9B%BE%E7%89%87%E6%B7%BB%E5%8A%A0%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6/</url>
     <content><![CDATA[<blockquote>
@@ -1071,23 +1144,6 @@
       </categories>
       <tags>
         <tag>WKWebView</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>iOS Widget 不显示无法添加、iOS Widget 加载网络图片</title>
-    <url>/2020/12/07/500-iOS-Widget-%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E6%B7%BB%E5%8A%A0-%E3%80%81iOS-Widget-%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87/</url>
-    <content><![CDATA[<h3 id="Intent-Widget-开发"><a href="#Intent-Widget-开发" class="headerlink" title="Intent Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Static-Widget-开发"><a href="#Static-Widget-开发" class="headerlink" title="Static Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/84c180963ac6" >Static Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Demo下载"><a href="#Demo下载" class="headerlink" title="Demo下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo下载<i class="fas fa-external-link-alt"></i></a></h3><h1 id="Widget-在添加时找不到"><a href="#Widget-在添加时找不到" class="headerlink" title="Widget 在添加时找不到"></a>Widget 在添加时找不到</h1><p> 出现这种情况，可能是只配置了可编辑的 <code>Widget</code>。<br>导致<code>NSExtensionPointIdentifier</code>只有这一种类型 <code>com.apple.intents-service</code> 会被识别为 Siri 扩展。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>再添加一个不可编辑的 <code>Widget</code> 即可。不需要展示出，在 <code>@main</code>方法里不添加就好。<br>确定新添加的<code>NSExtensionPointIdentifier</code>类型为 <code>com.apple.widgetkit-extension</code> 。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2331323-7fe44d27ed6af214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="plist"></p>
-<hr>
-<h1 id="Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步"><a href="#Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步" class="headerlink" title="Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步"></a>Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 同步下载图片，Widget 不能异步刷新</span><br><span class="line"></span><br><span class="line">funcgetImage(_imgUrlString:String) -&gt;UIImage? &#123;</span><br><span class="line"></span><br><span class="line"> guardletdata &#x3D;try?Data(contentsOf:URL(string: imgUrlString)!)else&#123;</span><br><span class="line"></span><br><span class="line">        print(&quot;图片下载失败&quot;)</span><br><span class="line"></span><br><span class="line"> returnnil&#125;</span><br><span class="line"></span><br><span class="line">    print(&quot;图片下载成功&quot;)</span><br><span class="line"></span><br><span class="line"> returnUIImage(data: data)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line"></span><br><span class="line">Image(uiImage:getImage(entry.imageUrlStr) ??UIImage(named:&quot;aaaa&quot;)!)</span><br><span class="line"></span><br><span class="line">                        .resizable()</span><br><span class="line"></span><br><span class="line">                        .frame(width:60,</span><br><span class="line"></span><br><span class="line">                               height:60,</span><br><span class="line"></span><br><span class="line">                               alignment: .center)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>Widget</tag>
-        <tag>iOS小组件</tag>
       </tags>
   </entry>
   <entry>
@@ -1174,25 +1230,6 @@
       </tags>
   </entry>
   <entry>
-    <title>iOS14 Widget</title>
-    <url>/2020/11/26/500-iOS14-Widget-%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<h1 id="Demo-下载"><a href="#Demo-下载" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1><h3 id="这个是用户不可配置的，没有编辑选项的-widget"><a href="#这个是用户不可配置的，没有编辑选项的-widget" class="headerlink" title="这个是用户不可配置的，没有编辑选项的 widget"></a>这个是用户不可配置的，没有编辑选项的 widget</h3><h3 id="Intent-用户可编辑的点我去看"><a href="#Intent-用户可编辑的点我去看" class="headerlink" title="Intent 用户可编辑的点我去看"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent 用户可编辑的点我去看<i class="fas fa-external-link-alt"></i></a></h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-126d13797dd4e2de.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
-<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 时间线</span><br><span class="line">struct XXXProvider: TimelineProvider &#123;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 占位的展示</span><br><span class="line">    func placeholder(in context: Context) -&gt; XXXSimpleEntry &#123;</span><br><span class="line">        XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData())</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 快照</span><br><span class="line">    func getSnapshot(in context: Context, completion: @escaping (XXXSimpleEntry) -&gt; ()) &#123;</span><br><span class="line">        let entry &#x3D; XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData())</span><br><span class="line">        completion(entry)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#x2F;根据时间线提供需要展示的状态</span><br><span class="line">    func getTimeline(in context: Context, completion: @escaping (Timeline&lt;Entry&gt;) -&gt; ()) &#123;</span><br><span class="line">        </span><br><span class="line">        print(&quot;时间线刷新了&quot; + &quot;\(Date())&quot;)</span><br><span class="line">        </span><br><span class="line">        var entrys: [XXXSimpleEntry] &#x3D; []</span><br><span class="line">        let currentData &#x3D; Date()</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;&#x2F; 提供当前时间后 1个小时内  每一秒的状态 (已经提供了3600个状态，太多会不展示卡死)</span><br><span class="line">        for i in 0...60*60 &#123;</span><br><span class="line">            guard let entryDate &#x3D; Calendar.current.date(byAdding: .second, value: i, to: currentData) else &#123;</span><br><span class="line">                return</span><br><span class="line">            &#125;</span><br><span class="line">            entrys.append(XXXSimpleEntry(date: entryDate, displayTime: XXXData.displayData(entryDate)))</span><br><span class="line">        &#125;</span><br><span class="line">        let timeline &#x3D; Timeline(entries: entrys, policy: .atEnd)</span><br><span class="line">        completion(timeline)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 每一个时间线的实体</span><br><span class="line">struct XXXSimpleEntry: TimelineEntry &#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F;展示该状态的时间</span><br><span class="line">    let date: Date</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 自己配置的数据</span><br><span class="line">    let displayTime: String</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; widget 展示 view</span><br><span class="line">struct XXXWidgetEntryView : View &#123;</span><br><span class="line">    var entry: XXXProvider.Entry</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 返回在这个时间 (entry.date)    你想要展示的widegt样式</span><br><span class="line">    var body: some View &#123;</span><br><span class="line">        ZStack &#123;</span><br><span class="line">            </span><br><span class="line">            Color.orange.edgesIgnoringSafeArea(.all)</span><br><span class="line">            VStack &#123;</span><br><span class="line">                Text(entry.displayTime)</span><br><span class="line">                    .multilineTextAlignment(.center)</span><br><span class="line">                    .foregroundColor(.blue)</span><br><span class="line">                    &#x2F;&#x2F;&#x2F;配置点击链接会在主工程收到拉起事件</span><br><span class="line">                    .widgetURL(URL(string: &quot;widgetDemo:&#x2F;&#x2F;789&quot;))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;widget</span><br><span class="line">struct XXXWidget: Widget &#123;</span><br><span class="line">    let kind: String &#x3D; &quot;XXXWidget&quot;</span><br><span class="line"></span><br><span class="line">    var body: some WidgetConfiguration &#123;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; StaticConfiguration 是静态的，用户不可配置的 长按不会出现编辑</span><br><span class="line">        StaticConfiguration(kind: kind, provider: XXXProvider()) &#123; entry in</span><br><span class="line">            XXXWidgetEntryView(entry: entry)</span><br><span class="line">        &#125;</span><br><span class="line">        .configurationDisplayName(&quot;添加时的标题&quot;)</span><br><span class="line">        .description(&quot;添加时的描述&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;提供预览状态</span><br><span class="line">struct XXXWidget_Previews: PreviewProvider &#123;</span><br><span class="line">    </span><br><span class="line">    static var previews: some View &#123;</span><br><span class="line">        XXXWidgetEntryView(entry: XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData()))</span><br><span class="line">            .previewContext(WidgetPreviewContext(family: .systemSmall))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;主入口</span><br><span class="line">@main</span><br><span class="line">struct AllWidget: WidgetBundle &#123;</span><br><span class="line">    </span><br><span class="line">    @WidgetBundleBuilder</span><br><span class="line">    var body: some Widget &#123;</span><br><span class="line">        XXXWidget()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="部分操作的详细截图"><a href="#部分操作的详细截图" class="headerlink" title="部分操作的详细截图"></a>部分操作的详细截图</h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-d4e70bcacfcacc7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="File -&gt; New -&gt; Target"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2331323-b19a4ce4f064179c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这个是用户不可配置的widget，勾选的是用户可配置的。我们先来做不可配置的"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2331323-786376718471b3c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="调整最低运行系统"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2331323-5fcaf3ede4232577.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="关联主工程数据"></p>
-<h1 id="Demo-下载-1"><a href="#Demo-下载-1" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1>]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>Widget</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>iOS占位图、空白页面</title>
     <url>/2020/11/24/500-iOS%E5%8D%A0%E4%BD%8D%E5%9B%BE%E3%80%81%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2/</url>
     <content><![CDATA[<h1 id="iOS占位图、空白页面-Github直达"><a href="#iOS占位图、空白页面-Github直达" class="headerlink" title="iOS占位图、空白页面 Github直达"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXPlaceholder" >iOS占位图、空白页面 Github直达<i class="fas fa-external-link-alt"></i></a></h1><h1 id="iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew"><a href="#iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew" class="headerlink" title="iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew"></a>iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew</h1><h1 id="😄😄😄"><a href="#😄😄😄" class="headerlink" title="😄😄😄"></a>😄😄😄</h1><p><img src="http://upload-images.jianshu.io/upload_images/2331323-337781e6ecaac4ae.gif?imageMogr2/auto-orient/strip" alt="tableView使用效果"></p>
@@ -1211,6 +1248,25 @@
       <categories>
         <category>iOS</category>
       </categories>
+  </entry>
+  <entry>
+    <title>iOS14 Widget</title>
+    <url>/2020/11/26/500-iOS14-Widget-%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<h1 id="Demo-下载"><a href="#Demo-下载" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1><h3 id="这个是用户不可配置的，没有编辑选项的-widget"><a href="#这个是用户不可配置的，没有编辑选项的-widget" class="headerlink" title="这个是用户不可配置的，没有编辑选项的 widget"></a>这个是用户不可配置的，没有编辑选项的 widget</h3><h3 id="Intent-用户可编辑的点我去看"><a href="#Intent-用户可编辑的点我去看" class="headerlink" title="Intent 用户可编辑的点我去看"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent 用户可编辑的点我去看<i class="fas fa-external-link-alt"></i></a></h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-126d13797dd4e2de.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
+<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 时间线</span><br><span class="line">struct XXXProvider: TimelineProvider &#123;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 占位的展示</span><br><span class="line">    func placeholder(in context: Context) -&gt; XXXSimpleEntry &#123;</span><br><span class="line">        XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData())</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 快照</span><br><span class="line">    func getSnapshot(in context: Context, completion: @escaping (XXXSimpleEntry) -&gt; ()) &#123;</span><br><span class="line">        let entry &#x3D; XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData())</span><br><span class="line">        completion(entry)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#x2F;根据时间线提供需要展示的状态</span><br><span class="line">    func getTimeline(in context: Context, completion: @escaping (Timeline&lt;Entry&gt;) -&gt; ()) &#123;</span><br><span class="line">        </span><br><span class="line">        print(&quot;时间线刷新了&quot; + &quot;\(Date())&quot;)</span><br><span class="line">        </span><br><span class="line">        var entrys: [XXXSimpleEntry] &#x3D; []</span><br><span class="line">        let currentData &#x3D; Date()</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;&#x2F; 提供当前时间后 1个小时内  每一秒的状态 (已经提供了3600个状态，太多会不展示卡死)</span><br><span class="line">        for i in 0...60*60 &#123;</span><br><span class="line">            guard let entryDate &#x3D; Calendar.current.date(byAdding: .second, value: i, to: currentData) else &#123;</span><br><span class="line">                return</span><br><span class="line">            &#125;</span><br><span class="line">            entrys.append(XXXSimpleEntry(date: entryDate, displayTime: XXXData.displayData(entryDate)))</span><br><span class="line">        &#125;</span><br><span class="line">        let timeline &#x3D; Timeline(entries: entrys, policy: .atEnd)</span><br><span class="line">        completion(timeline)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 每一个时间线的实体</span><br><span class="line">struct XXXSimpleEntry: TimelineEntry &#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F;展示该状态的时间</span><br><span class="line">    let date: Date</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 自己配置的数据</span><br><span class="line">    let displayTime: String</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; widget 展示 view</span><br><span class="line">struct XXXWidgetEntryView : View &#123;</span><br><span class="line">    var entry: XXXProvider.Entry</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 返回在这个时间 (entry.date)    你想要展示的widegt样式</span><br><span class="line">    var body: some View &#123;</span><br><span class="line">        ZStack &#123;</span><br><span class="line">            </span><br><span class="line">            Color.orange.edgesIgnoringSafeArea(.all)</span><br><span class="line">            VStack &#123;</span><br><span class="line">                Text(entry.displayTime)</span><br><span class="line">                    .multilineTextAlignment(.center)</span><br><span class="line">                    .foregroundColor(.blue)</span><br><span class="line">                    &#x2F;&#x2F;&#x2F;配置点击链接会在主工程收到拉起事件</span><br><span class="line">                    .widgetURL(URL(string: &quot;widgetDemo:&#x2F;&#x2F;789&quot;))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;widget</span><br><span class="line">struct XXXWidget: Widget &#123;</span><br><span class="line">    let kind: String &#x3D; &quot;XXXWidget&quot;</span><br><span class="line"></span><br><span class="line">    var body: some WidgetConfiguration &#123;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; StaticConfiguration 是静态的，用户不可配置的 长按不会出现编辑</span><br><span class="line">        StaticConfiguration(kind: kind, provider: XXXProvider()) &#123; entry in</span><br><span class="line">            XXXWidgetEntryView(entry: entry)</span><br><span class="line">        &#125;</span><br><span class="line">        .configurationDisplayName(&quot;添加时的标题&quot;)</span><br><span class="line">        .description(&quot;添加时的描述&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;提供预览状态</span><br><span class="line">struct XXXWidget_Previews: PreviewProvider &#123;</span><br><span class="line">    </span><br><span class="line">    static var previews: some View &#123;</span><br><span class="line">        XXXWidgetEntryView(entry: XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData()))</span><br><span class="line">            .previewContext(WidgetPreviewContext(family: .systemSmall))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;主入口</span><br><span class="line">@main</span><br><span class="line">struct AllWidget: WidgetBundle &#123;</span><br><span class="line">    </span><br><span class="line">    @WidgetBundleBuilder</span><br><span class="line">    var body: some Widget &#123;</span><br><span class="line">        XXXWidget()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="部分操作的详细截图"><a href="#部分操作的详细截图" class="headerlink" title="部分操作的详细截图"></a>部分操作的详细截图</h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-d4e70bcacfcacc7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="File -&gt; New -&gt; Target"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2331323-b19a4ce4f064179c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这个是用户不可配置的widget，勾选的是用户可配置的。我们先来做不可配置的"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2331323-786376718471b3c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="调整最低运行系统"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2331323-5fcaf3ede4232577.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="关联主工程数据"></p>
+<h1 id="Demo-下载-1"><a href="#Demo-下载-1" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1>]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>Widget</tag>
+      </tags>
   </entry>
   <entry>
     <title>iOS拖拽卡片</title>
@@ -1295,7 +1351,7 @@
   </entry>
   <entry>
     <title>从输入 URL 到展现页面的全过程</title>
-    <url>/2021/02/03/1000-000%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/</url>
+    <url>/2021/02/03/1000-000%E4%BB%8E%E8%BE%93%E5%85%A5%20URL%20%E5%88%B0%E5%B1%95%E7%8E%B0%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%85%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="从输入-URL-到展现页面的全过程"><a href="#从输入-URL-到展现页面的全过程" class="headerlink" title="从输入 URL 到展现页面的全过程"></a>从输入 URL 到展现页面的全过程</h1><blockquote>
 <p>8 个过程</p>
 </blockquote>
