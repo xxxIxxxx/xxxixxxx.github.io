@@ -348,6 +348,39 @@
       </tags>
   </entry>
   <entry>
+    <title>简述 HTTPS 的加密与认证过程</title>
+    <url>/2021/02/06/1000-003%E7%AE%80%E8%BF%B0%20HTTPS%20%E7%9A%84%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h1><ul>
+<li><p>共享/对称密钥加密：客户端和服务端使用相同的密钥加密，缺陷：发送密钥有被窃听的风险，但不发送，对方就不能解密。如果密钥能够安全发送，那么数据也能安全送达，就无需加密。</p>
+</li>
+<li><p> 公开密钥加密：非对称加密，一把私钥，一把公钥，成对。首先，发送公钥给加密方，发送密文一方使用对方的公钥进行加密，对方收到密文后，使用自己的私钥进行解密。</p>
+</li>
+<li><p>混合加密：使用公开密钥加密方式传递共享密钥，再使用共享密钥加密传递的数据</p>
+</li>
+</ul>
+<h1 id="证书的正确性：CA（数字认证机构）颁发的公开密钥证书"><a href="#证书的正确性：CA（数字认证机构）颁发的公开密钥证书" class="headerlink" title="证书的正确性：CA（数字认证机构）颁发的公开密钥证书"></a>证书的正确性：CA（数字认证机构）颁发的公开密钥证书</h1><ul>
+<li>服务器把自己的公钥登录至CA进行认证；</li>
+<li>CA机构使用自己的私钥给服务器的公钥署数字签名并颁发公钥证书；</li>
+<li>客户端拿到服务器的公钥证书后，使用数字证书认证机构的公开密钥（事先植入到浏览器客户端），向数字证书认证机构验证公钥证书上的数字签名，以确认服务器的公开密钥的真实性；</li>
+<li>使用服务器的公开密钥对报文加密并发送</li>
+</ul>
+<h1 id="SSL-TLS握手协议"><a href="#SSL-TLS握手协议" class="headerlink" title="SSL/TLS握手协议"></a>SSL/TLS握手协议</h1><ul>
+<li>客户端给出协议版本号，一个随机数（client random），以及客户端支持的加密方式；</li>
+<li>服务端确认双方使用的加密方式，并给出数字证书，以及一个服务器生成的随机数（server random）；</li>
+<li>客户端确认证书有效，然后生成一个新的随机数（premaster secret），并使用数字证书的公钥加密这个随机数，发送给服务端；</li>
+<li>服务端使用自己的私钥，获得客户端发送的随机数（premaster secret）;</li>
+<li>客户端和服务端，根据约定的加密方式，使用前面的三个随机数，生成一个对话密钥（session key）,及共享密钥，然后使用该密钥加密整个数据交互过程。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>HTTPS</tag>
+        <tag>SSL/TLS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RxSwift-Observable订阅、监听</title>
     <url>/2020/11/12/200-RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -688,17 +721,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Dart 导入库</title>
-    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%808/</url>
-    <content><![CDATA[<blockquote>
-<p>如果库冲突了 使用 as 重命名   show 导入部分  hide不导入的部分</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#39;XXX.dart&#39; as lib show Person;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Dart</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Flutter 开发错误 StatefulWidget createState must return a subtype of State</title>
     <url>/2020/12/01/400-Flutter-%E5%BC%80%E5%8F%91%E9%94%99%E8%AF%AF-StatefulWidget-createState-must-return-a-subtype-of-State/</url>
     <content><![CDATA[<p>报错如下:</p>
@@ -754,6 +776,17 @@
 ]]></content>
       <categories>
         <category>Flutter</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Dart 导入库</title>
+    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%808/</url>
+    <content><![CDATA[<blockquote>
+<p>如果库冲突了 使用 as 重命名   show 导入部分  hide不导入的部分</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#39;XXX.dart&#39; as lib show Person;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Dart</category>
       </categories>
   </entry>
   <entry>
