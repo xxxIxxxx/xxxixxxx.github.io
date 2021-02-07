@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <title>
-        简述 HTTPS 的加密与认证过程 |
+        树、二叉树 |
         
         今日营业中
     </title>
@@ -128,7 +128,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">简述 HTTPS 的加密与认证过程</span>
+            <span class="title-hover-animation">树、二叉树</span>
         </div>
 
         
@@ -144,7 +144,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-calendar"></i> 2021-02-06 19:50:00
+        <i class="fas fa-calendar"></i> 2021-02-06 21:00:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -152,7 +152,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a>
+                        <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
                     </li>
                 
             </ul>
@@ -164,11 +164,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/HTTPS/">HTTPS</a>
+                        <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
                     </li>
                 
                     <li>
-                        | <a href="/tags/SSL-TLS/">SSL/TLS</a>
+                        | <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/">二叉树遍历</a>
                     </li>
                 
             </ul>
@@ -187,27 +187,15 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h1><ul>
-<li><p>共享/对称密钥加密：客户端和服务端使用相同的密钥加密，缺陷：发送密钥有被窃听的风险，但不发送，对方就不能解密。如果密钥能够安全发送，那么数据也能安全送达，就无需加密。</p>
-</li>
-<li><p> 公开密钥加密：非对称加密，一把私钥，一把公钥，成对。首先，发送公钥给加密方，发送密文一方使用对方的公钥进行加密，对方收到密文后，使用自己的私钥进行解密。</p>
-</li>
-<li><p>混合加密：使用公开密钥加密方式传递共享密钥，再使用共享密钥加密传递的数据</p>
-</li>
-</ul>
-<h1 id="证书的正确性：CA（数字认证机构）颁发的公开密钥证书"><a href="#证书的正确性：CA（数字认证机构）颁发的公开密钥证书" class="headerlink" title="证书的正确性：CA（数字认证机构）颁发的公开密钥证书"></a>证书的正确性：CA（数字认证机构）颁发的公开密钥证书</h1><ul>
-<li>服务器把自己的公钥登录至CA进行认证；</li>
-<li>CA机构使用自己的私钥给服务器的公钥署数字签名并颁发公钥证书；</li>
-<li>客户端拿到服务器的公钥证书后，使用数字证书认证机构的公开密钥（事先植入到浏览器客户端），向数字证书认证机构验证公钥证书上的数字签名，以确认服务器的公开密钥的真实性；</li>
-<li>使用服务器的公开密钥对报文加密并发送</li>
-</ul>
-<h1 id="SSL-TLS握手协议"><a href="#SSL-TLS握手协议" class="headerlink" title="SSL/TLS握手协议"></a>SSL/TLS握手协议</h1><ul>
-<li>客户端给出协议版本号，一个随机数（client random），以及客户端支持的加密方式；</li>
-<li>服务端确认双方使用的加密方式，并给出数字证书，以及一个服务器生成的随机数（server random）；</li>
-<li>客户端确认证书有效，然后生成一个新的随机数（premaster secret），并使用数字证书的公钥加密这个随机数，发送给服务端；</li>
-<li>服务端使用自己的私钥，获得客户端发送的随机数（premaster secret）;</li>
-<li>客户端和服务端，根据约定的加密方式，使用前面的三个随机数，生成一个对话密钥（session key）,及共享密钥，然后使用该密钥加密整个数据交互过程。</li>
-</ul>
+            <h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><blockquote>
+<p>是一种经常用到的数据结构，用来模拟具有树状结构性质的数据集合。树里的每一个节点有一个值和一个包含所有子节点的列表。从图的观点来看，树也可视为一个拥有N 个节点和N-1 条边的一个有向无环图</p>
+</blockquote>
+<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><blockquote>
+<p>是一种更为典型的树状结构。如它名字所描述的那样，二叉树是每个节点最多有两个子树的树结构，通常子树被称作“左子树”和“右子树”。</p>
+</blockquote>
+<h1 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h1><h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>前序遍历首先访问根节点，然后遍历左子树，最后遍历右子树。</p>
+<h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p>中序遍历是先遍历左子树，然后访问根节点，然后遍历右子树。</p>
+<h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><p>后序遍历是先遍历左子树，然后遍历右子树，最后访问树的根节点。</p>
 
         </div>
 
@@ -215,11 +203,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：简述 HTTPS 的加密与认证过程</li>
+        <li>Post title：树、二叉树</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2021-02-06 19:50:00</li>
+        <li>Create time：2021-02-06 21:00:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2021/02/06/1000-003简述 HTTPS 的加密与认证过程/
+            Post link：https://xxxixxx.github.io/2021/02/06/2000-二叉树/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -236,13 +224,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2021/02/06/2000-%E4%BA%8C%E5%8F%89%E6%A0%91/"
+                           href="/2021/02/07/1000-004%E7%AE%80%E8%BF%B0%20TCP%20%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%BB%A5%E5%8F%8A%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E7%9A%84%E6%B5%81%E7%A8%8B%E3%80%82%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%BB%A5%E5%8F%8A%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%9F/"
                         >
                             <span class="left arrow-icon flex-center" >
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">树、二叉树</span>
+                                <span class="post-nav-title-item">简述 TCP 三次握手以及四次挥手的流程。为什么需要三次握手以及四次挥手？</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -252,10 +240,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/02/05/1000-002TCP%20%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/"
+                           href="/2021/02/06/1000-003%E7%AE%80%E8%BF%B0%20HTTPS%20%E7%9A%84%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">TCP 中常见的拥塞控制算法有哪些？</span>
+                                <span class="post-nav-title-item">简述 HTTPS 的加密与认证过程</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center" >
@@ -427,7 +415,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86"><span class="nav-number">1.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%81%E4%B9%A6%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%80%A7%EF%BC%9ACA%EF%BC%88%E6%95%B0%E5%AD%97%E8%AE%A4%E8%AF%81%E6%9C%BA%E6%9E%84%EF%BC%89%E9%A2%81%E5%8F%91%E7%9A%84%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E8%AF%81%E4%B9%A6"><span class="nav-number">2.</span> <span class="nav-text">证书的正确性：CA（数字认证机构）颁发的公开密钥证书</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSL-TLS%E6%8F%A1%E6%89%8B%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.</span> <span class="nav-text">SSL&#x2F;TLS握手协议</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">2.</span> <span class="nav-text">二叉树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">3.</span> <span class="nav-text">树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">3.1.</span> <span class="nav-text">前序遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">3.2.</span> <span class="nav-text">中序遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">3.3.</span> <span class="nav-text">后序遍历</span></a></li></ol></li></ol>
     </div>
 </div>
         

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <title>
-        简述 HTTPS 的加密与认证过程 |
+        简述 TCP 三次握手以及四次挥手的流程。为什么需要三次握手以及四次挥手？ |
         
         今日营业中
     </title>
@@ -128,7 +128,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">简述 HTTPS 的加密与认证过程</span>
+            <span class="title-hover-animation">简述 TCP 三次握手以及四次挥手的流程。为什么需要三次握手以及四次挥手？</span>
         </div>
 
         
@@ -144,7 +144,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-calendar"></i> 2021-02-06 19:50:00
+        <i class="fas fa-calendar"></i> 2021-02-07 20:10:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -164,11 +164,15 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/HTTPS/">HTTPS</a>
+                        <a href="/tags/TCP/">TCP</a>
                     </li>
                 
                     <li>
-                        | <a href="/tags/SSL-TLS/">SSL/TLS</a>
+                        | <a href="/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
                     </li>
                 
             </ul>
@@ -187,27 +191,21 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h1><ul>
-<li><p>共享/对称密钥加密：客户端和服务端使用相同的密钥加密，缺陷：发送密钥有被窃听的风险，但不发送，对方就不能解密。如果密钥能够安全发送，那么数据也能安全送达，就无需加密。</p>
-</li>
-<li><p> 公开密钥加密：非对称加密，一把私钥，一把公钥，成对。首先，发送公钥给加密方，发送密文一方使用对方的公钥进行加密，对方收到密文后，使用自己的私钥进行解密。</p>
-</li>
-<li><p>混合加密：使用公开密钥加密方式传递共享密钥，再使用共享密钥加密传递的数据</p>
-</li>
-</ul>
-<h1 id="证书的正确性：CA（数字认证机构）颁发的公开密钥证书"><a href="#证书的正确性：CA（数字认证机构）颁发的公开密钥证书" class="headerlink" title="证书的正确性：CA（数字认证机构）颁发的公开密钥证书"></a>证书的正确性：CA（数字认证机构）颁发的公开密钥证书</h1><ul>
-<li>服务器把自己的公钥登录至CA进行认证；</li>
-<li>CA机构使用自己的私钥给服务器的公钥署数字签名并颁发公钥证书；</li>
-<li>客户端拿到服务器的公钥证书后，使用数字证书认证机构的公开密钥（事先植入到浏览器客户端），向数字证书认证机构验证公钥证书上的数字签名，以确认服务器的公开密钥的真实性；</li>
-<li>使用服务器的公开密钥对报文加密并发送</li>
-</ul>
-<h1 id="SSL-TLS握手协议"><a href="#SSL-TLS握手协议" class="headerlink" title="SSL/TLS握手协议"></a>SSL/TLS握手协议</h1><ul>
-<li>客户端给出协议版本号，一个随机数（client random），以及客户端支持的加密方式；</li>
-<li>服务端确认双方使用的加密方式，并给出数字证书，以及一个服务器生成的随机数（server random）；</li>
-<li>客户端确认证书有效，然后生成一个新的随机数（premaster secret），并使用数字证书的公钥加密这个随机数，发送给服务端；</li>
-<li>服务端使用自己的私钥，获得客户端发送的随机数（premaster secret）;</li>
-<li>客户端和服务端，根据约定的加密方式，使用前面的三个随机数，生成一个对话密钥（session key）,及共享密钥，然后使用该密钥加密整个数据交互过程。</li>
-</ul>
+            <h1 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h1><blockquote>
+<p>客户端和服务端通信前要进行连接，“3次握手”的作用就是双方都能明确自己和对方的收、发能力是正常的。</p>
+</blockquote>
+<p><strong>第一次握手：</strong> 客户端发送网络包，服务端收到了。这样服务端就能得出结论：客户端的发送能力、服务端的接收能力是正常的。</p>
+<p><strong>第二次握手：</strong> 服务端发包，客户端收到了。这样客户端就能得出结论：服务端的接收、发送能力，客户端的接收、发送能力是正常的。 从客户端的视角来看，我接到了服务端发送过来的响应数据包，说明服务端接收到了我在第一次握手时发送的网络包，并且成功发送了响应数据包，这就说明，服务端的接收、发送能力正常。而另一方面，我收到了服务端的响应数据包，说明我第一次发送的网络包成功到达服务端，这样，我自己的发送和接收能力也是正常的。</p>
+<p><strong>第三次握手：</strong> 客户端发包，服务端收到了。这样服务端就能得出结论：客户端的接收、发送能力，服务端的发送、接收能力是正常的。 第一、二次握手后，服务端并不知道客户端的接收能力以及自己的发送能力是否正常。而在第三次握手时，服务端收到了客户端对第二次握手作的回应。从服务端的角度，我在第二次握手时的响应数据发送出去了，客户端接收到了。所以，我的发送能力是正常的。而客户端的接收能力也是正常的。</p>
+<p>经历了上面的三次握手过程，客户端和服务端都确认了自己的接收、发送能力是正常的。之后就可以正常通信了。</p>
+<h1 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h1><blockquote>
+<p>关闭时，发包顺序不一定。一般来说是客户端主动发起的关闭，过程如下。</p>
+</blockquote>
+<p><strong>第一次挥手：</strong> 当主机A的应用程序通知TCP数据已经发送完毕时，TCP向主机B发送一个带有FIN附加标记的报文段（FIN表示英文finish）。</p>
+<p><strong>第二次挥手：</strong> 主机B收到这个FIN报文段之后，并不立即用FIN报文段回复主机A，而是先向主机A发送一个确认序号ACK，同时通知自己相应的应用程序：对方要求关闭连接（先发送ACK的目的是为了防止在这段时间内，对方重传FIN报文段）。</p>
+<p><strong>第三次挥手：</strong> 主机B的应用程序告诉TCP：我要彻底的关闭连接，TCP向主机A送一个FIN报文段。</p>
+<p><strong>第四次挥手：</strong> 主机A收到这个FIN报文段后，向主机B发送一个ACK表示连接彻底释放。</p>
+<h1 id="为什么连接的时候是三次握手，关闭的时候却是四次握手？"><a href="#为什么连接的时候是三次握手，关闭的时候却是四次握手？" class="headerlink" title="为什么连接的时候是三次握手，关闭的时候却是四次握手？"></a>为什么连接的时候是三次握手，关闭的时候却是四次握手？</h1><p>因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步握手。</p>
 
         </div>
 
@@ -215,11 +213,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：简述 HTTPS 的加密与认证过程</li>
+        <li>Post title：简述 TCP 三次握手以及四次挥手的流程。为什么需要三次握手以及四次挥手？</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2021-02-06 19:50:00</li>
+        <li>Create time：2021-02-07 20:10:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2021/02/06/1000-003简述 HTTPS 的加密与认证过程/
+            Post link：https://xxxixxx.github.io/2021/02/07/1000-004简述 TCP 三次握手以及四次挥手的流程。为什么需要三次握手以及四次挥手？/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -233,29 +231,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2021/02/06/2000-%E4%BA%8C%E5%8F%89%E6%A0%91/"
-                        >
-                            <span class="left arrow-icon flex-center" >
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">树、二叉树</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/02/05/1000-002TCP%20%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/"
+                           href="/2021/02/06/2000-%E4%BA%8C%E5%8F%89%E6%A0%91/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">TCP 中常见的拥塞控制算法有哪些？</span>
+                                <span class="post-nav-title-item">树、二叉树</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center" >
@@ -427,7 +410,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86"><span class="nav-number">1.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%81%E4%B9%A6%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%80%A7%EF%BC%9ACA%EF%BC%88%E6%95%B0%E5%AD%97%E8%AE%A4%E8%AF%81%E6%9C%BA%E6%9E%84%EF%BC%89%E9%A2%81%E5%8F%91%E7%9A%84%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E8%AF%81%E4%B9%A6"><span class="nav-number">2.</span> <span class="nav-text">证书的正确性：CA（数字认证机构）颁发的公开密钥证书</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSL-TLS%E6%8F%A1%E6%89%8B%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.</span> <span class="nav-text">SSL&#x2F;TLS握手协议</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-number">1.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="nav-number">2.</span> <span class="nav-text">四次挥手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%97%B6%E5%80%99%E6%98%AF%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%8C%E5%85%B3%E9%97%AD%E7%9A%84%E6%97%B6%E5%80%99%E5%8D%B4%E6%98%AF%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">为什么连接的时候是三次握手，关闭的时候却是四次握手？</span></a></li></ol>
     </div>
 </div>
         

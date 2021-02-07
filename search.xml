@@ -381,6 +381,34 @@
       </tags>
   </entry>
   <entry>
+    <title>简述 TCP 三次握手以及四次挥手的流程。为什么需要三次握手以及四次挥手？</title>
+    <url>/2021/02/07/1000-004%E7%AE%80%E8%BF%B0%20TCP%20%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%BB%A5%E5%8F%8A%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E7%9A%84%E6%B5%81%E7%A8%8B%E3%80%82%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%BB%A5%E5%8F%8A%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%9F/</url>
+    <content><![CDATA[<h1 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h1><blockquote>
+<p>客户端和服务端通信前要进行连接，“3次握手”的作用就是双方都能明确自己和对方的收、发能力是正常的。</p>
+</blockquote>
+<p><strong>第一次握手：</strong> 客户端发送网络包，服务端收到了。这样服务端就能得出结论：客户端的发送能力、服务端的接收能力是正常的。</p>
+<p><strong>第二次握手：</strong> 服务端发包，客户端收到了。这样客户端就能得出结论：服务端的接收、发送能力，客户端的接收、发送能力是正常的。 从客户端的视角来看，我接到了服务端发送过来的响应数据包，说明服务端接收到了我在第一次握手时发送的网络包，并且成功发送了响应数据包，这就说明，服务端的接收、发送能力正常。而另一方面，我收到了服务端的响应数据包，说明我第一次发送的网络包成功到达服务端，这样，我自己的发送和接收能力也是正常的。</p>
+<p><strong>第三次握手：</strong> 客户端发包，服务端收到了。这样服务端就能得出结论：客户端的接收、发送能力，服务端的发送、接收能力是正常的。 第一、二次握手后，服务端并不知道客户端的接收能力以及自己的发送能力是否正常。而在第三次握手时，服务端收到了客户端对第二次握手作的回应。从服务端的角度，我在第二次握手时的响应数据发送出去了，客户端接收到了。所以，我的发送能力是正常的。而客户端的接收能力也是正常的。</p>
+<p>经历了上面的三次握手过程，客户端和服务端都确认了自己的接收、发送能力是正常的。之后就可以正常通信了。</p>
+<h1 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h1><blockquote>
+<p>关闭时，发包顺序不一定。一般来说是客户端主动发起的关闭，过程如下。</p>
+</blockquote>
+<p><strong>第一次挥手：</strong> 当主机A的应用程序通知TCP数据已经发送完毕时，TCP向主机B发送一个带有FIN附加标记的报文段（FIN表示英文finish）。</p>
+<p><strong>第二次挥手：</strong> 主机B收到这个FIN报文段之后，并不立即用FIN报文段回复主机A，而是先向主机A发送一个确认序号ACK，同时通知自己相应的应用程序：对方要求关闭连接（先发送ACK的目的是为了防止在这段时间内，对方重传FIN报文段）。</p>
+<p><strong>第三次挥手：</strong> 主机B的应用程序告诉TCP：我要彻底的关闭连接，TCP向主机A送一个FIN报文段。</p>
+<p><strong>第四次挥手：</strong> 主机A收到这个FIN报文段后，向主机B发送一个ACK表示连接彻底释放。</p>
+<h1 id="为什么连接的时候是三次握手，关闭的时候却是四次握手？"><a href="#为什么连接的时候是三次握手，关闭的时候却是四次握手？" class="headerlink" title="为什么连接的时候是三次握手，关闭的时候却是四次握手？"></a>为什么连接的时候是三次握手，关闭的时候却是四次握手？</h1><p>因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步握手。</p>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>TCP</tag>
+        <tag>三次握手</tag>
+        <tag>四次挥手</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RxSwift-Observable订阅、监听</title>
     <url>/2020/11/12/200-RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -622,6 +650,27 @@
       </tags>
   </entry>
   <entry>
+    <title>树、二叉树</title>
+    <url>/2021/02/06/2000-%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><blockquote>
+<p>是一种经常用到的数据结构，用来模拟具有树状结构性质的数据集合。树里的每一个节点有一个值和一个包含所有子节点的列表。从图的观点来看，树也可视为一个拥有N 个节点和N-1 条边的一个有向无环图</p>
+</blockquote>
+<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><blockquote>
+<p>是一种更为典型的树状结构。如它名字所描述的那样，二叉树是每个节点最多有两个子树的树结构，通常子树被称作“左子树”和“右子树”。</p>
+</blockquote>
+<h1 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h1><h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>前序遍历首先访问根节点，然后遍历左子树，最后遍历右子树。</p>
+<h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p>中序遍历是先遍历左子树，然后访问根节点，然后遍历右子树。</p>
+<h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><p>后序遍历是先遍历左子树，然后遍历右子树，最后访问树的根节点。</p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+        <tag>二叉树遍历</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Dart 基础之 类、set、get、构造函数、方法</title>
     <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%801/</url>
     <content><![CDATA[<h1 id="类、属性、方法"><a href="#类、属性、方法" class="headerlink" title="类、属性、方法"></a>类、属性、方法</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  String name;</span><br><span class="line">  int age;</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;名字:$name 年龄:$age&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -721,6 +770,17 @@
       </categories>
   </entry>
   <entry>
+    <title>Dart 导入库</title>
+    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%808/</url>
+    <content><![CDATA[<blockquote>
+<p>如果库冲突了 使用 as 重命名   show 导入部分  hide不导入的部分</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#39;XXX.dart&#39; as lib show Person;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Flutter 开发错误 StatefulWidget createState must return a subtype of State</title>
     <url>/2020/12/01/400-Flutter-%E5%BC%80%E5%8F%91%E9%94%99%E8%AF%AF-StatefulWidget-createState-must-return-a-subtype-of-State/</url>
     <content><![CDATA[<p>报错如下:</p>
@@ -776,17 +836,6 @@
 ]]></content>
       <categories>
         <category>Flutter</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Dart 导入库</title>
-    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%808/</url>
-    <content><![CDATA[<blockquote>
-<p>如果库冲突了 使用 as 重命名   show 导入部分  hide不导入的部分</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#39;XXX.dart&#39; as lib show Person;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Dart</category>
       </categories>
   </entry>
   <entry>
