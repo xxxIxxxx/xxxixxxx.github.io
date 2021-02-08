@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <title>
-        简述 TCP 三次握手以及四次挥手的流程。为什么需要三次握手以及四次挥手？ |
+        HTTP 与 HTTPS 有哪些区别？ |
         
         今日营业中
     </title>
@@ -128,7 +128,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">简述 TCP 三次握手以及四次挥手的流程。为什么需要三次握手以及四次挥手？</span>
+            <span class="title-hover-animation">HTTP 与 HTTPS 有哪些区别？</span>
         </div>
 
         
@@ -144,7 +144,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-calendar"></i> 2021-02-07 20:10:00
+        <i class="fas fa-calendar"></i> 2021-02-08 20:10:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -164,15 +164,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/TCP/">TCP</a>
+                        <a href="/tags/HTTPS/">HTTPS</a>
                     </li>
                 
                     <li>
-                        | <a href="/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+                        | <a href="/tags/HTTP/">HTTP</a>
                     </li>
                 
             </ul>
@@ -191,21 +187,36 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h1><blockquote>
-<p>客户端和服务端通信前要进行连接，“3次握手”的作用就是双方都能明确自己和对方的收、发能力是正常的。</p>
+            <h1 id="HTTP-与-HTTPS-区别"><a href="#HTTP-与-HTTPS-区别" class="headerlink" title="HTTP 与 HTTPS 区别"></a>HTTP 与 HTTPS 区别</h1><ol>
+<li>HTTP 明文传输，数据都是未加密的，安全性较差，HTTPS（SSL+HTTP） 数据传输过程是加密的，安全性较好。</li>
+<li>使用 HTTPS 协议需要到 CA（Certificate Authority，数字证书认证机构） 申请证书，一般免费证书较少，因而需要一定费用。证书颁发机构如：Symantec、Comodo、GoDaddy 和 GlobalSign 等。</li>
+<li>HTTP 页面响应速度比 HTTPS 快，主要是因为 HTTP 使用 TCP 三次握手建立连接，客户端和服务器需要交换 3 个包，而 HTTPS除了 TCP 的三个包，还要加上 ssl 握手需要的 9 个包，所以一共是 12 个包。</li>
+<li>http 和 https 使用的是完全不同的连接方式，用的端口也不一样，前者是 80，后者是 443。</li>
+<li>HTTPS 其实就是建构在 SSL/TLS 之上的 HTTP 协议，所以，要比较 HTTPS 比 HTTP 要更耗费服务器资源。</li>
+</ol>
+<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><ol>
+<li>HyperText Transfer Protocol：超文本传输协议。</li>
+<li>是一种用于分布式、协作式和超媒体信息系统的应用层协议。</li>
+<li>HTTP 默认工作在 TCP 协议 80 端口，用户访问网站 http:// 打头的都是标准 HTTP 服务。</li>
+<li>HTTP 协议以明文方式发送内容，不提供任何方式的数据加密，如果攻击者截取了Web浏览器和网站服务器之间的传输报文，就可以直接读懂其中的信息。</li>
+</ol>
+<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><ol>
+<li>Hypertext Transfer Protocol Secure：安全的超文本传输协议。</li>
+<li>是一种透过计算机网络进行安全通信的传输协议。</li>
+<li>HTTPS 经由 HTTP 进行通信，但利用 SSL/TLS 来加密数据包。</li>
+<li>HTTPS 开发的主要目的，是提供对网站服务器的身份认证，保护交换数据的隐私与完整性。</li>
+<li>HTTPS 默认工作在 TCP 协议443端口</li>
+</ol>
+<h1 id="HTTPS-工作原理"><a href="#HTTPS-工作原理" class="headerlink" title="HTTPS 工作原理"></a>HTTPS 工作原理</h1><p><strong>1. 客户端发起 HTTPS 请求</strong><br><strong>2. 服务端的配置</strong><br>采用 HTTPS 协议的服务器必须要有一套数字证书，可以自己制作，也可以向组织申请，区别就是自己颁发的证书需要客户端验证通过，才可以继续访问，而使用受信任的公司申请的证书则不会弹出提示页面。这套证书其实就是一对公钥和私钥，可以想象成一把钥匙和一个锁头，只是全世界只有你一个人有这把钥匙，你可以把锁头给别人，别人可以用这个锁把重要的东西锁起来，然后发给你，因为只有你一个人有这把钥匙，所以只有你才能看到被这把锁锁起来的东西。</p>
+<p><strong>3. 传送证书</strong><br>这个证书其实就是公钥，只是包含了很多信息，如证书的颁发机构，过期时间等等。</p>
+<p><strong>4. 客户端解析证书</strong><br>这部分工作是有客户端的TLS来完成的，首先会验证公钥是否有效，比如颁发机构，过期时间等等，如果发现异常，则会弹出一个警告框，提示证书存在问题。<br>如果证书没有问题，那么就生成一个随机值，然后用证书对该随机值进行加密，就好像上面说的，把随机值用锁头锁起来，这样除非有钥匙，不然看不到被锁住的内容。</p>
+<p><strong>5. 传送加密信息</strong><br>这部分传送的是用证书加密后的随机值，目的就是让服务端得到这个随机值，以后客户端和服务端的通信就可以通过这个随机值来进行加密解密了。</p>
+<p><strong>6. 服务端解密信息</strong><br>服务端用私钥解密后，得到了客户端传过来的随机值(私钥)，然后把内容通过该值进行对称加密，所谓对称加密就是，将信息和私钥通过某种算法混合在一起，这样除非知道私钥，不然无法获取内容，而正好客户端和服务端都知道这个私钥，所以只要加密算法够彪悍，私钥够复杂，数据就够安全。</p>
+<p><strong>7. 传输加密后的信息</strong><br>这部分信息是服务段用私钥加密后的信息，可以在客户端被还原。</p>
+<p><strong>8. 客户端解密信息</strong><br>客户端用之前生成的私钥解密服务段传过来的信息，于是获取了解密后的内容，整个过程第三方即使监听到了数据，也束手无策。</p>
+<blockquote>
+<p>摘录于 <a class="link"   target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/http-vs-https.html" >https://www.runoob.com/w3cnote/http-vs-https.html<i class="fas fa-external-link-alt"></i></a></p>
 </blockquote>
-<p><strong>第一次握手：</strong> 客户端发送网络包，服务端收到了。这样服务端就能得出结论：客户端的发送能力、服务端的接收能力是正常的。</p>
-<p><strong>第二次握手：</strong> 服务端发包，客户端收到了。这样客户端就能得出结论：服务端的接收、发送能力，客户端的接收、发送能力是正常的。 从客户端的视角来看，我接到了服务端发送过来的响应数据包，说明服务端接收到了我在第一次握手时发送的网络包，并且成功发送了响应数据包，这就说明，服务端的接收、发送能力正常。而另一方面，我收到了服务端的响应数据包，说明我第一次发送的网络包成功到达服务端，这样，我自己的发送和接收能力也是正常的。</p>
-<p><strong>第三次握手：</strong> 客户端发包，服务端收到了。这样服务端就能得出结论：客户端的接收、发送能力，服务端的发送、接收能力是正常的。 第一、二次握手后，服务端并不知道客户端的接收能力以及自己的发送能力是否正常。而在第三次握手时，服务端收到了客户端对第二次握手作的回应。从服务端的角度，我在第二次握手时的响应数据发送出去了，客户端接收到了。所以，我的发送能力是正常的。而客户端的接收能力也是正常的。</p>
-<p>经历了上面的三次握手过程，客户端和服务端都确认了自己的接收、发送能力是正常的。之后就可以正常通信了。</p>
-<h1 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h1><blockquote>
-<p>关闭时，发包顺序不一定。一般来说是客户端主动发起的关闭，过程如下。</p>
-</blockquote>
-<p><strong>第一次挥手：</strong> 当主机A的应用程序通知TCP数据已经发送完毕时，TCP向主机B发送一个带有FIN附加标记的报文段（FIN表示英文finish）。</p>
-<p><strong>第二次挥手：</strong> 主机B收到这个FIN报文段之后，并不立即用FIN报文段回复主机A，而是先向主机A发送一个确认序号ACK，同时通知自己相应的应用程序：对方要求关闭连接（先发送ACK的目的是为了防止在这段时间内，对方重传FIN报文段）。</p>
-<p><strong>第三次挥手：</strong> 主机B的应用程序告诉TCP：我要彻底的关闭连接，TCP向主机A送一个FIN报文段。</p>
-<p><strong>第四次挥手：</strong> 主机A收到这个FIN报文段后，向主机B发送一个ACK表示连接彻底释放。</p>
-<h1 id="为什么连接的时候是三次握手，关闭的时候却是四次握手？"><a href="#为什么连接的时候是三次握手，关闭的时候却是四次握手？" class="headerlink" title="为什么连接的时候是三次握手，关闭的时候却是四次握手？"></a>为什么连接的时候是三次握手，关闭的时候却是四次握手？</h1><p>因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步握手。</p>
 
         </div>
 
@@ -213,11 +224,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：简述 TCP 三次握手以及四次挥手的流程。为什么需要三次握手以及四次挥手？</li>
+        <li>Post title：HTTP 与 HTTPS 有哪些区别？</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2021-02-07 20:10:00</li>
+        <li>Create time：2021-02-08 20:10:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2021/02/07/1000-004简述 TCP 三次握手以及四次挥手的流程。为什么需要三次握手以及四次挥手？/
+            Post link：https://xxxixxx.github.io/2021/02/08/1000-005HTTP 与 HTTPS 有哪些区别？/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -231,29 +242,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2021/02/08/1000-005HTTP%20%E4%B8%8E%20HTTPS%20%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8C%BA%E5%88%AB%EF%BC%9F/"
-                        >
-                            <span class="left arrow-icon flex-center" >
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">HTTP 与 HTTPS 有哪些区别？</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/02/06/2000-%E4%BA%8C%E5%8F%89%E6%A0%91/"
+                           href="/2021/02/07/1000-004%E7%AE%80%E8%BF%B0%20TCP%20%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%BB%A5%E5%8F%8A%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E7%9A%84%E6%B5%81%E7%A8%8B%E3%80%82%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%BB%A5%E5%8F%8A%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%9F/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">树、二叉树</span>
+                                <span class="post-nav-title-item">简述 TCP 三次握手以及四次挥手的流程。为什么需要三次握手以及四次挥手？</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center" >
@@ -425,7 +421,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-number">1.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="nav-number">2.</span> <span class="nav-text">四次挥手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%97%B6%E5%80%99%E6%98%AF%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%8C%E5%85%B3%E9%97%AD%E7%9A%84%E6%97%B6%E5%80%99%E5%8D%B4%E6%98%AF%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">为什么连接的时候是三次握手，关闭的时候却是四次握手？</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-%E4%B8%8E-HTTPS-%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">HTTP 与 HTTPS 区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP"><span class="nav-number">2.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS"><span class="nav-number">3.</span> <span class="nav-text">HTTPS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">HTTPS 工作原理</span></a></li></ol>
     </div>
 </div>
         
