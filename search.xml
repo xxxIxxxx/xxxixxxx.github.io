@@ -478,6 +478,41 @@
       </tags>
   </entry>
   <entry>
+    <title>简述常见的 HTTP 状态码的含义（301，304，401，403）</title>
+    <url>/2021/02/10/1000-007%E7%AE%80%E8%BF%B0%E5%B8%B8%E8%A7%81%E7%9A%84%20HTTP%20%E7%8A%B6%E6%80%81%E7%A0%81%E7%9A%84%E5%90%AB%E4%B9%89%EF%BC%88301%EF%BC%8C304%EF%BC%8C401%EF%BC%8C403%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="3-重定向"><a href="#3-重定向" class="headerlink" title="3** 重定向"></a>3** 重定向</h1><p><strong>300 Multiple Choice</strong><br>被请求的资源有一系列可供选择的回馈信息，每个都有自己特定的地址和浏览器驱动的商议信息。用户或浏览器能够自行选择一个首选的地址进行重定向。</p>
+<p><strong>301 Moved Permanently</strong><br>被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个 URI 之一。如果可能，拥有链接编辑功能的客户端应当自动把请求的地址修改为从服务器反馈回来的地址。除非额外指定，否则这个响应也是可缓存的。</p>
+<p><strong>304 Not Modified</strong><br>如果客户端发送了一个带条件的 GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码。304 响应禁止包含消息体，因此始终以消息头后的第一个空行结尾。</p>
+<p><strong>302 Found</strong><br>请求的资源现在临时从不同的 URI 响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。只有在Cache-Control或Expires中进行了指定的情况下，这个响应才是可缓存的。</p>
+<p><strong>303 See Other</strong><br>对应当前请求的响应可以在另一个 URI 上被找到，而且客户端应当采用 GET 的方式访问那个资源。这个方法的存在主要是为了允许由脚本激活的POST请求输出重定向到一个新的资源。</p>
+<h1 id="4-客户端响应"><a href="#4-客户端响应" class="headerlink" title="4** 客户端响应"></a>4** 客户端响应</h1><p><strong>400 Bad Request</strong><br>1、语义有误，当前请求无法被服务器理解。除非进行修改，否则客户端不应该重复提交这个请求。<br>2、请求参数有误。</p>
+<p><strong>401 Unauthorized</strong><br>当前请求需要用户验证。该响应必须包含一个适用于被请求资源的 WWW-Authenticate 信息头用以询问用户信息。客户端可以重复提交一个包含恰当的 Authorization 头信息的请求。如果当前请求已经包含了 Authorization 证书，那么401响应代表着服务器验证已经拒绝了那些证书。如果401响应包含了与前一个响应相同的身份验证询问，且浏览器已经至少尝试了一次验证，那么浏览器应当向用户展示响应中包含的实体信息，因为这个实体信息中可能包含了相关诊断信息。</p>
+<p><strong>403 Forbidden</strong><br>服务器已经理解请求，但是拒绝执行它。与 401 响应不同的是，身份验证并不能提供任何帮助，而且这个请求也不应该被重复提交。如果这不是一个 HEAD 请求，而且服务器希望能够讲清楚为何请求不能被执行，那么就应该在实体内描述拒绝的原因。当然服务器也可以返回一个 404 响应，假如它不希望让客户端获得任何信息。</p>
+<p><strong>404 Not Found</strong><br>请求失败，请求所希望得到的资源未被在服务器上发现。没有信息能够告诉用户这个状况到底是暂时的还是永久的。假如服务器知道情况的话，应当使用410状态码来告知旧资源因为某些内部的配置机制问题，已经永久的不可用，而且没有任何可以跳转的地址。404这个状态码被广泛应用于当服务器不想揭示到底为何请求被拒绝或者没有其他适合的响应可用的情况下。</p>
+<p><strong>405 Method Not Allowed</strong><br>请求行中指定的请求方法不能被用于请求相应的资源。该响应必须返回一个Allow 头信息用以表示出当前资源能够接受的请求方法的列表。 鉴于 PUT，DELETE 方法会对服务器上的资源进行写操作，因而绝大部分的网页服务器都不支持或者在默认配置下不允许上述请求方法，对于此类请求均会返回405错误。</p>
+<h1 id="5-服务端响应"><a href="#5-服务端响应" class="headerlink" title="5** 服务端响应"></a>5** 服务端响应</h1><p><strong>500 Internal Server Error</strong><br>服务器遇到了不知道如何处理的情况。</p>
+<p><strong>501 Not Implemented</strong><br>此请求方法不被服务器支持且无法被处理。只有GET和HEAD是要求服务器支持的，它们必定不会返回此错误代码。</p>
+<p><strong>502 Bad Gateway</strong><br>此错误响应表明服务器作为网关需要得到一个处理这个请求的响应，但是得到一个错误的响应。</p>
+<p><strong>503 Service Unavailable</strong><br>服务器没有准备好处理请求。 常见原因是服务器因维护或重载而停机。 请注意，与此响应一起，应发送解释问题的用户友好页面。 这个响应应该用于临时条件和 Retry-After：如果可能的话，HTTP头应该包含恢复服务之前的估计时间。 网站管理员还必须注意与此响应一起发送的与缓存相关的标头，因为这些临时条件响应通常不应被缓存。</p>
+<h1 id="2-成功响应"><a href="#2-成功响应" class="headerlink" title="2** 成功响应"></a>2** 成功响应</h1><p><strong>200 OK</strong><br>请求成功。成功的含义取决于 HTTP 方法：<br>GET：资源已被提取并在消息正文中传输。<br>HEAD：实体标头位于消息正文中。<br>POST：描述动作结果的资源在消息体中传输。<br>TRACE：消息正文包含服务器收到的请求消息</p>
+<p><strong>201 Created</strong><br>该请求已成功，并因此创建了一个新的资源。这通常是在 POST 请求，或是某些 PUT 请求之后返回的响应。</p>
+<p><strong>202 Accepted</strong><br>请求已经接收到，但还未响应，没有结果。意味着不会有一个异步的响应去表明当前请求的结果，预期另外的进程和服务去处理请求，或者批处理。</p>
+<p><strong>203 Non-Authoritative Information</strong><br>服务器已成功处理了请求，但返回的实体头部元信息不是在原始服务器上有效的确定集合，而是来自本地或者第三方的拷贝。当前的信息可能是原始版本的子集或者超集。例如，包含资源的元数据可能导致原始服务器知道元信息的超集。使用此状态码不是必须的，而且只有在响应不使用此状态码便会返回 200 OK 的情况下才是合适的。</p>
+<h1 id="1-信息响应"><a href="#1-信息响应" class="headerlink" title="1** 信息响应"></a>1** 信息响应</h1><p><strong>100 Continue</strong><br>这个临时响应表明，迄今为止的所有内容都是可行的，客户端应该继续请求，如果已经完成，则忽略它。</p>
+<p><strong>101 Switching Protocol</strong><br>该代码是响应客户端的 Upgrade 标头发送的，并且指示服务器也正在切换的协议。<br><strong>102 Processing (WebDAV)</strong><br>此代码表示服务器已收到并正在处理该请求，但没有响应可用。<br><strong>103 Early Hints</strong><br>此状态代码主要用于与 Link 链接头一起使用，以允许用户代理在服务器仍在准备响应时开始预加载资源。 </p>
+<blockquote>
+<p>摘录于 <a class="link"   href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status" >https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+        <tag>状态码</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RxSwift-Observable订阅、监听</title>
     <url>/2020/11/12/200-RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
