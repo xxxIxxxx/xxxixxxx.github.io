@@ -3,85 +3,107 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="xxxixxxx">
     
     <title>
         
         今日营业中
     </title>
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="shortcut icon" href="/null">
-    
-<link rel="stylesheet" href="/css/style.css">
-
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/css/font-awesome.min.css">
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","path":"search.xml"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":null,"img_position":"left","left_side_width":"260px","content_max_width":"900px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"说得越多 声音就越弱"}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":false},"version":"3.0.4"};
-    KEEP.language = {"search":"Search...","prev":"Prev","next":"Next","prev_posts":"Prev posts","next_posts":"Next posts","page":"Page %d","recent_posts":"Recent Posts","share":"Share","powered_by":"Powered by %s","theme":"Theme","rss_feed":"RSS Feed","category":"Category","categories":"Categories","tag":"Tag","tags":"Tags","tagcloud":"Tag Cloud","comment":"Comment","home":"Home","archive":"Archive","archives":"Archives","about":"About","site_uv":"Visitor Count","site_pv":"Totalview","links":"Links","link":"Link","top":"TOP","read_more":"Read more","wordcount":"Words","min2read":"Mins","changelog":"Changelog","copyright":{"author":"Post author","title":"Post title","link":"Post link","create_time":"Create time","license_title":"Copyright Notice","license_content":"All articles in this blog are licensed under %s unless stating additionally."},"ago":{"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days age","week":"%s weeks age","month":"%s months age","year":"%s years age"}};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"https://files.catbox.moe/elmpn1.png","favicon":null,"article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"说得越多 声音就越弱"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.0"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days age","week":"%s weeks age","month":"%s months age","year":"%s years age"};
   </script>
 <meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 </head>
 
 
 <body>
-<div class="page-container">
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
 
     
 
-    <header class="page-header">
-        <div class="header-progress"></div>
-    </header>
+    <div class="page-main-content">
 
-    <main class="page-main">
-
-        <div class="page-main-content">
-
-            <div class="page-main-content-top">
-                <header class="header-wrapper">
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
 
     <div class="header-content">
-        <a class="logo-title" href="/">
-            今日营业中
-        </a>
+        <div class="left">
+            <a class="logo-title" href="/">
+                今日营业中
+            </a>
+        </div>
 
-        <ul class="menu-list">
-            
-                <li class="menu-item">
-                    <a class="active"
-                       href="/"
-                    >
-                        首页
-                    </a>
-                </li>
-            
-                <li class="menu-item">
-                    <a class=""
-                       href="/archives"
-                    >
-                        归档
-                    </a>
-                </li>
-            
-                <li class="menu-item">
-                    <a class=""
-                       href="/categories"
-                    >
-                        分类
-                    </a>
-                </li>
-            
-                <li class="menu-item">
-                    <a class=""
-                       href="/tags"
-                    >
-                        标签
-                    </a>
-                </li>
-            
-        </ul>
-
-        <div class="menu-bar">
-            <div class="menu-bar-middle"></div>
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class="active"
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -116,15 +138,55 @@
 </header>
 
 
-            </div>
+        </div>
 
-            <div class="page-main-content-middle">
+        <div class="page-main-content-middle">
 
-                <main class="main-content normal-code-theme">
+            <div class="main-content">
 
-                    
-                        <div class="home-content-container fade-in-down-animation">
+                
+                    <div class="home-content-container fade-in-down-animation">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2020/11/22/100-Swift-%E6%95%B0%E7%BB%84/">
+                        Swift 数组
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        删除元素123var list &#x3D; [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;]list.removeAll&#123; $0 &#x3D;&#x3D; &quot;2&...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Nov 22 2020 00:00:00 GMT+0800">2020-11-22</span></span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/Swift/">Swift</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+    </div>
+
+    <a href="/2020/11/22/100-Swift-%E6%95%B0%E7%BB%84/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
         
             <li class="home-article-item">
 
@@ -145,36 +207,24 @@
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Sun Nov 22 2020 00:00:00 GMT+0800">2020-11-22</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Nov 22 2020 00:00:00 GMT+0800">2020-11-22</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Swift/">Swift</a>
+                            <a href="/categories/Swift/">Swift</a>&nbsp;
                         </li>
                     
                     
                 </ul>
             </span>
         
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/RxSwift/">RxSwift</a>
-                        </li>
-                    
-                </ul>
-            </span>
         
     </div>
 
-    <a href="/2020/11/22/200-RxSwift-Single%E3%80%81Completab%E3%80%81Maybe/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/22/200-RxSwift-Single%E3%80%81Completab%E3%80%81Maybe/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -197,36 +247,24 @@
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Sun Nov 22 2020 00:00:00 GMT+0800">2020-11-22</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Nov 22 2020 00:00:00 GMT+0800">2020-11-22</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Xcode/">Xcode</a>
+                            <a href="/categories/Xcode/">Xcode</a>&nbsp;
                         </li>
                     
                     
                 </ul>
             </span>
         
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/">快捷键</a>
-                        </li>
-                    
-                </ul>
-            </span>
         
     </div>
 
-    <a href="/2020/11/22/500-Xcode-%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8CXcode12-%E6%89%93%E5%BC%80%E6%8E%A7%E5%88%B6%E5%8F%B0/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/22/500-Xcode-%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8CXcode12-%E6%89%93%E5%BC%80%E6%8E%A7%E5%88%B6%E5%8F%B0/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -252,14 +290,14 @@ pod search XXXCardStore如未搜索到 请执行 pod repo update 进行更新，
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Sun Nov 22 2020 00:00:00 GMT+0800">2020-11-22</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Nov 22 2020 00:00:00 GMT+0800">2020-11-22</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/iOS/">iOS</a>
+                            <a href="/categories/iOS/">iOS</a>&nbsp;
                         </li>
                     
                     
@@ -269,7 +307,7 @@ pod search XXXCardStore如未搜索到 请执行 pod repo update 进行更新，
         
     </div>
 
-    <a href="/2020/11/22/500-iOS%E6%8B%96%E6%8B%BD%E5%8D%A1%E7%89%87%E5%8F%A0%E5%8A%A0%E5%8D%A1%E7%89%87/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/22/500-iOS%E6%8B%96%E6%8B%BD%E5%8D%A1%E7%89%87%E5%8F%A0%E5%8A%A0%E5%8D%A1%E7%89%87/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -293,36 +331,24 @@ pod search XXXCardStore如未搜索到 请执行 pod repo update 进行更新，
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Sat Nov 21 2020 00:00:00 GMT+0800">2020-11-21</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat Nov 21 2020 00:00:00 GMT+0800">2020-11-21</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Swift/">Swift</a>
+                            <a href="/categories/Swift/">Swift</a>&nbsp;
                         </li>
                     
                     
                 </ul>
             </span>
         
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/RxSwift/">RxSwift</a>
-                        </li>
-                    
-                </ul>
-            </span>
         
     </div>
 
-    <a href="/2020/11/21/200-RxSwift-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E3%80%81%E9%87%8D%E8%AF%95-catchError%E3%80%81retry/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/21/200-RxSwift-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E3%80%81%E9%87%8D%E8%AF%95-catchError%E3%80%81retry/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -349,36 +375,24 @@ Sw...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Sat Nov 21 2020 00:00:00 GMT+0800">2020-11-21</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat Nov 21 2020 00:00:00 GMT+0800">2020-11-21</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/iOS/">iOS</a>
+                            <a href="/categories/iOS/">iOS</a>&nbsp;
                         </li>
                     
                     
                 </ul>
             </span>
         
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/iOS-%E4%BB%A3%E7%A0%81%E5%9D%97/">iOS 代码块</a>
-                        </li>
-                    
-                </ul>
-            </span>
         
     </div>
 
-    <a href="/2020/11/21/500-Xcode-%E4%BB%A3%E7%A0%81%E5%9D%97/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/21/500-Xcode-%E4%BB%A3%E7%A0%81%E5%9D%97/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -402,36 +416,24 @@ Sw...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Fri Nov 20 2020 00:00:00 GMT+0800">2020-11-20</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Nov 20 2020 00:00:00 GMT+0800">2020-11-20</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Swift/">Swift</a>
+                            <a href="/categories/Swift/">Swift</a>&nbsp;
                         </li>
                     
                     
                 </ul>
             </span>
         
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/RxSwift/">RxSwift</a>
-                        </li>
-                    
-                </ul>
-            </span>
         
     </div>
 
-    <a href="/2020/11/20/200-RxSwift-%E5%BB%B6%E8%BF%9F%E3%80%81%E8%B6%85%E6%97%B6%E3%80%81delay%E3%80%81timeout/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/20/200-RxSwift-%E5%BB%B6%E8%BF%9F%E3%80%81%E8%B6%85%E6%97%B6%E3%80%81delay%E3%80%81timeout/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -455,41 +457,24 @@ Sw...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Fri Nov 20 2020 00:00:00 GMT+0800">2020-11-20</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Nov 20 2020 00:00:00 GMT+0800">2020-11-20</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/iOS/">iOS</a>
+                            <a href="/categories/iOS/">iOS</a>&nbsp;
                         </li>
                     
                     
                 </ul>
             </span>
         
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/SnapKit/">SnapKit</a>
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E9%80%82%E9%85%8D/">适配</a>
-                        </li>
-                    
-                </ul>
-            </span>
         
     </div>
 
-    <a href="/2020/11/20/500-SnapKit%E9%80%82%E9%85%8D%E5%88%98%E6%B5%B7%E5%B1%8F%E3%80%81%E5%BC%82%E5%BD%A2%E5%B1%8F/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/20/500-SnapKit%E9%80%82%E9%85%8D%E5%88%98%E6%B5%B7%E5%B1%8F%E3%80%81%E5%BC%82%E5%BD%A2%E5%B1%8F/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -515,41 +500,24 @@ CocoapPods 第三方库 报错同样的解决办法见下图
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Fri Nov 20 2020 00:00:00 GMT+0800">2020-11-20</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Nov 20 2020 00:00:00 GMT+0800">2020-11-20</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/iOS/">iOS</a>
+                            <a href="/categories/iOS/">iOS</a>&nbsp;
                         </li>
                     
                     
                 </ul>
             </span>
         
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Widget/">Widget</a>
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/App-Extension/">App Extension</a>
-                        </li>
-                    
-                </ul>
-            </span>
         
     </div>
 
-    <a href="/2020/11/20/500-iOS-%E6%8A%A5%E9%94%99-'sharedApplication'-is-unavailable--not-available-on-iOS-(App-E/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/20/500-iOS-%E6%8A%A5%E9%94%99-'sharedApplication'-is-unavailable--not-available-on-iOS-(App-E/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -574,14 +542,14 @@ CocoapPods 第三方库 报错同样的解决办法见下图
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Fri Nov 20 2020 00:00:00 GMT+0800">2020-11-20</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Nov 20 2020 00:00:00 GMT+0800">2020-11-20</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/iOS/">iOS</a>
+                            <a href="/categories/iOS/">iOS</a>&nbsp;
                         </li>
                     
                     
@@ -591,50 +559,7 @@ CocoapPods 第三方库 报错同样的解决办法见下图
         
     </div>
 
-    <a href="/2020/11/20/500-iOS%E6%B8%90%E5%8F%98%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97%E3%80%81iOS-mask-%E9%81%AE%E7%BD%A9/">Read more <i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2020/11/19/100-Swift%E8%8E%B7%E5%8F%96%E5%80%BC%E7%9A%84%E7%B1%BB%E5%9E%8B/">
-                        Swift获取值的类型
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        使用 type(of:) 函数
-12345let a &#x3D; type(of:&quot;😄&quot;)print(a) &#x2F;&#x2F;String
-直达文档
-
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Thu Nov 19 2020 00:00:00 GMT+0800">2020-11-19</span></span>
-        
-            <span class="home-article-category"><i class="fas fa-folder"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/Swift/">Swift</a>
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-    </div>
-
-    <a href="/2020/11/19/100-Swift%E8%8E%B7%E5%8F%96%E5%80%BC%E7%9A%84%E7%B1%BB%E5%9E%8B/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/20/500-iOS%E6%B8%90%E5%8F%98%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97%E3%80%81iOS-mask-%E9%81%AE%E7%BD%A9/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -660,54 +585,36 @@ CocoapPods 第三方库 报错同样的解决办法见下图
 </div>
 
 
-                    
-                </main>
-
+                
             </div>
 
-            <div class="page-main-content-bottom">
-                <footer class="footer">
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
     <div class="info-container">
         <div class="copyright-info info-item">
             &copy;
             
-              <span>2020</span> -
+              <span>2020</span>&nbsp;-&nbsp;
             
-            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">xxxixxxx</a>
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">xxxixxxx</a>
         </div>
         
         <div class="theme-info info-item">
-            Powered by <a target="_blank" href="https://hexo.io">Hexo</a> | Theme <a class="theme-version" target="_blank"></a>
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.0</a>
         </div>
+        
     </div>
 </footer>
 
-            </div>
         </div>
-    </main>
-
-    <div class="sidebar-tools">
-        <div class="tools-container">
-    <ul class="tools-list">
-        
-            <li class="search popup-trigger">
-                <i class="fas fa-search"></i>
-            </li>
-        
-
-        
-
-        <!-- TOC aside toggle -->
-        
-
-    </ul>
-</div>
-
     </div>
+
+    
 
     <div class="right-bottom-side-tools">
         <div class="side-tools-container">
-
     <ul class="side-tools-list">
         <li class="tools-item tool-font-adjust-plus flex-center">
             <i class="fas fa-search-plus"></i>
@@ -728,51 +635,49 @@ CocoapPods 第三方库 报错同样的解决办法见下图
         <!-- rss -->
         
             <li class="tools-item rss flex-center">
-                <a class="flex-center" href="/atom.xml" target="_blank"><i class="fas fa-rss"></i></a>
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
             </li>
         
 
-        <li class="tools-item tool-scroll-to-top flex-center">
-            <i class="fas fa-arrow-up"></i>
-        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
 
         <li class="tools-item tool-scroll-to-bottom flex-center">
             <i class="fas fa-arrow-down"></i>
         </li>
     </ul>
 
-    <ul class="tools-ul-1">
+    <ul class="exposed-tools-list">
         <li class="tools-item tool-toggle-show flex-center">
             <i class="fas fa-cog fa-spin"></i>
         </li>
-
+        
     </ul>
 </div>
 
     </div>
 
-    <!-- page aside -->
-    <aside class="page-aside">
-        
-    </aside>
+    
 
-    <!-- image viewer -->
     <div class="image-viewer-container">
-    <div class="img-box">
-        <img src="">
-    </div>
+    <img src="">
 </div>
 
 
-</div>
-
-
-
-    <div class="search-pop-overlay">
+    
+        <div class="search-pop-overlay">
     <div class="popup search-popup">
         <div class="search-header">
-          <span class="search-icon">
-            <i class="fas fa-search"></i>
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
           </span>
             <div class="search-input-container">
                 <input autocomplete="off"
@@ -796,13 +701,60 @@ CocoapPods 第三方库 报错同样的解决办法见下图
     </div>
 </div>
 
+    
+
+</main>
 
 
-<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/dark-light-toggle.js"></script>
 
 
-    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/local-search.js"></script>
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/dark-light-toggle.js"></script>
 
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/local-search.js"></script>
+
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
 
 
 

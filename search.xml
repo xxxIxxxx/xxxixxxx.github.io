@@ -513,6 +513,35 @@
       </tags>
   </entry>
   <entry>
+    <title>UDP 有拥塞控制吗？</title>
+    <url>/2021/02/11/1000-008UDP/</url>
+    <content><![CDATA[<h1 id="UDP-有拥塞控制吗？"><a href="#UDP-有拥塞控制吗？" class="headerlink" title="UDP 有拥塞控制吗？"></a>UDP 有拥塞控制吗？</h1><ol>
+<li><strong>UDP 没有拥塞控制</strong>，网络出现拥塞不会使源主机的发送速率降低。这对某些实时应用是很重要的。</li>
+<li>UDP 支持一对一、一对多和多对的的交互通信。</li>
+<li>UDP 的首部开销小，只有8个字节，比TCP的20个字节的首部要短。</li>
+</ol>
+<h1 id="TCP-与-UDP-的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。"><a href="#TCP-与-UDP-的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。" class="headerlink" title="TCP 与 UDP 的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。"></a>TCP 与 UDP 的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。</h1><h1 id="UDP-概述"><a href="#UDP-概述" class="headerlink" title="UDP 概述"></a>UDP 概述</h1><p>UDP用户数据报协议，是面向无连接的通讯协议，UDP数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。<br>用户数据报协议 UDP 只在 IP 的数据报服务之上增加了很少一点的功能，这就是复用和分用的功能以及查错检测的功能。</p>
+<h1 id="UDP-的主要特点"><a href="#UDP-的主要特点" class="headerlink" title="UDP 的主要特点"></a>UDP 的主要特点</h1><ol>
+<li>UDP 是无连接的，即发送数据之前不需要建立连接(发送数据结束时也没有连接可释放)，减少了开销和发送数据之前的时延</li>
+<li>UDP 使用尽最大努力交付，即不保证可靠交付，主机不需要维持复杂的连接状态表</li>
+<li>UDP 是面向报文的，发送方的 UDP 对应用程序交下来的报文，在添加首部后就向下交付 IP 层。UDP 对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界</li>
+</ol>
+<h1 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h1><ol>
+<li>某些实时应用需要使用没有拥塞控制的 UDP，但很多的源主机同时都向网络发送高速率的实时视频流时，网络就有可能发生拥塞，导致大家都无法正常接收。</li>
+<li>还有一些使用 UDP 的实时应用，需要对 UDP 的不可靠传输进行适当的改进，以减少数据的丢失。应用进程可以在不影响应用的实时性的前提下，增加一些提高可靠性的措施，如采用前向纠错或重传已丢失的报文</li>
+</ol>
+<blockquote>
+<p><a class="link"   href="https://developer.aliyun.com/article/699136" >https://developer.aliyun.com/article/699136<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="https://www.runoob.com/w3cnote/summary-of-network.html#_label7" >https://www.runoob.com/w3cnote/summary-of-network.html#_label7<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RxSwift-Observable订阅、监听</title>
     <url>/2020/11/12/200-RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -891,7 +920,12 @@
 <p>StatefulWidget.createState must return a subtype of State</p>
 <p>The createState function for XXXX2 returned a state of type _XXXXState, which is not a subtype of State<XXXX2>, violating the contract for createState.</p>
 <p>错误分析：<br>其实就是返回的 Widget 类型不对，<br>大意了，修改正确即可。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2331323-a44eecc36a9468ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误图"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-a44eecc36a9468ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="错误图"
+                ></p>
 ]]></content>
       <categories>
         <category>Flutter</category>
@@ -906,7 +940,12 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">assets:</span><br><span class="line">    - assets&#x2F;images&#x2F;cat.png</span><br></pre></td></tr></table></figure>
 <h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ fluttergen -c example&#x2F;pubspec.yaml</span><br></pre></td></tr></table></figure>
 
-<h1 id="VSCode-中-终端使用"><a href="#VSCode-中-终端使用" class="headerlink" title="VSCode 中 终端使用"></a>VSCode 中 终端使用</h1><p><img src="https://upload-images.jianshu.io/upload_images/2331323-645686099e6124e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="VSCode"></p>
+<h1 id="VSCode-中-终端使用"><a href="#VSCode-中-终端使用" class="headerlink" title="VSCode 中 终端使用"></a>VSCode 中 终端使用</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-645686099e6124e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="VSCode"
+                ></p>
 ]]></content>
       <categories>
         <category>Flutter</category>
@@ -1104,7 +1143,12 @@
 <li>Flutter Widget Snippets</li>
 <li>Flutter Helpers</li>
 <li>[FF] Flutter Files</li>
-<li>Awesome Flutter Snippets<h1 id="运行配置"><a href="#运行配置" class="headerlink" title="运行配置"></a>运行配置</h1><code>shift + cmd + d</code> 添加以下配置，这样就不用每次都在终端输入命令了<br><img src="https://upload-images.jianshu.io/upload_images/2331323-c47d75e75723b671.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="操作图"></li>
+<li>Awesome Flutter Snippets<h1 id="运行配置"><a href="#运行配置" class="headerlink" title="运行配置"></a>运行配置</h1><code>shift + cmd + d</code> 添加以下配置，这样就不用每次都在终端输入命令了<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-c47d75e75723b671.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="操作图"
+                ></li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;debug&quot;, &#x2F;&#x2F;debug 模式</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;dart&quot;,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;profile&quot;, &#x2F;&#x2F;profile 模式 可解决非联机调试白屏</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;dart&quot;,</span><br><span class="line">            &quot;flutterMode&quot;: &quot;profile&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;release&quot;, &#x2F;&#x2F;release 模式 可解决非联机调试白屏</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;dart&quot;,</span><br><span class="line">            &quot;flutterMode&quot;: &quot;release&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1278,8 +1322,18 @@
   <entry>
     <title>iOS OC 与 Swift 混编</title>
     <url>/2020/12/06/500-iOS-OC-%E4%B8%8E-Swift-%E6%B7%B7%E7%BC%96/</url>
-    <content><![CDATA[<h1 id="1-XXX-Bridging-Header-h"><a href="#1-XXX-Bridging-Header-h" class="headerlink" title="1. XXX-Bridging-Header.h"></a>1. XXX-Bridging-Header.h</h1><p>新建Swift文件时一般会自动提示创建<code>XXX-Bridging-Header.h</code>文件。如果没有那么自己新建一个 Header 文件，命名为<code>项目名-Bridging-Header.h</code><br><img src="https://upload-images.jianshu.io/upload_images/2331323-40814d95e9d8b2f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新建 Header 文件"></p>
-<h1 id="2-打开-Target-gt-BuildSettings-搜索-Header"><a href="#2-打开-Target-gt-BuildSettings-搜索-Header" class="headerlink" title="2. 打开 Target -&gt; BuildSettings 搜索 Header"></a>2. 打开 Target -&gt; BuildSettings 搜索 <code>Header</code></h1><h2 id="User-Header-Search-Paths-填写-SRCROOT"><a href="#User-Header-Search-Paths-填写-SRCROOT" class="headerlink" title="User Header Search Paths 填写 $(SRCROOT)"></a><code>User Header Search Paths</code> 填写 <code>$(SRCROOT)</code></h2><h2 id="Enable-Modules-c-and-objective-C-填写-YES"><a href="#Enable-Modules-c-and-objective-C-填写-YES" class="headerlink" title="Enable Modules(c and objective-C) 填写 YES"></a><code>Enable Modules(c and objective-C)</code> 填写 <code>YES</code></h2><h2 id="Objective-C-Bridging-Header-填写-项目名称-项目名称-Bridging-Header-h-⚠️这里是个路径"><a href="#Objective-C-Bridging-Header-填写-项目名称-项目名称-Bridging-Header-h-⚠️这里是个路径" class="headerlink" title="Objective-C Bridging Header 填写 项目名称/项目名称-Bridging-Header.h ⚠️这里是个路径"></a><code>Objective-C Bridging Header</code> 填写 <code>项目名称/项目名称-Bridging-Header.h</code> ⚠️这里是个路径</h2><h2 id="Objective-C-Generated-Interface-Header-Name-填写-项目名称-Swift-h-这里是-OC-引用-Swift-需要用到的。"><a href="#Objective-C-Generated-Interface-Header-Name-填写-项目名称-Swift-h-这里是-OC-引用-Swift-需要用到的。" class="headerlink" title="Objective-C Generated Interface Header Name 填写 项目名称-Swift.h 这里是 OC 引用 Swift 需要用到的。"></a><code>Objective-C Generated Interface Header Name</code> 填写 <code>项目名称-Swift.h</code> 这里是 OC 引用 Swift 需要用到的。</h2><p><img src="https://upload-images.jianshu.io/upload_images/2331323-c91b49763e023f54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BuildSettings 需要修改的地方"></p>
+    <content><![CDATA[<h1 id="1-XXX-Bridging-Header-h"><a href="#1-XXX-Bridging-Header-h" class="headerlink" title="1. XXX-Bridging-Header.h"></a>1. XXX-Bridging-Header.h</h1><p>新建Swift文件时一般会自动提示创建<code>XXX-Bridging-Header.h</code>文件。如果没有那么自己新建一个 Header 文件，命名为<code>项目名-Bridging-Header.h</code><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-40814d95e9d8b2f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="新建 Header 文件"
+                ></p>
+<h1 id="2-打开-Target-gt-BuildSettings-搜索-Header"><a href="#2-打开-Target-gt-BuildSettings-搜索-Header" class="headerlink" title="2. 打开 Target -&gt; BuildSettings 搜索 Header"></a>2. 打开 Target -&gt; BuildSettings 搜索 <code>Header</code></h1><h2 id="User-Header-Search-Paths-填写-SRCROOT"><a href="#User-Header-Search-Paths-填写-SRCROOT" class="headerlink" title="User Header Search Paths 填写 $(SRCROOT)"></a><code>User Header Search Paths</code> 填写 <code>$(SRCROOT)</code></h2><h2 id="Enable-Modules-c-and-objective-C-填写-YES"><a href="#Enable-Modules-c-and-objective-C-填写-YES" class="headerlink" title="Enable Modules(c and objective-C) 填写 YES"></a><code>Enable Modules(c and objective-C)</code> 填写 <code>YES</code></h2><h2 id="Objective-C-Bridging-Header-填写-项目名称-项目名称-Bridging-Header-h-⚠️这里是个路径"><a href="#Objective-C-Bridging-Header-填写-项目名称-项目名称-Bridging-Header-h-⚠️这里是个路径" class="headerlink" title="Objective-C Bridging Header 填写 项目名称/项目名称-Bridging-Header.h ⚠️这里是个路径"></a><code>Objective-C Bridging Header</code> 填写 <code>项目名称/项目名称-Bridging-Header.h</code> ⚠️这里是个路径</h2><h2 id="Objective-C-Generated-Interface-Header-Name-填写-项目名称-Swift-h-这里是-OC-引用-Swift-需要用到的。"><a href="#Objective-C-Generated-Interface-Header-Name-填写-项目名称-Swift-h-这里是-OC-引用-Swift-需要用到的。" class="headerlink" title="Objective-C Generated Interface Header Name 填写 项目名称-Swift.h 这里是 OC 引用 Swift 需要用到的。"></a><code>Objective-C Generated Interface Header Name</code> 填写 <code>项目名称-Swift.h</code> 这里是 OC 引用 Swift 需要用到的。</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-c91b49763e023f54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="BuildSettings 需要修改的地方"
+                ></p>
 <h1 id="3-pod-需要修改的地方"><a href="#3-pod-需要修改的地方" class="headerlink" title="3. pod 需要修改的地方"></a>3. pod 需要修改的地方</h1><p>Podfile 增加 <code>use_frameworks!</code> 后重新 <code>pod install</code></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">target&#39;XXXXX&#39; do</span><br><span class="line">use_frameworks!</span><br></pre></td></tr></table></figure>
 <p><strong>⚠️并把所有 <code>pod</code> 导入的库 使用 <code>&lt;&gt;</code> 导入 而不是<code>&quot;&quot;</code> 例如<code>#import &lt;AFNetworking.h&gt;</code></strong></p>
@@ -1300,7 +1354,12 @@
   <entry>
     <title>解决导入 objc/Runtime.h 和 objc/message.h 头文件后，敲击代码不提示 / Runtime 代码不提示</title>
     <url>/2020/12/02/500-iOS-Runtime/</url>
-    <content><![CDATA[<h1 id="解决导入-objc-Runtime-h-和-objc-message-h-头文件后，敲击代码不提示-Runtime-代码不提示"><a href="#解决导入-objc-Runtime-h-和-objc-message-h-头文件后，敲击代码不提示-Runtime-代码不提示" class="headerlink" title="解决导入 objc/Runtime.h 和 objc/message.h 头文件后，敲击代码不提示 / Runtime 代码不提示"></a>解决导入 <code>objc/Runtime.h</code> 和 <code>objc/message.h</code> 头文件后，敲击代码不提示 / Runtime 代码不提示</h1><p>Build Settings 搜索 <code>objc_msg</code><br><img src="https://upload-images.jianshu.io/upload_images/2331323-d1f64b02dd132e27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Build Settings 修改"></p>
+    <content><![CDATA[<h1 id="解决导入-objc-Runtime-h-和-objc-message-h-头文件后，敲击代码不提示-Runtime-代码不提示"><a href="#解决导入-objc-Runtime-h-和-objc-message-h-头文件后，敲击代码不提示-Runtime-代码不提示" class="headerlink" title="解决导入 objc/Runtime.h 和 objc/message.h 头文件后，敲击代码不提示 / Runtime 代码不提示"></a>解决导入 <code>objc/Runtime.h</code> 和 <code>objc/message.h</code> 头文件后，敲击代码不提示 / Runtime 代码不提示</h1><p>Build Settings 搜索 <code>objc_msg</code><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-d1f64b02dd132e27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="Build Settings 修改"
+                ></p>
 ]]></content>
       <categories>
         <category>iOS</category>
@@ -1342,7 +1401,12 @@
     <url>/2020/12/07/500-iOS-Widget-%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E6%B7%BB%E5%8A%A0-%E3%80%81iOS-Widget-%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87/</url>
     <content><![CDATA[<h3 id="Intent-Widget-开发"><a href="#Intent-Widget-开发" class="headerlink" title="Intent Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Static-Widget-开发"><a href="#Static-Widget-开发" class="headerlink" title="Static Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/84c180963ac6" >Static Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Demo下载"><a href="#Demo下载" class="headerlink" title="Demo下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo下载<i class="fas fa-external-link-alt"></i></a></h3><h1 id="Widget-在添加时找不到"><a href="#Widget-在添加时找不到" class="headerlink" title="Widget 在添加时找不到"></a>Widget 在添加时找不到</h1><p> 出现这种情况，可能是只配置了可编辑的 <code>Widget</code>。<br>导致<code>NSExtensionPointIdentifier</code>只有这一种类型 <code>com.apple.intents-service</code> 会被识别为 Siri 扩展。</p>
 <h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>再添加一个不可编辑的 <code>Widget</code> 即可。不需要展示出，在 <code>@main</code>方法里不添加就好。<br>确定新添加的<code>NSExtensionPointIdentifier</code>类型为 <code>com.apple.widgetkit-extension</code> 。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2331323-7fe44d27ed6af214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="plist"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-7fe44d27ed6af214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="plist"
+                ></p>
 <hr>
 <h1 id="Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步"><a href="#Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步" class="headerlink" title="Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步"></a>Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 同步下载图片，Widget 不能异步刷新</span><br><span class="line"></span><br><span class="line">funcgetImage(_imgUrlString:String) -&gt;UIImage? &#123;</span><br><span class="line"></span><br><span class="line"> guardletdata &#x3D;try?Data(contentsOf:URL(string: imgUrlString)!)else&#123;</span><br><span class="line"></span><br><span class="line">        print(&quot;图片下载失败&quot;)</span><br><span class="line"></span><br><span class="line"> returnnil&#125;</span><br><span class="line"></span><br><span class="line">    print(&quot;图片下载成功&quot;)</span><br><span class="line"></span><br><span class="line"> returnUIImage(data: data)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line"></span><br><span class="line">Image(uiImage:getImage(entry.imageUrlStr) ??UIImage(named:&quot;aaaa&quot;)!)</span><br><span class="line"></span><br><span class="line">                        .resizable()</span><br><span class="line"></span><br><span class="line">                        .frame(width:60,</span><br><span class="line"></span><br><span class="line">                               height:60,</span><br><span class="line"></span><br><span class="line">                               alignment: .center)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
@@ -1381,10 +1445,20 @@
     <title>iOS 多 Target CocoaPods 管理</title>
     <url>/2020/11/28/500-iOS-%E5%A4%9A-Target-CocoaPods-%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<h1 id="1-iOS-多-Target-CocoaPods-管理，直接来看例子"><a href="#1-iOS-多-Target-CocoaPods-管理，直接来看例子" class="headerlink" title="1. iOS 多 Target CocoaPods 管理，直接来看例子"></a>1. iOS 多 Target CocoaPods 管理，直接来看例子</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">platform :ios, &quot;11.0&quot;</span><br><span class="line">source &quot;https:&#x2F;&#x2F;cdn.cocoapods.org&#x2F;&quot;</span><br><span class="line">#source &#39;https:&#x2F;&#x2F;github.com&#x2F;CocoaPods&#x2F;Specs.git&#39;</span><br><span class="line"></span><br><span class="line">#定义公共库</span><br><span class="line">def commonPods</span><br><span class="line">  use_frameworks!</span><br><span class="line"></span><br><span class="line">  pod &quot;KakaJSON&quot;, &quot;~&gt; 1.1.2&quot;</span><br><span class="line">  pod &quot;SnapKit&quot;, &quot;~&gt; 5.0.1&quot;</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">#为 Target1 配置自己独有的库</span><br><span class="line">target &quot;Target1&quot; do</span><br><span class="line">  commonPods</span><br><span class="line">  pod &quot;YYCategories&quot;</span><br><span class="line">  pod &quot;Alamofire&quot;, &quot;~&gt; 5.2.2&quot;</span><br><span class="line">end</span><br><span class="line">#为 Target2 配置自己独有的库</span><br><span class="line">target &quot;Target2&quot; do</span><br><span class="line">  commonPods</span><br><span class="line">  pod &quot;Moya&quot;, &quot;~&gt; 14.0.0&quot;</span><br><span class="line">end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="2-判断在哪一个-Target，iOS-Target-判断"><a href="#2-判断在哪一个-Target，iOS-Target-判断" class="headerlink" title="2. 判断在哪一个 Target，iOS Target 判断"></a>2. 判断在哪一个 Target，iOS Target 判断</h1><h3 id="Swift-设置"><a href="#Swift-设置" class="headerlink" title="Swift 设置"></a>Swift 设置</h3><p>Build Settings 搜索 <code>swift compiler</code> 具体看图<br><img src="https://upload-images.jianshu.io/upload_images/2331323-da3235308811d72b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加 Target 判断条件"></p>
+<h1 id="2-判断在哪一个-Target，iOS-Target-判断"><a href="#2-判断在哪一个-Target，iOS-Target-判断" class="headerlink" title="2. 判断在哪一个 Target，iOS Target 判断"></a>2. 判断在哪一个 Target，iOS Target 判断</h1><h3 id="Swift-设置"><a href="#Swift-设置" class="headerlink" title="Swift 设置"></a>Swift 设置</h3><p>Build Settings 搜索 <code>swift compiler</code> 具体看图<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-da3235308811d72b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="添加 Target 判断条件"
+                ></p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#if MAINTARGET</span><br><span class="line">tipLab.text &#x3D; &quot;mmmm&quot;</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
 
-<h3 id="OC-设置"><a href="#OC-设置" class="headerlink" title="OC 设置"></a>OC 设置</h3><p>Build Settings 搜索 <code>macros</code> 具体看图<br><img src="https://upload-images.jianshu.io/upload_images/2331323-3ae5817bcb53187d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OC 操作图"></p>
+<h3 id="OC-设置"><a href="#OC-设置" class="headerlink" title="OC 设置"></a>OC 设置</h3><p>Build Settings 搜索 <code>macros</code> 具体看图<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-3ae5817bcb53187d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="OC 操作图"
+                ></p>
 <h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> #ifdef TARGETMAIN</span><br><span class="line">NSLog(@&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;TARGETMAIN&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);</span><br><span class="line"> #endif</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
@@ -1399,8 +1473,18 @@
     <title>iOS-报错-&#39;sharedApplication&#39;-is-unavailable--not-available-on-iOS</title>
     <url>/2020/11/20/500-iOS-%E6%8A%A5%E9%94%99-&#39;sharedApplication&#39;-is-unavailable--not-available-on-iOS-(App-E/</url>
     <content><![CDATA[<p>这是因为使用了在 App Extension 内不安全的API</p>
-<h3 id="解决办法见下图"><a href="#解决办法见下图" class="headerlink" title="解决办法见下图"></a>解决办法见下图</h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-2161dedfa7242b3e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="操作步骤图"></p>
-<h3 id="CocoapPods-第三方库-报错同样的解决办法见下图"><a href="#CocoapPods-第三方库-报错同样的解决办法见下图" class="headerlink" title="CocoapPods 第三方库 报错同样的解决办法见下图"></a>CocoapPods 第三方库 报错同样的解决办法见下图</h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-0b33c4b741a47ed7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="操作步骤图"></p>
+<h3 id="解决办法见下图"><a href="#解决办法见下图" class="headerlink" title="解决办法见下图"></a>解决办法见下图</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-2161dedfa7242b3e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="操作步骤图"
+                ></p>
+<h3 id="CocoapPods-第三方库-报错同样的解决办法见下图"><a href="#CocoapPods-第三方库-报错同样的解决办法见下图" class="headerlink" title="CocoapPods 第三方库 报错同样的解决办法见下图"></a>CocoapPods 第三方库 报错同样的解决办法见下图</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-0b33c4b741a47ed7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="操作步骤图"
+                ></p>
 ]]></content>
       <categories>
         <category>iOS</category>
@@ -1413,12 +1497,37 @@
   <entry>
     <title>iOS 用户可编辑的 Widget</title>
     <url>/2020/11/27/500-iOS14-Widget-%E5%BC%80%E5%8F%91-1/</url>
-    <content><![CDATA[<h3 id="本篇是用户可编辑的-Widget"><a href="#本篇是用户可编辑的-Widget" class="headerlink" title="本篇是用户可编辑的 Widget"></a>本篇是用户可编辑的 Widget</h3><h3 id="用户不可编辑的-Widget，点我去看"><a href="#用户不可编辑的-Widget，点我去看" class="headerlink" title="用户不可编辑的 Widget，点我去看"></a><a class="link"   href="https://www.jianshu.com/p/84c180963ac6" >用户不可编辑的 Widget，点我去看<i class="fas fa-external-link-alt"></i></a></h3><h3 id="编辑屏幕-Widget-不显示，Widget-加载网络图片"><a href="#编辑屏幕-Widget-不显示，Widget-加载网络图片" class="headerlink" title="编辑屏幕 Widget 不显示，Widget 加载网络图片"></a><a class="link"   href="https://www.jianshu.com/p/a80d59c94442" >编辑屏幕 Widget 不显示，Widget 加载网络图片<i class="fas fa-external-link-alt"></i></a></h3><h1 id="Demo-下载"><a href="#Demo-下载" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1><h1 id="先来看效果图"><a href="#先来看效果图" class="headerlink" title="先来看效果图"></a>先来看效果图</h1><p><img src="https://upload-images.jianshu.io/upload_images/2331323-196fcdf3f96e1360.JPEG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
-<h1 id="建议将-demo-下载下来对照着看对应-demo-里的-AnimalWidget-文件"><a href="#建议将-demo-下载下来对照着看对应-demo-里的-AnimalWidget-文件" class="headerlink" title="建议将 demo 下载下来对照着看对应 demo 里的 AnimalWidget 文件"></a>建议将 demo 下载下来对照着看对应 demo 里的 AnimalWidget 文件</h1><h3 id="1-新建-Widget-Extension，勾选-Intent。"><a href="#1-新建-Widget-Extension，勾选-Intent。" class="headerlink" title="1. 新建 Widget Extension，勾选 Intent。"></a>1. 新建 Widget Extension，勾选 Intent。</h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-4c736e922128a5f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1. 新建 Widget Extension，勾选 Intent"></p>
-<h3 id="2-点击-AnimalWidget-intentdefinition-文件-添加可编辑的数据类型-具体操作看图吧"><a href="#2-点击-AnimalWidget-intentdefinition-文件-添加可编辑的数据类型-具体操作看图吧" class="headerlink" title="2. 点击 AnimalWidget.intentdefinition 文件 添加可编辑的数据类型 具体操作看图吧"></a>2. 点击 AnimalWidget.intentdefinition 文件 添加可编辑的数据类型 具体操作看图吧</h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-e26dffe1a81d1a99.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2. 点击 AnimalWidget.intentdefinition 文件 具体操作看图吧"></p>
-<h3 id="3-为第二步新增的数据类型-设置对应的值"><a href="#3-为第二步新增的数据类型-设置对应的值" class="headerlink" title="3. 为第二步新增的数据类型 设置对应的值"></a>3. 为第二步新增的数据类型 设置对应的值</h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-6c898cf25193f0c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+    <content><![CDATA[<h3 id="本篇是用户可编辑的-Widget"><a href="#本篇是用户可编辑的-Widget" class="headerlink" title="本篇是用户可编辑的 Widget"></a>本篇是用户可编辑的 Widget</h3><h3 id="用户不可编辑的-Widget，点我去看"><a href="#用户不可编辑的-Widget，点我去看" class="headerlink" title="用户不可编辑的 Widget，点我去看"></a><a class="link"   href="https://www.jianshu.com/p/84c180963ac6" >用户不可编辑的 Widget，点我去看<i class="fas fa-external-link-alt"></i></a></h3><h3 id="编辑屏幕-Widget-不显示，Widget-加载网络图片"><a href="#编辑屏幕-Widget-不显示，Widget-加载网络图片" class="headerlink" title="编辑屏幕 Widget 不显示，Widget 加载网络图片"></a><a class="link"   href="https://www.jianshu.com/p/a80d59c94442" >编辑屏幕 Widget 不显示，Widget 加载网络图片<i class="fas fa-external-link-alt"></i></a></h3><h1 id="Demo-下载"><a href="#Demo-下载" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1><h1 id="先来看效果图"><a href="#先来看效果图" class="headerlink" title="先来看效果图"></a>先来看效果图</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-196fcdf3f96e1360.JPEG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="效果图"
+                ></p>
+<h1 id="建议将-demo-下载下来对照着看对应-demo-里的-AnimalWidget-文件"><a href="#建议将-demo-下载下来对照着看对应-demo-里的-AnimalWidget-文件" class="headerlink" title="建议将 demo 下载下来对照着看对应 demo 里的 AnimalWidget 文件"></a>建议将 demo 下载下来对照着看对应 demo 里的 AnimalWidget 文件</h1><h3 id="1-新建-Widget-Extension，勾选-Intent。"><a href="#1-新建-Widget-Extension，勾选-Intent。" class="headerlink" title="1. 新建 Widget Extension，勾选 Intent。"></a>1. 新建 Widget Extension，勾选 Intent。</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-4c736e922128a5f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="1. 新建 Widget Extension，勾选 Intent"
+                ></p>
+<h3 id="2-点击-AnimalWidget-intentdefinition-文件-添加可编辑的数据类型-具体操作看图吧"><a href="#2-点击-AnimalWidget-intentdefinition-文件-添加可编辑的数据类型-具体操作看图吧" class="headerlink" title="2. 点击 AnimalWidget.intentdefinition 文件 添加可编辑的数据类型 具体操作看图吧"></a>2. 点击 AnimalWidget.intentdefinition 文件 添加可编辑的数据类型 具体操作看图吧</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-e26dffe1a81d1a99.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="2. 点击 AnimalWidget.intentdefinition 文件 具体操作看图吧"
+                ></p>
+<h3 id="3-为第二步新增的数据类型-设置对应的值"><a href="#3-为第二步新增的数据类型-设置对应的值" class="headerlink" title="3. 为第二步新增的数据类型 设置对应的值"></a>3. 为第二步新增的数据类型 设置对应的值</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-6c898cf25193f0c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="image.png"
+                ></p>
 <h3 id="4-编辑-Info-plist-️是-widget-extension-的-Info-plist"><a href="#4-编辑-Info-plist-️是-widget-extension-的-Info-plist" class="headerlink" title="4. 编辑 Info.plist (️是 widget extension 的 Info.plist )"></a>4. 编辑 Info.plist (️是 widget extension 的 Info.plist )</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;key&gt;NSExtension&lt;&#x2F;key&gt;</span><br><span class="line">	&lt;dict&gt;</span><br><span class="line">		&lt;key&gt;IntentsSupported&lt;&#x2F;key&gt;</span><br><span class="line">		&lt;array&gt;</span><br><span class="line">			&lt;string&gt;AnimalWidgetConfigurationIntent&lt;&#x2F;string&gt;</span><br><span class="line">		&lt;&#x2F;array&gt;</span><br><span class="line">		&lt;key&gt;NSExtensionAttributes&lt;&#x2F;key&gt;</span><br><span class="line">		&lt;dict&gt;</span><br><span class="line">			&lt;key&gt;IntentsRestrictedWhileLocked&lt;&#x2F;key&gt;</span><br><span class="line">			&lt;array&#x2F;&gt;</span><br><span class="line">			&lt;key&gt;IntentsRestrictedWhileProtectedDataUnavailable&lt;&#x2F;key&gt;</span><br><span class="line">			&lt;array&#x2F;&gt;</span><br><span class="line">			&lt;key&gt;IntentsSupported&lt;&#x2F;key&gt;</span><br><span class="line">			&lt;array&gt;</span><br><span class="line">				&lt;string&gt;AnimalWidgetConfigurationIntent&lt;&#x2F;string&gt;</span><br><span class="line">			&lt;&#x2F;array&gt;</span><br><span class="line">		&lt;&#x2F;dict&gt;</span><br><span class="line">		&lt;key&gt;NSExtensionPointIdentifier&lt;&#x2F;key&gt;</span><br><span class="line">		&lt;string&gt;com.apple.intents-service&lt;&#x2F;string&gt;</span><br><span class="line">		&lt;key&gt;NSExtensionPrincipalClass&lt;&#x2F;key&gt;</span><br><span class="line">		&lt;string&gt;$(PRODUCT_MODULE_NAME).IntentHandler&lt;&#x2F;string&gt;</span><br><span class="line">	&lt;&#x2F;dict&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://upload-images.jianshu.io/upload_images/2331323-8bb6ff14aab5c9eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4. 编辑 Info.plist (️是 widget extension 的 Info.plist )"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-8bb6ff14aab5c9eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="4. 编辑 Info.plist (️是 widget extension 的 Info.plist )"
+                ></p>
 <h3 id="5-创建-IntentHandler-swift-添加一下代码-可能会报错-找不到-AnimalWidgetConfigurationIntentHandling-、AnimalWidgetConfigurationIntent-先不管先把别的配置好"><a href="#5-创建-IntentHandler-swift-添加一下代码-可能会报错-找不到-AnimalWidgetConfigurationIntentHandling-、AnimalWidgetConfigurationIntent-先不管先把别的配置好" class="headerlink" title="5. 创建 IntentHandler.swift 添加一下代码 (可能会报错 找不到 AnimalWidgetConfigurationIntentHandling 、AnimalWidgetConfigurationIntent  先不管先把别的配置好)"></a>5. 创建 IntentHandler.swift 添加一下代码 (可能会报错 找不到 AnimalWidgetConfigurationIntentHandling 、AnimalWidgetConfigurationIntent  先不管先把别的配置好)</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Intents</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 自己创建的文件</span><br><span class="line">class IntentHandler: INExtension, AnimalWidgetConfigurationIntentHandling &#123; &#x2F;&#x2F; AnimalWidgetConfigurationIntentHandling 是第二步的名字 加上 IntentHandling 后缀</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 配置给用户可选的列表                    AnimalWidgetConfigurationIntent 是第二步的名字 加上 Intent 后缀</span><br><span class="line">    func provideAnimalOptionsCollection(for intent: AnimalWidgetConfigurationIntent, searchTerm: String?, with completion: @escaping (INObjectCollection&lt;Animal&gt;?, Error?) -&gt; Void) &#123;</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;&#x2F; 这里可以去请求网络拿数据</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;&#x2F;搜索词 searchTerm 搜索cat</span><br><span class="line">        if searchTerm &#x3D;&#x3D; &quot;cat&quot; &#123;</span><br><span class="line">            completion(INObjectCollection(items: [Animal(identifier: &quot;cat&quot;, display: &quot;cat&quot;)]), nil)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        let animals: [Animal] &#x3D; XXXAnimal.zoo.map &#123; (xxxAnimal) in</span><br><span class="line">            return Animal(identifier: xxxAnimal.id, display: xxxAnimal.name)</span><br><span class="line">        &#125;</span><br><span class="line">        completion(INObjectCollection(items: animals), nil)</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    override func handler(for intent: INIntent) -&gt; Any &#123;</span><br><span class="line">        return self</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h3 id="6-修改-AnimalWidget-swift-内容"><a href="#6-修改-AnimalWidget-swift-内容" class="headerlink" title="6. 修改 AnimalWidget.swift 内容"></a>6. 修改 AnimalWidget.swift 内容</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">如果你的工程已经存在了一个 Widget 将 @main 去掉</span><br><span class="line">使用下面</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;我的这部分代码在 XXXWidget.swift</span><br><span class="line">@main</span><br><span class="line">struct AllWidget: WidgetBundle &#123;</span><br><span class="line">    </span><br><span class="line">    @WidgetBundleBuilder</span><br><span class="line">    var body: some Widget &#123;</span><br><span class="line">        XXXWidget()</span><br><span class="line">        AnimalWidget()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -1428,7 +1537,12 @@
 <hr>
 <h4 id="修改-IntentTimelineProvider"><a href="#修改-IntentTimelineProvider" class="headerlink" title="修改 IntentTimelineProvider"></a>修改 IntentTimelineProvider</h4><h4 id="️-涉及到-AnimalWidgetConfigurationIntent-可能会报错-先不管-️"><a href="#️-涉及到-AnimalWidgetConfigurationIntent-可能会报错-先不管-️" class="headerlink" title="️ 涉及到 AnimalWidgetConfigurationIntent 可能会报错 先不管 ️"></a><strong>️ 涉及到 AnimalWidgetConfigurationIntent 可能会报错 先不管 ️</strong></h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">struct Provider: IntentTimelineProvider &#123;</span><br><span class="line">    func placeholder(in context: Context) -&gt; SimpleEntry &#123;</span><br><span class="line">        SimpleEntry(date: Date(), configuration: ConfigurationIntent())</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -&gt; ()) &#123;</span><br><span class="line">        let entry &#x3D; SimpleEntry(date: Date(), configuration: configuration)</span><br><span class="line">        completion(entry)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline&lt;Entry&gt;) -&gt; ()) &#123;</span><br><span class="line">        var entries: [SimpleEntry] &#x3D; []</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Generate a timeline consisting of five entries an hour apart, starting from the current date.</span><br><span class="line">        let currentDate &#x3D; Date()</span><br><span class="line">        for hourOffset in 0 ..&lt; 5 &#123;</span><br><span class="line">            let entryDate &#x3D; Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!</span><br><span class="line">            let entry &#x3D; SimpleEntry(date: entryDate, configuration: configuration)</span><br><span class="line">            entries.append(entry)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        let timeline &#x3D; Timeline(entries: entries, policy: .atEnd)</span><br><span class="line">        completion(timeline)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">--------------原️----新️-----------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 重新命名</span><br><span class="line">struct AnimalProvider: IntentTimelineProvider &#123;</span><br><span class="line">    </span><br><span class="line">&#x2F;&#x2F; 按照要求增加  Entry 和 Intent</span><br><span class="line">    typealias Entry &#x3D; AnimalSimpleEntry</span><br><span class="line">    typealias Intent &#x3D; AnimalWidgetConfigurationIntent</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    func placeholder(in context: Context) -&gt; AnimalSimpleEntry &#123;</span><br><span class="line">        AnimalSimpleEntry(date: Date(), animal: .lion)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func getSnapshot(for configuration: AnimalWidgetConfigurationIntent, in context: Context, completion: @escaping (AnimalSimpleEntry) -&gt; ()) &#123;</span><br><span class="line">        let entry &#x3D; AnimalSimpleEntry(date: Date(), animal: .lion)</span><br><span class="line">        completion(entry)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    func getTimeline(for configuration: AnimalWidgetConfigurationIntent, in context: Context, completion: @escaping (Timeline&lt;Entry&gt;) -&gt; ()) &#123;</span><br><span class="line">        </span><br><span class="line">        let currentDate &#x3D; Date()</span><br><span class="line">        </span><br><span class="line">        guard let id &#x3D; configuration.animal?.identifier, let entryDate &#x3D; Calendar.current.date(byAdding: .minute, value: 1, to: currentDate) else &#123;</span><br><span class="line">            let timeline &#x3D; Timeline(entries: [AnimalSimpleEntry(date: currentDate, animal: .lion)], policy: .atEnd)</span><br><span class="line">            completion(timeline)</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        let entry &#x3D; AnimalSimpleEntry(date: entryDate, animal: XXXAnimal.animal(id, color: configuration.color))</span><br><span class="line">        </span><br><span class="line">        let timeline &#x3D; Timeline(entries: [entry], policy: .atEnd)</span><br><span class="line">        completion(timeline)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="其他地方对照-demo-修改就可以了"><a href="#其他地方对照-demo-修改就可以了" class="headerlink" title="其他地方对照 demo 修改就可以了"></a>其他地方对照 demo 修改就可以了</h2><h1 id="️如果有-Cannot-find-type-‘AnimalWidgetConfigurationIntent’-in-scope-报错-尝试多-build-几次或者-重启-Xcode️"><a href="#️如果有-Cannot-find-type-‘AnimalWidgetConfigurationIntent’-in-scope-报错-尝试多-build-几次或者-重启-Xcode️" class="headerlink" title="️如果有  Cannot find type ‘AnimalWidgetConfigurationIntent’ in scope 报错 尝试多 build 几次或者 重启 Xcode️"></a>️如果有  Cannot find type ‘AnimalWidgetConfigurationIntent’ in scope 报错 尝试多 build 几次或者 重启 Xcode️</h1><p><img src="https://upload-images.jianshu.io/upload_images/2331323-194231fd2ac108f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="其他注意"></p>
+<h2 id="其他地方对照-demo-修改就可以了"><a href="#其他地方对照-demo-修改就可以了" class="headerlink" title="其他地方对照 demo 修改就可以了"></a>其他地方对照 demo 修改就可以了</h2><h1 id="️如果有-Cannot-find-type-‘AnimalWidgetConfigurationIntent’-in-scope-报错-尝试多-build-几次或者-重启-Xcode️"><a href="#️如果有-Cannot-find-type-‘AnimalWidgetConfigurationIntent’-in-scope-报错-尝试多-build-几次或者-重启-Xcode️" class="headerlink" title="️如果有  Cannot find type ‘AnimalWidgetConfigurationIntent’ in scope 报错 尝试多 build 几次或者 重启 Xcode️"></a>️如果有  Cannot find type ‘AnimalWidgetConfigurationIntent’ in scope 报错 尝试多 build 几次或者 重启 Xcode️</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-194231fd2ac108f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="其他注意"
+                ></p>
 ]]></content>
       <categories>
         <category>iOS</category>
@@ -1440,14 +1554,39 @@
   <entry>
     <title>iOS14 Widget</title>
     <url>/2020/11/26/500-iOS14-Widget-%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<h1 id="Demo-下载"><a href="#Demo-下载" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1><h3 id="这个是用户不可配置的，没有编辑选项的-widget"><a href="#这个是用户不可配置的，没有编辑选项的-widget" class="headerlink" title="这个是用户不可配置的，没有编辑选项的 widget"></a>这个是用户不可配置的，没有编辑选项的 widget</h3><h3 id="Intent-用户可编辑的点我去看"><a href="#Intent-用户可编辑的点我去看" class="headerlink" title="Intent 用户可编辑的点我去看"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent 用户可编辑的点我去看<i class="fas fa-external-link-alt"></i></a></h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-126d13797dd4e2de.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
+    <content><![CDATA[<h1 id="Demo-下载"><a href="#Demo-下载" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1><h3 id="这个是用户不可配置的，没有编辑选项的-widget"><a href="#这个是用户不可配置的，没有编辑选项的-widget" class="headerlink" title="这个是用户不可配置的，没有编辑选项的 widget"></a>这个是用户不可配置的，没有编辑选项的 widget</h3><h3 id="Intent-用户可编辑的点我去看"><a href="#Intent-用户可编辑的点我去看" class="headerlink" title="Intent 用户可编辑的点我去看"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent 用户可编辑的点我去看<i class="fas fa-external-link-alt"></i></a></h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-126d13797dd4e2de.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="效果图"
+                ></p>
 <h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 时间线</span><br><span class="line">struct XXXProvider: TimelineProvider &#123;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 占位的展示</span><br><span class="line">    func placeholder(in context: Context) -&gt; XXXSimpleEntry &#123;</span><br><span class="line">        XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData())</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 快照</span><br><span class="line">    func getSnapshot(in context: Context, completion: @escaping (XXXSimpleEntry) -&gt; ()) &#123;</span><br><span class="line">        let entry &#x3D; XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData())</span><br><span class="line">        completion(entry)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#x2F;根据时间线提供需要展示的状态</span><br><span class="line">    func getTimeline(in context: Context, completion: @escaping (Timeline&lt;Entry&gt;) -&gt; ()) &#123;</span><br><span class="line">        </span><br><span class="line">        print(&quot;时间线刷新了&quot; + &quot;\(Date())&quot;)</span><br><span class="line">        </span><br><span class="line">        var entrys: [XXXSimpleEntry] &#x3D; []</span><br><span class="line">        let currentData &#x3D; Date()</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;&#x2F; 提供当前时间后 1个小时内  每一秒的状态 (已经提供了3600个状态，太多会不展示卡死)</span><br><span class="line">        for i in 0...60*60 &#123;</span><br><span class="line">            guard let entryDate &#x3D; Calendar.current.date(byAdding: .second, value: i, to: currentData) else &#123;</span><br><span class="line">                return</span><br><span class="line">            &#125;</span><br><span class="line">            entrys.append(XXXSimpleEntry(date: entryDate, displayTime: XXXData.displayData(entryDate)))</span><br><span class="line">        &#125;</span><br><span class="line">        let timeline &#x3D; Timeline(entries: entrys, policy: .atEnd)</span><br><span class="line">        completion(timeline)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 每一个时间线的实体</span><br><span class="line">struct XXXSimpleEntry: TimelineEntry &#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F;展示该状态的时间</span><br><span class="line">    let date: Date</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 自己配置的数据</span><br><span class="line">    let displayTime: String</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; widget 展示 view</span><br><span class="line">struct XXXWidgetEntryView : View &#123;</span><br><span class="line">    var entry: XXXProvider.Entry</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 返回在这个时间 (entry.date)    你想要展示的widegt样式</span><br><span class="line">    var body: some View &#123;</span><br><span class="line">        ZStack &#123;</span><br><span class="line">            </span><br><span class="line">            Color.orange.edgesIgnoringSafeArea(.all)</span><br><span class="line">            VStack &#123;</span><br><span class="line">                Text(entry.displayTime)</span><br><span class="line">                    .multilineTextAlignment(.center)</span><br><span class="line">                    .foregroundColor(.blue)</span><br><span class="line">                    &#x2F;&#x2F;&#x2F;配置点击链接会在主工程收到拉起事件</span><br><span class="line">                    .widgetURL(URL(string: &quot;widgetDemo:&#x2F;&#x2F;789&quot;))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;widget</span><br><span class="line">struct XXXWidget: Widget &#123;</span><br><span class="line">    let kind: String &#x3D; &quot;XXXWidget&quot;</span><br><span class="line"></span><br><span class="line">    var body: some WidgetConfiguration &#123;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; StaticConfiguration 是静态的，用户不可配置的 长按不会出现编辑</span><br><span class="line">        StaticConfiguration(kind: kind, provider: XXXProvider()) &#123; entry in</span><br><span class="line">            XXXWidgetEntryView(entry: entry)</span><br><span class="line">        &#125;</span><br><span class="line">        .configurationDisplayName(&quot;添加时的标题&quot;)</span><br><span class="line">        .description(&quot;添加时的描述&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;提供预览状态</span><br><span class="line">struct XXXWidget_Previews: PreviewProvider &#123;</span><br><span class="line">    </span><br><span class="line">    static var previews: some View &#123;</span><br><span class="line">        XXXWidgetEntryView(entry: XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData()))</span><br><span class="line">            .previewContext(WidgetPreviewContext(family: .systemSmall))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;主入口</span><br><span class="line">@main</span><br><span class="line">struct AllWidget: WidgetBundle &#123;</span><br><span class="line">    </span><br><span class="line">    @WidgetBundleBuilder</span><br><span class="line">    var body: some Widget &#123;</span><br><span class="line">        XXXWidget()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
-<h3 id="部分操作的详细截图"><a href="#部分操作的详细截图" class="headerlink" title="部分操作的详细截图"></a>部分操作的详细截图</h3><p><img src="https://upload-images.jianshu.io/upload_images/2331323-d4e70bcacfcacc7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="File -&gt; New -&gt; Target"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2331323-b19a4ce4f064179c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这个是用户不可配置的widget，勾选的是用户可配置的。我们先来做不可配置的"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2331323-786376718471b3c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="调整最低运行系统"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2331323-5fcaf3ede4232577.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="关联主工程数据"></p>
+<h3 id="部分操作的详细截图"><a href="#部分操作的详细截图" class="headerlink" title="部分操作的详细截图"></a>部分操作的详细截图</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-d4e70bcacfcacc7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="File -&gt; New -&gt; Target"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-b19a4ce4f064179c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="这个是用户不可配置的widget，勾选的是用户可配置的。我们先来做不可配置的"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-786376718471b3c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="调整最低运行系统"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-5fcaf3ede4232577.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="关联主工程数据"
+                ></p>
 <h1 id="Demo-下载-1"><a href="#Demo-下载-1" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1>]]></content>
       <categories>
         <category>iOS</category>
@@ -1459,8 +1598,18 @@
   <entry>
     <title>iOS占位图、空白页面</title>
     <url>/2020/11/24/500-iOS%E5%8D%A0%E4%BD%8D%E5%9B%BE%E3%80%81%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2/</url>
-    <content><![CDATA[<h1 id="iOS占位图、空白页面-Github直达"><a href="#iOS占位图、空白页面-Github直达" class="headerlink" title="iOS占位图、空白页面 Github直达"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXPlaceholder" >iOS占位图、空白页面 Github直达<i class="fas fa-external-link-alt"></i></a></h1><h1 id="iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew"><a href="#iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew" class="headerlink" title="iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew"></a>iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew</h1><h1 id="😄😄😄"><a href="#😄😄😄" class="headerlink" title="😄😄😄"></a>😄😄😄</h1><p><img src="http://upload-images.jianshu.io/upload_images/2331323-337781e6ecaac4ae.gif?imageMogr2/auto-orient/strip" alt="tableView使用效果"></p>
-<p> <img src="http://upload-images.jianshu.io/upload_images/2331323-37d81ba5477c72c3.gif?imageMogr2/auto-orient/strip" alt="view使用效果"></p>
+    <content><![CDATA[<h1 id="iOS占位图、空白页面-Github直达"><a href="#iOS占位图、空白页面-Github直达" class="headerlink" title="iOS占位图、空白页面 Github直达"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXPlaceholder" >iOS占位图、空白页面 Github直达<i class="fas fa-external-link-alt"></i></a></h1><h1 id="iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew"><a href="#iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew" class="headerlink" title="iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew"></a>iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew</h1><h1 id="😄😄😄"><a href="#😄😄😄" class="headerlink" title="😄😄😄"></a>😄😄😄</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://upload-images.jianshu.io/upload_images/2331323-337781e6ecaac4ae.gif?imageMogr2/auto-orient/strip"
+                      alt="tableView使用效果"
+                ></p>
+<p> <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://upload-images.jianshu.io/upload_images/2331323-37d81ba5477c72c3.gif?imageMogr2/auto-orient/strip"
+                      alt="view使用效果"
+                ></p>
 <h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a><em>注意</em></h1><h5 id="1-当tableView、collectionView-有数据时（row-gt-0，item-gt-0）不显示占位图"><a href="#1-当tableView、collectionView-有数据时（row-gt-0，item-gt-0）不显示占位图" class="headerlink" title="1.当tableView、collectionView 有数据时（row&gt;0，item&gt;0）不显示占位图"></a>1.当tableView、collectionView 有数据时（row&gt;0，item&gt;0）不显示占位图</h5><h5 id="2-当scrollView-contentSize-height-gt-scrollView-frame-size-height-时临时禁用滑动属性（tableView、collectionView优先遵循第一条）"><a href="#2-当scrollView-contentSize-height-gt-scrollView-frame-size-height-时临时禁用滑动属性（tableView、collectionView优先遵循第一条）" class="headerlink" title="2.当scrollView.contentSize.height &gt; scrollView.frame.size.height 时临时禁用滑动属性（tableView、collectionView优先遵循第一条）"></a>2.当scrollView.contentSize.height &gt; scrollView.frame.size.height 时临时禁用滑动属性（tableView、collectionView优先遵循第一条）</h5><h5 id="3-建议导入demo中的XXXPlaceholderEX文件夹"><a href="#3-建议导入demo中的XXXPlaceholderEX文件夹" class="headerlink" title="3.建议导入demo中的XXXPlaceholderEX文件夹"></a>3.建议导入demo中的XXXPlaceholderEX文件夹</h5><h5 id="4-占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件"><a href="#4-占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件" class="headerlink" title="4.占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件"></a>4.占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件</h5><h5 id="5-我觉得用法还是挺简单的，看下demo吧😂"><a href="#5-我觉得用法还是挺简单的，看下demo吧😂" class="headerlink" title="5.我觉得用法还是挺简单的，看下demo吧😂"></a>5.我觉得用法还是挺简单的，看下demo吧😂</h5><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod repo update</span><br><span class="line">rm ~&#x2F;Library&#x2F;Caches&#x2F;CocoaPods&#x2F;search_index.json  (清除搜索缓存)</span><br><span class="line">pod &#39;XXXPlaceholder&#39;, &#39;~&gt; 0.0.1&#39;</span><br></pre></td></tr></table></figure>
 <ol>
 <li><p>参照demo创建占位图</p>
@@ -1479,8 +1628,18 @@
   <entry>
     <title>iOS拖拽卡片</title>
     <url>/2020/11/22/500-iOS%E6%8B%96%E6%8B%BD%E5%8D%A1%E7%89%87%E5%8F%A0%E5%8A%A0%E5%8D%A1%E7%89%87/</url>
-    <content><![CDATA[<h1 id="github-XXXCardStore"><a href="#github-XXXCardStore" class="headerlink" title="github XXXCardStore"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXCardStore" >github XXXCardStore<i class="fas fa-external-link-alt"></i></a></h1><p><img src="http://upload-images.jianshu.io/upload_images/2331323-86f449d502adaa19.gif?imageMogr2/auto-orient/strip" alt="效果图"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2331323-70de1ba83f9ad822.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="说明图"></p>
+    <content><![CDATA[<h1 id="github-XXXCardStore"><a href="#github-XXXCardStore" class="headerlink" title="github XXXCardStore"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXCardStore" >github XXXCardStore<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://upload-images.jianshu.io/upload_images/2331323-86f449d502adaa19.gif?imageMogr2/auto-orient/strip"
+                      alt="效果图"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://upload-images.jianshu.io/upload_images/2331323-70de1ba83f9ad822.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="说明图"
+                ></p>
 <h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><ol>
 <li>pod search XXXCardStore<br>如未搜索到 请执行 pod repo update 进行更新，然后清除搜索缓存 rm ~/Library/Caches/CocoaPods/search_index.json</li>
 <li>pod ‘XXXCardStore’</li>
@@ -1498,7 +1657,12 @@
   <entry>
     <title>iOS mask 遮罩，彩色文本</title>
     <url>/2020/11/20/500-iOS%E6%B8%90%E5%8F%98%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97%E3%80%81iOS-mask-%E9%81%AE%E7%BD%A9/</url>
-    <content><![CDATA[<h1 id="iOS渐变彩色文字、iOS-mask-遮罩"><a href="#iOS渐变彩色文字、iOS-mask-遮罩" class="headerlink" title="iOS渐变彩色文字、iOS mask 遮罩"></a>iOS渐变彩色文字、iOS mask 遮罩</h1><p><img src="https://upload-images.jianshu.io/upload_images/2331323-2f3e46c5908444fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
+    <content><![CDATA[<h1 id="iOS渐变彩色文字、iOS-mask-遮罩"><a href="#iOS渐变彩色文字、iOS-mask-遮罩" class="headerlink" title="iOS渐变彩色文字、iOS mask 遮罩"></a>iOS渐变彩色文字、iOS mask 遮罩</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-2f3e46c5908444fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="效果图"
+                ></p>
 <p><a class="link"   href="https://github.com/ibireme/YYCategories" >使用到了YYCategories<i class="fas fa-external-link-alt"></i></a></p>
 <h3 id="彩色文字"><a href="#彩色文字" class="headerlink" title="彩色文字"></a>彩色文字</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UIView *colorBgView &#x3D; [UIView new];</span><br><span class="line">    [self.view addSubview:colorBgView];</span><br><span class="line">    colorBgView.frame &#x3D; CGRectMake(0, 300, UIScreen.mainScreen.bounds.size.width, 40);</span><br><span class="line">        </span><br><span class="line">&#x2F;&#x2F;这里用了YYCategories</span><br><span class="line">    UIBezierPath *colorTextPath &#x3D; [UIBezierPath bezierPathWithText:@&quot;哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈&quot; font:[UIFont systemFontOfSize:28]];</span><br><span class="line">    CAShapeLayer *colorTextLayer &#x3D; [CAShapeLayer layer];</span><br><span class="line">    colorTextLayer.path &#x3D; colorTextPath.CGPath;</span><br><span class="line">    colorTextLayer.frame &#x3D; CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 30);</span><br><span class="line">    colorBgView.layer.mask &#x3D; colorTextLayer;</span><br><span class="line">    </span><br><span class="line">    CAGradientLayer *colorLayer &#x3D; CAGradientLayer.new;</span><br><span class="line">    colorLayer.colors &#x3D; @[(__bridge id)UIColor.redColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.orangeColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.greenColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.blueColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.yellowColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.purpleColor.CGColor,</span><br><span class="line">                          (__bridge id)UIColor.blackColor.CGColor,];</span><br><span class="line">    colorLayer.startPoint &#x3D; CGPointMake(0, 0.5);</span><br><span class="line">    colorLayer.endPoint &#x3D; CGPointMake(1, 0.5);</span><br><span class="line">    colorLayer.frame &#x3D; CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 40);</span><br><span class="line">    [colorBgView.layer addSublayer:colorLayer];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -1599,15 +1763,30 @@
 <p><strong>4. 路由器缓存：</strong> 有些路由器也有DNS缓存的功能，访问过的域名会存在路由器上。</p>
 <p><strong>5. ISP DNS 缓存：</strong> 互联网服务提供商（如中国电信）也会提供DNS服务，比如比较著名的 114.114.114.114，在本地查找不到的情况下，就会向ISP进行查询，ISP会在当前服务器的缓存内查找是否有记录，如果有，则返回这个IP，若没有，则会开始向根域名服务器请求查询。</p>
 <p><strong>6. 顶级 DNS 服务器 / 根 DNS 服务器：</strong> 根域名收到请求后，会判别这个域名(.com)是授权给哪台服务器管理,并返回这个顶级DNS服务器的IP。请求者收到这台顶级DNS的服务器IP后，会向该服务器发起查询，如果该服务器无法解析，该服务器就会返回下一级的DNS服务器IP（baidu.com），本机继续查找，直到服务器找到(<a class="link"   href="http://www.baidu.com)的主机./" >www.baidu.com)的主机。<i class="fas fa-external-link-alt"></i></a><br>最后，本地DNS服务器向域名的解析服务器发出请求，这时就能收到一个域名和IP地址对应关系，本地DNS服务器不仅要把IP地址返回给用户电脑，还要把这个对应关系保存在缓存中，以备下次别的用户查询时，可以直接返回结果，加快网络访问。</p>
-<p><img src="https://files.catbox.moe/t5awpd.png" alt="过程图"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/t5awpd.png"
+                      alt="过程图"
+                ></p>
 <p>上述图片是查找 <a class="link"   href="http://www.google.com/" >www.google.com<i class="fas fa-external-link-alt"></i></a> 的 IP 地址过程。首先在本地域名服务器中查询 IP 地址，如果没有找到的情况下，本地域名服务器会向根域名服务器发送一个请求，如果根域名服务器也不存在该域名时，本地域名会向 com 顶级域名服务器发送一个请求，依次类推下去。直到最后本地域名服务器得到 google 的 IP 地址并把它缓存到本地，供下次查询使用。从上述过程中，可以看出网址的解析是一个从右向左的过程: com -&gt; google.com -&gt; <a href="http://www.google.com。但是你是否发现少了点什么，根域名服务器的解析过程呢？事实上，真正的网址是www.google.com.，并不是我多打了一个.，这个.对应的就是根域名服务器，默认情况下所有的网址的最后一位都是.，既然是默认情况下，为了方便用户，通常都会省略，浏览器在请求DNS的时候会自动加上，所有网址真正的解析过程为">www.google.com。但是你是否发现少了点什么，根域名服务器的解析过程呢？事实上，真正的网址是www.google.com.，并不是我多打了一个.，这个.对应的就是根域名服务器，默认情况下所有的网址的最后一位都是.，既然是默认情况下，为了方便用户，通常都会省略，浏览器在请求DNS的时候会自动加上，所有网址真正的解析过程为</a>: . -&gt; .com -&gt; google.com. -&gt; <a class="link"   href="http://www.google.com../" >www.google.com.。<i class="fas fa-external-link-alt"></i></a></p>
 <p>补充：</p>
 <ol>
 <li><p>什么是 DNS ？<br>DNS（Domain Name System，域名系统），因特网上作为域名和IP地址相互映射的一个分布式数据库，能够使用户更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。通过主机名，最终得到该主机名对应的IP地址的过程叫做域名解析（或主机名解析）。<br>  通俗的讲，我们更习惯于记住一个网站的名字，比如<a href="http://www.baidu.com,而不是记住它的ip地址，比如：167.23.10.2。而计算机更擅长记住网站的ip地址，而不是像www.baidu.com等链接。因为，DNS就相当于一个电话本，比如你要找www.baidu.com这个域名，那我翻一翻我的电话本，我就知道，哦，它的电话（ip）是167.23.10.2。">www.baidu.com,而不是记住它的ip地址，比如：167.23.10.2。而计算机更擅长记住网站的ip地址，而不是像www.baidu.com等链接。因为，DNS就相当于一个电话本，比如你要找www.baidu.com这个域名，那我翻一翻我的电话本，我就知道，哦，它的电话（ip）是167.23.10.2。</a></p>
 </li>
 <li><p>DNS 查询的两种方式：递归查询和迭代查询</p>
-<p> 2.1 递归解析<br> 当局部DNS服务器自己不能回答客户机的DNS查询时，它就需要向其他DNS服务器进行查询。此时有两种方式，如图所示的是递归方式。局部DNS服务器自己负责向其他DNS服务器进行查询，一般是先向该域名的根域服务器查询，再由根域名服务器一级级向下查询。最后得到的查询结果返回给局部DNS服务器，再由局部DNS服务器返回给客户端。<br><img src="https://files.catbox.moe/4vqiqy.png" alt="DNS 递归解析查询"></p>
-<p> 2.2 迭代解析<br> 当局部DNS服务器自己不能回答客户机的DNS查询时，也可以通过迭代查询的方式进行解析，如图所示。局部DNS服务器不是自己向其他DNS服务器进行查询，而是把能解析该域名的其他DNS服务器的IP地址返回给客户端DNS程序，客户端DNS程序再继续向这些DNS服务器进行查询，直到得到查询结果为止。也就是说，迭代解析只是帮你找到相关的服务器而已，而不会帮你去查。比如说：baidu.com的服务器ip地址在192.168.4.5这里，你自己去查吧，本人比较忙，只能帮你到这里了。<br><img src="https://files.catbox.moe/rnsyzp.png" alt="DNS 迭代解析查询"></p>
+<p> 2.1 递归解析<br> 当局部DNS服务器自己不能回答客户机的DNS查询时，它就需要向其他DNS服务器进行查询。此时有两种方式，如图所示的是递归方式。局部DNS服务器自己负责向其他DNS服务器进行查询，一般是先向该域名的根域服务器查询，再由根域名服务器一级级向下查询。最后得到的查询结果返回给局部DNS服务器，再由局部DNS服务器返回给客户端。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/4vqiqy.png"
+                      alt="DNS 递归解析查询"
+                ></p>
+<p> 2.2 迭代解析<br> 当局部DNS服务器自己不能回答客户机的DNS查询时，也可以通过迭代查询的方式进行解析，如图所示。局部DNS服务器不是自己向其他DNS服务器进行查询，而是把能解析该域名的其他DNS服务器的IP地址返回给客户端DNS程序，客户端DNS程序再继续向这些DNS服务器进行查询，直到得到查询结果为止。也就是说，迭代解析只是帮你找到相关的服务器而已，而不会帮你去查。比如说：baidu.com的服务器ip地址在192.168.4.5这里，你自己去查吧，本人比较忙，只能帮你到这里了。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/rnsyzp.png"
+                      alt="DNS 迭代解析查询"
+                ></p>
 </li>
 <li><p>DNS 域名称空间的组织方式<br>我们在前面有说到根DNS服务器，域DNS服务器，这些都是DNS域名称空间的组织方式。按其功能命名空间中用来描述 DNS 域名称的五个类别的介绍详见下表中，以及与每个名称类型的示例</p>
 </li>
@@ -1652,7 +1831,12 @@
 </li>
 </ol>
 <h2 id="3-建立-TCP-连接"><a href="#3-建立-TCP-连接" class="headerlink" title="3. 建立 TCP 连接"></a>3. 建立 TCP 连接</h2><p>拿到域名对应的IP地址之后，浏览器会以一个随机端口（1024&lt;端口&lt;65535）向服务器的WEB程序（常用的有httpd,nginx等）80端口发起TCP的连接请求。这个连接请求到达服务器端后（这中间通过各种路由设备，局域网内除外），进入到网卡，然后是进入到内核的TCP/IP协议栈（用于识别该连接请求，解封包，一层一层的剥开），还有可能要经过Netfilter防火墙（属于内核的模块）的过滤，最终到达WEB程序，最终建立了TCP/IP的连接。</p>
-<p><img src="https://files.catbox.moe/bnd17b.png" alt="TCP 连接图"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/bnd17b.png"
+                      alt="TCP 连接图"
+                ></p>
 <p>三次握手以建立 TCP 连接<br>第一次握手：建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，等待服务器确认；SYN：同步序列编号（Synchronize Sequence Numbers）。</p>
 <p>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态；</p>
 <p>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。</p>
@@ -1685,12 +1869,22 @@
 </ul>
 <h2 id="6-服务器处理请求"><a href="#6-服务器处理请求" class="headerlink" title="6. 服务器处理请求"></a>6. 服务器处理请求</h2><p>经过前面的重重步骤，我们终于将我们的http请求发送到了服务器这里，其实前面的重定向已经是到达服务器了，那么，服务器是如何处理我们的请求的呢？   </p>
 <p>后端从在固定的端口接收到TCP报文开始，它会对TCP连接进行处理，对HTTP协议进行解析，并按照报文格式进一步封装成HTTP Request对象，供上层使用。   <br>一些大一点的网站会将你的请求到反向代理服务器中，因为当网站访问量非常大，网站越来越慢，一台服务器已经不够用了。于是将同一个应用部署在多台服务器上，将大量用户的请求分配给多台机器处理。此时，客户端不是直接通过HTTP协议访问某网站应用服务器，而是先请求到Nginx，Nginx再请求应用服务器，然后将结果返回给客户端，这里Nginx的作用是反向代理服务器。同时也带来了一个好处，其中一台服务器万一挂了，只要还有其他服务器正常运行，就不会影响用户使用。</p>
-<p><img src="https://files.catbox.moe/pn6p43.png" alt="示例图"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/pn6p43.png"
+                      alt="示例图"
+                ></p>
 <ul>
 <li>补充：</li>
 </ul>
 <ol>
-<li>什么是反向代理？<br>客户端本来可以直接通过HTTP协议访问某网站应用服务器，网站管理员可以在中间加上一个Nginx，客户端请求Nginx，Nginx请求应用服务器，然后将结果返回给客户端，此时Nginx就是反向代理服务器。<br><img src="https://files.catbox.moe/ysfjxn.png" alt="示例图"></li>
+<li>什么是反向代理？<br>客户端本来可以直接通过HTTP协议访问某网站应用服务器，网站管理员可以在中间加上一个Nginx，客户端请求Nginx，Nginx请求应用服务器，然后将结果返回给客户端，此时Nginx就是反向代理服务器。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/ysfjxn.png"
+                      alt="示例图"
+                ></li>
 </ol>
 <h2 id="7-服务器返回一个-HTTP-响应"><a href="#7-服务器返回一个-HTTP-响应" class="headerlink" title="7. 服务器返回一个 HTTP 响应"></a>7. 服务器返回一个 HTTP 响应</h2><p>经过前面的6个步骤，服务器收到了我们的请求，也处理我们的请求，到这一步，它会把它的处理结果返回，也就是返回一个HTPP响应。 HTTP响应与HTTP请求相似，HTTP响应也由3个部分构成，分别是：</p>
 <ul>
@@ -1731,13 +1925,28 @@
 <li>500 Internel Server Error 表示服务器发生不可预期的错误，导致无法完成客户端的请求</li>
 <li>503 Service Unavailable 表示服务器当前不能够处理客户端的请求，在一段时间之后，服务器可能会恢复正常</li>
 </ul>
-<p><strong>响应头：</strong><br>响应头部：由关键字/值对组成，每行一对，关键字和值用英文冒号”:”分隔，典型的响应头有：<br><img src="https://files.catbox.moe/m1chic.png" alt="响应头"></p>
-<p><strong>响应正文：</strong><br>包含着我们需要的一些具体信息，比如cookie，html,image，后端返回的请求数据等等。这里需要注意，响应正文和响应头之间有一行空格，表示响应头的信息到空格为止，下图是fiddler抓到的请求正文，红色框中的：响应正文：<br><img src="https://files.catbox.moe/0qw5o5.png" alt="响应正文"></p>
+<p><strong>响应头：</strong><br>响应头部：由关键字/值对组成，每行一对，关键字和值用英文冒号”:”分隔，典型的响应头有：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/m1chic.png"
+                      alt="响应头"
+                ></p>
+<p><strong>响应正文：</strong><br>包含着我们需要的一些具体信息，比如cookie，html,image，后端返回的请求数据等等。这里需要注意，响应正文和响应头之间有一行空格，表示响应头的信息到空格为止，下图是fiddler抓到的请求正文，红色框中的：响应正文：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/0qw5o5.png"
+                      alt="响应正文"
+                ></p>
 <h2 id="8-浏览器显示-html"><a href="#8-浏览器显示-html" class="headerlink" title="8. 浏览器显示 html"></a>8. 浏览器显示 html</h2><blockquote>
 <p>浏览器在收到HTML,CSS,JS文件后，它是如何把页面呈现到屏幕上的？下图对应的就是WebKit渲染的过程。</p>
 </blockquote>
 <p><strong>构建dom树 -&gt; 构建render树 -&gt; 布局render树 -&gt; 绘制render树</strong><br>渲染过程：</p>
-<p>浏览器是一个边解析边渲染的过程。首先浏览器解析HTML文件构建DOM树，然后解析CSS文件构建渲染树，等到渲染树构建完成后，浏览器开始布局渲染树并将其绘制到屏幕上。这个过程比较复杂，涉及到两个概念: reflow(回流)和repain(重绘)。DOM节点中的各个元素都是以盒模型的形式存在，这些都需要浏览器去计算其位置和大小等，这个过程称为relow;当盒模型的位置,大小以及其他属性，如颜色,字体,等确定下来之后，浏览器便开始绘制内容，这个过程称为repain。页面在首次加载时必然会经历reflow和repain。reflow和repain过程是非常消耗性能的，尤其是在移动设备上，它会破坏用户体验，有时会造成页面卡顿。所以我们应该尽可能少的减少reflow和repain。<br>​    当文档加载过程中遇到js文件，html文档会挂起渲染（加载解析渲染同步）的线程，不仅要等待文档中js文件加载完毕，还要等待解析执行完毕，才可以恢复html文档的渲染线程。因为JS有可能会修改DOM，最为经典的document.write，这意味着，在JS执行完成前，后续所有资源的下载可能是没有必要的，这是js阻塞后续资源下载的根本原因。所以我明平时的代码中，js是放在html文档末尾的。<br>​    JS的解析是由浏览器中的JS解析引擎完成的。JS是单线程运行，也就是说，在同一个时间内只能做一件事，所有的任务都需要排队，前一个任务结束，后一个任务才能开始。但是又存在某些任务比较耗时，如IO读写等，所以需要一种机制可以先执行排在后面的任务，这就是：同步任务(synchronous)和异步任务(asynchronous)。<br>​    JS的执行机制就可以看做是一个主线程加上一个任务队列(task queue)。同步任务就是放在主线程上执行的任务，异步任务是放在任务队列中的任务。所有的同步任务在主线程上执行，形成一个执行栈;异步任务有了运行结果就会在任务队列中放置一个事件；脚本运行时先依次运行执行栈，然后会从任务队列里提取事件，运行任务队列中的任务，这个过程是不断重复的，所以又叫做事件循环(Event loop)。<br><img src="https://files.catbox.moe/we6f9l.png" alt="渲染过程"></p>
+<p>浏览器是一个边解析边渲染的过程。首先浏览器解析HTML文件构建DOM树，然后解析CSS文件构建渲染树，等到渲染树构建完成后，浏览器开始布局渲染树并将其绘制到屏幕上。这个过程比较复杂，涉及到两个概念: reflow(回流)和repain(重绘)。DOM节点中的各个元素都是以盒模型的形式存在，这些都需要浏览器去计算其位置和大小等，这个过程称为relow;当盒模型的位置,大小以及其他属性，如颜色,字体,等确定下来之后，浏览器便开始绘制内容，这个过程称为repain。页面在首次加载时必然会经历reflow和repain。reflow和repain过程是非常消耗性能的，尤其是在移动设备上，它会破坏用户体验，有时会造成页面卡顿。所以我们应该尽可能少的减少reflow和repain。<br>​    当文档加载过程中遇到js文件，html文档会挂起渲染（加载解析渲染同步）的线程，不仅要等待文档中js文件加载完毕，还要等待解析执行完毕，才可以恢复html文档的渲染线程。因为JS有可能会修改DOM，最为经典的document.write，这意味着，在JS执行完成前，后续所有资源的下载可能是没有必要的，这是js阻塞后续资源下载的根本原因。所以我明平时的代码中，js是放在html文档末尾的。<br>​    JS的解析是由浏览器中的JS解析引擎完成的。JS是单线程运行，也就是说，在同一个时间内只能做一件事，所有的任务都需要排队，前一个任务结束，后一个任务才能开始。但是又存在某些任务比较耗时，如IO读写等，所以需要一种机制可以先执行排在后面的任务，这就是：同步任务(synchronous)和异步任务(asynchronous)。<br>​    JS的执行机制就可以看做是一个主线程加上一个任务队列(task queue)。同步任务就是放在主线程上执行的任务，异步任务是放在任务队列中的任务。所有的同步任务在主线程上执行，形成一个执行栈;异步任务有了运行结果就会在任务队列中放置一个事件；脚本运行时先依次运行执行栈，然后会从任务队列里提取事件，运行任务队列中的任务，这个过程是不断重复的，所以又叫做事件循环(Event loop)。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/we6f9l.png"
+                      alt="渲染过程"
+                ></p>
 <h2 id="9-连接结束"><a href="#9-连接结束" class="headerlink" title="9. 连接结束"></a>9. 连接结束</h2><p>现在的页面为了优化请求的耗时，默认都会开启持久连接（keep-alive），那么一个TCP连接确切关闭的时机，是这个tab标签页关闭的时候。这个关闭的过程就是著名的四次挥手。关闭是一个全双工的过程，发包的顺序的不一定的。一般来说是客户端主动发起的关闭，过程如下。<br>对于一个已经建立的连接，TCP使用改进的三次握手来释放连接（使用一个带有FIN附加标记的报文段）。TCP关闭连接的步骤如下：<br>第一步，当主机A的应用程序通知TCP数据已经发送完毕时，TCP向主机B发送一个带有FIN附加标记的报文段（FIN表示英文finish）。<br>第二步，主机B收到这个FIN报文段之后，并不立即用FIN报文段回复主机A，而是先向主机A发送一个确认序号ACK，同时通知自己相应的应用程序：对方要求关闭连接（先发送ACK的目的是为了防止在这段时间内，对方重传FIN报文段）。<br>第三步，主机B的应用程序告诉TCP：我要彻底的关闭连接，TCP向主机A送一个FIN报文段。<br>第四步，主机A收到这个FIN报文段后，向主机B发送一个ACK表示连接彻底释放。</p>
 <p><strong>补充：</strong><br><strong>为什么连接的时候是三次握手，关闭的时候却是四次握手？</strong><br>答：因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步握手。</p>
 <blockquote>

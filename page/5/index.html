@@ -3,85 +3,107 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="xxxixxxx">
     
     <title>
         
         今日营业中
     </title>
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="shortcut icon" href="/null">
-    
-<link rel="stylesheet" href="/css/style.css">
-
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/css/font-awesome.min.css">
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","path":"search.xml"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":null,"img_position":"left","left_side_width":"260px","content_max_width":"900px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"说得越多 声音就越弱"}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":false},"version":"3.0.4"};
-    KEEP.language = {"search":"Search...","prev":"Prev","next":"Next","prev_posts":"Prev posts","next_posts":"Next posts","page":"Page %d","recent_posts":"Recent Posts","share":"Share","powered_by":"Powered by %s","theme":"Theme","rss_feed":"RSS Feed","category":"Category","categories":"Categories","tag":"Tag","tags":"Tags","tagcloud":"Tag Cloud","comment":"Comment","home":"Home","archive":"Archive","archives":"Archives","about":"About","site_uv":"Visitor Count","site_pv":"Totalview","links":"Links","link":"Link","top":"TOP","read_more":"Read more","wordcount":"Words","min2read":"Mins","changelog":"Changelog","copyright":{"author":"Post author","title":"Post title","link":"Post link","create_time":"Create time","license_title":"Copyright Notice","license_content":"All articles in this blog are licensed under %s unless stating additionally."},"ago":{"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days age","week":"%s weeks age","month":"%s months age","year":"%s years age"}};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"https://files.catbox.moe/elmpn1.png","favicon":null,"article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"说得越多 声音就越弱"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.0"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days age","week":"%s weeks age","month":"%s months age","year":"%s years age"};
   </script>
 <meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 </head>
 
 
 <body>
-<div class="page-container">
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
 
     
 
-    <header class="page-header">
-        <div class="header-progress"></div>
-    </header>
+    <div class="page-main-content">
 
-    <main class="page-main">
-
-        <div class="page-main-content">
-
-            <div class="page-main-content-top">
-                <header class="header-wrapper">
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
 
     <div class="header-content">
-        <a class="logo-title" href="/">
-            今日营业中
-        </a>
+        <div class="left">
+            <a class="logo-title" href="/">
+                今日营业中
+            </a>
+        </div>
 
-        <ul class="menu-list">
-            
-                <li class="menu-item">
-                    <a class="active"
-                       href="/"
-                    >
-                        首页
-                    </a>
-                </li>
-            
-                <li class="menu-item">
-                    <a class=""
-                       href="/archives"
-                    >
-                        归档
-                    </a>
-                </li>
-            
-                <li class="menu-item">
-                    <a class=""
-                       href="/categories"
-                    >
-                        分类
-                    </a>
-                </li>
-            
-                <li class="menu-item">
-                    <a class=""
-                       href="/tags"
-                    >
-                        标签
-                    </a>
-                </li>
-            
-        </ul>
-
-        <div class="menu-bar">
-            <div class="menu-bar-middle"></div>
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class="active"
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -116,15 +138,58 @@
 </header>
 
 
-            </div>
+        </div>
 
-            <div class="page-main-content-middle">
+        <div class="page-main-content-middle">
 
-                <main class="main-content normal-code-theme">
+            <div class="main-content">
+
+                
+                    <div class="home-content-container fade-in-down-animation">
+    <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2020/12/04/400-Flutter%E5%B7%A5%E7%A8%8B%E4%BF%AE%E5%A4%8D/">
+                        Flutter 工程修复
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        Flutter工程 误删iOS、误删Android等文件时
+解决方案
+12打开终端输入flutter create 工程目录
 
                     
-                        <div class="home-content-container fade-in-down-animation">
-    <ul class="home-article-list">
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Dec 04 2020 00:00:00 GMT+0800">2020-12-04</span></span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/Flutter/">Flutter</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+    </div>
+
+    <a href="/2020/12/04/400-Flutter%E5%B7%A5%E7%A8%8B%E4%BF%AE%E5%A4%8D/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
         
             <li class="home-article-item">
 
@@ -145,14 +210,14 @@ CocoaPods requires your terminal to be using UTF-8 encodingConsider adding the f
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Thu Dec 03 2020 00:00:00 GMT+0800">2020-12-03</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Dec 03 2020 00:00:00 GMT+0800">2020-12-03</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Flutter/">Flutter</a>
+                            <a href="/categories/Flutter/">Flutter</a>&nbsp;
                         </li>
                     
                     
@@ -162,7 +227,7 @@ CocoaPods requires your terminal to be using UTF-8 encodingConsider adding the f
         
     </div>
 
-    <a href="/2020/12/03/400-Flutter-%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%85%B3/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/12/03/400-Flutter-%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%85%B3/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -188,14 +253,14 @@ CocoaPods requires your terminal to be using UTF-8 encodingConsider adding the f
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Wed Dec 02 2020 00:00:00 GMT+0800">2020-12-02</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Wed Dec 02 2020 00:00:00 GMT+0800">2020-12-02</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Flutter/">Flutter</a>
+                            <a href="/categories/Flutter/">Flutter</a>&nbsp;
                         </li>
                     
                     
@@ -205,7 +270,7 @@ CocoaPods requires your terminal to be using UTF-8 encodingConsider adding the f
         
     </div>
 
-    <a href="/2020/12/02/400-Flutter-%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7-FlutterGen/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/12/02/400-Flutter-%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7-FlutterGen/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -229,36 +294,24 @@ CocoaPods requires your terminal to be using UTF-8 encodingConsider adding the f
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Wed Dec 02 2020 00:00:00 GMT+0800">2020-12-02</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Wed Dec 02 2020 00:00:00 GMT+0800">2020-12-02</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/iOS/">iOS</a>
+                            <a href="/categories/iOS/">iOS</a>&nbsp;
                         </li>
                     
                     
                 </ul>
             </span>
         
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Runtime/">Runtime</a>
-                        </li>
-                    
-                </ul>
-            </span>
         
     </div>
 
-    <a href="/2020/12/02/500-iOS-Runtime/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/12/02/500-iOS-Runtime/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -283,14 +336,14 @@ The createState function for XXXX2 returned a state of type _...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Tue Dec 01 2020 00:00:00 GMT+0800">2020-12-01</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Dec 01 2020 00:00:00 GMT+0800">2020-12-01</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Flutter/">Flutter</a>
+                            <a href="/categories/Flutter/">Flutter</a>&nbsp;
                         </li>
                     
                     
@@ -300,7 +353,7 @@ The createState function for XXXX2 returned a state of type _...
         
     </div>
 
-    <a href="/2020/12/01/400-Flutter-%E5%BC%80%E5%8F%91%E9%94%99%E8%AF%AF-StatefulWidget-createState-must-return-a-subtype-of-State/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/12/01/400-Flutter-%E5%BC%80%E5%8F%91%E9%94%99%E8%AF%AF-StatefulWidget-createState-must-return-a-subtype-of-State/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -323,41 +376,24 @@ The createState function for XXXX2 returned a state of type _...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Sat Nov 28 2020 00:00:00 GMT+0800">2020-11-28</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat Nov 28 2020 00:00:00 GMT+0800">2020-11-28</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/iOS/">iOS</a>
+                            <a href="/categories/iOS/">iOS</a>&nbsp;
                         </li>
                     
                     
                 </ul>
             </span>
         
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/CocoaPods/">CocoaPods</a>
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Target/">Target</a>
-                        </li>
-                    
-                </ul>
-            </span>
         
     </div>
 
-    <a href="/2020/11/28/500-iOS-%E5%A4%9A-Target-CocoaPods-%E7%AE%A1%E7%90%86/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/28/500-iOS-%E5%A4%9A-Target-CocoaPods-%E7%AE%A1%E7%90%86/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -381,36 +417,24 @@ The createState function for XXXX2 returned a state of type _...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Fri Nov 27 2020 00:00:00 GMT+0800">2020-11-27</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Nov 27 2020 00:00:00 GMT+0800">2020-11-27</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/iOS/">iOS</a>
+                            <a href="/categories/iOS/">iOS</a>&nbsp;
                         </li>
                     
                     
                 </ul>
             </span>
         
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Widget/">Widget</a>
-                        </li>
-                    
-                </ul>
-            </span>
         
     </div>
 
-    <a href="/2020/11/27/500-iOS14-Widget-%E5%BC%80%E5%8F%91-1/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/27/500-iOS14-Widget-%E5%BC%80%E5%8F%91-1/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -434,36 +458,24 @@ The createState function for XXXX2 returned a state of type _...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Thu Nov 26 2020 00:00:00 GMT+0800">2020-11-26</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Nov 26 2020 00:00:00 GMT+0800">2020-11-26</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/iOS/">iOS</a>
+                            <a href="/categories/iOS/">iOS</a>&nbsp;
                         </li>
                     
                     
                 </ul>
             </span>
         
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Widget/">Widget</a>
-                        </li>
-                    
-                </ul>
-            </span>
         
     </div>
 
-    <a href="/2020/11/26/500-iOS14-Widget-%E5%BC%80%E5%8F%91/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/26/500-iOS14-Widget-%E5%BC%80%E5%8F%91/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -488,14 +500,14 @@ The createState function for XXXX2 returned a state of type _...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Tue Nov 24 2020 00:00:00 GMT+0800">2020-11-24</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Nov 24 2020 00:00:00 GMT+0800">2020-11-24</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/iOS/">iOS</a>
+                            <a href="/categories/iOS/">iOS</a>&nbsp;
                         </li>
                     
                     
@@ -505,7 +517,7 @@ The createState function for XXXX2 returned a state of type _...
         
     </div>
 
-    <a href="/2020/11/24/500-iOS%E5%8D%A0%E4%BD%8D%E5%9B%BE%E3%80%81%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/24/500-iOS%E5%8D%A0%E4%BD%8D%E5%9B%BE%E3%80%81%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -529,66 +541,14 @@ The createState function for XXXX2 returned a state of type _...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Mon Nov 23 2020 00:00:00 GMT+0800">2020-11-23</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Nov 23 2020 00:00:00 GMT+0800">2020-11-23</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Swift/">Swift</a>
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E4%B8%8B%E6%A0%87/">下标</a>
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2020/11/23/100-Swift-%E6%B7%BB%E5%8A%A0%E4%B8%8B%E6%A0%87-subscript/">Read more <i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2020/11/22/100-Swift-%E6%95%B0%E7%BB%84/">
-                        Swift 数组
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        删除元素123var list &#x3D; [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;]list.removeAll&#123; $0 &#x3D;&#x3D; &quot;2&...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Sun Nov 22 2020 00:00:00 GMT+0800">2020-11-22</span></span>
-        
-            <span class="home-article-category"><i class="fas fa-folder"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/Swift/">Swift</a>
+                            <a href="/categories/Swift/">Swift</a>&nbsp;
                         </li>
                     
                     
@@ -598,7 +558,7 @@ The createState function for XXXX2 returned a state of type _...
         
     </div>
 
-    <a href="/2020/11/22/100-Swift-%E6%95%B0%E7%BB%84/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/11/23/100-Swift-%E6%B7%BB%E5%8A%A0%E4%B8%8B%E6%A0%87-subscript/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -624,54 +584,36 @@ The createState function for XXXX2 returned a state of type _...
 </div>
 
 
-                    
-                </main>
-
+                
             </div>
 
-            <div class="page-main-content-bottom">
-                <footer class="footer">
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
     <div class="info-container">
         <div class="copyright-info info-item">
             &copy;
             
-              <span>2020</span> -
+              <span>2020</span>&nbsp;-&nbsp;
             
-            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">xxxixxxx</a>
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">xxxixxxx</a>
         </div>
         
         <div class="theme-info info-item">
-            Powered by <a target="_blank" href="https://hexo.io">Hexo</a> | Theme <a class="theme-version" target="_blank"></a>
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.0</a>
         </div>
+        
     </div>
 </footer>
 
-            </div>
         </div>
-    </main>
-
-    <div class="sidebar-tools">
-        <div class="tools-container">
-    <ul class="tools-list">
-        
-            <li class="search popup-trigger">
-                <i class="fas fa-search"></i>
-            </li>
-        
-
-        
-
-        <!-- TOC aside toggle -->
-        
-
-    </ul>
-</div>
-
     </div>
+
+    
 
     <div class="right-bottom-side-tools">
         <div class="side-tools-container">
-
     <ul class="side-tools-list">
         <li class="tools-item tool-font-adjust-plus flex-center">
             <i class="fas fa-search-plus"></i>
@@ -692,51 +634,49 @@ The createState function for XXXX2 returned a state of type _...
         <!-- rss -->
         
             <li class="tools-item rss flex-center">
-                <a class="flex-center" href="/atom.xml" target="_blank"><i class="fas fa-rss"></i></a>
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
             </li>
         
 
-        <li class="tools-item tool-scroll-to-top flex-center">
-            <i class="fas fa-arrow-up"></i>
-        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
 
         <li class="tools-item tool-scroll-to-bottom flex-center">
             <i class="fas fa-arrow-down"></i>
         </li>
     </ul>
 
-    <ul class="tools-ul-1">
+    <ul class="exposed-tools-list">
         <li class="tools-item tool-toggle-show flex-center">
             <i class="fas fa-cog fa-spin"></i>
         </li>
-
+        
     </ul>
 </div>
 
     </div>
 
-    <!-- page aside -->
-    <aside class="page-aside">
-        
-    </aside>
+    
 
-    <!-- image viewer -->
     <div class="image-viewer-container">
-    <div class="img-box">
-        <img src="">
-    </div>
+    <img src="">
 </div>
 
 
-</div>
-
-
-
-    <div class="search-pop-overlay">
+    
+        <div class="search-pop-overlay">
     <div class="popup search-popup">
         <div class="search-header">
-          <span class="search-icon">
-            <i class="fas fa-search"></i>
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
           </span>
             <div class="search-input-container">
                 <input autocomplete="off"
@@ -760,13 +700,60 @@ The createState function for XXXX2 returned a state of type _...
     </div>
 </div>
 
+    
+
+</main>
 
 
-<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/dark-light-toggle.js"></script>
 
 
-    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/local-search.js"></script>
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/dark-light-toggle.js"></script>
 
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/local-search.js"></script>
+
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
 
 
 

@@ -1,9 +1,9 @@
-window.addEventListener('DOMContentLoaded', () => {
+KEEP.initBack2Top = () => {
+
   KEEP.utils = {
 
     ...KEEP.utils,
 
-    back2TopButton_dom: document.querySelector('.tool-scroll-to-top'),
     back2BottomButton_dom: document.querySelector('.tool-scroll-to-bottom'),
 
     back2top() {
@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (top === 0) {
           clearInterval(scrollTopTimer);
         }
-      }, 30);
+      }, 50);
     },
 
     back2Bottom() {
@@ -49,4 +49,5 @@ window.addEventListener('DOMContentLoaded', () => {
 
   KEEP.utils.initBack2Top();
   KEEP.utils.initBack2Bottom();
-});
+
+}

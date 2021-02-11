@@ -1,38 +1,65 @@
+/* global KEEP */
+
 window.addEventListener('DOMContentLoaded', () => {
 
   KEEP.themeInfo = {
+    theme: `Keep v${KEEP.theme_config.version}`,
     author: 'XPoet',
-    name: 'Keep',
-    version: KEEP.theme_config.version,
     repository: 'https://github.com/XPoet/hexo-theme-keep'
   }
 
-  // print theme info
-  KEEP.utils.printThemeInfo();
+  KEEP.localStorageKey = 'KEEP-THEME-STATUS';
 
-  // init scroll
-  KEEP.utils.registerWindowScroll();
+  KEEP.styleStatus = {
+    isExpandPageWidth: false,
+    isDark: false,
+    fontSizeLevel: 0,
+    isOpenPageAside: true
+  }
 
-  // toggle show tools list
-  KEEP.utils.toggleShowToolsList();
+  // print theme base info
+  KEEP.printThemeInfo = () => {
+    console.log(`\n %c ${KEEP.themeInfo.theme} %c ${KEEP.themeInfo.repository} \n`, `color: #fadfa3; background: #333; padding: 5px 0;`, `background: #fadfa3; padding: 5px 0;`);
+  }
 
-  // global font adjust
-  KEEP.utils.globalFontAdjust();
+  // set styleStatus to localStorage
+  KEEP.setStyleStatus = () => {
+    localStorage.setItem(KEEP.localStorageKey, JSON.stringify(KEEP.styleStatus));
+  }
 
-  KEEP.utils.contentAreaWidthAdjust();
+  // get styleStatus from localStorage
+  KEEP.getStyleStatus = () => {
+    let temp = localStorage.getItem(KEEP.localStorageKey);
+    if (temp) {
+      temp = JSON.parse(temp);
+      for (let key in KEEP.styleStatus) {
+        KEEP.styleStatus[key] = temp[key];
+      }
+      return temp;
+    } else {
+      return null;
+    }
+  }
 
-  // comment
-  KEEP.utils.goComment();
+  KEEP.refresh = () => {
+    KEEP.initUtils();
+    KEEP.initHeaderShrink();
+    KEEP.initModeToggle();
+    KEEP.initBack2Top();
 
-  // init page height handle
-  KEEP.utils.initPageHeightHandle();
+    if (KEEP.theme_config.local_search.enable === true) {
+      KEEP.initLocalSearch();
+    }
 
-  // init first screen height
-  KEEP.utils.initFirstScreenHeight();
+    if (KEEP.theme_config.code_copy.enable === true) {
+      KEEP.initCodeCopy();
+    }
 
-  // big image viewer handle
-  KEEP.utils.imageViewer();
+    if (KEEP.theme_config.lazyload.enable === true) {
+      KEEP.initLazyLoad();
+    }
+  }
 
-  // set how long age in home article block
-  KEEP.utils.setHowLongAgoInHome();
+  KEEP.printThemeInfo();
+  KEEP.refresh();
 });

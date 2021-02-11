@@ -3,85 +3,107 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="xxxixxxx">
     
     <title>
         
         今日营业中
     </title>
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="shortcut icon" href="/null">
-    
-<link rel="stylesheet" href="/css/style.css">
-
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/css/font-awesome.min.css">
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","path":"search.xml"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":null,"img_position":"left","left_side_width":"260px","content_max_width":"900px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"说得越多 声音就越弱"}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":false},"version":"3.0.4"};
-    KEEP.language = {"search":"Search...","prev":"Prev","next":"Next","prev_posts":"Prev posts","next_posts":"Next posts","page":"Page %d","recent_posts":"Recent Posts","share":"Share","powered_by":"Powered by %s","theme":"Theme","rss_feed":"RSS Feed","category":"Category","categories":"Categories","tag":"Tag","tags":"Tags","tagcloud":"Tag Cloud","comment":"Comment","home":"Home","archive":"Archive","archives":"Archives","about":"About","site_uv":"Visitor Count","site_pv":"Totalview","links":"Links","link":"Link","top":"TOP","read_more":"Read more","wordcount":"Words","min2read":"Mins","changelog":"Changelog","copyright":{"author":"Post author","title":"Post title","link":"Post link","create_time":"Create time","license_title":"Copyright Notice","license_content":"All articles in this blog are licensed under %s unless stating additionally."},"ago":{"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days age","week":"%s weeks age","month":"%s months age","year":"%s years age"}};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"https://files.catbox.moe/elmpn1.png","favicon":null,"article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"说得越多 声音就越弱"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.0"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days age","week":"%s weeks age","month":"%s months age","year":"%s years age"};
   </script>
 <meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 </head>
 
 
 <body>
-<div class="page-container">
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
 
     
 
-    <header class="page-header">
-        <div class="header-progress"></div>
-    </header>
+    <div class="page-main-content">
 
-    <main class="page-main">
-
-        <div class="page-main-content">
-
-            <div class="page-main-content-top">
-                <header class="header-wrapper">
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
 
     <div class="header-content">
-        <a class="logo-title" href="/">
-            今日营业中
-        </a>
+        <div class="left">
+            <a class="logo-title" href="/">
+                今日营业中
+            </a>
+        </div>
 
-        <ul class="menu-list">
-            
-                <li class="menu-item">
-                    <a class="active"
-                       href="/"
-                    >
-                        首页
-                    </a>
-                </li>
-            
-                <li class="menu-item">
-                    <a class=""
-                       href="/archives"
-                    >
-                        归档
-                    </a>
-                </li>
-            
-                <li class="menu-item">
-                    <a class=""
-                       href="/categories"
-                    >
-                        分类
-                    </a>
-                </li>
-            
-                <li class="menu-item">
-                    <a class=""
-                       href="/tags"
-                    >
-                        标签
-                    </a>
-                </li>
-            
-        </ul>
-
-        <div class="menu-bar">
-            <div class="menu-bar-middle"></div>
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class="active"
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -116,15 +138,69 @@
 </header>
 
 
-            </div>
+        </div>
 
-            <div class="page-main-content-middle">
+        <div class="page-main-content-middle">
 
-                <main class="main-content normal-code-theme">
+            <div class="main-content">
 
-                    
-                        <div class="home-content-container fade-in-down-animation">
+                
+                    <div class="home-content-container fade-in-down-animation">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/02/03/1000-000%E4%BB%8E%E8%BE%93%E5%85%A5%20URL%20%E5%88%B0%E5%B1%95%E7%8E%B0%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%85%A8%E8%BF%87%E7%A8%8B/">
+                        从输入 URL 到展现页面的全过程
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        从输入 URL 到展现页面的全过程
+8 个过程
+
+
+URL 输入
+DNS 解析
+TCP 连接
+发送 HTTP 请求
+服务器处理请求
+服务器相应请求
+浏览器解析渲染页面
+连接结束
+
+1. URL 输入
+URL中文名叫做统一资源定位符，统一资源定位符是对...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Wed Feb 03 2021 15:22:00 GMT+0800">2021-02-03</span></span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+    </div>
+
+    <a href="/2021/02/03/1000-000%E4%BB%8E%E8%BE%93%E5%85%A5%20URL%20%E5%88%B0%E5%B1%95%E7%8E%B0%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%85%A8%E8%BF%87%E7%A8%8B/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
         
             <li class="home-article-item">
 
@@ -145,14 +221,14 @@
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Fri Jan 15 2021 15:53:00 GMT+0800">2021-01-15</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Jan 15 2021 15:53:00 GMT+0800">2021-01-15</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+                            <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>&nbsp;
                         </li>
                     
                     
@@ -162,7 +238,7 @@
         
     </div>
 
-    <a href="/2021/01/15/600-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2021/01/15/600-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -185,14 +261,14 @@
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Thu Jan 14 2021 15:05:00 GMT+0800">2021-01-14</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Jan 14 2021 15:05:00 GMT+0800">2021-01-14</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+                            <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>&nbsp;
                         </li>
                     
                     
@@ -202,7 +278,7 @@
         
     </div>
 
-    <a href="/2021/01/14/600-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E5%BC%95%E5%85%A5%E6%A8%A1%E5%9D%97/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2021/01/14/600-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E5%BC%95%E5%85%A5%E6%A8%A1%E5%9D%97/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -226,14 +302,14 @@ page1 跳转方法实现 .js123456789101112131415...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Thu Jan 14 2021 13:40:00 GMT+0800">2021-01-14</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Jan 14 2021 13:40:00 GMT+0800">2021-01-14</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+                            <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>&nbsp;
                         </li>
                     
                     
@@ -243,7 +319,7 @@ page1 跳转方法实现 .js123456789101112131415...
         
     </div>
 
-    <a href="/2021/01/14/600-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E7%95%8C%E9%9D%A2%E8%B7%B3%E8%BD%AC%E4%BC%A0%E5%80%BC/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2021/01/14/600-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E7%95%8C%E9%9D%A2%E8%B7%B3%E8%BD%AC%E4%BC%A0%E5%80%BC/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -266,14 +342,14 @@ page1 跳转方法实现 .js123456789101112131415...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Tue Dec 29 2020 10:43:00 GMT+0800">2020-12-29</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Dec 29 2020 10:43:00 GMT+0800">2020-12-29</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Flutter/">Flutter</a>
+                            <a href="/categories/Flutter/">Flutter</a>&nbsp;
                         </li>
                     
                     
@@ -283,7 +359,7 @@ page1 跳转方法实现 .js123456789101112131415...
         
     </div>
 
-    <a href="/2020/12/29/400-Flutter%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/12/29/400-Flutter%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -306,14 +382,14 @@ page1 跳转方法实现 .js123456789101112131415...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Tue Dec 29 2020 10:41:00 GMT+0800">2020-12-29</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Dec 29 2020 10:41:00 GMT+0800">2020-12-29</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Flutter/">Flutter</a>
+                            <a href="/categories/Flutter/">Flutter</a>&nbsp;
                         </li>
                     
                     
@@ -323,7 +399,7 @@ page1 跳转方法实现 .js123456789101112131415...
         
     </div>
 
-    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6BottomNavigationBar/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6BottomNavigationBar/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -349,14 +425,14 @@ page1 跳转方法实现 .js123456789101112131415...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Tue Dec 29 2020 10:37:00 GMT+0800">2020-12-29</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Dec 29 2020 10:37:00 GMT+0800">2020-12-29</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Flutter/">Flutter</a>
+                            <a href="/categories/Flutter/">Flutter</a>&nbsp;
                         </li>
                     
                     
@@ -366,7 +442,7 @@ page1 跳转方法实现 .js123456789101112131415...
         
     </div>
 
-    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6Sft/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6Sft/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -392,14 +468,14 @@ page1 跳转方法实现 .js123456789101112131415...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Tue Dec 29 2020 10:35:00 GMT+0800">2020-12-29</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Dec 29 2020 10:35:00 GMT+0800">2020-12-29</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Flutter/">Flutter</a>
+                            <a href="/categories/Flutter/">Flutter</a>&nbsp;
                         </li>
                     
                     
@@ -409,7 +485,7 @@ page1 跳转方法实现 .js123456789101112131415...
         
     </div>
 
-    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6Wrap/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6Wrap/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -435,14 +511,14 @@ page1 跳转方法实现 .js123456789101112131415...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Tue Dec 29 2020 10:30:00 GMT+0800">2020-12-29</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Dec 29 2020 10:30:00 GMT+0800">2020-12-29</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Flutter/">Flutter</a>
+                            <a href="/categories/Flutter/">Flutter</a>&nbsp;
                         </li>
                     
                     
@@ -452,7 +528,7 @@ page1 跳转方法实现 .js123456789101112131415...
         
     </div>
 
-    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6AspectRatio%E3%80%81Card/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6AspectRatio%E3%80%81Card/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -475,14 +551,14 @@ page1 跳转方法实现 .js123456789101112131415...
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Tue Dec 29 2020 10:25:00 GMT+0800">2020-12-29</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Dec 29 2020 10:25:00 GMT+0800">2020-12-29</span></span>
         
-            <span class="home-article-category"><i class="fas fa-folder"></i>
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
                     
                         <li>
                             
-                            <a href="/categories/Flutter/">Flutter</a>
+                            <a href="/categories/Flutter/">Flutter</a>&nbsp;
                         </li>
                     
                     
@@ -492,50 +568,7 @@ page1 跳转方法实现 .js123456789101112131415...
         
     </div>
 
-    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6Stack%E3%80%81Align%E3%80%81Positioned/">Read more <i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6Row%E3%80%81Column%E3%80%81Expanded/">
-                        Flutter 组件 Row、Column、Expanded
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        Row
-水平布局
-
-123456789ow(        mainAxisAlignment: MainAxisAlignment.spaceEvenly,        crossAxisAlignment: CrossAxisAlignment...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-edit"></i> <span class="home-article-date" data-date="Tue Dec 29 2020 10:20:00 GMT+0800">2020-12-29</span></span>
-        
-            <span class="home-article-category"><i class="fas fa-folder"></i>
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/Flutter/">Flutter</a>
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-    </div>
-
-    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6Row%E3%80%81Column%E3%80%81Expanded/">Read more <i class="fas fa-angle-right"></i></a>
+    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6Stack%E3%80%81Align%E3%80%81Positioned/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -561,54 +594,36 @@ page1 跳转方法实现 .js123456789101112131415...
 </div>
 
 
-                    
-                </main>
-
+                
             </div>
 
-            <div class="page-main-content-bottom">
-                <footer class="footer">
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
     <div class="info-container">
         <div class="copyright-info info-item">
             &copy;
             
-              <span>2020</span> -
+              <span>2020</span>&nbsp;-&nbsp;
             
-            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">xxxixxxx</a>
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">xxxixxxx</a>
         </div>
         
         <div class="theme-info info-item">
-            Powered by <a target="_blank" href="https://hexo.io">Hexo</a> | Theme <a class="theme-version" target="_blank"></a>
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.0</a>
         </div>
+        
     </div>
 </footer>
 
-            </div>
         </div>
-    </main>
-
-    <div class="sidebar-tools">
-        <div class="tools-container">
-    <ul class="tools-list">
-        
-            <li class="search popup-trigger">
-                <i class="fas fa-search"></i>
-            </li>
-        
-
-        
-
-        <!-- TOC aside toggle -->
-        
-
-    </ul>
-</div>
-
     </div>
+
+    
 
     <div class="right-bottom-side-tools">
         <div class="side-tools-container">
-
     <ul class="side-tools-list">
         <li class="tools-item tool-font-adjust-plus flex-center">
             <i class="fas fa-search-plus"></i>
@@ -629,51 +644,49 @@ page1 跳转方法实现 .js123456789101112131415...
         <!-- rss -->
         
             <li class="tools-item rss flex-center">
-                <a class="flex-center" href="/atom.xml" target="_blank"><i class="fas fa-rss"></i></a>
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
             </li>
         
 
-        <li class="tools-item tool-scroll-to-top flex-center">
-            <i class="fas fa-arrow-up"></i>
-        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
 
         <li class="tools-item tool-scroll-to-bottom flex-center">
             <i class="fas fa-arrow-down"></i>
         </li>
     </ul>
 
-    <ul class="tools-ul-1">
+    <ul class="exposed-tools-list">
         <li class="tools-item tool-toggle-show flex-center">
             <i class="fas fa-cog fa-spin"></i>
         </li>
-
+        
     </ul>
 </div>
 
     </div>
 
-    <!-- page aside -->
-    <aside class="page-aside">
-        
-    </aside>
+    
 
-    <!-- image viewer -->
     <div class="image-viewer-container">
-    <div class="img-box">
-        <img src="">
-    </div>
+    <img src="">
 </div>
 
 
-</div>
-
-
-
-    <div class="search-pop-overlay">
+    
+        <div class="search-pop-overlay">
     <div class="popup search-popup">
         <div class="search-header">
-          <span class="search-icon">
-            <i class="fas fa-search"></i>
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
           </span>
             <div class="search-input-container">
                 <input autocomplete="off"
@@ -697,13 +710,60 @@ page1 跳转方法实现 .js123456789101112131415...
     </div>
 </div>
 
+    
+
+</main>
 
 
-<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/dark-light-toggle.js"></script>
 
 
-    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.0.4/source/js/local-search.js"></script>
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/dark-light-toggle.js"></script>
 
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/local-search.js"></script>
+
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
 
 
 

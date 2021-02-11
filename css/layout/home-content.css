@@ -1,3 +1,6 @@
+.home-content-container {
+  background: var(--background-color);
+}
 .home-content-container .home-article-list .home-article-item {
   position: relative;
 }
@@ -13,24 +16,25 @@ keep-tablet()
 .home-content-container .home-article-list .home-article-item .home-article-title {
   position: relative;
   font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.5;
   color: var(--second-text-color);
-  font-size: 1.5rem;
-  line-height: 1.5rem;
 keep-tablet()
 keep-mobile()
   margin: 0;
 }
 .home-content-container .home-article-list .home-article-item .home-article-content {
+  word-wrap: break-word;
   text-align: justify;
   margin: 20px 0;
-  line-height: 2rem;
+  color: var(--default-text-color);
 }
 .home-content-container .home-article-list .home-article-item .home-article-meta-info-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 0.92rem;
   color: var(--third-text-color);
-  font-size: 1rem;
 }
 .home-content-container .home-article-list .home-article-item .home-article-meta-info-container .home-article-meta-info {
   letter-spacing: 0.5px;

@@ -5,6 +5,9 @@ keep-tablet()
 keep-mobile()
   font-weight: 600;
   padding-bottom: 20px;
-  margin-bottom: $component-interspace;
+  margin-bottom: $component-spacing-value;
   border-bottom: 1px solid var(--border-color);
+}
+.tag-container .tag-name i {
+  color: var(--second-text-color);
 }
