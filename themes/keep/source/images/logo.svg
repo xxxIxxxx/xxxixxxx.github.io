@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1062.75" height="1062.75" viewBox="0 0 1417 1417">
+<svg xmlns="http://www.w3.org/2000/svg" width="1417" height="1417" viewBox="0 0 1417 1417">
   <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c140 79.160451, 2017/05/06-01:08:21        ">
    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -29,16 +29,13 @@
 <?xpacket end="w"?></metadata>
 <defs>
     <style>
-      .cls-1, .cls-2 {
-        fill: #009fe8;
-      }
-
-      .cls-2 {
+      .cls-1 {
+        fill: #06c;
         fill-rule: evenodd;
       }
     </style>
   </defs>
-  <rect id="矩形_2" data-name="矩形 2" class="cls-1" x="238" y="142" width="399" height="1141"/>
-  <path id="矩形_3" data-name="矩形 3" class="cls-2" d="M942,142h243L942,529V142Z"/>
-  <path id="矩形_3_拷贝" data-name="矩形 3 拷贝" class="cls-2" d="M942,1283h243L942,896v387Z"/>
+  <path id="rectangular" class="cls-1" d="M170.35,170.525h359.1V1254.47H170.35V170.525Z"/>
+  <path id="triangle-down" class="cls-1" d="M888.55,1254.47h359.1L888.55,886.825V1254.47Z"/>
+  <path id="triangle-up" class="cls-1" d="M888.55,170.525h359.1l-359.1,359.1v-359.1Z"/>
 </svg>

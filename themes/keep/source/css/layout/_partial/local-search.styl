@@ -1,26 +1,37 @@
 $icon-size = 1.2rem;
 
 .search-pop-overlay {
-  display: none;
   position: fixed;
-  left: 0;
-  top: 0;
+  display: flex;
   height: 100%;
   width: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0);
+  visibility: hidden;
   z-index: $z-index-8;
+  transition-t("visibility, background", "0, 0", "0.3, 0.3", "ease, ease");
+
+  &.active {
+    visibility: visible;
+    background: rgba(0, 0, 0, 0.35);
+
+    .search-popup {
+      transform: scale(1);
+    }
+
+  }
 
 
   .search-popup {
     background: var(--background-color);
-    border-radius: 2px;
+    border-radius: 5px;
     height: 80%;
-    left: 50%;
-    transform: translateX(-50%);
-    position: fixed;
-    top: 10%;
     width: 70%;
+    margin: auto;
+    transform: scale(0);
     z-index: $z-index-6;
+    transition-t("transform", "0", "0.3", "ease");
 
     +keep-tablet() {
       width: 80%;
@@ -37,14 +48,15 @@ $icon-size = 1.2rem;
       display: flex;
       padding: 10px;
 
-      .search-icon, .popup-btn-close {
+      .search-input-field-pre, .popup-btn-close {
         font-size: $icon-size;
         padding: 0 10px;
         display: flex;
         align-items: center;
       }
 
-      .search-icon {
+      .search-input-field-pre {
+        cursor: pointer;
         color: var(--third-text-color);
       }
 
@@ -134,6 +146,7 @@ $icon-size = 1.2rem;
             line-height: 2rem;
             margin: 0;
             padding-left: 16px;
+            word-wrap: break-word;
           }
 
           a {

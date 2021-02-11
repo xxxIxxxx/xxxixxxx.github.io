@@ -29,8 +29,17 @@ hexo.extend.helper.register('createNewArchivePosts', function (posts) {
   return postList;
 });
 
-hexo.extend.helper.register('getLevel', function (postCount) {
-  return Math.ceil(postCount / 10);
+hexo.extend.helper.register('getAuthorLabel', function (postCount, isAuto, labelList) {
+
+  let level = Math.floor(Math.log2(postCount));
+  level = level < 2 ? 1 : level - 1;
+
+  if (isAuto === false && Array.isArray(labelList) && labelList.length > 0) {
+    return level > labelList.length ? labelList[labelList.length - 1] : labelList[level - 1];
+  } else {
+    return `Lv${level}`;
+  }
+
 });
 
 hexo.extend.helper.register('getPostUrl', function (rootUrl, path) {
@@ -44,12 +53,9 @@ hexo.extend.helper.register('getPostUrl', function (rootUrl, path) {
 hexo.extend.helper.register('__js', function (path) {
 
   const cdnPathHandle = (path_2) => {
-
-    const _js = hexo.extend.helper.get('js').bind(hexo);
-
     return this.theme.cdn.enable
-        ? `<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@${this.theme.version}/source/${path_2}"></script>`
-        : _js(path_2)
+      ? `<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@${this.theme.version}/source/${path_2}"></script>`
+      : `<script src="/${path_2}"></script>`;
   }
 
   let t = ``;
@@ -66,10 +72,9 @@ hexo.extend.helper.register('__js', function (path) {
 });
 
 hexo.extend.helper.register('__css', function (path) {
-  const _css = hexo.extend.helper.get('css').bind(hexo);
   if (this.theme.cdn.enable) {
     return `<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@${this.theme.version}/source/${path}">`;
   } else {
-    return _css(path);
+    return `<link rel="stylesheet" href="/${path}">`
   }
 });

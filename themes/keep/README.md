@@ -1,13 +1,12 @@
 <div align="right">
   Language:
   English
-  <a title="Chinese" href="docs/README_zh-CN.md">中文</a>
+  <a title="Chinese" href="README_zh-CN.md">中文</a>
 </div>
 
-<a title="Keep website" href="https://xpoet.cn"><img align="right" alt="Keep logo" width="100" height="100" src="https://raw.githubusercontent.com/XPoet/hexo-theme-keep/master/source/images/logo.svg"></a>
+<a href="https://xpoet.cn"><img align="center" alt="Keep" src="https://cdn.jsdelivr.net/gh/XPoet/image-hosting@master/hexo-theme-keep/keep-logo-slogan.svg"></a>
 
-# Keep
-> old name `ILS`
+# hexo-theme-keep
 
 «Keep» is a simple and elegant [Hexo](https://hexo.io) theme. It makes you more focused on writing.
 
@@ -45,13 +44,15 @@ After the installation, open Hexo config file and set `theme` variable to `keep`
 theme: keep
 ```
 
-## :wrench: Configuration
+## :wrench: Usage
 
-Refer to the [Keep theme configuration guide](https://keep.xpoet.cn/2020/11/Keep-主题配置指南/).
+See docs: 
+
+- [Keep theme usage guide](https://keep.xpoet.cn/2020/04/Keep-主题使用指南/)
+
+- [Keep theme configuration guide](https://keep.xpoet.cn/2020/11/Keep-主题配置指南/)
 
 It is not recommended to directly modify any files in the «Keep» theme. Because this may cause errors (e.g. merge conflicts), and the modified files may be discarded when upgrading the theme.
-
-However, you can bypass merge conflicts (error message like **«Commit your changes or stash them before you can merge»**) by using the `Commit`, `Stash` or `Reset` commands for local changes. See [here](https://stackoverflow.com/a/15745424/5861495) how to do it.
 
 ## :dart: Update
 
@@ -94,3 +95,8 @@ This project exists thanks to all the people who contribute.
 <a href="https://www.jsdelivr.com"><img height="38" src="https://cdn.jsdelivr.net/gh/XPoet/image-hosting@master/hexo-theme-keep/jsDelivr-LOGO.png"></a>
 
 > Thanks jsDelivr for providing public CDN service.
+
+## :memo: License
+
+[MIT](https://github.com/XPoet/picx/blob/master/LICENSE) Copyright © 2020 XPoet
+

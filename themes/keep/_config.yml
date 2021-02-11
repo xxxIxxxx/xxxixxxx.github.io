@@ -14,19 +14,19 @@ style:
   primary_color: "#0066CC"
 
   # Avatar (You can use local image or image external link)
-  avatar: /images/avatar.png
+  avatar: https://files.catbox.moe/elmpn1.png
 
   # Favicon (You can use local image or image external link)
-  favicon: 
+  favicon:
 
-  # Image align position, value: left | center
-  img_position: left
+  # Article image align position, value: left | center
+  article_img_align: left
 
   # Left side width
   left_side_width: 260px
 
   # Content area max width
-  content_max_width: 900px
+  content_max_width: 920px
 
   # Mouse hover
   hover:
@@ -36,8 +36,15 @@ style:
   # First screen
   first_screen:
     enable: true
-    background_img: /images/bg.svg
+    background_img: /images/bg.svg # You can use local image or image external link
     description: 说得越多 声音就越弱
+
+  # Scroll style settings
+  scroll:
+    progress_bar:
+      enable: false
+    percent:
+      enable: false
 
 # ---------------------------------------------------------------------------------------
 # Social contact link
@@ -47,7 +54,9 @@ social_contact:
   links:
     github: https://github.com/xxxIxxxx # your GitHub URL
     weixin: # your WeChat QR-Code URL
+    qq: # your QQ QR-Code URL
     weibo: # your WeiBo URL
+    zhihu: # your ZhiHu URL
     twitter: # your twitter URL
     facebook: # your facebook URL
     email: ℹ2yf@foxmail.com # your email
@@ -60,40 +69,70 @@ menu:
   归档: /archives
   分类: /categories
   标签: /tags
+  # Categories: /categories
+  # Tags: /tags
   # Links: /links
-  # 关于: /about
-  # ...
+  # About: /about
+  # Changelog: /changelog
+  # ......
 
 # ---------------------------------------------------------------------------------------
-# RSS
-# Dependencies: hexo-generator-feed
-# See: https://github.com/hexojs/hexo-generator-feed
+# Home page article block display settings
 # ---------------------------------------------------------------------------------------
-rss:
+home_article:
+  category:
+    enable: true # show category in home page article block
+    limit: 3 # max number of categories shown in home page article block
+  tag:
+    enable: false # show tags in home page article block
+    limit: 5 # max number of tags shown in home page article block
+
+# ---------------------------------------------------------------------------------------
+# Post page Settings
+# ---------------------------------------------------------------------------------------
+post:
+  # Post word count
+  # Dependencies: hexo-wordcount (npm install hexo-wordcount)
+  # See: https://github.com/willin/hexo-wordcount
+  word_count:
+    enable: false
+    wordcount: false # word count, one article
+    min2read: false # time to read, one article
+
+  # Author label
+  author_label:
+    enable: false
+    auto: true # if true, show Lv1, Lv2, Lv3... , If false, show custom label
+    # label array item can be one or more
+    custom_label_list: ["Trainee", "Engineer", "Architect", "CTO", "BOSS"]
+
+# ---------------------------------------------------------------------------------------
+# Code copy
+# ---------------------------------------------------------------------------------------
+code_copy:
+  enable: false
+  style: default # values: default | mac
+
+# ---------------------------------------------------------------------------------------
+# Table of Contents in the Sidebar
+# ---------------------------------------------------------------------------------------
+toc:
   enable: true
 
-# ---------------------------------------------------------------------------------------
-# Comment plugin
-# ---------------------------------------------------------------------------------------
-comment:
-  # Valine
-  # See: https://github.com/xCss/Valine
-  valine:
-    enable: true
-    appid: 1zMbU0F6CLL5EFJNQOkNJSSP-gzGzoHsz # your leancloud application appid
-    appkey: zCB8Eokt3Assyi0cPe2SgDOD # your leancloud application appkey
-    meta: ["nick", "mail", "link"] # comment input meta, type: Array, values: ['nick', 'mail', 'link']
-    placeholder: "来交流吧～" # your placeholder
+  # Automatically add list number to toc.
+  number: true
 
-  # Gitalk
-  # See: https://github.com/gitalk/gitalk
-  gitalk:
-    enable: false
-    admin: xxxixxxx
-    github_id: xxxIxxxx # GitHub repo owner
-    repository: blogTalk # Repository name to store issues
-    client_id: 05d6078a4c7600db559a # GitHub Application Client ID
-    client_secret: c90735f7625a510bac9883b7348b99b60f7fc9a7 # GitHub Application Client Secret
+  # If true, all level of TOC in a post will be displayed, rather than the activated part of it.
+  expand_all: true
+
+  # If true, open TOC every time when you enter the article page
+  init_open: false
+
+# ---------------------------------------------------------------------------------------
+# Post copyright info
+# ---------------------------------------------------------------------------------------
+copyright_info:
+  enable: true
 
 # ---------------------------------------------------------------------------------------
 # Website count
@@ -114,61 +153,60 @@ website_count:
 # ---------------------------------------------------------------------------------------
 local_search:
   enable: true
-
-  # If auto, trigger search by changing input.
-  # If manual, trigger search by pressing enter key or search button.
-  trigger: auto # values: auto | manual
-
-  # Unescape html strings to the readable one.
-  unescape: false
-
-  # Preload the search data when the page loads.
-  preload: false
+  preload: true # Preload the search data when the page loads
 
 # ---------------------------------------------------------------------------------------
-# Post word count
-# Dependencies: hexo-wordcount
-# See: https://github.com/willin/hexo-wordcount
+# Comment plugin
 # ---------------------------------------------------------------------------------------
-post_wordcount:
-  enable: false
-  wordcount: false # word count, one article
-  min2read: false # time to read, one article
-
-# ---------------------------------------------------------------------------------------
-# Home page article block display settings
-# ---------------------------------------------------------------------------------------
-home_article:
-  category:
-    enable: true # show category in home page article block
-    limit: 3 # max number of categories shown in home page article block
-  tag:
-    enable: true # show tags in home page article block
-    limit: 5 # max number of tags shown in home page article block
-
-# ---------------------------------------------------------------------------------------
-# Code copy
-# ---------------------------------------------------------------------------------------
-code_copy:
+comment:
   enable: true
-  style: default # values: default | mac
+  use: valine # values: valine | gitalk | twikoo
+
+  # Valine
+  # See: https://github.com/xCss/Valine
+  valine:
+    appid: 1zMbU0F6CLL5EFJNQOkNJSSP-gzGzoHsz # your leancloud application appid
+    appkey: zCB8Eokt3Assyi0cPe2SgDOD # your leancloud application appkey
+    placeholder: "来交流吧～" # your placeholder
+
+  # Gitalk
+  # See: https://github.com/gitalk/gitalk
+  gitalk:
+    github_id: # GitHub repo owner
+    repository: # Repository name to store issues
+    client_id: # GitHub Application Client ID
+    client_secret: # GitHub Application Client Secret
+
+  # Twikoo
+  # See: https://github.com/imaegoo/twikoo
+  twikoo:
+    env_id: # Tencent Cloud environment id
+    region: # environment region. If select Guangzhou, fill in "ap-guangzhou".
 
 # ---------------------------------------------------------------------------------------
-# Table of Contents in the Sidebar
+# RSS
+# Dependencies: hexo-generator-feed
+# See: https://github.com/hexojs/hexo-generator-feed
 # ---------------------------------------------------------------------------------------
-toc:
+rss:
   enable: true
 
-  # Automatically add list number to toc.
-  number: true
-
-  # If true, all level of TOC in a post will be displayed, rather than the activated part of it.
-  expand_all: true
+# ---------------------------------------------------------------------------------------
+# Lazyload image
+# ---------------------------------------------------------------------------------------
+lazyload:
+  enable: true
 
 # ---------------------------------------------------------------------------------------
-# Post copyright info
+# CDN
 # ---------------------------------------------------------------------------------------
-copyright_info:
+cdn:
+  enable: true
+
+# ---------------------------------------------------------------------------------------
+# PJAX
+# ---------------------------------------------------------------------------------------
+pjax:
   enable: true
 
 # ---------------------------------------------------------------------------------------
@@ -178,12 +216,6 @@ footer:
   since: 2020
 
 # ---------------------------------------------------------------------------------------
-# CDN
-# ---------------------------------------------------------------------------------------
-cdn:
-  enable: true
-
-# ---------------------------------------------------------------------------------------
 # Keep version (Please don't modify)
 # ---------------------------------------------------------------------------------------
-version: 3.0.4
+version: 3.4.0

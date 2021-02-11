@@ -5,25 +5,31 @@ $tools-item-border-radius = 1px;
 
 .side-tools-container {
   position: relative;
-  transition();
 
   .tools-item {
     width: $tools-item-width;
     height: $tools-item-width;
     font-size: $tools-item-font-size;
     margin-bottom: 3px;
-    color: var(--second-text-color);
-    background: var(--background-color);
     cursor: pointer;
-    box-shadow: 1px 1px 3px var(--shadow-color);
     border-right: none;
     border-radius: $tools-item-border-radius;
+    box-shadow: 1px 1px 3px var(--shadow-color);
+    color: var(--default-text-color);
+    background: var(--background-color);
+
+    i {
+      color: var(--default-text-color);
+    }
 
     &:hover {
-      transition();
       color: var(--background-color);
       background: var(--primary-color);
       box-shadow: 2px 2px 6px var(--shadow-color);
+
+      i {
+        color: var(--background-color);
+      }
     }
 
     +keep-tablet() {
@@ -41,7 +47,6 @@ $tools-item-border-radius = 1px;
         height: 100%;
 
         &:hover {
-          transition();
           color: var(--background-color);
           background: var(--primary-color);
           box-shadow: 2px 2px 6px var(--shadow-color);
@@ -54,7 +59,7 @@ $tools-item-border-radius = 1px;
   .side-tools-list {
     opacity: 0;
     transform: translateX(100%);
-    transition();
+    transition-t("transform, opacity", "0, 0", "0.2, 0.2", "linear, linear");
 
     .tool-expand-width {
       +keep-tablet() {
@@ -62,10 +67,47 @@ $tools-item-border-radius = 1px;
       }
     }
 
+
     &.show {
       opacity: 1;
       transform: translateX(0);
     }
   }
 
+
+  .exposed-tools-list {
+
+    if (hexo-config('style.scroll.percent.enable') == true) {
+      .tool-scroll-to-top {
+        display: none;
+
+        &.show {
+          display: flex;
+        }
+
+        &:hover {
+
+          .percent {
+            display: none;
+          }
+
+          .arrow-up {
+            display: flex;
+          }
+
+        }
+
+        .arrow-up {
+          display: none;
+        }
+
+        .percent {
+          display: flex;
+          font-size: 1rem;
+        }
+
+      }
+
+    }
+  }
 }

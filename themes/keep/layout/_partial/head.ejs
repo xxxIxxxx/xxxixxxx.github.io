@@ -1,6 +1,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="<%= config.keywords || 'Hexo Theme Keep' %>">
+    <meta name="description" content="<%= config.description || 'Hexo Theme Keep' %>">
+    <meta name="author" content="<%= theme.base_info.author || config.author || 'Keep Team' %>">
     <%
     let title = page.title;
     if (is_archive()) {
@@ -19,12 +22,13 @@
     }
     %>
     <title>
-        <% if (title){ %><%= title %> |
+        <% if (title) { %>
+            <%= title %> |
         <% } %>
-        <%= theme.base_info.title || config.title || 'Keep' %>
+        <%= theme.base_info.title || config.title || 'Keep Theme' %>
     </title>
+    <link rel="stylesheet" href="/css/style.css">
     <%- favicon_tag(theme.style.favicon) %>
-    <%- css('css/style') %>
     <%- __css('css/font-awesome.min.css') %>
     <%- export_config() %>
 </head>

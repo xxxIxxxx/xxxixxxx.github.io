@@ -12,8 +12,10 @@
                 </div>
                 <div class="info">
                     <div class="author">
-                        <span><%= theme.base_info.author || config.author %></span>
-                        <span class="level">Lv<%- getLevel(site.posts.length) %></span>
+                        <span class="name"><%= theme.base_info.author || config.author %></span>
+                        <% if (theme.hasOwnProperty('post') && theme.post.author_label.enable === true) { %>
+                            <span class="author-label"><%- getAuthorLabel(site.posts.length, theme.post.author_label.auto, theme.post.author_label.custom_label_list) %></span>
+                        <% } %>
                     </div>
                     <div class="meta-info">
                         <%- partial('_partial/article-meta-info', {articleObject: page, index: true}) %>
@@ -46,7 +48,7 @@
                            rel="prev"
                            href="<%= url_for(page.prev.path) %>"
                         >
-                            <span class="left arrow-icon flex-center" >
+                            <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
@@ -66,7 +68,7 @@
                                 <span class="post-nav-title-item"><%= page.next.title %></span>
                                 <span class="post-nav-item"><%= __('next_posts') %></span>
                             </span>
-                            <span class="right arrow-icon flex-center" >
+                            <span class="right arrow-icon flex-center">
                               <i class="fas fa-chevron-right"></i>
                             </span>
                         </a>
@@ -75,7 +77,7 @@
             </div>
         <% } %>
 
-        <% if (theme.comment.valine.enable || theme.comment.gitalk.enable) { %>
+        <% if (theme.comment.enable === true && theme.comment.hasOwnProperty(theme.comment.use)) { %>
             <div class="comment-container">
                 <%- partial('_partial/comment/comment') %>
             </div>

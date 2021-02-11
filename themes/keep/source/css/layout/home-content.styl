@@ -1,13 +1,13 @@
-
-
 .home-content-container {
+  background: var(--background-color);
+
 
   .home-article-list {
 
     .home-article-item {
       position: relative;
 
-      keep-container(1.02, 1.02, 28px, 38px);
+      keep-container(true, 1.015, 1.015, 28px, 38px);
 
       .top-icon {
         position: absolute;
@@ -16,6 +16,7 @@
         font-size: 1.2rem;
         transform: rotate(45deg);
         color: var(--third-text-color);
+
 
         +keep-tablet() {
           font-size: 1.16rem;
@@ -26,9 +27,10 @@
       .home-article-title {
         position: relative;
         font-weight: 600;
+        font-size: 1.4rem;
+        line-height: 1.5;
         color: var(--second-text-color);
-        font-size: 1.5rem;
-        line-height: 1.5rem;
+
 
         +keep-tablet() {
           font-size: 1.3rem;
@@ -45,9 +47,10 @@
 
 
       .home-article-content {
+        word-wrap: break-word;
         text-align: justify;
         margin: 20px 0;
-        line-height: 2rem;
+        color: var(--default-text-color);
       }
 
 
@@ -55,8 +58,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        font-size: 0.92rem;
         color: var(--third-text-color);
-        font-size: 1rem;
 
 
         .home-article-meta-info {
@@ -104,6 +107,7 @@
           }
         }
       }
+
 
     }
   }
