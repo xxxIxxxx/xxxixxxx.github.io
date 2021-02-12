@@ -17,7 +17,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"https://files.catbox.moe/elmpn1.png","favicon":null,"article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"说得越多 声音就越弱"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.0"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://files.catbox.moe/elmpn1.png","favicon":null,"article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"说得越多 声音就越弱"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.0"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days age","week":"%s weeks age","month":"%s months age","year":"%s years age"};
   </script>
 <meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -147,6 +147,52 @@
                 
                     <div class="home-content-container fade-in-down-animation">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/02/04/1000-001TCP%20%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%EF%BC%9F/">
+                        TCP 怎么保证可靠传输？
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        1. TCP 怎么保证可靠传输？
+TCP协议传输的特点主要就是面向字节流、传输可靠、面向连接。
+
+TCP协议保证数据传输可靠性的方式主要有：
+
+数据分割 应用数据被分割成 TCP 认为最合适发送的数据块。
+编号 TCP 给发送的每一个包进行编号，接收...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Feb 04 2021 17:00:00 GMT+0800">2021-02-04</span></span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+    </div>
+
+    <a href="/2021/02/04/1000-001TCP%20%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%EF%BC%9F/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
         
             <li class="home-article-item">
 
@@ -529,46 +575,6 @@ page1 跳转方法实现 .js123456789101112131415...
     </div>
 
     <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6AspectRatio%E3%80%81Card/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6Stack%E3%80%81Align%E3%80%81Positioned/">
-                        Flutter 组件 Stack、Align、Positioned
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        Stack123456789Stack(      &#x2F;&#x2F; alignment: Alignment(-1,-1),      alignment: Alignment.bottomLeft,      children: [   ...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Dec 29 2020 10:25:00 GMT+0800">2020-12-29</span></span>
-        
-            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/Flutter/">Flutter</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-    </div>
-
-    <a href="/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6Stack%E3%80%81Align%E3%80%81Positioned/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>

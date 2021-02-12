@@ -542,6 +542,33 @@
       </tags>
   </entry>
   <entry>
+    <title>DNS 查询服务器的基本流程是什么？DNS 劫持是什么？</title>
+    <url>/2021/02/12/1000-009DNS%20%E6%9F%A5%E8%AF%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9FDNS%20%E5%8A%AB%E6%8C%81%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/</url>
+    <content><![CDATA[<h1 id="DNS-查询服务器的基本流程"><a href="#DNS-查询服务器的基本流程" class="headerlink" title="DNS 查询服务器的基本流程"></a>DNS 查询服务器的基本流程</h1><p><strong>查询顺序：</strong>浏览器缓存–&gt; 操作系统缓存–&gt; 本地 host 文件 –&gt; 路由器缓存–&gt; ISP DNS 缓存 –&gt; 顶级 DNS 服务器/根 DNS 服务器</p>
+<p><strong>1. 浏览器缓存：</strong> 首先会向浏览器的缓存中读取上一次访问的记录，在 chrome 可以通过地址栏中输入 chrome://net-internals/#dns 查看缓存的当前状态 。</p>
+<p><strong>2. 操作系统缓存：</strong> 查找存储在系统运行内存中的缓存。在 mac 中可以通过下面的命令清除系统中的 DNS 缓存。<br><code>dscacheutil -flushcache</code></p>
+<p><strong>3. 本地 host 文件：</strong> 查看本地硬盘的 hosts 文件，看看其中有没有和这个域名对应的规则，如果有的话就直接使用 hosts 文件里面的 ip 地址。</p>
+<p><strong>4. 路由器缓存：</strong> 有些路由器也有 DNS 缓存的功能，访问过的域名会存在路由器上。</p>
+<p><strong>5. ISP DNS 缓存：</strong> 互联网服务提供商（如中国电信）也会提供 DNS 服务，比如比较著名的 114.114.114.114，在本地查找不到的情况下，就会向 ISP 进行查询，ISP 会在当前服务器的缓存内查找是否有记录，如果有，则返回这个 IP，若没有，则会开始向根域名服务器请求查询。</p>
+<p><strong>6. 顶级 DNS 服务器 / 根 DNS 服务器：</strong> 根域名收到请求后，会判别这个域名(.com)是授权给哪台服务器管理,并返回这个顶级 DNS 服务器的 IP。请求者收到这台顶级 DNS 的服务器 IP 后，会向该服务器发起查询，如果该服务器无法解析，该服务器就会返回下一级的 DNS 服务器 IP（baidu.com），本机继续查找，直到服务器找到(<a class="link"   href="http://www.baidu.com)的主机./" >www.baidu.com)的主机。<i class="fas fa-external-link-alt"></i></a><br>最后，本地 DNS 服务器向域名的解析服务器发出请求，这时就能收到一个域名和 IP 地址对应关系，本地 DNS 服务器不仅要把 IP 地址返回给用户电脑，还要把这个对应关系保存在缓存中，以备下次别的用户查询时，可以直接返回结果，加快网络访问。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/t5awpd.png"
+                      alt="过程图"
+                ></p>
+<p>上述图片是查找 <a class="link"   href="http://www.google.com/" >www.google.com<i class="fas fa-external-link-alt"></i></a> 的 IP 地址过程。首先在本地域名服务器中查询 IP 地址，如果没有找到的情况下，本地域名服务器会向根域名服务器发送一个请求，如果根域名服务器也不存在该域名时，本地域名会向 com 顶级域名服务器发送一个请求，依次类推下去。直到最后本地域名服务器得到 google 的 IP 地址并把它缓存到本地，供下次查询使用。从上述过程中，可以看出网址的解析是一个从右向左的过程: com -&gt; google.com -&gt; <a href="http://www.google.com。但是你是否发现少了点什么，根域名服务器的解析过程呢？事实上，真正的网址是">www.google.com。但是你是否发现少了点什么，根域名服务器的解析过程呢？事实上，真正的网址是</a> <a class="link"   href="http://www.google.com.,并不是我多打了一个.,这个.对应的就是根域名服务器,默认情况下所有的网址的最后一位都是.,既然是默认情况下,为了方便用户,通常都会省略,浏览器在请求/" >www.google.com.，并不是我多打了一个.，这个.对应的就是根域名服务器，默认情况下所有的网址的最后一位都是.，既然是默认情况下，为了方便用户，通常都会省略，浏览器在请求<i class="fas fa-external-link-alt"></i></a> DNS 的时候会自动加上，所有网址真正的解析过程为: . -&gt; .com -&gt; google.com. -&gt; <a class="link"   href="http://www.google.com../" >www.google.com.。<i class="fas fa-external-link-alt"></i></a></p>
+<h1 id="什么是-DNS-劫持？"><a href="#什么是-DNS-劫持？" class="headerlink" title="什么是 DNS 劫持？"></a>什么是 DNS 劫持？</h1><p>在 DNS 的解析中返回了一个假的 IP 地址给客户端，从而促使用户访问了错误的网站。</p>
+<h1 id="DNS-劫持的方法"><a href="#DNS-劫持的方法" class="headerlink" title="DNS 劫持的方法"></a>DNS 劫持的方法</h1><p><strong>1. 本机 DNS 劫持</strong><br>攻击者通过某些手段使用户的计算机感染上木马病毒，或者恶意软件之后，恶意修改本地 DNS 配置，比如修改本地 hosts 文件，缓存等<br><strong>2. 路由 DNS 劫持</strong><br>很多用户默认路由器的默认密码，攻击者可以侵入到路由管理员账号中，修改路由器的默认配置<br><strong>3.攻击 DNS 服务器</strong><br>直接攻击 DNS 服务器，例如对 DNS 服务器进行 DDOS 攻击，可以是 DNS 服务器宕机，出现异常请求，还可以利用某些手段感染 dns 服务器的缓存，使给用户返回来的是恶意的 ip 地址</p>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>DNS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RxSwift-Observable订阅、监听</title>
     <url>/2020/11/12/200-RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
