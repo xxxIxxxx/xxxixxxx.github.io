@@ -9,7 +9,7 @@
     
     <title>
         
-            DNS 查询服务器的基本流程是什么？DNS 劫持是什么？ |
+            简述 OSI 七层模型，TCP，IP 属于哪一层？ |
         
         今日营业中
     </title>
@@ -151,7 +151,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">DNS 查询服务器的基本流程是什么？DNS 劫持是什么？</span>
+            <span class="title-hover-animation">简述 OSI 七层模型，TCP，IP 属于哪一层？</span>
         </div>
 
         
@@ -167,7 +167,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-02-12 15:00:00
+        <i class="fas fa-edit"></i>&nbsp;2021-02-13 17:35:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -187,7 +187,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/DNS/">DNS</a>&nbsp;
+                        <a href="/tags/%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B/">七层模型</a>&nbsp;
                     </li>
                 
             </ul>
@@ -206,22 +206,38 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="DNS-查询服务器的基本流程"><a href="#DNS-查询服务器的基本流程" class="headerlink" title="DNS 查询服务器的基本流程"></a>DNS 查询服务器的基本流程</h1><p><strong>查询顺序：</strong>浏览器缓存–&gt; 操作系统缓存–&gt; 本地 host 文件 –&gt; 路由器缓存–&gt; ISP DNS 缓存 –&gt; 顶级 DNS 服务器/根 DNS 服务器</p>
-<p><strong>1. 浏览器缓存：</strong> 首先会向浏览器的缓存中读取上一次访问的记录，在 chrome 可以通过地址栏中输入 chrome://net-internals/#dns 查看缓存的当前状态 。</p>
-<p><strong>2. 操作系统缓存：</strong> 查找存储在系统运行内存中的缓存。在 mac 中可以通过下面的命令清除系统中的 DNS 缓存。<br><code>dscacheutil -flushcache</code></p>
-<p><strong>3. 本地 host 文件：</strong> 查看本地硬盘的 hosts 文件，看看其中有没有和这个域名对应的规则，如果有的话就直接使用 hosts 文件里面的 ip 地址。</p>
-<p><strong>4. 路由器缓存：</strong> 有些路由器也有 DNS 缓存的功能，访问过的域名会存在路由器上。</p>
-<p><strong>5. ISP DNS 缓存：</strong> 互联网服务提供商（如中国电信）也会提供 DNS 服务，比如比较著名的 114.114.114.114，在本地查找不到的情况下，就会向 ISP 进行查询，ISP 会在当前服务器的缓存内查找是否有记录，如果有，则返回这个 IP，若没有，则会开始向根域名服务器请求查询。</p>
-<p><strong>6. 顶级 DNS 服务器 / 根 DNS 服务器：</strong> 根域名收到请求后，会判别这个域名(.com)是授权给哪台服务器管理,并返回这个顶级 DNS 服务器的 IP。请求者收到这台顶级 DNS 的服务器 IP 后，会向该服务器发起查询，如果该服务器无法解析，该服务器就会返回下一级的 DNS 服务器 IP（baidu.com），本机继续查找，直到服务器找到(<a class="link"   target="_blank" rel="noopener" href="http://www.baidu.com)的主机./" >www.baidu.com)的主机。<i class="fas fa-external-link-alt"></i></a><br>最后，本地 DNS 服务器向域名的解析服务器发出请求，这时就能收到一个域名和 IP 地址对应关系，本地 DNS 服务器不仅要把 IP 地址返回给用户电脑，还要把这个对应关系保存在缓存中，以备下次别的用户查询时，可以直接返回结果，加快网络访问。</p>
-<p><img  
+            <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://files.catbox.moe/t5awpd.png"
-                      alt="过程图"
+                     data-src="https://img.rruu.net/image/6027a373e47f9"
+                     
                 ></p>
-<p>上述图片是查找 <a class="link"   target="_blank" rel="noopener" href="http://www.google.com/" >www.google.com<i class="fas fa-external-link-alt"></i></a> 的 IP 地址过程。首先在本地域名服务器中查询 IP 地址，如果没有找到的情况下，本地域名服务器会向根域名服务器发送一个请求，如果根域名服务器也不存在该域名时，本地域名会向 com 顶级域名服务器发送一个请求，依次类推下去。直到最后本地域名服务器得到 google 的 IP 地址并把它缓存到本地，供下次查询使用。从上述过程中，可以看出网址的解析是一个从右向左的过程: com -&gt; google.com -&gt; <a href="http://www.google.com。但是你是否发现少了点什么，根域名服务器的解析过程呢？事实上，真正的网址是">www.google.com。但是你是否发现少了点什么，根域名服务器的解析过程呢？事实上，真正的网址是</a> <a class="link"   target="_blank" rel="noopener" href="http://www.google.com.,并不是我多打了一个.,这个.对应的就是根域名服务器,默认情况下所有的网址的最后一位都是.,既然是默认情况下,为了方便用户,通常都会省略,浏览器在请求/" >www.google.com.，并不是我多打了一个.，这个.对应的就是根域名服务器，默认情况下所有的网址的最后一位都是.，既然是默认情况下，为了方便用户，通常都会省略，浏览器在请求<i class="fas fa-external-link-alt"></i></a> DNS 的时候会自动加上，所有网址真正的解析过程为: . -&gt; .com -&gt; google.com. -&gt; <a class="link"   target="_blank" rel="noopener" href="http://www.google.com../" >www.google.com.。<i class="fas fa-external-link-alt"></i></a></p>
-<h1 id="什么是-DNS-劫持？"><a href="#什么是-DNS-劫持？" class="headerlink" title="什么是 DNS 劫持？"></a>什么是 DNS 劫持？</h1><p>在 DNS 的解析中返回了一个假的 IP 地址给客户端，从而促使用户访问了错误的网站。</p>
-<h1 id="DNS-劫持的方法"><a href="#DNS-劫持的方法" class="headerlink" title="DNS 劫持的方法"></a>DNS 劫持的方法</h1><p><strong>1. 本机 DNS 劫持</strong><br>攻击者通过某些手段使用户的计算机感染上木马病毒，或者恶意软件之后，恶意修改本地 DNS 配置，比如修改本地 hosts 文件，缓存等<br><strong>2. 路由 DNS 劫持</strong><br>很多用户默认路由器的默认密码，攻击者可以侵入到路由管理员账号中，修改路由器的默认配置<br><strong>3.攻击 DNS 服务器</strong><br>直接攻击 DNS 服务器，例如对 DNS 服务器进行 DDOS 攻击，可以是 DNS 服务器宕机，出现异常请求，还可以利用某些手段感染 dns 服务器的缓存，使给用户返回来的是恶意的 ip 地址</p>
+<h1 id="TCP-IP-四层模型"><a href="#TCP-IP-四层模型" class="headerlink" title="TCP/IP 四层模型"></a>TCP/IP 四层模型</h1><p>1.应用层 2.传输层 3.网络层 4.网络接口层</p>
+<h1 id="TCP-IP-五层模型"><a href="#TCP-IP-五层模型" class="headerlink" title="TCP/IP 五层模型"></a>TCP/IP 五层模型</h1><p>1.应用层 2.传输层 3.网络层 4.数据链路层 5.物理层</p>
+<h1 id="OSI-七层模型"><a href="#OSI-七层模型" class="headerlink" title="OSI 七层模型"></a>OSI 七层模型</h1><p>1.物理层 2.数据链路层 3.网络层 4.传输层 5.会话层 6.表示层 7.应用层</p>
+<h1 id="IP-协议属于网络层"><a href="#IP-协议属于网络层" class="headerlink" title="IP 协议属于网络层"></a>IP 协议属于网络层</h1><h1 id="TCP-协议属于传输层"><a href="#TCP-协议属于传输层" class="headerlink" title="TCP 协议属于传输层"></a>TCP 协议属于传输层</h1><h2 id="1-物理层"><a href="#1-物理层" class="headerlink" title="1.物理层"></a>1.物理层</h2><p>激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的可靠的物理媒体。简单的说，物理层确保原始的数据可在各种物理媒体上传输。物理层记住两个重要的设备名称，中继器（Repeater，也叫放大器）和集线器。</p>
+<h2 id="2-数据链路层"><a href="#2-数据链路层" class="headerlink" title="2.数据链路层"></a>2.数据链路层</h2><p>最基本的服务是将源自网络层来的数据可靠地传输到相邻节点的目标机网络层。</p>
+<ol>
+<li>基本数据单位为帧；</li>
+<li>主要的协议：以太网协议；</li>
+<li>两个重要设备名称：网桥和交换机。</li>
+</ol>
+<h2 id="3-网络层"><a href="#3-网络层" class="headerlink" title="3.网络层"></a>3.网络层</h2><p>网络层的目的是实现两个端系统之间的数据透明传送，具体功能包括寻址和路由选择、连接的建立、保持和终止等。它提供的服务使传输层不需要了解网络中的数据传输和交换技术。如果您想用尽量少的词来记住网络层，那就是”路径选择、路由及逻辑寻址”。<br>网络层中涉及众多的协议，其中包括最重要的协议，也是TCP/IP的核心协议——IP协议。IP协议非常简单，仅仅提供不可靠、无连接的传送服务。IP协议的主要功能有：无连接数据报传输、数据报路由选择和差错控制。与IP协议配套使用实现其功能的还有地址解析协议ARP、逆地址解析协议RARP、因特网报文协议ICMP、因特网组管理协议IGMP。</p>
+<ol>
+<li>网络层负责对子网间的数据包进行路由选择。此外，网络层还可以实现拥塞控制、网际互连等功能；</li>
+<li>基本数据单位为IP数据报；</li>
+<li>包含的主要协议：<br>　　IP协议（Internet Protocol，因特网互联协议）;<br>　　ICMP协议（Internet Control Message Protocol，因特网控制报文协议）;<br>　　ARP协议（Address Resolution Protocol，地址解析协议）;<br>　　RARP协议（Reverse Address Resolution Protocol，逆地址解析协议）。</li>
+<li>重要的设备：路由器。</li>
+</ol>
+<h2 id="4-传输层"><a href="#4-传输层" class="headerlink" title="4.传输层"></a>4.传输层</h2><p>传输层要处理端到端的差错控制和流量控制问题。 传输层的任务是根据通信子网的特性，最佳的利用网络资源，为两个端系统的会话层之间，提供建立、维护和取消传输连接的功能，负责端到端的可靠数据传输。在这一层，信息传送的协议数据单元称为段或报文。</p>
+<ol>
+<li>传输层负责将上层数据分段并提供端到端的、可靠的或不可靠的传输以及端到端的差错控制和流量控制问题</li>
+<li>包含的主要协议：TCP协议（Transmission Control Protocol，传输控制协议）、UDP协议（User Datagram Protocol，用户数据报协议）</li>
+<li>重要设备：网关</li>
+</ol>
+<h2 id="5-会话层"><a href="#5-会话层" class="headerlink" title="5.会话层"></a>5.会话层</h2><p>会话层管理主机之间的会话进程，即负责建立、管理、终止进程之间的会话。会话层还利用在数据中插入校验点来实现数据的同步。</p>
+<h2 id="6-表示层"><a href="#6-表示层" class="headerlink" title="6.表示层"></a>6.表示层</h2><p>表示层对上层数据或信息进行变换以保证一个主机应用层信息可以被另一个主机的应用程序理解。表示层的数据转换包括数据的加密、压缩、格式转换等。</p>
+<h2 id="7-应用层"><a href="#7-应用层" class="headerlink" title="7.应用层"></a>7.应用层</h2><p>为操作系统或网络应用程序提供访问网络服务的接口。</p>
 
         </div>
 
@@ -229,11 +245,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：DNS 查询服务器的基本流程是什么？DNS 劫持是什么？</li>
+        <li>Post title：简述 OSI 七层模型，TCP，IP 属于哪一层？</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2021-02-12 15:00:00</li>
+        <li>Create time：2021-02-13 17:35:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2021/02/12/1000-009DNS 查询服务器的基本流程是什么？DNS 劫持是什么？/
+            Post link：https://xxxixxx.github.io/2021/02/13/1000-010简述 OSI 七层模型，TCP，IP 属于哪一层？/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -247,29 +263,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2021/02/13/1000-010%E7%AE%80%E8%BF%B0%20OSI%20%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B%EF%BC%8CTCP%EF%BC%8CIP%20%E5%B1%9E%E4%BA%8E%E5%93%AA%E4%B8%80%E5%B1%82%EF%BC%9F/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">简述 OSI 七层模型，TCP，IP 属于哪一层？</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/02/11/1000-008UDP/"
+                           href="/2021/02/12/1000-009DNS%20%E6%9F%A5%E8%AF%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9FDNS%20%E5%8A%AB%E6%8C%81%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">UDP 有拥塞控制吗？</span>
+                                <span class="post-nav-title-item">DNS 查询服务器的基本流程是什么？DNS 劫持是什么？</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -470,7 +471,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS-%E6%9F%A5%E8%AF%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="nav-text">DNS 查询服务器的基本流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-DNS-%E5%8A%AB%E6%8C%81%EF%BC%9F"><span class="nav-text">什么是 DNS 劫持？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS-%E5%8A%AB%E6%8C%81%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">DNS 劫持的方法</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-IP-%E5%9B%9B%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="nav-text">TCP&#x2F;IP 四层模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-IP-%E4%BA%94%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="nav-text">TCP&#x2F;IP 五层模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OSI-%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="nav-text">OSI 七层模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP-%E5%8D%8F%E8%AE%AE%E5%B1%9E%E4%BA%8E%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-text">IP 协议属于网络层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-%E5%8D%8F%E8%AE%AE%E5%B1%9E%E4%BA%8E%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-text">TCP 协议属于传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-text">1.物理层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-text">2.数据链路层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-text">3.网络层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-text">4.传输层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E4%BC%9A%E8%AF%9D%E5%B1%82"><span class="nav-text">5.会话层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E8%A1%A8%E7%A4%BA%E5%B1%82"><span class="nav-text">6.表示层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-text">7.应用层</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>

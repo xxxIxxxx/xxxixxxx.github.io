@@ -569,6 +569,49 @@
       </tags>
   </entry>
   <entry>
+    <title>简述 OSI 七层模型，TCP，IP 属于哪一层？</title>
+    <url>/2021/02/13/1000-010%E7%AE%80%E8%BF%B0%20OSI%20%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B%EF%BC%8CTCP%EF%BC%8CIP%20%E5%B1%9E%E4%BA%8E%E5%93%AA%E4%B8%80%E5%B1%82%EF%BC%9F/</url>
+    <content><![CDATA[<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://img.rruu.net/image/6027a373e47f9"
+                     
+                ></p>
+<h1 id="TCP-IP-四层模型"><a href="#TCP-IP-四层模型" class="headerlink" title="TCP/IP 四层模型"></a>TCP/IP 四层模型</h1><p>1.应用层 2.传输层 3.网络层 4.网络接口层</p>
+<h1 id="TCP-IP-五层模型"><a href="#TCP-IP-五层模型" class="headerlink" title="TCP/IP 五层模型"></a>TCP/IP 五层模型</h1><p>1.应用层 2.传输层 3.网络层 4.数据链路层 5.物理层</p>
+<h1 id="OSI-七层模型"><a href="#OSI-七层模型" class="headerlink" title="OSI 七层模型"></a>OSI 七层模型</h1><p>1.物理层 2.数据链路层 3.网络层 4.传输层 5.会话层 6.表示层 7.应用层</p>
+<h1 id="IP-协议属于网络层"><a href="#IP-协议属于网络层" class="headerlink" title="IP 协议属于网络层"></a>IP 协议属于网络层</h1><h1 id="TCP-协议属于传输层"><a href="#TCP-协议属于传输层" class="headerlink" title="TCP 协议属于传输层"></a>TCP 协议属于传输层</h1><h2 id="1-物理层"><a href="#1-物理层" class="headerlink" title="1.物理层"></a>1.物理层</h2><p>激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的可靠的物理媒体。简单的说，物理层确保原始的数据可在各种物理媒体上传输。物理层记住两个重要的设备名称，中继器（Repeater，也叫放大器）和集线器。</p>
+<h2 id="2-数据链路层"><a href="#2-数据链路层" class="headerlink" title="2.数据链路层"></a>2.数据链路层</h2><p>最基本的服务是将源自网络层来的数据可靠地传输到相邻节点的目标机网络层。</p>
+<ol>
+<li>基本数据单位为帧；</li>
+<li>主要的协议：以太网协议；</li>
+<li>两个重要设备名称：网桥和交换机。</li>
+</ol>
+<h2 id="3-网络层"><a href="#3-网络层" class="headerlink" title="3.网络层"></a>3.网络层</h2><p>网络层的目的是实现两个端系统之间的数据透明传送，具体功能包括寻址和路由选择、连接的建立、保持和终止等。它提供的服务使传输层不需要了解网络中的数据传输和交换技术。如果您想用尽量少的词来记住网络层，那就是”路径选择、路由及逻辑寻址”。<br>网络层中涉及众多的协议，其中包括最重要的协议，也是TCP/IP的核心协议——IP协议。IP协议非常简单，仅仅提供不可靠、无连接的传送服务。IP协议的主要功能有：无连接数据报传输、数据报路由选择和差错控制。与IP协议配套使用实现其功能的还有地址解析协议ARP、逆地址解析协议RARP、因特网报文协议ICMP、因特网组管理协议IGMP。</p>
+<ol>
+<li>网络层负责对子网间的数据包进行路由选择。此外，网络层还可以实现拥塞控制、网际互连等功能；</li>
+<li>基本数据单位为IP数据报；</li>
+<li>包含的主要协议：<br>　　IP协议（Internet Protocol，因特网互联协议）;<br>　　ICMP协议（Internet Control Message Protocol，因特网控制报文协议）;<br>　　ARP协议（Address Resolution Protocol，地址解析协议）;<br>　　RARP协议（Reverse Address Resolution Protocol，逆地址解析协议）。</li>
+<li>重要的设备：路由器。</li>
+</ol>
+<h2 id="4-传输层"><a href="#4-传输层" class="headerlink" title="4.传输层"></a>4.传输层</h2><p>传输层要处理端到端的差错控制和流量控制问题。 传输层的任务是根据通信子网的特性，最佳的利用网络资源，为两个端系统的会话层之间，提供建立、维护和取消传输连接的功能，负责端到端的可靠数据传输。在这一层，信息传送的协议数据单元称为段或报文。</p>
+<ol>
+<li>传输层负责将上层数据分段并提供端到端的、可靠的或不可靠的传输以及端到端的差错控制和流量控制问题</li>
+<li>包含的主要协议：TCP协议（Transmission Control Protocol，传输控制协议）、UDP协议（User Datagram Protocol，用户数据报协议）</li>
+<li>重要设备：网关</li>
+</ol>
+<h2 id="5-会话层"><a href="#5-会话层" class="headerlink" title="5.会话层"></a>5.会话层</h2><p>会话层管理主机之间的会话进程，即负责建立、管理、终止进程之间的会话。会话层还利用在数据中插入校验点来实现数据的同步。</p>
+<h2 id="6-表示层"><a href="#6-表示层" class="headerlink" title="6.表示层"></a>6.表示层</h2><p>表示层对上层数据或信息进行变换以保证一个主机应用层信息可以被另一个主机的应用程序理解。表示层的数据转换包括数据的加密、压缩、格式转换等。</p>
+<h2 id="7-应用层"><a href="#7-应用层" class="headerlink" title="7.应用层"></a>7.应用层</h2><p>为操作系统或网络应用程序提供访问网络服务的接口。</p>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>七层模型</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RxSwift-Observable订阅、监听</title>
     <url>/2020/11/12/200-RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
