@@ -644,6 +644,116 @@
       </tags>
   </entry>
   <entry>
+    <title>简述对称与非对称加密的概念</title>
+    <url>/2021/02/16/1000-012%E7%AE%80%E8%BF%B0%E5%AF%B9%E7%A7%B0%E4%B8%8E%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%9A%84%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<h1 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h1><p>对称加密是最快速、最简单的一种加密方式，加密与解密用的是同样的密钥。对称加密有很多种算法，由于它效率很高，所以被广泛使用在很多加密协议的核心当中。</p>
+<p><strong>密钥交换的发送过程中有很大的风险会被黑客们拦截。现实中通常的做法是将对称加密的密钥进行非对称加密，然后传送给需要它的人。</strong></p>
+<h2 id="对称加密常用算法"><a href="#对称加密常用算法" class="headerlink" title="对称加密常用算法"></a>对称加密常用算法</h2><ol>
+<li><strong>DES（Data Encryption Standard）</strong>：数据加密标准，速度较快，适用于加密大量数据的场合；</li>
+<li><strong>3DES（Triple DES）</strong>：是基于DES，对一块数据用三个不同的密钥进行三次加密，强度更高；</li>
+<li><strong>AES（Advanced Encryption Standard）</strong>：高级加密标准，是下一代的加密算法标准，速度快，安全级别高，支持128、192、256、512位密钥的加密；</li>
+</ol>
+<h2 id="算法特征"><a href="#算法特征" class="headerlink" title="算法特征"></a>算法特征</h2><ol>
+<li>加密方和解密方使用同一个密钥；</li>
+<li>加密解密的速度比较快，适合数据比较长时的使用；</li>
+<li>密钥传输的过程不安全，且容易被破解，密钥管理也比较麻烦；</li>
+</ol>
+<h1 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h1><p>非对称加密为数据的加密与解密提供了一个非常安全的方法，它使用了一对密钥，公钥（public key）和私钥（private key）。私钥只能由一方安全保管，不能外泄，而公钥则可以发给任何请求它的人。非对称加密使用这对密钥中的一个进行加密，而解密则需要另一个密钥。</p>
+<h2 id="非对称加密常用算法"><a href="#非对称加密常用算法" class="headerlink" title="非对称加密常用算法"></a>非对称加密常用算法</h2><p>RSA、Elgamal、背包算法、Rabin、D-H、ECC（椭圆曲线加密算法）。</p>
+<p>使用最广泛的是RSA算法，Elgamal是另一种常用的非对称加密算法。</p>
+<h1 id="MD5-单向加密算法不可解密，属于散列算法。"><a href="#MD5-单向加密算法不可解密，属于散列算法。" class="headerlink" title="MD5 单向加密算法不可解密，属于散列算法。"></a>MD5 单向加密算法不可解密，属于散列算法。</h1><h1 id="Base64-是编码。"><a href="#Base64-是编码。" class="headerlink" title="Base64 是编码。"></a>Base64 是编码。</h1><blockquote>
+<p>对称加密与非对称加密 <a class="link"   href="https://zhuanlan.zhihu.com/p/30573146" >https://zhuanlan.zhihu.com/p/30573146<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="https://baike.baidu.com/item/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86" >https://baike.baidu.com/item/对称加密<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>加密</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTTP 的方法有哪些？</title>
+    <url>/2021/02/17/1000-013HTTP%20%E7%9A%84%E6%96%B9%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
+    <content><![CDATA[<h1 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h1><p>GET方法请求一个指定资源的表示形式. 使用GET的请求应该只被用于获取数据.</p>
+<h1 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h1><p>HEAD方法请求一个与GET请求的响应相同的响应，但没有响应体.</p>
+<h1 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h1><p>POST方法用于将实体提交到指定的资源，通常导致在服务器上的状态变化或副作用. </p>
+<h1 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h1><p>PUT方法用请求有效载荷替换目标资源的所有当前表示。</p>
+<h1 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h1><p>DELETE方法删除指定的资源。</p>
+<h1 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h1><p>CONNECT方法建立一个到由目标资源标识的服务器的隧道。</p>
+<h1 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h1><p>OPTIONS方法用于描述目标资源的通信选项。</p>
+<h1 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h1><p>TRACE方法沿着到目标资源的路径执行一个消息环回测试。</p>
+<h1 id="PATCH"><a href="#PATCH" class="headerlink" title="PATCH"></a>PATCH</h1><p>PATCH方法用于对资源应用部分修改。</p>
+<h1 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h1><p>HTTP 定义了一组请求方法, 以表明要对给定资源执行的操作。指示针对给定资源要执行的期望动作. 虽然他们也可以是名词, 但这些请求方法有时被称为HTTP动词. 每一个请求方法都实现了不同的语义, 但一些共同的特征由一组共享：: 例如一个请求方法可以是 safe(安全), idempotent(幂等), 或 cacheable(可缓存).</p>
+<h2 id="safe-安全"><a href="#safe-安全" class="headerlink" title="safe(安全)"></a>safe(安全)</h2><p>如果说一个 HTTP 方法是安全的，是指这是个不会修改服务器的数据的方法。也就是说，这是一个对服务器只读操作的方法。这些方法是安全的：GET，HEAD 和 OPTIONS。所有安全的方法都是幂等的，有些不安全的方法如 PUT 和 DELETE 则不是。</p>
+<h2 id="idempotent-幂等"><a href="#idempotent-幂等" class="headerlink" title="idempotent(幂等)"></a>idempotent(幂等)</h2><p>一个HTTP方法是幂等的，指的是同样的请求被执行一次与连续执行多次的效果是一样的，服务器的状态也是一样的。换句话说就是，幂等方法不应该具有副作用（统计用途除外）。在正确实现的条件下，GET，HEAD，PUT和DELETE 等方法都是幂等的，而 POST 方法不是。所有的 safe 方法也都是幂等的。</p>
+<h2 id="cacheable-可缓存"><a href="#cacheable-可缓存" class="headerlink" title="cacheable(可缓存)"></a>cacheable(可缓存)</h2><p>可缓存的响应是可被缓存的HTTP 响应，它被存储以供稍后检索和使用，从而将新的请求保存在伺服器。不是所有的 HTTP 响应都可以被缓存，可以被缓存的 HTTP 响应需满足如下列条件:</p>
+<ul>
+<li>请求中使用的方法本身是可以被缓存的，如 GET 或 HEAD 方法。如果下达了新的指示，响应 POST 方法也可以被缓存，但这种实施方式极为罕见。其他方法，如： PUT 或 DELETE 都不可以被缓存，同样他们的处理结果也不可以。</li>
+<li>应用程式是会缓存已知的响应的状态码，并且被认为是可缓存的。这些可缓存的状态码如下： 200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 和 501.</li>
+<li>响应中没有指定的头部，如 Cache-Control，它可以阻止缓存。<br>请注意一些不缓存请求/响应到指定的 URI 可能会导致相同 URI 上以前的缓存响应失效。例如，  PUT 到 pageX.html 将使相同 URI 下所有的 GET 或 HEAD 请求缓存失效。</li>
+</ul>
+<blockquote>
+<p>摘录于 <a class="link"   href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods" >https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>简述 JWT 的原理和校验机制</title>
+    <url>/2021/02/17/1000-014%E7%AE%80%E8%BF%B0%20JWT%20%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E6%A0%A1%E9%AA%8C%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h1 id="JSON-Web-Token（缩写-JWT）是目前最流行的跨域认证解决方案。"><a href="#JSON-Web-Token（缩写-JWT）是目前最流行的跨域认证解决方案。" class="headerlink" title="JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案。"></a>JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案。</h1><h1 id="JWT的原理"><a href="#JWT的原理" class="headerlink" title="JWT的原理"></a>JWT的原理</h1><p>JWT 的原理是，服务器认证以后，生成一个 JSON 对象，发回给用户，就像下面这样。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;姓名&quot;: &quot;张三&quot;,</span><br><span class="line">  &quot;角色&quot;: &quot;管理员&quot;,</span><br><span class="line">  &quot;到期时间&quot;: &quot;2018年7月1日0点0分&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以后，用户与服务端通信的时候，都要发回这个 JSON 对象。服务器完全只靠这个对象认定用户身份。为了防止用户篡改数据，服务器在生成这个对象的时候，会加上签名（详见后文）。<br>服务器就不保存任何 session 数据了，也就是说，服务器变成无状态了，从而比较容易实现扩展。</p>
+<h1 id="JWT-的数据结构"><a href="#JWT-的数据结构" class="headerlink" title="JWT 的数据结构"></a>JWT 的数据结构</h1><p>实际的 JWT 大概就像下面这样。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eyJhbGcio1JIUZIINiIsInR5CCI6IkpXVCJ9.</span><br><span class="line">eyJzdWIioiIxMiMONTY30DkwIiwibmFtZSI6IkpvaG4</span><br><span class="line">gRG9IIiwiaXNTb2NpYWwiOnRydWv9.</span><br><span class="line">4pcPyMD09oIPSyXnrXCjTwXyr4BsezdI1AVTmud2fU4</span><br></pre></td></tr></table></figure>
+<p>它是一个很长的字符串，中间用点（.）分隔成三个部分。注意，JWT 内部是没有换行的，这里只是为了便于展示，将它写成了几行。</p>
+<p>JWT 的三个部分依次如下。</p>
+<ul>
+<li>Header（头部）</li>
+<li>Payload（负载）</li>
+<li>Signature（签名）</li>
+</ul>
+<p>写成一行，就是下面的样子。<br><code>Header.Payload.Signature</code></p>
+<h2 id="Header（头部）"><a href="#Header（头部）" class="headerlink" title="Header（头部）"></a>Header（头部）</h2><p>Header 部分是一个 JSON 对象，描述 JWT 的元数据，通常是下面的样子。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;alg&quot;: &quot;HS256&quot;,</span><br><span class="line">  &quot;typ&quot;: &quot;JWT&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，alg属性表示签名的算法（algorithm），默认是 HMAC SHA256（写成 HS256）；typ属性表示这个令牌（token）的类型（type），JWT 令牌统一写为JWT。<br>最后，将上面的 JSON 对象使用 Base64URL 算法（详见后文）转成字符串。</p>
+<h2 id="Payload（负载）"><a href="#Payload（负载）" class="headerlink" title="Payload（负载）"></a>Payload（负载）</h2><p>Payload 部分也是一个 JSON 对象，用来存放实际需要传递的数据。JWT 规定了7个官方字段，供选用。</p>
+<ul>
+<li>iss (issuer)：签发人</li>
+<li>exp (expiration time)：过期时间</li>
+<li>sub (subject)：主题</li>
+<li>aud (audience)：受众</li>
+<li>nbf (Not Before)：生效时间</li>
+<li>iat (Issued At)：签发时间</li>
+<li>jti (JWT ID)：编号</li>
+</ul>
+<p>除了官方字段，你还可以在这个部分定义私有字段，下面就是一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;sub&quot;: &quot;1234567890&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;John Doe&quot;,</span><br><span class="line">  &quot;admin&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，JWT 默认是不加密的，任何人都可以读到，所以不要把秘密信息放在这个部分。<br>这个 JSON 对象也要使用 Base64URL 算法转成字符串。</p>
+<h2 id="Signature（签名）"><a href="#Signature（签名）" class="headerlink" title="Signature（签名）"></a>Signature（签名）</h2><p>Signature 部分是对前两部分的签名，防止数据篡改。<br>首先，需要指定一个密钥（secret）。这个密钥只有服务器才知道，不能泄露给用户。然后，使用 Header 里面指定的签名算法（默认是 HMAC SHA256），按照下面的公式产生签名。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HMACSHA256(</span><br><span class="line">  base64UrlEncode(header) + &quot;.&quot; +</span><br><span class="line">  base64UrlEncode(payload),</span><br><span class="line">  secret)</span><br></pre></td></tr></table></figure>
+<p>算出签名以后，把 Header、Payload、Signature 三个部分拼成一个字符串，每个部分之间用”点”（.）分隔，就可以返回给用户。</p>
+<h2 id="Base64URL"><a href="#Base64URL" class="headerlink" title="Base64URL"></a>Base64URL</h2><p>前面提到，Header 和 Payload 串型化的算法是 Base64URL。这个算法跟 Base64 算法基本类似，但有一些小的不同。<br>JWT 作为一个令牌（token），有些场合可能会放到 URL（比如 api.example.com/?token=xxx）。Base64 有三个字符<code>+</code>、<code>/</code>和<code>=</code>，在 URL 里面有特殊含义，所以要被替换掉：<code>=</code>被省略、<code>+</code>替换成<code>-</code>，<code>/</code>替换成<code>_</code> 。这就是 Base64URL 算法。</p>
+<h1 id="JWT-的使用方式"><a href="#JWT-的使用方式" class="headerlink" title="JWT 的使用方式"></a>JWT 的使用方式</h1><p>客户端收到服务器返回的 JWT，可以储存在 Cookie 里面，也可以储存在 localStorage。<br>此后，客户端每次与服务器通信，都要带上这个 JWT。你可以把它放在 Cookie 里面自动发送，但是这样不能跨域，所以更好的做法是放在 HTTP 请求的头信息<code>Authorization</code>字段里面。<br><code>Authorization: Bearer &lt;token&gt;</code><br>另一种做法是，跨域的时候，JWT 就放在 POST 请求的数据体里面。</p>
+<h1 id="JWT-的几个特点"><a href="#JWT-的几个特点" class="headerlink" title="JWT 的几个特点"></a>JWT 的几个特点</h1><p>（1）JWT 默认是不加密，但也是可以加密的。生成原始 Token 以后，可以用密钥再加密一次。<br>（2）JWT 不加密的情况下，不能将秘密数据写入 JWT。<br>（3）JWT 不仅可以用于认证，也可以用于交换信息。有效使用 JWT，可以降低服务器查询数据库的次数。<br>（4）JWT 的最大缺点是，由于服务器不保存 session 状态，因此无法在使用过程中废止某个 token，或者更改 token 的权限。也就是说，一旦 JWT 签发了，在到期之前就会始终有效，除非服务器部署额外的逻辑。<br>（5）JWT 本身包含了认证信息，一旦泄露，任何人都可以获得该令牌的所有权限。为了减少盗用，JWT 的有效期应该设置得比较短。对于一些比较重要的权限，使用时应该再次对用户进行认证。<br>（6）为了减少盗用，JWT 不应该使用 HTTP 协议明码传输，要使用 HTTPS 协议传输。</p>
+<blockquote>
+<p>摘录于 <a class="link"   href="https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html" >https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>JWT</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RxSwift-Observable订阅、监听</title>
     <url>/2020/11/12/200-RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -1411,7 +1521,118 @@
   <entry>
     <title>Xcode-快捷键，Xcode12-打开控制台</title>
     <url>/2020/11/22/500-Xcode-%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8CXcode12-%E6%89%93%E5%BC%80%E6%8E%A7%E5%88%B6%E5%8F%B0/</url>
-    <content><![CDATA[<p> 快捷键 | 说明<br>| - | - |<br>command + shift + y  |  打开控制台<br> command + shift + j | 定位当前文件在导航<br> command + shift + o | 输入后快速跳转到对应文件，还可输入方法名<br> command + shift + L | 打开资源文件<br> command + shift + f | 搜索项目<br> command + shift + k | clean 项目<br> command + shift + t | 新开当前项目<br> command + shift + , | 编辑scheme<br> command + shift + 2 | 打开可用调试设备<br> command + shift + w |  关闭项目<br> command + r | 运行项目<br> command + b | build 项目<br> command + . | 停止当前操作<br> command + 0 | 开启/关闭 导航<br> command + 1，2 … 9 | 实操看下效果吧<br> command + f | 搜索当前文件<br> command + L |  跳转到对应行<br> command + w | 关闭当前文件<br> command + y | 关闭断点调试<br> command + \ | 打断点<br> command + , | 偏好设置<br> command + return | 仅编辑器<br>control + 6 | 显示当前文件的方法，然后可以继续输方法名回车跳转<br>control + 0 | 切换 Target<br>control + 4 | 切换项目<br>command + option + w | 保留当前打开，关闭其他文件</p>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>command + shift + y</td>
+<td>打开控制台</td>
+</tr>
+<tr>
+<td>command + shift + j</td>
+<td>定位当前文件在导航</td>
+</tr>
+<tr>
+<td>command + shift + o</td>
+<td>输入后快速跳转到对应文件，还可输入方法名</td>
+</tr>
+<tr>
+<td>command + shift + L</td>
+<td>打开资源文件</td>
+</tr>
+<tr>
+<td>command + shift + f</td>
+<td>搜索项目</td>
+</tr>
+<tr>
+<td>command + shift + k</td>
+<td>clean 项目</td>
+</tr>
+<tr>
+<td>command + shift + t</td>
+<td>新开当前项目</td>
+</tr>
+<tr>
+<td>command + shift + ,</td>
+<td>编辑scheme</td>
+</tr>
+<tr>
+<td>command + shift + 2</td>
+<td>打开可用调试设备</td>
+</tr>
+<tr>
+<td>command + shift + w</td>
+<td>关闭项目</td>
+</tr>
+<tr>
+<td>command + r</td>
+<td>运行项目</td>
+</tr>
+<tr>
+<td>command + b</td>
+<td>build 项目</td>
+</tr>
+<tr>
+<td>command + .</td>
+<td>停止当前操作</td>
+</tr>
+<tr>
+<td>command + 0</td>
+<td>开启/关闭 导航</td>
+</tr>
+<tr>
+<td>command + 1，2 … 9</td>
+<td>实操看下效果吧</td>
+</tr>
+<tr>
+<td>command + f</td>
+<td>搜索当前文件</td>
+</tr>
+<tr>
+<td>command + L</td>
+<td>跳转到对应行</td>
+</tr>
+<tr>
+<td>command + w</td>
+<td>关闭当前文件</td>
+</tr>
+<tr>
+<td>command + y</td>
+<td>关闭断点调试</td>
+</tr>
+<tr>
+<td>command + \</td>
+<td>打断点</td>
+</tr>
+<tr>
+<td>command + ,</td>
+<td>偏好设置</td>
+</tr>
+<tr>
+<td>command + return</td>
+<td>仅编辑器</td>
+</tr>
+<tr>
+<td>control + 6</td>
+<td>显示当前文件的方法，然后可以继续输方法名回车跳转</td>
+</tr>
+<tr>
+<td>control + 0</td>
+<td>切换 Target</td>
+</tr>
+<tr>
+<td>control + 4</td>
+<td>切换项目</td>
+</tr>
+<tr>
+<td>command + option + w</td>
+<td>保留当前打开，关闭其他文件</td>
+</tr>
+</tbody></table>
 <p>欢迎补充比较实用的快捷键！</p>
 ]]></content>
       <categories>

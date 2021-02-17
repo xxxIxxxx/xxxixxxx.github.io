@@ -9,7 +9,7 @@
     
     <title>
         
-            什么是 TCP 粘包和拆包？ |
+            HTTP 的方法有哪些？ |
         
         今日营业中
     </title>
@@ -151,7 +151,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">什么是 TCP 粘包和拆包？</span>
+            <span class="title-hover-animation">HTTP 的方法有哪些？</span>
         </div>
 
         
@@ -167,7 +167,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-02-14 11:50:00
+        <i class="fas fa-edit"></i>&nbsp;2021-02-17 14:45:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -187,7 +187,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/TCP/">TCP</a>&nbsp;
+                        <a href="/tags/HTTP/">HTTP</a>&nbsp;
                     </li>
                 
             </ul>
@@ -206,27 +206,27 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="TCP-粘包和拆包"><a href="#TCP-粘包和拆包" class="headerlink" title="TCP 粘包和拆包"></a>TCP 粘包和拆包</h1><p>假设客户端分别发送了两个数据包 D1 和 D2 给服务端，由于服务端一次读取到的字节数是不确定的，故可能存在以下 4 种情况。</p>
-<ol>
-<li><p>服务端分两次读取到了两个独立的数据包，分别是 D1 和 D2，<strong>没有粘包和拆包</strong>；</p>
-</li>
-<li><p>服务端一次接收到了两个数据包，D1 和 D2 粘合在一起，<strong>被称为 TCP 粘包</strong>；</p>
-</li>
-<li><p>服务端分两次读取到了两个数据包，第一次读取到了完整的 D1 包和 D2 包的部分内容，第二次读取到了 D2 包的剩余内容，<strong>这被称为 TCP 拆包</strong>；</p>
-</li>
-<li><p>服务端分两次读取到了两个数据包，第一次读取到了 D1 包的部分内容 D1_1，第二次读取到了 D1 包的剩余内容 D1_2 和 D2 包的整包。<br>如果此时服务端 TCP 接收滑窗非常小，而数据包 D1 和 D2 比较大，很有可能会发生第五种可能，即<strong>服务端分多次才能将 D1 和 D2 包接收完全，期间发生多次拆包</strong>。</p>
-</li>
-</ol>
-<h1 id="TCP粘包-拆包发生的原因"><a href="#TCP粘包-拆包发生的原因" class="headerlink" title="TCP粘包/拆包发生的原因"></a>TCP粘包/拆包发生的原因</h1><ol>
-<li><p>应用程序 write 写入的字节大小大于套接口发送缓冲区大小；</p>
-</li>
-<li><p>进行 MSS 大小的 TCP 分段；</p>
-</li>
-<li><p>以太网帧的 payload 大于 MTU 进行 IP 分片。</p>
-</li>
-</ol>
-<h1 id="MTU"><a href="#MTU" class="headerlink" title="MTU"></a>MTU</h1><p>泛指通讯协议中的最大传输单元。一般用来说明TCP/IP四层协议中数据链路层的最大传输单元，不同类型的网络MTU也会不同，我们普遍使用的以太网的MTU是1500，即最大只能传输1500字节的数据帧。可以通过ifconfig命令查看电脑各个网卡的MTU。</p>
-<h1 id="MSS"><a href="#MSS" class="headerlink" title="MSS"></a>MSS</h1><p>指TCP建立连接后双方约定的可传输的最大TCP报文长度，是TCP用来限制应用层可发送的最大字节数。如果底层的MTU是1500byte，则 MSS = 1500- 20(IP Header) -20 (TCP Header) = 1460 byte。</p>
+            <h1 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h1><p>GET方法请求一个指定资源的表示形式. 使用GET的请求应该只被用于获取数据.</p>
+<h1 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h1><p>HEAD方法请求一个与GET请求的响应相同的响应，但没有响应体.</p>
+<h1 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h1><p>POST方法用于将实体提交到指定的资源，通常导致在服务器上的状态变化或副作用. </p>
+<h1 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h1><p>PUT方法用请求有效载荷替换目标资源的所有当前表示。</p>
+<h1 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h1><p>DELETE方法删除指定的资源。</p>
+<h1 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h1><p>CONNECT方法建立一个到由目标资源标识的服务器的隧道。</p>
+<h1 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h1><p>OPTIONS方法用于描述目标资源的通信选项。</p>
+<h1 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h1><p>TRACE方法沿着到目标资源的路径执行一个消息环回测试。</p>
+<h1 id="PATCH"><a href="#PATCH" class="headerlink" title="PATCH"></a>PATCH</h1><p>PATCH方法用于对资源应用部分修改。</p>
+<h1 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h1><p>HTTP 定义了一组请求方法, 以表明要对给定资源执行的操作。指示针对给定资源要执行的期望动作. 虽然他们也可以是名词, 但这些请求方法有时被称为HTTP动词. 每一个请求方法都实现了不同的语义, 但一些共同的特征由一组共享：: 例如一个请求方法可以是 safe(安全), idempotent(幂等), 或 cacheable(可缓存).</p>
+<h2 id="safe-安全"><a href="#safe-安全" class="headerlink" title="safe(安全)"></a>safe(安全)</h2><p>如果说一个 HTTP 方法是安全的，是指这是个不会修改服务器的数据的方法。也就是说，这是一个对服务器只读操作的方法。这些方法是安全的：GET，HEAD 和 OPTIONS。所有安全的方法都是幂等的，有些不安全的方法如 PUT 和 DELETE 则不是。</p>
+<h2 id="idempotent-幂等"><a href="#idempotent-幂等" class="headerlink" title="idempotent(幂等)"></a>idempotent(幂等)</h2><p>一个HTTP方法是幂等的，指的是同样的请求被执行一次与连续执行多次的效果是一样的，服务器的状态也是一样的。换句话说就是，幂等方法不应该具有副作用（统计用途除外）。在正确实现的条件下，GET，HEAD，PUT和DELETE 等方法都是幂等的，而 POST 方法不是。所有的 safe 方法也都是幂等的。</p>
+<h2 id="cacheable-可缓存"><a href="#cacheable-可缓存" class="headerlink" title="cacheable(可缓存)"></a>cacheable(可缓存)</h2><p>可缓存的响应是可被缓存的HTTP 响应，它被存储以供稍后检索和使用，从而将新的请求保存在伺服器。不是所有的 HTTP 响应都可以被缓存，可以被缓存的 HTTP 响应需满足如下列条件:</p>
+<ul>
+<li>请求中使用的方法本身是可以被缓存的，如 GET 或 HEAD 方法。如果下达了新的指示，响应 POST 方法也可以被缓存，但这种实施方式极为罕见。其他方法，如： PUT 或 DELETE 都不可以被缓存，同样他们的处理结果也不可以。</li>
+<li>应用程式是会缓存已知的响应的状态码，并且被认为是可缓存的。这些可缓存的状态码如下： 200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 和 501.</li>
+<li>响应中没有指定的头部，如 Cache-Control，它可以阻止缓存。<br>请注意一些不缓存请求/响应到指定的 URI 可能会导致相同 URI 上以前的缓存响应失效。例如，  PUT 到 pageX.html 将使相同 URI 下所有的 GET 或 HEAD 请求缓存失效。</li>
+</ul>
+<blockquote>
+<p>摘录于 <a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods" >https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
 
         </div>
 
@@ -234,11 +234,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：什么是 TCP 粘包和拆包？</li>
+        <li>Post title：HTTP 的方法有哪些？</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2021-02-14 11:50:00</li>
+        <li>Create time：2021-02-17 14:45:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2021/02/14/1000-011什么是 TCP 粘包和拆包？/
+            Post link：https://xxxixxx.github.io/2021/02/17/1000-013HTTP 的方法有哪些？/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -255,13 +255,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2021/02/16/1000-012%E7%AE%80%E8%BF%B0%E5%AF%B9%E7%A7%B0%E4%B8%8E%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%9A%84%E6%A6%82%E5%BF%B5/"
+                           href="/2021/02/17/1000-014%E7%AE%80%E8%BF%B0%20JWT%20%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E6%A0%A1%E9%AA%8C%E6%9C%BA%E5%88%B6/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">简述对称与非对称加密的概念</span>
+                                <span class="post-nav-title-item">简述 JWT 的原理和校验机制</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -271,10 +271,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/02/13/1000-010%E7%AE%80%E8%BF%B0%20OSI%20%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B%EF%BC%8CTCP%EF%BC%8CIP%20%E5%B1%9E%E4%BA%8E%E5%93%AA%E4%B8%80%E5%B1%82%EF%BC%9F/"
+                           href="/2021/02/16/1000-012%E7%AE%80%E8%BF%B0%E5%AF%B9%E7%A7%B0%E4%B8%8E%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%9A%84%E6%A6%82%E5%BF%B5/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">简述 OSI 七层模型，TCP，IP 属于哪一层？</span>
+                                <span class="post-nav-title-item">简述对称与非对称加密的概念</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -475,7 +475,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-%E7%B2%98%E5%8C%85%E5%92%8C%E6%8B%86%E5%8C%85"><span class="nav-text">TCP 粘包和拆包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP%E7%B2%98%E5%8C%85-%E6%8B%86%E5%8C%85%E5%8F%91%E7%94%9F%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-text">TCP粘包&#x2F;拆包发生的原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MTU"><span class="nav-text">MTU</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MSS"><span class="nav-text">MSS</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GET"><span class="nav-text">GET</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HEAD"><span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POST"><span class="nav-text">POST</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PUT"><span class="nav-text">PUT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DELETE"><span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CONNECT"><span class="nav-text">CONNECT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OPTIONS"><span class="nav-text">OPTIONS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TRACE"><span class="nav-text">TRACE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PATCH"><span class="nav-text">PATCH</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%84%E8%8C%83"><span class="nav-text">规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#safe-%E5%AE%89%E5%85%A8"><span class="nav-text">safe(安全)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#idempotent-%E5%B9%82%E7%AD%89"><span class="nav-text">idempotent(幂等)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cacheable-%E5%8F%AF%E7%BC%93%E5%AD%98"><span class="nav-text">cacheable(可缓存)</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
