@@ -784,6 +784,46 @@
       </tags>
   </entry>
   <entry>
+    <title>TCP 与 UDP 在网络协议中的哪一层，他们之间有什么区别？</title>
+    <url>/2021/02/21/1000-016TCP%20%E4%B8%8E%20UDP%20%E5%9C%A8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%93%AA%E4%B8%80%E5%B1%82%EF%BC%8C%E4%BB%96%E4%BB%AC%E4%B9%8B%E9%97%B4%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F/</url>
+    <content><![CDATA[<h1 id="TCP-与-UDP-在网络协议中的哪一层？"><a href="#TCP-与-UDP-在网络协议中的哪一层？" class="headerlink" title="TCP 与 UDP 在网络协议中的哪一层？"></a>TCP 与 UDP 在网络协议中的哪一层？</h1><p><strong>属于传输层协议</strong></p>
+<h1 id="TCP-与-UDP-的区别"><a href="#TCP-与-UDP-的区别" class="headerlink" title="TCP 与 UDP 的区别"></a>TCP 与 UDP 的区别</h1><ol>
+<li><p><strong>TCP面向连接（如打电话要先拨号建立连接）；UDP是无连接的，即发送数据之前不需要建立连接。</strong></p>
+</li>
+<li><p><strong>TCP注重数据安全性，UDP数据传输快。</strong>TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达；UDP尽最大努力交付，即不保证可靠交付。TCP通过校验和，重传控制，序号标识，滑动窗口、确认应答实现可靠传输。如丢包时的重发控制，还可以对次序乱掉的分包进行顺序控制。</p>
+</li>
+<li><p><strong>UDP具有较好的实时性，工作效率比TCP高，</strong>适用于对高速传输和实时性有较高的通信或广播通信。</p>
+</li>
+<li><p><strong>TCP 一对一， UDP 一对一、一对多、多对一、多对多。</strong> 每一条TCP连接只能是点到点的；UDP支持一对一、一对多、多对一和多对多的交互通信。</p>
+</li>
+<li><p><strong>TCP对系统资源要求较多，UDP对系统资源要求较少。</strong></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>TCP</tag>
+        <tag>UDP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>简述 TCP 滑动窗口以及重传机制</title>
+    <url>/2021/02/21/1000-017%E7%AE%80%E8%BF%B0%20TCP%20%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E4%BB%A5%E5%8F%8A%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h1 id="TCP-滑动窗口"><a href="#TCP-滑动窗口" class="headerlink" title="TCP 滑动窗口"></a>TCP 滑动窗口</h1><p>窗口的实现实际上是操作系统开辟的一个缓存空间，发送方主机在等到确认应答返回之前，必须在缓冲区中保留已发送的数据。如果按期收到确认应答，此时数据就可以从缓存区清除。</p>
+<h1 id="重传机制"><a href="#重传机制" class="headerlink" title="重传机制"></a>重传机制</h1><h2 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h2><p>重传机制的其中一个方式，就是在发送数据时，设定一个定时器，当超过指定的时间后，没有收到对方的 ACK 确认应答报文，就会重发该数据，也就是我们常说的超时重传。（TCP 会在以下两种情况发生超时重传：数据包丢失，确认应答丢失）</p>
+<h2 id="快速重传"><a href="#快速重传" class="headerlink" title="快速重传"></a>快速重传</h2><p>快速重传的工作方式是当收到三个相同的 ACK 报文时，会在定时器过期之前，重传丢失的报文段。</p>
+<p>快速重传机制只解决了一个问题，就是超时时间的问题，但是它依然面临着另外一个问题。就是重传的时候，是重传之前的一个，还是重传所有的问题。</p>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>TCP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RxSwift-Observable订阅、监听</title>
     <url>/2020/11/12/200-RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -1025,13 +1065,70 @@
       </tags>
   </entry>
   <entry>
-    <title>树、二叉树</title>
+    <title>674. 最长连续递增序列</title>
+    <url>/2021/02/21/2000-001-674.%20%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E9%80%92%E5%A2%9E%E5%BA%8F%E5%88%97/</url>
+    <content><![CDATA[<h1 id="674-最长连续递增序列"><a href="#674-最长连续递增序列" class="headerlink" title="674. 最长连续递增序列"></a><a class="link"   href="https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/" >674. 最长连续递增序列<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/a0hi84.png"
+                      alt="题目描述"
+                ></p>
+<h1 id="贪心解法"><a href="#贪心解法" class="headerlink" title="贪心解法"></a>贪心解法</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func findLengthOfLCIS(_ nums: [Int]) -&gt; Int &#123;</span><br><span class="line">        var start &#x3D; 0</span><br><span class="line">        var maxCount &#x3D; 0</span><br><span class="line"></span><br><span class="line">        for (index, _) in nums.enumerated() &#123;</span><br><span class="line">            if index &gt; 0, nums[index] &lt;&#x3D; nums[index - 1] &#123;</span><br><span class="line">                start &#x3D; index</span><br><span class="line">            &#125;</span><br><span class="line">            let currentCount &#x3D; index - start + 1</span><br><span class="line">            maxCount &#x3D; (maxCount &gt; currentCount) ? maxCount : currentCount</span><br><span class="line">        &#125;</span><br><span class="line">        return maxCount</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="解法2"><a href="#解法2" class="headerlink" title="解法2"></a>解法2</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func findLengthOfLCIS(_ nums: [Int]) -&gt; Int &#123;</span><br><span class="line">        if nums.count &lt; 2 &#123;</span><br><span class="line">            return nums.count</span><br><span class="line">        &#125;</span><br><span class="line">        var maxCount &#x3D; 0</span><br><span class="line">        var preNumber &#x3D; nums.first</span><br><span class="line">        var tempCount &#x3D; 0</span><br><span class="line">        for item in nums &#123;</span><br><span class="line">            let isAdd &#x3D; item &gt; preNumber!</span><br><span class="line">            if isAdd &#123;</span><br><span class="line">                tempCount +&#x3D; 1</span><br><span class="line">                maxCount &#x3D; (maxCount &gt; tempCount) ? maxCount : tempCount</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                tempCount &#x3D; 0</span><br><span class="line">            &#125;</span><br><span class="line">            preNumber &#x3D; item</span><br><span class="line">        &#125;</span><br><span class="line">        return maxCount + 1</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>贪心算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>108. 将有序数组转换为二叉搜索树</title>
+    <url>/2021/02/21/2000-002-108.%20%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</url>
+    <content><![CDATA[<h1 id="108-将有序数组转换为二叉搜索树"><a href="#108-将有序数组转换为二叉搜索树" class="headerlink" title="108. 将有序数组转换为二叉搜索树"></a><a class="link"   href="https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/" >108. 将有序数组转换为二叉搜索树<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/hq8ztg.png"
+                      alt="108. 将有序数组转换为二叉搜索树"
+                ></p>
+<h1 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func sortedArrayToBST(_ nums: [Int]) -&gt; TreeNode? &#123;</span><br><span class="line">    return sortTree(nums, 0, nums.count - 1)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func sortTree(_ nums: [Int], _ left: Int, _ right: Int) -&gt; TreeNode? &#123;</span><br><span class="line">    if left &gt; right &#123;</span><br><span class="line">        return nil</span><br><span class="line">    &#125;</span><br><span class="line">    let mid &#x3D; (left + right) &#x2F; 2</span><br><span class="line">    let root &#x3D; TreeNode(nums[mid])</span><br><span class="line">    root.left &#x3D; sortTree(nums, left, mid - 1)</span><br><span class="line">    root.right &#x3D; sortTree(nums, mid + 1, right)</span><br><span class="line"></span><br><span class="line">    return root</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>递归</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1382. 将二叉搜索树变平衡</title>
+    <url>/2021/02/21/2000-003-1382.%20%E5%B0%86%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E5%8F%98%E5%B9%B3%E8%A1%A1/</url>
+    <content><![CDATA[<h1 id="1382-将二叉搜索树变平衡"><a href="#1382-将二叉搜索树变平衡" class="headerlink" title="1382. 将二叉搜索树变平衡"></a><a class="link"   href="https://leetcode-cn.com/problems/balance-a-binary-search-tree/" >1382. 将二叉搜索树变平衡<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/qm12q4.png"
+                      alt="1382. 将二叉搜索树变平衡"
+                ></p>
+<h1 id="先变为有序递增数组，再平衡"><a href="#先变为有序递增数组，再平衡" class="headerlink" title="先变为有序递增数组，再平衡"></a>先变为有序递增数组，再平衡</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    var list: [Int] &#x3D; []</span><br><span class="line"></span><br><span class="line">    func balanceBST(_ root: TreeNode?) -&gt; TreeNode? &#123;</span><br><span class="line">        getList(root)</span><br><span class="line">        return buildTree(list, 0, list.count - 1)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func buildTree(_ nums: [Int], _ left: Int, _ right: Int) -&gt; TreeNode? &#123;</span><br><span class="line">        if left &gt; right &#123;</span><br><span class="line">            return nil</span><br><span class="line">        &#125;</span><br><span class="line">        let mid &#x3D; (left + right) &#x2F; 2</span><br><span class="line">        let root &#x3D; TreeNode(nums[mid])</span><br><span class="line">        root.left &#x3D; buildTree(nums, left, mid - 1)</span><br><span class="line">        root.right &#x3D; buildTree(nums, mid + 1, right)</span><br><span class="line">        return root</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 二叉搜索树</span><br><span class="line">&#x2F;&#x2F;若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； </span><br><span class="line">&#x2F;&#x2F; 所以采用中序遍历  先左 再根 最后右  刚好是递增数组</span><br><span class="line">    func getList(_ root: TreeNode?) &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return &#125;</span><br><span class="line">        getList(root.left)</span><br><span class="line">        list.append(root.val)</span><br><span class="line">        getList(root.right)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>二叉搜索树</tag>
+        <tag>平衡树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树、二叉树、二叉搜索树</title>
     <url>/2021/02/06/2000-%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
     <content><![CDATA[<h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><blockquote>
 <p>是一种经常用到的数据结构，用来模拟具有树状结构性质的数据集合。树里的每一个节点有一个值和一个包含所有子节点的列表。从图的观点来看，树也可视为一个拥有N 个节点和N-1 条边的一个有向无环图</p>
 </blockquote>
 <h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><blockquote>
 <p>是一种更为典型的树状结构。如它名字所描述的那样，二叉树是每个节点最多有两个子树的树结构，通常子树被称作“左子树”和“右子树”。</p>
+</blockquote>
+<h1 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h1><blockquote>
+<p>若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； </p>
 </blockquote>
 <h1 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h1><h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>前序遍历首先访问根节点，然后遍历左子树，最后遍历右子树。</p>
 <h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p>中序遍历是先遍历左子树，然后访问根节点，然后遍历右子树。</p>
@@ -1041,6 +1138,7 @@
         <category>数据结构</category>
       </categories>
       <tags>
+        <tag>二叉搜索树</tag>
         <tag>二叉树</tag>
         <tag>二叉树遍历</tag>
       </tags>
