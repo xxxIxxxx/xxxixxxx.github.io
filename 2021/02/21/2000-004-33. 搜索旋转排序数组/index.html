@@ -9,7 +9,7 @@
     
     <title>
         
-            1382. 将二叉搜索树变平衡 |
+            33. 搜索旋转排序数组 |
         
         今日营业中
     </title>
@@ -151,7 +151,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">1382. 将二叉搜索树变平衡</span>
+            <span class="title-hover-animation">33. 搜索旋转排序数组</span>
         </div>
 
         
@@ -167,7 +167,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-02-21 21:49:00
+        <i class="fas fa-edit"></i>&nbsp;2021-02-21 22:21:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -187,11 +187,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">二叉搜索树</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/">平衡树</a>&nbsp;
+                        <a href="/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/">二分搜索</a>&nbsp;
                     </li>
                 
             </ul>
@@ -210,24 +206,25 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="1382-将二叉搜索树变平衡"><a href="#1382-将二叉搜索树变平衡" class="headerlink" title="1382. 将二叉搜索树变平衡"></a><a class="link"   target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/balance-a-binary-search-tree/" >1382. 将二叉搜索树变平衡<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+            <h1 id="33-搜索旋转排序数组"><a href="#33-搜索旋转排序数组" class="headerlink" title="33. 搜索旋转排序数组"></a><a class="link"   target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/" >33. 搜索旋转排序数组<i class="fas fa-external-link-alt"></i></a></h1><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://files.catbox.moe/qm12q4.png"
-                      alt="1382. 将二叉搜索树变平衡"
+                     data-src="https://files.catbox.moe/8z9prz.png"
+                      alt="33. 搜索旋转排序数组"
                 ></p>
-<h1 id="先变为有序递增数组，再平衡"><a href="#先变为有序递增数组，再平衡" class="headerlink" title="先变为有序递增数组，再平衡"></a>先变为有序递增数组，再平衡</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    var list: [Int] &#x3D; []</span><br><span class="line"></span><br><span class="line">    func balanceBST(_ root: TreeNode?) -&gt; TreeNode? &#123;</span><br><span class="line">        getList(root)</span><br><span class="line">        return buildTree(list, 0, list.count - 1)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func buildTree(_ nums: [Int], _ left: Int, _ right: Int) -&gt; TreeNode? &#123;</span><br><span class="line">        if left &gt; right &#123;</span><br><span class="line">            return nil</span><br><span class="line">        &#125;</span><br><span class="line">        let mid &#x3D; (left + right) &#x2F; 2</span><br><span class="line">        let root &#x3D; TreeNode(nums[mid])</span><br><span class="line">        root.left &#x3D; buildTree(nums, left, mid - 1)</span><br><span class="line">        root.right &#x3D; buildTree(nums, mid + 1, right)</span><br><span class="line">        return root</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 二叉搜索树</span><br><span class="line">&#x2F;&#x2F;若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； </span><br><span class="line">&#x2F;&#x2F; 所以采用中序遍历  先左 再根 最后右  刚好是递增数组</span><br><span class="line">    func getList(_ root: TreeNode?) &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return &#125;</span><br><span class="line">        getList(root.left)</span><br><span class="line">        list.append(root.val)</span><br><span class="line">        getList(root.right)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    func search(_ nums: [Int], _ target: Int) -&gt; Int &#123;</span><br><span class="line">        if nums.isEmpty &#123;</span><br><span class="line">            return -1</span><br><span class="line">        &#125;</span><br><span class="line">        if nums.count &#x3D;&#x3D; 1 &#123;</span><br><span class="line">            return (nums[0] &#x3D;&#x3D; target) ? 0 : -1</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        var left &#x3D; 0</span><br><span class="line">        var right &#x3D; nums.count - 1</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F; left &lt;&#x3D; right 说明相遇了 在变就错过</span><br><span class="line">        while left &lt;&#x3D; right &#123; </span><br><span class="line">            &#x2F;&#x2F; 确定中间值</span><br><span class="line">            let mid &#x3D; (right - left) &#x2F; 2 + left</span><br><span class="line">            if nums[mid] &#x3D;&#x3D; target &#123;</span><br><span class="line">                return mid</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F; nums[mid] &lt; nums[right] 说明 mid 右边是有序递增的</span><br><span class="line">            if nums[mid] &lt; nums[right] &#123;</span><br><span class="line">                &#x2F;&#x2F;如果 target 值在这个有序递增的范围内那就能确定 left 了，这里包含了右边等于 target 值的情况</span><br><span class="line">                if target &gt; nums[mid], target &lt;&#x3D; nums[right] &#123;</span><br><span class="line">                    left &#x3D; mid + 1</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    right &#x3D; mid - 1</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123; &#x2F;&#x2F; nums[mid] &gt; nums[right]  说明突变值（最小值）在 mid 右边，则 mid 左边是有序递增的</span><br><span class="line">                if target &gt;&#x3D; nums[left], target &lt; nums[mid] &#123;</span><br><span class="line">                    &#x2F;&#x2F;如果 target 值在这个有序递增的范围内那就能确定 right 了，这里包含了左边等于 target 值的情况</span><br><span class="line">                    right &#x3D; mid - 1</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    left &#x3D; mid + 1</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return -1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：1382. 将二叉搜索树变平衡</li>
+        <li>Post title：33. 搜索旋转排序数组</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2021-02-21 21:49:00</li>
+        <li>Create time：2021-02-21 22:21:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2021/02/21/2000-003-1382. 将二叉搜索树变平衡/
+            Post link：https://xxxixxx.github.io/2021/02/21/2000-004-33. 搜索旋转排序数组/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -244,13 +241,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2021/02/21/2000-004-33.%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/"
+                           href="/2021/02/21/2000-005-141.%20%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">33. 搜索旋转排序数组</span>
+                                <span class="post-nav-title-item">141. 环形链表</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -260,10 +257,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/02/21/2000-002-108.%20%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/"
+                           href="/2021/02/21/2000-003-1382.%20%E5%B0%86%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E5%8F%98%E5%B9%B3%E8%A1%A1/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">108. 将有序数组转换为二叉搜索树</span>
+                                <span class="post-nav-title-item">1382. 将二叉搜索树变平衡</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -464,7 +461,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1382-%E5%B0%86%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E5%8F%98%E5%B9%B3%E8%A1%A1"><span class="nav-text">1382. 将二叉搜索树变平衡</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%88%E5%8F%98%E4%B8%BA%E6%9C%89%E5%BA%8F%E9%80%92%E5%A2%9E%E6%95%B0%E7%BB%84%EF%BC%8C%E5%86%8D%E5%B9%B3%E8%A1%A1"><span class="nav-text">先变为有序递增数组，再平衡</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#33-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-text">33. 搜索旋转排序数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%B3%95"><span class="nav-text">二分法</span></a></li></ol>
     </div>
 </div>
         </aside>

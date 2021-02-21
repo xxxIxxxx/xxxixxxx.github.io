@@ -1119,6 +1119,45 @@
       </tags>
   </entry>
   <entry>
+    <title>33. 搜索旋转排序数组</title>
+    <url>/2021/02/21/2000-004-33.%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[<h1 id="33-搜索旋转排序数组"><a href="#33-搜索旋转排序数组" class="headerlink" title="33. 搜索旋转排序数组"></a><a class="link"   href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/" >33. 搜索旋转排序数组<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/8z9prz.png"
+                      alt="33. 搜索旋转排序数组"
+                ></p>
+<h1 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    func search(_ nums: [Int], _ target: Int) -&gt; Int &#123;</span><br><span class="line">        if nums.isEmpty &#123;</span><br><span class="line">            return -1</span><br><span class="line">        &#125;</span><br><span class="line">        if nums.count &#x3D;&#x3D; 1 &#123;</span><br><span class="line">            return (nums[0] &#x3D;&#x3D; target) ? 0 : -1</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        var left &#x3D; 0</span><br><span class="line">        var right &#x3D; nums.count - 1</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F; left &lt;&#x3D; right 说明相遇了 在变就错过</span><br><span class="line">        while left &lt;&#x3D; right &#123; </span><br><span class="line">            &#x2F;&#x2F; 确定中间值</span><br><span class="line">            let mid &#x3D; (right - left) &#x2F; 2 + left</span><br><span class="line">            if nums[mid] &#x3D;&#x3D; target &#123;</span><br><span class="line">                return mid</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F; nums[mid] &lt; nums[right] 说明 mid 右边是有序递增的</span><br><span class="line">            if nums[mid] &lt; nums[right] &#123;</span><br><span class="line">                &#x2F;&#x2F;如果 target 值在这个有序递增的范围内那就能确定 left 了，这里包含了右边等于 target 值的情况</span><br><span class="line">                if target &gt; nums[mid], target &lt;&#x3D; nums[right] &#123;</span><br><span class="line">                    left &#x3D; mid + 1</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    right &#x3D; mid - 1</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123; &#x2F;&#x2F; nums[mid] &gt; nums[right]  说明突变值（最小值）在 mid 右边，则 mid 左边是有序递增的</span><br><span class="line">                if target &gt;&#x3D; nums[left], target &lt; nums[mid] &#123;</span><br><span class="line">                    &#x2F;&#x2F;如果 target 值在这个有序递增的范围内那就能确定 right 了，这里包含了左边等于 target 值的情况</span><br><span class="line">                    right &#x3D; mid - 1</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    left &#x3D; mid + 1</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return -1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>二分搜索</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>141. 环形链表</title>
+    <url>/2021/02/21/2000-005-141.%20%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="141-环形链表"><a href="#141-环形链表" class="headerlink" title="141. 环形链表"></a><a class="link"   href="https://leetcode-cn.com/problems/linked-list-cycle/" >141. 环形链表<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/3k71ua.png"
+                      alt="141. 环形链表"
+                ></p>
+<h1 id="快慢指针解法"><a href="#快慢指针解法" class="headerlink" title="快慢指针解法"></a>快慢指针解法</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func hasCycle(_ head: ListNode?) -&gt; Bool &#123;</span><br><span class="line">        var slowTree &#x3D; head</span><br><span class="line">        var fastTree &#x3D; head?.next</span><br><span class="line"></span><br><span class="line">        while slowTree !&#x3D; nil || fastTree !&#x3D; nil &#123;</span><br><span class="line">            if slowTree &#x3D;&#x3D;&#x3D; fastTree &#123;</span><br><span class="line">                return true</span><br><span class="line">            &#125;</span><br><span class="line">            slowTree &#x3D; slowTree?.next</span><br><span class="line">            fastTree &#x3D; fastTree?.next?.next</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="哈希表解法"><a href="#哈希表解法" class="headerlink" title="哈希表解法"></a>哈希表解法</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func hasCycle(_ head: ListNode?) -&gt; Bool &#123;</span><br><span class="line">        &#x2F;&#x2F; 注意这里使用 Set, 使用 Array 会超时</span><br><span class="line">        &#x2F;&#x2F; ListNode 需要实现 Equatable, Hashable 协议</span><br><span class="line">        var list: Set&lt;ListNode&gt; &#x3D; []</span><br><span class="line">        var head &#x3D; head</span><br><span class="line"></span><br><span class="line">        while head !&#x3D; nil &#123;</span><br><span class="line">            if list.contains(head!) &#123;</span><br><span class="line">                return true</span><br><span class="line">            &#125;</span><br><span class="line">            list.insert(head!)</span><br><span class="line">            head &#x3D; head?.next</span><br><span class="line">        &#125;</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Swift-链表-及-实现协议"><a href="#Swift-链表-及-实现协议" class="headerlink" title="Swift 链表 及 实现协议"></a>Swift 链表 及 实现协议</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class ListNode &#123;</span><br><span class="line">    public var val: Int</span><br><span class="line">    public var next: ListNode?</span><br><span class="line">    public init() &#123; self.val &#x3D; 0; self.next &#x3D; nil &#125;</span><br><span class="line">    public init(_ val: Int) &#123; self.val &#x3D; val; self.next &#x3D; nil &#125;</span><br><span class="line">    public init(_ val: Int, _ next: ListNode?) &#123; self.val &#x3D; val; self.next &#x3D; next &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension ListNode: Equatable &#123;</span><br><span class="line">    public static func &#x3D;&#x3D; (l: ListNode, r: ListNode) -&gt; Bool &#123;</span><br><span class="line">        return l &#x3D;&#x3D;&#x3D; r</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension ListNode: Hashable &#123;</span><br><span class="line">    public func hash(into hasher: inout Hasher) &#123;</span><br><span class="line">        hasher.combine(ObjectIdentifier(self))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>快慢指针</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>树、二叉树、二叉搜索树</title>
     <url>/2021/02/06/2000-%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
     <content><![CDATA[<h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><blockquote>
