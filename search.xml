@@ -824,6 +824,63 @@
       </tags>
   </entry>
   <entry>
+    <title>简述 http 1.0，1.1，2.0 的主要区别</title>
+    <url>/2021/02/22/1000-018%E7%AE%80%E8%BF%B0%20HTTP%201.0%EF%BC%8C1.1%EF%BC%8C2.0%20%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><p>http1.0 到 http1.1 的主要区别，就是从无连接到长连接。<br>http2.0 对比 1.X 版本主要区别就是多路复用。</p>
+<h1 id="http-1-0-特性"><a href="#http-1-0-特性" class="headerlink" title="http 1.0 特性"></a>http 1.0 特性</h1><h2 id="1-无状态"><a href="#1-无状态" class="headerlink" title="1. 无状态"></a>1. 无状态</h2><p>服务器不跟踪不记录请求过的状态<br>对于无状态的特性可以借助 cookie/session 机制来做身份认证和状态记录</p>
+<h2 id="2-无连接"><a href="#2-无连接" class="headerlink" title="2. 无连接"></a>2. 无连接</h2><p>浏览器每次请求都需要建立 tcp 连接</p>
+<p>无连接导致的性能缺陷有两种：</p>
+<ol>
+<li>无法复用连接<br>每次发送请求，都需要进行一次 tcp 连接（即 3 次握手 4 次挥手），使得网络的利用率非常低</li>
+<li>队头阻塞<br>http1.0 规定在前一个请求响应到达之后下一个请求才能发送，如果前一个阻塞，后面的请求也给阻塞的</li>
+</ol>
+<h1 id="http-1-1-特性"><a href="#http-1-1-特性" class="headerlink" title="http 1.1 特性"></a>http 1.1 特性</h1><p>为了解决 http1.0 的性能缺陷，http1.1 出现了</p>
+<h2 id="1-长连接"><a href="#1-长连接" class="headerlink" title="1. 长连接"></a>1. 长连接</h2><p>http1.1 默认保持长连接，数据传输完成保持 tcp 连接不断开,继续用这个通道传输数据。<br>新增 Connection 字段，可以设置 keep-alive 值保持连接不断开。</p>
+<h2 id="2-管道化"><a href="#2-管道化" class="headerlink" title="2. 管道化"></a>2. 管道化</h2><p>基于上面长连接的基础，管道化可以不等第一个请求响应继续发送后面的请求，但响应的顺序还是按照请求的顺序返回。</p>
+<p>基于长连接的基础，我们先看没有管道化请求响应：<br>tcp 没有断开，用的同一个通道<br><code>请求1 &gt; 响应1 --&gt; 请求2 &gt; 响应2 --&gt; 请求3 &gt; 响应3</code></p>
+<p>管道化的请求响应：<br><code>请求1 --&gt; 请求2 --&gt; 请求3 &gt; 响应1 --&gt; 响应2 --&gt; 响应3</code><br>即使服务器先准备好响应 2,也是按照请求顺序先返回响应 1<br>虽然管道化，可以一次发送多个请求，但是响应仍是顺序返回，仍然无法解决队头阻塞的问题</p>
+<h2 id="3-缓存处理"><a href="#3-缓存处理" class="headerlink" title="3. 缓存处理"></a>3. 缓存处理</h2><p>当浏览器请求资源时，先看是否有缓存的资源，如果有缓存，直接取，不会再发请求，如果没有缓存，则发送请求。<br>新增字段 cache-control 来控制</p>
+<h2 id="4-断点传输"><a href="#4-断点传输" class="headerlink" title="4. 断点传输"></a>4. 断点传输</h2><p>在上传/下载资源时，如果资源过大，将其分割为多个部分，分别上传/下载，如果遇到网络故障，可以从已经上传/下载好的地方继续请求，不用从头开始，提高效率<br>在 Header 里两个参数实现的，客户端发请求时对应的是 Range 服务器端响应时对应的是 Content-Range</p>
+<h1 id="http-2-0-特性"><a href="#http-2-0-特性" class="headerlink" title="http 2.0 特性"></a>http 2.0 特性</h1><h2 id="1-二进制分帧"><a href="#1-二进制分帧" class="headerlink" title="1. 二进制分帧"></a>1. 二进制分帧</h2><p>将所有传输的信息分割为更小的消息和帧,并对它们采用二进制格式的编码</p>
+<h2 id="2-多路复用"><a href="#2-多路复用" class="headerlink" title="2. 多路复用"></a>2. 多路复用</h2><p>在共享 TCP 链接的基础上同时发送请求和响应<br>一个 Tcp 中多个 http 请求是并行的</p>
+<h2 id="3-头部压缩"><a href="#3-头部压缩" class="headerlink" title="3. 头部压缩"></a>3. 头部压缩</h2><p>http2.0 使用 encoder 来减少需要传输的 header 大小，通讯双方各自 cache 一份 header fields 表，既避免了重复 header 的传输，又减小了需要传输的大小。</p>
+<h2 id="4-服务器推送"><a href="#4-服务器推送" class="headerlink" title="4. 服务器推送"></a>4. 服务器推送</h2><p>服务器可以额外的向客户端推送资源，而无需客户端明确的请求</p>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>http</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>简述 TCP 的 TIME_WAIT</title>
+    <url>/2021/02/22/1000-019%E7%AE%80%E8%BF%B0%20TCP%20%E7%9A%84%20TIME_WAIT/</url>
+    <content><![CDATA[<h1 id="为什么-TIME-WAIT"><a href="#为什么-TIME-WAIT" class="headerlink" title="为什么 TIME_WAIT"></a>为什么 TIME_WAIT</h1><p>主动关闭连接的一方最终进入 <code>TIME_WAIT</code> 状态等待一段才真正的释放内核中的连接记录，在释放记录之前这个连接使用的本地端口将一直被占用。<br>保持一段时间的 <code>TIME_WAIT</code> 的理由是：担心 <code>ack N+1</code> 没有送达，导致被动方重传 <code>FIN N</code>，那么主动方应当再次响应 <code>ack N+1</code>。<br>如果没有 <code>TIME_WAIT</code> 就直接复用该连接占用的端口，那么万一被动方重传<code>FIN N</code>，那么使用相同端口的新连接就会被错误关闭。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/m8c6bs.png"
+                      alt="四次挥手"
+                ></p>
+<h1 id="优化-TIME-WAIT"><a href="#优化-TIME-WAIT" class="headerlink" title="优化 TIME_WAIT"></a>优化 TIME_WAIT</h1><p>谁主动关闭 <code>socket</code>，谁<code>TIME_WAIT</code>。<br>如果双方响应正常，TIME_WAIT 应该只是瞬间状态。</p>
+<h1 id="服务端主动关闭"><a href="#服务端主动关闭" class="headerlink" title="服务端主动关闭"></a>服务端主动关闭</h1><p>无论有多少连接，服务端都只有一个端口，那就是监听端口，大量连接之间的差异仅仅是 TCP 4 元祖的客户端 ip 和 port 不同而已。</p>
+<p>因此服务端<code>TIME_WAIT</code>压根不会耗尽端口，因为它就一个端口。</p>
+<p>那么服务端就不需要优化了吗？对，没必要优化，一个<code>TIME_WAIT</code>的 4 元祖当遇到新的 SYN 时会复用，不需要特殊配置。</p>
+<p>另外，当<code>TIME_WAIT</code>数量超过内核选项 net.ipv4.tcp_max_tw_buckets 的限制时，多余的<code>TIME_WAIT</code>连接将被立即关闭，然后在 netstat -s 中留下如下的溢出统计指标：</p>
+<h1 id="客户端主动关闭"><a href="#客户端主动关闭" class="headerlink" title="客户端主动关闭"></a>客户端主动关闭</h1><p>客户端每个连接都会随机选择一个本地端口，所以最终会导致客户端大量端口处于 TIME_WAIT 状态，这和服务端主动关闭是最大的不同。<br>所以我们通常所说的 TIME_WAIT 问题都是针对客户端的，只是好像很少有人提及这一点。<br>网上有一种优化手段是把 net.ipv4.tcp_max_tw_buckets 调低，这样 TIME_WAIT 连接就会被删除，但是这不是一个最佳手段哈。</p>
+<p>目前唯一安全的选项就是同时开启如下 2 个选项：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">net.ipv4.tcp_timestamps&#x3D;1（连接发起方和接收方都需要开启）</span><br><span class="line">net.ipv4.tcp_tw_reuse&#x3D;1（只影响连接发起方）</span><br></pre></td></tr></table></figure>
+
+<p>上述配置只影响连接发起方，也就是客户端，对服务端是无效的。<br>它的作用是向外发起连接的时候，可以复用 TIME_WAIT 的端口，但是有一个前提<br>该端口最后一次通讯时间距离当前系统时间&gt;1 秒</p>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>四次挥手</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RxSwift-Observable订阅、监听</title>
     <url>/2020/11/12/200-RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>

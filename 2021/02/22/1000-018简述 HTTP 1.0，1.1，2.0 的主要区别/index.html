@@ -9,7 +9,7 @@
     
     <title>
         
-            141. 环形链表 |
+            简述 http 1.0，1.1，2.0 的主要区别 |
         
         今日营业中
     </title>
@@ -151,7 +151,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">141. 环形链表</span>
+            <span class="title-hover-animation">简述 http 1.0，1.1，2.0 的主要区别</span>
         </div>
 
         
@@ -167,7 +167,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-02-21 23:49:00
+        <i class="fas fa-edit"></i>&nbsp;2021-02-22 14:07:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -175,7 +175,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/LeetCode/">LeetCode</a>&nbsp;
+                        <a href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a>&nbsp;
                     </li>
                 
             </ul>
@@ -187,7 +187,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/">快慢指针</a>&nbsp;
+                        <a href="/tags/http/">http</a>&nbsp;
                     </li>
                 
             </ul>
@@ -206,28 +206,37 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="141-环形链表"><a href="#141-环形链表" class="headerlink" title="141. 环形链表"></a><a class="link"   target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/linked-list-cycle/" >141. 环形链表<i class="fas fa-external-link-alt"></i></a></h1><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://files.catbox.moe/3k71ua.png"
-                      alt="141. 环形链表"
-                ></p>
-<h1 id="快慢指针解法"><a href="#快慢指针解法" class="headerlink" title="快慢指针解法"></a>快慢指针解法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">func hasCycle(_ head: ListNode?) -&gt; Bool &#123;</span><br><span class="line">        var slowTree &#x3D; head</span><br><span class="line">        var fastTree &#x3D; head?.next</span><br><span class="line"></span><br><span class="line">        while slowTree !&#x3D; nil || fastTree !&#x3D; nil &#123;</span><br><span class="line">            if slowTree &#x3D;&#x3D;&#x3D; fastTree &#123;</span><br><span class="line">                return true</span><br><span class="line">            &#125;</span><br><span class="line">            slowTree &#x3D; slowTree?.next</span><br><span class="line">            fastTree &#x3D; fastTree?.next?.next</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+            <h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><p>http1.0 到 http1.1 的主要区别，就是从无连接到长连接。<br>http2.0 对比 1.X 版本主要区别就是多路复用。</p>
+<h1 id="http-1-0-特性"><a href="#http-1-0-特性" class="headerlink" title="http 1.0 特性"></a>http 1.0 特性</h1><h2 id="1-无状态"><a href="#1-无状态" class="headerlink" title="1. 无状态"></a>1. 无状态</h2><p>服务器不跟踪不记录请求过的状态<br>对于无状态的特性可以借助 cookie/session 机制来做身份认证和状态记录</p>
+<h2 id="2-无连接"><a href="#2-无连接" class="headerlink" title="2. 无连接"></a>2. 无连接</h2><p>浏览器每次请求都需要建立 tcp 连接</p>
+<p>无连接导致的性能缺陷有两种：</p>
+<ol>
+<li>无法复用连接<br>每次发送请求，都需要进行一次 tcp 连接（即 3 次握手 4 次挥手），使得网络的利用率非常低</li>
+<li>队头阻塞<br>http1.0 规定在前一个请求响应到达之后下一个请求才能发送，如果前一个阻塞，后面的请求也给阻塞的</li>
+</ol>
+<h1 id="http-1-1-特性"><a href="#http-1-1-特性" class="headerlink" title="http 1.1 特性"></a>http 1.1 特性</h1><p>为了解决 http1.0 的性能缺陷，http1.1 出现了</p>
+<h2 id="1-长连接"><a href="#1-长连接" class="headerlink" title="1. 长连接"></a>1. 长连接</h2><p>http1.1 默认保持长连接，数据传输完成保持 tcp 连接不断开,继续用这个通道传输数据。<br>新增 Connection 字段，可以设置 keep-alive 值保持连接不断开。</p>
+<h2 id="2-管道化"><a href="#2-管道化" class="headerlink" title="2. 管道化"></a>2. 管道化</h2><p>基于上面长连接的基础，管道化可以不等第一个请求响应继续发送后面的请求，但响应的顺序还是按照请求的顺序返回。</p>
+<p>基于长连接的基础，我们先看没有管道化请求响应：<br>tcp 没有断开，用的同一个通道<br><code>请求1 &gt; 响应1 --&gt; 请求2 &gt; 响应2 --&gt; 请求3 &gt; 响应3</code></p>
+<p>管道化的请求响应：<br><code>请求1 --&gt; 请求2 --&gt; 请求3 &gt; 响应1 --&gt; 响应2 --&gt; 响应3</code><br>即使服务器先准备好响应 2,也是按照请求顺序先返回响应 1<br>虽然管道化，可以一次发送多个请求，但是响应仍是顺序返回，仍然无法解决队头阻塞的问题</p>
+<h2 id="3-缓存处理"><a href="#3-缓存处理" class="headerlink" title="3. 缓存处理"></a>3. 缓存处理</h2><p>当浏览器请求资源时，先看是否有缓存的资源，如果有缓存，直接取，不会再发请求，如果没有缓存，则发送请求。<br>新增字段 cache-control 来控制</p>
+<h2 id="4-断点传输"><a href="#4-断点传输" class="headerlink" title="4. 断点传输"></a>4. 断点传输</h2><p>在上传/下载资源时，如果资源过大，将其分割为多个部分，分别上传/下载，如果遇到网络故障，可以从已经上传/下载好的地方继续请求，不用从头开始，提高效率<br>在 Header 里两个参数实现的，客户端发请求时对应的是 Range 服务器端响应时对应的是 Content-Range</p>
+<h1 id="http-2-0-特性"><a href="#http-2-0-特性" class="headerlink" title="http 2.0 特性"></a>http 2.0 特性</h1><h2 id="1-二进制分帧"><a href="#1-二进制分帧" class="headerlink" title="1. 二进制分帧"></a>1. 二进制分帧</h2><p>将所有传输的信息分割为更小的消息和帧,并对它们采用二进制格式的编码</p>
+<h2 id="2-多路复用"><a href="#2-多路复用" class="headerlink" title="2. 多路复用"></a>2. 多路复用</h2><p>在共享 TCP 链接的基础上同时发送请求和响应<br>一个 Tcp 中多个 http 请求是并行的</p>
+<h2 id="3-头部压缩"><a href="#3-头部压缩" class="headerlink" title="3. 头部压缩"></a>3. 头部压缩</h2><p>http2.0 使用 encoder 来减少需要传输的 header 大小，通讯双方各自 cache 一份 header fields 表，既避免了重复 header 的传输，又减小了需要传输的大小。</p>
+<h2 id="4-服务器推送"><a href="#4-服务器推送" class="headerlink" title="4. 服务器推送"></a>4. 服务器推送</h2><p>服务器可以额外的向客户端推送资源，而无需客户端明确的请求</p>
 
-<h1 id="哈希表解法"><a href="#哈希表解法" class="headerlink" title="哈希表解法"></a>哈希表解法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">func hasCycle(_ head: ListNode?) -&gt; Bool &#123;</span><br><span class="line">        &#x2F;&#x2F; 注意这里使用 Set, 使用 Array 会超时</span><br><span class="line">        &#x2F;&#x2F; ListNode 需要实现 Equatable, Hashable 协议</span><br><span class="line">        var list: Set&lt;ListNode&gt; &#x3D; []</span><br><span class="line">        var head &#x3D; head</span><br><span class="line"></span><br><span class="line">        while head !&#x3D; nil &#123;</span><br><span class="line">            if list.contains(head!) &#123;</span><br><span class="line">                return true</span><br><span class="line">            &#125;</span><br><span class="line">            list.insert(head!)</span><br><span class="line">            head &#x3D; head?.next</span><br><span class="line">        &#125;</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Swift-链表-及-实现协议"><a href="#Swift-链表-及-实现协议" class="headerlink" title="Swift 链表 及 实现协议"></a>Swift 链表 及 实现协议</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class ListNode &#123;</span><br><span class="line">    public var val: Int</span><br><span class="line">    public var next: ListNode?</span><br><span class="line">    public init() &#123; self.val &#x3D; 0; self.next &#x3D; nil &#125;</span><br><span class="line">    public init(_ val: Int) &#123; self.val &#x3D; val; self.next &#x3D; nil &#125;</span><br><span class="line">    public init(_ val: Int, _ next: ListNode?) &#123; self.val &#x3D; val; self.next &#x3D; next &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension ListNode: Equatable &#123;</span><br><span class="line">    public static func &#x3D;&#x3D; (l: ListNode, r: ListNode) -&gt; Bool &#123;</span><br><span class="line">        return l &#x3D;&#x3D;&#x3D; r</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension ListNode: Hashable &#123;</span><br><span class="line">    public func hash(into hasher: inout Hasher) &#123;</span><br><span class="line">        hasher.combine(ObjectIdentifier(self))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：141. 环形链表</li>
+        <li>Post title：简述 http 1.0，1.1，2.0 的主要区别</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2021-02-21 23:49:00</li>
+        <li>Create time：2021-02-22 14:07:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2021/02/21/2000-005-141. 环形链表/
+            Post link：https://xxxixxx.github.io/2021/02/22/1000-018简述 HTTP 1.0，1.1，2.0 的主要区别/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -244,13 +253,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2021/02/22/1000-018%E7%AE%80%E8%BF%B0%20HTTP%201.0%EF%BC%8C1.1%EF%BC%8C2.0%20%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB/"
+                           href="/2021/02/22/1000-019%E7%AE%80%E8%BF%B0%20TCP%20%E7%9A%84%20TIME_WAIT/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">简述 http 1.0，1.1，2.0 的主要区别</span>
+                                <span class="post-nav-title-item">简述 TCP 的 TIME_WAIT</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -260,10 +269,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/02/21/2000-004-33.%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/"
+                           href="/2021/02/21/2000-005-141.%20%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">33. 搜索旋转排序数组</span>
+                                <span class="post-nav-title-item">141. 环形链表</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -464,7 +473,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#141-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8"><span class="nav-text">141. 环形链表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88%E8%A7%A3%E6%B3%95"><span class="nav-text">快慢指针解法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E8%A7%A3%E6%B3%95"><span class="nav-text">哈希表解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Swift-%E9%93%BE%E8%A1%A8-%E5%8F%8A-%E5%AE%9E%E7%8E%B0%E5%8D%8F%E8%AE%AE"><span class="nav-text">Swift 链表 及 实现协议</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-text">区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http-1-0-%E7%89%B9%E6%80%A7"><span class="nav-text">http 1.0 特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%97%A0%E7%8A%B6%E6%80%81"><span class="nav-text">1. 无状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%97%A0%E8%BF%9E%E6%8E%A5"><span class="nav-text">2. 无连接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http-1-1-%E7%89%B9%E6%80%A7"><span class="nav-text">http 1.1 特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%95%BF%E8%BF%9E%E6%8E%A5"><span class="nav-text">1. 长连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%AE%A1%E9%81%93%E5%8C%96"><span class="nav-text">2. 管道化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%BC%93%E5%AD%98%E5%A4%84%E7%90%86"><span class="nav-text">3. 缓存处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%96%AD%E7%82%B9%E4%BC%A0%E8%BE%93"><span class="nav-text">4. 断点传输</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http-2-0-%E7%89%B9%E6%80%A7"><span class="nav-text">http 2.0 特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%88%86%E5%B8%A7"><span class="nav-text">1. 二进制分帧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-text">2. 多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%A4%B4%E9%83%A8%E5%8E%8B%E7%BC%A9"><span class="nav-text">3. 头部压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A8%E9%80%81"><span class="nav-text">4. 服务器推送</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>

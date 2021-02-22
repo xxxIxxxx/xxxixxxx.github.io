@@ -9,7 +9,7 @@
     
     <title>
         
-            141. 环形链表 |
+            简述 TCP 的 TIME_WAIT |
         
         今日营业中
     </title>
@@ -151,7 +151,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">141. 环形链表</span>
+            <span class="title-hover-animation">简述 TCP 的 TIME_WAIT</span>
         </div>
 
         
@@ -167,7 +167,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-02-21 23:49:00
+        <i class="fas fa-edit"></i>&nbsp;2021-02-22 15:09:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -175,7 +175,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/LeetCode/">LeetCode</a>&nbsp;
+                        <a href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a>&nbsp;
                     </li>
                 
             </ul>
@@ -187,7 +187,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/">快慢指针</a>&nbsp;
+                        <a href="/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>&nbsp;
                     </li>
                 
             </ul>
@@ -206,28 +206,34 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="141-环形链表"><a href="#141-环形链表" class="headerlink" title="141. 环形链表"></a><a class="link"   target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/linked-list-cycle/" >141. 环形链表<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+            <h1 id="为什么-TIME-WAIT"><a href="#为什么-TIME-WAIT" class="headerlink" title="为什么 TIME_WAIT"></a>为什么 TIME_WAIT</h1><p>主动关闭连接的一方最终进入 <code>TIME_WAIT</code> 状态等待一段才真正的释放内核中的连接记录，在释放记录之前这个连接使用的本地端口将一直被占用。<br>保持一段时间的 <code>TIME_WAIT</code> 的理由是：担心 <code>ack N+1</code> 没有送达，导致被动方重传 <code>FIN N</code>，那么主动方应当再次响应 <code>ack N+1</code>。<br>如果没有 <code>TIME_WAIT</code> 就直接复用该连接占用的端口，那么万一被动方重传<code>FIN N</code>，那么使用相同端口的新连接就会被错误关闭。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://files.catbox.moe/3k71ua.png"
-                      alt="141. 环形链表"
+                     data-src="https://files.catbox.moe/m8c6bs.png"
+                      alt="四次挥手"
                 ></p>
-<h1 id="快慢指针解法"><a href="#快慢指针解法" class="headerlink" title="快慢指针解法"></a>快慢指针解法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">func hasCycle(_ head: ListNode?) -&gt; Bool &#123;</span><br><span class="line">        var slowTree &#x3D; head</span><br><span class="line">        var fastTree &#x3D; head?.next</span><br><span class="line"></span><br><span class="line">        while slowTree !&#x3D; nil || fastTree !&#x3D; nil &#123;</span><br><span class="line">            if slowTree &#x3D;&#x3D;&#x3D; fastTree &#123;</span><br><span class="line">                return true</span><br><span class="line">            &#125;</span><br><span class="line">            slowTree &#x3D; slowTree?.next</span><br><span class="line">            fastTree &#x3D; fastTree?.next?.next</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="优化-TIME-WAIT"><a href="#优化-TIME-WAIT" class="headerlink" title="优化 TIME_WAIT"></a>优化 TIME_WAIT</h1><p>谁主动关闭 <code>socket</code>，谁<code>TIME_WAIT</code>。<br>如果双方响应正常，TIME_WAIT 应该只是瞬间状态。</p>
+<h1 id="服务端主动关闭"><a href="#服务端主动关闭" class="headerlink" title="服务端主动关闭"></a>服务端主动关闭</h1><p>无论有多少连接，服务端都只有一个端口，那就是监听端口，大量连接之间的差异仅仅是 TCP 4 元祖的客户端 ip 和 port 不同而已。</p>
+<p>因此服务端<code>TIME_WAIT</code>压根不会耗尽端口，因为它就一个端口。</p>
+<p>那么服务端就不需要优化了吗？对，没必要优化，一个<code>TIME_WAIT</code>的 4 元祖当遇到新的 SYN 时会复用，不需要特殊配置。</p>
+<p>另外，当<code>TIME_WAIT</code>数量超过内核选项 net.ipv4.tcp_max_tw_buckets 的限制时，多余的<code>TIME_WAIT</code>连接将被立即关闭，然后在 netstat -s 中留下如下的溢出统计指标：</p>
+<h1 id="客户端主动关闭"><a href="#客户端主动关闭" class="headerlink" title="客户端主动关闭"></a>客户端主动关闭</h1><p>客户端每个连接都会随机选择一个本地端口，所以最终会导致客户端大量端口处于 TIME_WAIT 状态，这和服务端主动关闭是最大的不同。<br>所以我们通常所说的 TIME_WAIT 问题都是针对客户端的，只是好像很少有人提及这一点。<br>网上有一种优化手段是把 net.ipv4.tcp_max_tw_buckets 调低，这样 TIME_WAIT 连接就会被删除，但是这不是一个最佳手段哈。</p>
+<p>目前唯一安全的选项就是同时开启如下 2 个选项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_timestamps&#x3D;1（连接发起方和接收方都需要开启）</span><br><span class="line">net.ipv4.tcp_tw_reuse&#x3D;1（只影响连接发起方）</span><br></pre></td></tr></table></figure>
 
-<h1 id="哈希表解法"><a href="#哈希表解法" class="headerlink" title="哈希表解法"></a>哈希表解法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">func hasCycle(_ head: ListNode?) -&gt; Bool &#123;</span><br><span class="line">        &#x2F;&#x2F; 注意这里使用 Set, 使用 Array 会超时</span><br><span class="line">        &#x2F;&#x2F; ListNode 需要实现 Equatable, Hashable 协议</span><br><span class="line">        var list: Set&lt;ListNode&gt; &#x3D; []</span><br><span class="line">        var head &#x3D; head</span><br><span class="line"></span><br><span class="line">        while head !&#x3D; nil &#123;</span><br><span class="line">            if list.contains(head!) &#123;</span><br><span class="line">                return true</span><br><span class="line">            &#125;</span><br><span class="line">            list.insert(head!)</span><br><span class="line">            head &#x3D; head?.next</span><br><span class="line">        &#125;</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>上述配置只影响连接发起方，也就是客户端，对服务端是无效的。<br>它的作用是向外发起连接的时候，可以复用 TIME_WAIT 的端口，但是有一个前提<br>该端口最后一次通讯时间距离当前系统时间&gt;1 秒</p>
 
-<h3 id="Swift-链表-及-实现协议"><a href="#Swift-链表-及-实现协议" class="headerlink" title="Swift 链表 及 实现协议"></a>Swift 链表 及 实现协议</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class ListNode &#123;</span><br><span class="line">    public var val: Int</span><br><span class="line">    public var next: ListNode?</span><br><span class="line">    public init() &#123; self.val &#x3D; 0; self.next &#x3D; nil &#125;</span><br><span class="line">    public init(_ val: Int) &#123; self.val &#x3D; val; self.next &#x3D; nil &#125;</span><br><span class="line">    public init(_ val: Int, _ next: ListNode?) &#123; self.val &#x3D; val; self.next &#x3D; next &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension ListNode: Equatable &#123;</span><br><span class="line">    public static func &#x3D;&#x3D; (l: ListNode, r: ListNode) -&gt; Bool &#123;</span><br><span class="line">        return l &#x3D;&#x3D;&#x3D; r</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension ListNode: Hashable &#123;</span><br><span class="line">    public func hash(into hasher: inout Hasher) &#123;</span><br><span class="line">        hasher.combine(ObjectIdentifier(self))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：141. 环形链表</li>
+        <li>Post title：简述 TCP 的 TIME_WAIT</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2021-02-21 23:49:00</li>
+        <li>Create time：2021-02-22 15:09:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2021/02/21/2000-005-141. 环形链表/
+            Post link：https://xxxixxx.github.io/2021/02/22/1000-019简述 TCP 的 TIME_WAIT/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -241,29 +247,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2021/02/22/1000-018%E7%AE%80%E8%BF%B0%20HTTP%201.0%EF%BC%8C1.1%EF%BC%8C2.0%20%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">简述 http 1.0，1.1，2.0 的主要区别</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/02/21/2000-004-33.%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/"
+                           href="/2021/02/22/1000-018%E7%AE%80%E8%BF%B0%20HTTP%201.0%EF%BC%8C1.1%EF%BC%8C2.0%20%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">33. 搜索旋转排序数组</span>
+                                <span class="post-nav-title-item">简述 http 1.0，1.1，2.0 的主要区别</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -464,7 +455,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#141-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8"><span class="nav-text">141. 环形链表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88%E8%A7%A3%E6%B3%95"><span class="nav-text">快慢指针解法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E8%A7%A3%E6%B3%95"><span class="nav-text">哈希表解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Swift-%E9%93%BE%E8%A1%A8-%E5%8F%8A-%E5%AE%9E%E7%8E%B0%E5%8D%8F%E8%AE%AE"><span class="nav-text">Swift 链表 及 实现协议</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-TIME-WAIT"><span class="nav-text">为什么 TIME_WAIT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%8C%96-TIME-WAIT"><span class="nav-text">优化 TIME_WAIT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%BB%E5%8A%A8%E5%85%B3%E9%97%AD"><span class="nav-text">服务端主动关闭</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%BB%E5%8A%A8%E5%85%B3%E9%97%AD"><span class="nav-text">客户端主动关闭</span></a></li></ol>
     </div>
 </div>
         </aside>
