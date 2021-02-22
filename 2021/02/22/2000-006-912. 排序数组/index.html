@@ -9,7 +9,7 @@
     
     <title>
         
-            简述 TCP 的 TIME_WAIT |
+            912. 排序数组 |
         
         今日营业中
     </title>
@@ -151,7 +151,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">简述 TCP 的 TIME_WAIT</span>
+            <span class="title-hover-animation">912. 排序数组</span>
         </div>
 
         
@@ -167,7 +167,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-02-22 15:09:00
+        <i class="fas fa-edit"></i>&nbsp;2021-02-22 23:16:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -175,7 +175,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a>&nbsp;
+                        <a href="/categories/LeetCode/">LeetCode</a>&nbsp;
                     </li>
                 
             </ul>
@@ -187,7 +187,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>&nbsp;
+                        <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">快速排序</a>&nbsp;
                     </li>
                 
             </ul>
@@ -206,37 +206,26 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="为什么-TIME-WAIT"><a href="#为什么-TIME-WAIT" class="headerlink" title="为什么 TIME_WAIT"></a>为什么 TIME_WAIT</h1><p>主动关闭连接的一方最终进入 <code>TIME_WAIT</code> 状态等待一段才真正的释放内核中的连接记录，在释放记录之前这个连接使用的本地端口将一直被占用。<br>保持一段时间的 <code>TIME_WAIT</code> 的理由是：担心 <code>ack N+1</code> 没有送达，导致被动方重传 <code>FIN N</code>，那么主动方应当再次响应 <code>ack N+1</code>。<br>如果没有 <code>TIME_WAIT</code> 就直接复用该连接占用的端口，那么万一被动方重传<code>FIN N</code>，那么使用相同端口的新连接就会被错误关闭。<br><img  
+            <h1 id="912-排序数组"><a href="#912-排序数组" class="headerlink" title="912. 排序数组"></a><a class="link"   target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sort-an-array/" >912. 排序数组<i class="fas fa-external-link-alt"></i></a></h1><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://files.catbox.moe/m8c6bs.png"
-                      alt="四次挥手"
+                     data-src="https://files.catbox.moe/stmaiz.png"
+                      alt="912. 排序数组"
                 ></p>
-<h1 id="优化-TIME-WAIT"><a href="#优化-TIME-WAIT" class="headerlink" title="优化 TIME_WAIT"></a>优化 TIME_WAIT</h1><p>谁主动关闭 <code>socket</code>，谁<code>TIME_WAIT</code>。<br>如果双方响应正常，TIME_WAIT 应该只是瞬间状态。</p>
-<h1 id="服务端主动关闭"><a href="#服务端主动关闭" class="headerlink" title="服务端主动关闭"></a>服务端主动关闭</h1><p>无论有多少连接，服务端都只有一个端口，那就是监听端口，大量连接之间的差异仅仅是 TCP 4 元祖的客户端 ip 和 port 不同而已。</p>
-<p>因此服务端<code>TIME_WAIT</code>压根不会耗尽端口，因为它就一个端口。</p>
-<p>那么服务端就不需要优化了吗？对，没必要优化，一个<code>TIME_WAIT</code>的 4 元祖当遇到新的 SYN 时会复用，不需要特殊配置。</p>
-<p>另外，当<code>TIME_WAIT</code>数量超过内核选项 net.ipv4.tcp_max_tw_buckets 的限制时，多余的<code>TIME_WAIT</code>连接将被立即关闭，然后在 netstat -s 中留下如下的溢出统计指标：</p>
-<h1 id="客户端主动关闭"><a href="#客户端主动关闭" class="headerlink" title="客户端主动关闭"></a>客户端主动关闭</h1><p>客户端每个连接都会随机选择一个本地端口，所以最终会导致客户端大量端口处于 TIME_WAIT 状态，这和服务端主动关闭是最大的不同。<br>所以我们通常所说的 TIME_WAIT 问题都是针对客户端的，只是好像很少有人提及这一点。<br>网上有一种优化手段是把 net.ipv4.tcp_max_tw_buckets 调低，这样 TIME_WAIT 连接就会被删除，但是这不是一个最佳手段哈。</p>
-<p>目前唯一安全的选项就是同时开启如下 2 个选项：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_timestamps&#x3D;1（连接发起方和接收方都需要开启）</span><br><span class="line">net.ipv4.tcp_tw_reuse&#x3D;1（只影响连接发起方）</span><br></pre></td></tr></table></figure>
+<h1 id="快速排序-递归解法"><a href="#快速排序-递归解法" class="headerlink" title="快速排序 递归解法"></a>快速排序 递归解法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    func sortArray(_ nums: [Int]) -&gt; [Int] &#123;</span><br><span class="line">        var nums &#x3D; nums</span><br><span class="line">        sort2(&amp;nums, 0, nums.count - 1)</span><br><span class="line">        return nums</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func sort2(_ nums: inout [Int], _ left: Int, _ right: Int) &#123;</span><br><span class="line">        if left &lt; right &#123;</span><br><span class="line">            let p &#x3D; partition(&amp;nums, left, right)</span><br><span class="line">            &#x2F;&#x2F; 同样的方法处理分界值左边的数据 分界值的位置已经确定 所以传入 right &#x3D; p - 1</span><br><span class="line">            sort2(&amp;nums, left, p - 1)</span><br><span class="line">            &#x2F;&#x2F; 同样的方法处理分界值右边的数据 分界值的位置已经确定 所以传入 left &#x3D; p + 1</span><br><span class="line">            sort2(&amp;nums, p + 1, right)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func partition(_ nums: inout [Int], _ left: Int, _ right: Int) -&gt; Int &#123;</span><br><span class="line">        &#x2F;&#x2F; 直接以 nums[right] 为分界值</span><br><span class="line">        let p &#x3D; nums[right]</span><br><span class="line">        &#x2F;&#x2F; 记录下一个 比分界值小的值 应该移动到哪个位置， 默认为最左边</span><br><span class="line">        var minL &#x3D; left</span><br><span class="line">        for i in left ..&lt; right &#123;</span><br><span class="line">            &#x2F;&#x2F; 当前值 小于等于分界值，那么交换 i 和 minL 的值。否则不做处理</span><br><span class="line">            if nums[i] &lt;&#x3D; p &#123;</span><br><span class="line">                swap(&amp;nums, minL, i)</span><br><span class="line">                &#x2F;&#x2F; minL 已经被小于等于分界值的值占用，那么 +&#x3D; 1</span><br><span class="line">                minL +&#x3D; 1</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 到这里，在 minL 索引 前的值都是小于等于 分界值的，在 minL 到 right - 1，包括 minL 的值都是大于 分界值的。 分界值一直在最后</span><br><span class="line">        &#x2F;&#x2F; 所以 把分界值 和 nums[minL] 交换位置</span><br><span class="line">        swap(&amp;nums, minL, right)</span><br><span class="line">        &#x2F;&#x2F; 返回分界值所在的 位置</span><br><span class="line">        return minL</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func swap(_ nums: inout [Int], _ a: Int, _ b: Int) &#123;</span><br><span class="line">        let temp &#x3D; nums[a]</span><br><span class="line">        nums[a] &#x3D; nums[b]</span><br><span class="line">        nums[b] &#x3D; temp</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>上述配置只影响连接发起方，也就是客户端，对服务端是无效的。<br>它的作用是向外发起连接的时候，可以复用 TIME_WAIT 的端口，但是有一个前提<br>该端口最后一次通讯时间距离当前系统时间&gt;1 秒</p>
-<blockquote>
-<p>摘录于 <a class="link"   target="_blank" rel="noopener" href="https://yuerblog.cc/2020/03/09/%E5%85%B3%E4%BA%8Etime_wait%E9%97%AE%E9%A2%98%E7%AE%80%E8%BF%B0%E4%B8%8E%E4%BC%98%E5%8C%96/" >https://yuerblog.cc/2020/03/09/关于time_wait问题简述与优化/<i class="fas fa-external-link-alt"></i></a></p>
-</blockquote>
-
+<h1 id="快速排序-迭代解法"><a href="#快速排序-迭代解法" class="headerlink" title="快速排序 迭代解法"></a>快速排序 迭代解法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">ution &#123;</span><br><span class="line">    func sortArray(_ nums: [Int]) -&gt; [Int] &#123;</span><br><span class="line">         var nums &#x3D; nums</span><br><span class="line">        sort(&amp;nums, 0, nums.count - 1)</span><br><span class="line">        return nums</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func sort(_ nums: inout [Int], _ left: Int, _ right: Int) &#123;</span><br><span class="line">        &#x2F;&#x2F; 取中间值 做为当前的 分界值</span><br><span class="line">        let pivot &#x3D; nums[(right - left) &#x2F; 2 + left]</span><br><span class="line">        var L &#x3D; left</span><br><span class="line">        var R &#x3D; right</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; L &lt; R 说明 L 和 R 没相遇</span><br><span class="line">        while L &lt; R &#123;</span><br><span class="line">            &#x2F;&#x2F; 如果 pivot 左边的数小于 pivot，那么就不用移动这个数。</span><br><span class="line">            &#x2F;&#x2F; 接着继续看下一个 因为是从左往右  所以 L +&#x3D; 1</span><br><span class="line">            &#x2F;&#x2F; 如果这个数大于 pivot ， 那么跳出这个循环 且这个数的索引位 L</span><br><span class="line"></span><br><span class="line">            while nums[L] &lt; pivot &#123;</span><br><span class="line">                L +&#x3D; 1</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 如果 pivot 右边的数大于 pivot，那么就不用移动这个数。</span><br><span class="line">            &#x2F;&#x2F; 接着继续看下一个 因为是从右往左 所以 R -&#x3D; 1</span><br><span class="line">            &#x2F;&#x2F; 如果这个数小于 pivot ， 那么跳出这个循环 且这个数的索引位 R</span><br><span class="line"></span><br><span class="line">            while nums[R] &gt; pivot &#123;</span><br><span class="line">                R -&#x3D; 1</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; L &gt;&#x3D; R 说明 pivot 左边已经是 全部小于等于 pivot ，右边 全部是 大于等于 pivot。 可以提前退出</span><br><span class="line">            if L &gt;&#x3D; R &#123;</span><br><span class="line">                break</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 跳出了上边的两个循环之后 说明 分别找到了</span><br><span class="line">            &#x2F;&#x2F; 一个在 pivot 左边，但大于等于 pivot 的数，它的索引为 L</span><br><span class="line">            &#x2F;&#x2F; 一个在 pivot 右边，但小于等于 pivot 的数，它的索引位 R</span><br><span class="line">            &#x2F;&#x2F; 那么交换这两个数的位置</span><br><span class="line"></span><br><span class="line">            let temp &#x3D; nums[L]</span><br><span class="line">            nums[L] &#x3D; nums[R]</span><br><span class="line">            nums[R] &#x3D; temp</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 交换完后 nums[L] 是小于等于 pivot, nums[R] 是大于等于 pivot</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 如果 nums[L] &#x3D;&#x3D; pivot 了,要让 R -&#x3D; 1，</span><br><span class="line">            if nums[L] &#x3D;&#x3D; pivot &#123;</span><br><span class="line">                R -&#x3D; 1</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 如果 nums[R] &#x3D;&#x3D; pivot 了,要让 L +&#x3D; 1</span><br><span class="line">            if nums[R] &#x3D;&#x3D; pivot &#123;</span><br><span class="line">                L +&#x3D; 1</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 如果不处理 交换完后 nums[L] &#x3D;&#x3D; pivot 和 nums[R] &#x3D;&#x3D; pivot 的情况，</span><br><span class="line">            &#x2F;&#x2F; 当 nums[L] &#x3D;&#x3D; pivot 和 nums[R] &#x3D;&#x3D; pivot 都是 true 时，</span><br><span class="line">            &#x2F;&#x2F; 上边的两个 while 也不会在执行了， 那么 L 和 R 的数值也不会再发生变化 就卡死在这里了</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 到这里 L &gt;&#x3D; R 说明相遇了</span><br><span class="line">        &#x2F;&#x2F; 那么 pivot 左边的数都是 小于等于 pivot 的</span><br><span class="line">        &#x2F;&#x2F; 那么 pivot 右边的数都是 大于等于 pivot 的</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 这一步是防止对 pivot 左右分别操作时越界</span><br><span class="line">        if L &#x3D;&#x3D; R &#123;</span><br><span class="line">            L +&#x3D; 1</span><br><span class="line">            R -&#x3D; 1</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if left &lt; R &#123;</span><br><span class="line">            &#x2F;&#x2F; 继续处理 pivot 左边的数据</span><br><span class="line">            sort(&amp;nums, left, R)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if right &gt; L &#123;</span><br><span class="line">            &#x2F;&#x2F; 继续处理 pivot 右边的数据</span><br><span class="line">            sort(&amp;nums, L, right)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：简述 TCP 的 TIME_WAIT</li>
+        <li>Post title：912. 排序数组</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2021-02-22 15:09:00</li>
+        <li>Create time：2021-02-22 23:16:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2021/02/22/1000-019简述 TCP 的 TIME_WAIT/
+            Post link：https://xxxixxx.github.io/2021/02/22/2000-006-912. 排序数组/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -250,29 +239,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2021/02/22/2000-006-912.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">912. 排序数组</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/02/22/1000-018%E7%AE%80%E8%BF%B0%20HTTP%201.0%EF%BC%8C1.1%EF%BC%8C2.0%20%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB/"
+                           href="/2021/02/22/1000-019%E7%AE%80%E8%BF%B0%20TCP%20%E7%9A%84%20TIME_WAIT/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">简述 http 1.0，1.1，2.0 的主要区别</span>
+                                <span class="post-nav-title-item">简述 TCP 的 TIME_WAIT</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -473,7 +447,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-TIME-WAIT"><span class="nav-text">为什么 TIME_WAIT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%8C%96-TIME-WAIT"><span class="nav-text">优化 TIME_WAIT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%BB%E5%8A%A8%E5%85%B3%E9%97%AD"><span class="nav-text">服务端主动关闭</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%BB%E5%8A%A8%E5%85%B3%E9%97%AD"><span class="nav-text">客户端主动关闭</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#912-%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-text">912. 排序数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F-%E9%80%92%E5%BD%92%E8%A7%A3%E6%B3%95"><span class="nav-text">快速排序 递归解法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F-%E8%BF%AD%E4%BB%A3%E8%A7%A3%E6%B3%95"><span class="nav-text">快速排序 迭代解法</span></a></li></ol>
     </div>
 </div>
         </aside>

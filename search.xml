@@ -46,6 +46,17 @@
       </tags>
   </entry>
   <entry>
+    <title>Swift String 截取字符串，String 转 NSString</title>
+    <url>/2020/11/09/100-Swift-String-%E6%88%AA%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C-String-%E8%BD%AC-NSString/</url>
+    <content><![CDATA[<h1 id="String-转-NSString，转为-NSString-后-OC-的方法就能使用了"><a href="#String-转-NSString，转为-NSString-后-OC-的方法就能使用了" class="headerlink" title="String 转 NSString，转为 NSString 后 OC 的方法就能使用了"></a>String 转 NSString，转为 NSString 后 OC 的方法就能使用了</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 转为 NSString</span><br><span class="line"> (&quot;ABCD&quot; as NSString)</span><br><span class="line">&#x2F;&#x2F; 调用 NSString 的方法</span><br><span class="line"> (&quot;ABCD&quot; as NSString).substring(to: 1)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Swift-中-String-的字符串截取"><a href="#Swift-中-String-的字符串截取" class="headerlink" title="Swift 中 String 的字符串截取"></a>Swift 中 String 的字符串截取</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">let str &#x3D; &quot;ABCDEFGHIGK&quot;</span><br><span class="line"></span><br><span class="line">       print(&quot;前5个&quot; + &quot;\(str.prefix(5))&quot;)</span><br><span class="line">       &#x2F;&#x2F; 前5个ABCDE</span><br><span class="line"></span><br><span class="line">       print(&quot;前150个&quot; + str.prefix(150))</span><br><span class="line">       &#x2F;&#x2F; 前150个ABCDEFGHIGK</span><br><span class="line"></span><br><span class="line">       print(&quot;后3个&quot; + &quot;\(str.suffix(3))&quot;)</span><br><span class="line">       &#x2F;&#x2F; 后3个IGK</span><br><span class="line"></span><br><span class="line">       print(&quot;后150个&quot; + &quot;\(str.suffix(150))&quot;)</span><br><span class="line">       &#x2F;&#x2F; 后150个ABCDEFGHIGK</span><br><span class="line"></span><br><span class="line">       let startIndex &#x3D; str.index(str.startIndex, offsetBy: 2)</span><br><span class="line">       let endIndex &#x3D; str.index(str.startIndex, offsetBy: 5)</span><br><span class="line"></span><br><span class="line">       print(&quot;2-5是&quot; + str[startIndex ..&lt; endIndex])</span><br><span class="line">       &#x2F;&#x2F; 2-5是CDE</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Swift GCD 的串行队列与并行队列</title>
     <url>/2020/11/07/100-Swift-GCD-%E7%9A%84%E4%B8%B2%E8%A1%8C%E9%98%9F%E5%88%97%E4%B8%8E%E5%B9%B6%E8%A1%8C%E9%98%9F%E5%88%97/</url>
     <content><![CDATA[<table>
@@ -83,11 +94,19 @@
       </tags>
   </entry>
   <entry>
-    <title>Swift String 截取字符串，String 转 NSString</title>
-    <url>/2020/11/09/100-Swift-String-%E6%88%AA%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C-String-%E8%BD%AC-NSString/</url>
-    <content><![CDATA[<h1 id="String-转-NSString，转为-NSString-后-OC-的方法就能使用了"><a href="#String-转-NSString，转为-NSString-后-OC-的方法就能使用了" class="headerlink" title="String 转 NSString，转为 NSString 后 OC 的方法就能使用了"></a>String 转 NSString，转为 NSString 后 OC 的方法就能使用了</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 转为 NSString</span><br><span class="line"> (&quot;ABCD&quot; as NSString)</span><br><span class="line">&#x2F;&#x2F; 调用 NSString 的方法</span><br><span class="line"> (&quot;ABCD&quot; as NSString).substring(to: 1)</span><br></pre></td></tr></table></figure>
+    <title>Swift 数组</title>
+    <url>/2020/11/22/100-Swift-%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[<h1 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var list &#x3D; [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;]</span><br><span class="line">list.removeAll&#123; $0 &#x3D;&#x3D; &quot;2&quot; &#125;</span><br><span class="line">&#x2F;&#x2F;[&quot;1&quot;,&quot;3&quot;,&quot;4&quot;]</span><br></pre></td></tr></table></figure>
 
-<h1 id="Swift-中-String-的字符串截取"><a href="#Swift-中-String-的字符串截取" class="headerlink" title="Swift 中 String 的字符串截取"></a>Swift 中 String 的字符串截取</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">let str &#x3D; &quot;ABCDEFGHIGK&quot;</span><br><span class="line"></span><br><span class="line">       print(&quot;前5个&quot; + &quot;\(str.prefix(5))&quot;)</span><br><span class="line">       &#x2F;&#x2F; 前5个ABCDE</span><br><span class="line"></span><br><span class="line">       print(&quot;前150个&quot; + str.prefix(150))</span><br><span class="line">       &#x2F;&#x2F; 前150个ABCDEFGHIGK</span><br><span class="line"></span><br><span class="line">       print(&quot;后3个&quot; + &quot;\(str.suffix(3))&quot;)</span><br><span class="line">       &#x2F;&#x2F; 后3个IGK</span><br><span class="line"></span><br><span class="line">       print(&quot;后150个&quot; + &quot;\(str.suffix(150))&quot;)</span><br><span class="line">       &#x2F;&#x2F; 后150个ABCDEFGHIGK</span><br><span class="line"></span><br><span class="line">       let startIndex &#x3D; str.index(str.startIndex, offsetBy: 2)</span><br><span class="line">       let endIndex &#x3D; str.index(str.startIndex, offsetBy: 5)</span><br><span class="line"></span><br><span class="line">       print(&quot;2-5是&quot; + str[startIndex ..&lt; endIndex])</span><br><span class="line">       &#x2F;&#x2F; 2-5是CDE</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="Swift-数组遍历的几种方式"><a href="#Swift-数组遍历的几种方式" class="headerlink" title="Swift 数组遍历的几种方式"></a>Swift 数组遍历的几种方式</h1><h3 id="1-for-in-不带索引"><a href="#1-for-in-不带索引" class="headerlink" title="1. for-in 不带索引"></a>1. for-in 不带索引</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr &#x3D; [Int](7 ..&lt; 10)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 不带索引</span><br><span class="line">for obj in arr &#123;</span><br><span class="line">    print(obj)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-forEach-不能使用-break-continue-，只能使用-return"><a href="#2-forEach-不能使用-break-continue-，只能使用-return" class="headerlink" title="2. forEach 不能使用 break continue ，只能使用 return"></a>2. forEach 不能使用 break continue ，只能使用 return</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr &#x3D; [Int](7 ..&lt; 10)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 不带索引</span><br><span class="line">arr.forEach &#123; obj in</span><br><span class="line">    &#x2F;&#x2F; 不能使用 break continue ，只能使用 return</span><br><span class="line">    print(obj)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-enumerated-带索引-和-值"><a href="#3-enumerated-带索引-和-值" class="headerlink" title="3. enumerated() 带索引 和 值"></a>3. enumerated() 带索引 和 值</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr &#x3D; [Int](7 ..&lt; 10)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 带索引 和 值</span><br><span class="line">for (index, obj) in arr.enumerated() &#123;</span><br><span class="line">    print(&quot;位置：\(index)&quot; + &quot;值：\(obj)&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-while"><a href="#4-while" class="headerlink" title="4. while"></a>4. while</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr &#x3D; [Int](7 ..&lt; 10)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 迭代器</span><br><span class="line">var arrIterator &#x3D; arr.makeIterator()</span><br><span class="line">while let obj &#x3D; arrIterator.next() &#123;</span><br><span class="line">    print(obj)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-indices-下标索引-遍历下标"><a href="#5-indices-下标索引-遍历下标" class="headerlink" title="5. indices 下标索引 遍历下标"></a>5. indices 下标索引 遍历下标</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr &#x3D; [Int](7 ..&lt; 10)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 下标索引 遍历下标</span><br><span class="line">for index in arr.indices &#123;</span><br><span class="line">    print(index)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="区间-for-in-区间-for-循环"><a href="#区间-for-in-区间-for-循环" class="headerlink" title="区间 for-in 区间 for 循环"></a>区间 for-in 区间 for 循环</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let s &#x3D; 5</span><br><span class="line">&#x2F;&#x2F;&#x2F; 开区间不包含 50 ， 5 个一输出</span><br><span class="line">for i in stride(from: 0, to: 50, by: s) &#123;</span><br><span class="line">    print(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 闭区间包含 50， 5 个一输出</span><br><span class="line">for i in stride(from: 0, through: 50, by: s) &#123;</span><br><span class="line">    print(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="数组的一些查找操作"><a href="#数组的一些查找操作" class="headerlink" title="数组的一些查找操作"></a>数组的一些查找操作</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let array &#x3D; [Int](7 ..&lt; 117)</span><br><span class="line"></span><br><span class="line">let a &#x3D; array.contains(100)</span><br><span class="line">print(&quot;\(a ? &quot;包含&quot; : &quot;不包含&quot;)&quot; + &quot;100&quot;)</span><br><span class="line"></span><br><span class="line">let b &#x3D; array.contains(where: &#123; $0 &gt; 8 &#125;)</span><br><span class="line">print(&quot;\(b ? &quot;含有大于8的数字&quot; : &quot;不含有大于8的数字&quot;)&quot;)</span><br><span class="line"></span><br><span class="line">let c &#x3D; array.allSatisfy &#123; $0 &gt;&#x3D; 6 &#125;</span><br><span class="line">print(&quot;\(c ? &quot;所有数字都大于等于6&quot; : &quot;有数字小于6&quot;)&quot;)</span><br><span class="line"></span><br><span class="line">print(&quot;数组中第一个元素是&quot; + &quot;\(String(describing: array.first))&quot;)</span><br><span class="line"></span><br><span class="line">print(&quot;数组中最后一个元素是&quot; + &quot;\(String(describing: array.last))&quot;)</span><br><span class="line"></span><br><span class="line">let first &#x3D; array.first(where: &#123; $0 &gt; 8 &#125;)</span><br><span class="line">if let first &#x3D; first &#123;</span><br><span class="line">    print(&quot;第一个大于8的数字是&quot; + &quot;\(first)&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let last &#x3D; array.last(where: &#123; $0 &gt; 8 &#125;)</span><br><span class="line">if let last &#x3D; last &#123;</span><br><span class="line">    print(&quot;最后一个大于8的数字是&quot; + &quot;\(last)&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 10 在数组中第一次出现的位置</span><br><span class="line">array.firstIndex(of: 10)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 17 在数组中最后一次出现的位置</span><br><span class="line">array.lastIndex(of: 17)</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Swift</category>
@@ -130,25 +149,6 @@
         <tag>多线程</tag>
         <tag>Thread</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Swift 数组</title>
-    <url>/2020/11/22/100-Swift-%E6%95%B0%E7%BB%84/</url>
-    <content><![CDATA[<h1 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var list &#x3D; [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;]</span><br><span class="line">list.removeAll&#123; $0 &#x3D;&#x3D; &quot;2&quot; &#125;</span><br><span class="line">&#x2F;&#x2F;[&quot;1&quot;,&quot;3&quot;,&quot;4&quot;]</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="Swift-数组遍历的几种方式"><a href="#Swift-数组遍历的几种方式" class="headerlink" title="Swift 数组遍历的几种方式"></a>Swift 数组遍历的几种方式</h1><h3 id="1-for-in-不带索引"><a href="#1-for-in-不带索引" class="headerlink" title="1. for-in 不带索引"></a>1. for-in 不带索引</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr &#x3D; [Int](7 ..&lt; 10)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 不带索引</span><br><span class="line">for obj in arr &#123;</span><br><span class="line">    print(obj)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-forEach-不能使用-break-continue-，只能使用-return"><a href="#2-forEach-不能使用-break-continue-，只能使用-return" class="headerlink" title="2. forEach 不能使用 break continue ，只能使用 return"></a>2. forEach 不能使用 break continue ，只能使用 return</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr &#x3D; [Int](7 ..&lt; 10)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 不带索引</span><br><span class="line">arr.forEach &#123; obj in</span><br><span class="line">    &#x2F;&#x2F; 不能使用 break continue ，只能使用 return</span><br><span class="line">    print(obj)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-enumerated-带索引-和-值"><a href="#3-enumerated-带索引-和-值" class="headerlink" title="3. enumerated() 带索引 和 值"></a>3. enumerated() 带索引 和 值</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr &#x3D; [Int](7 ..&lt; 10)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 带索引 和 值</span><br><span class="line">for (index, obj) in arr.enumerated() &#123;</span><br><span class="line">    print(&quot;位置：\(index)&quot; + &quot;值：\(obj)&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-while"><a href="#4-while" class="headerlink" title="4. while"></a>4. while</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr &#x3D; [Int](7 ..&lt; 10)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 迭代器</span><br><span class="line">var arrIterator &#x3D; arr.makeIterator()</span><br><span class="line">while let obj &#x3D; arrIterator.next() &#123;</span><br><span class="line">    print(obj)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="5-indices-下标索引-遍历下标"><a href="#5-indices-下标索引-遍历下标" class="headerlink" title="5. indices 下标索引 遍历下标"></a>5. indices 下标索引 遍历下标</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr &#x3D; [Int](7 ..&lt; 10)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 下标索引 遍历下标</span><br><span class="line">for index in arr.indices &#123;</span><br><span class="line">    print(index)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="区间-for-in-区间-for-循环"><a href="#区间-for-in-区间-for-循环" class="headerlink" title="区间 for-in 区间 for 循环"></a>区间 for-in 区间 for 循环</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let s &#x3D; 5</span><br><span class="line">&#x2F;&#x2F;&#x2F; 开区间不包含 50 ， 5 个一输出</span><br><span class="line">for i in stride(from: 0, to: 50, by: s) &#123;</span><br><span class="line">    print(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 闭区间包含 50， 5 个一输出</span><br><span class="line">for i in stride(from: 0, through: 50, by: s) &#123;</span><br><span class="line">    print(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="数组的一些查找操作"><a href="#数组的一些查找操作" class="headerlink" title="数组的一些查找操作"></a>数组的一些查找操作</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let array &#x3D; [Int](7 ..&lt; 117)</span><br><span class="line"></span><br><span class="line">let a &#x3D; array.contains(100)</span><br><span class="line">print(&quot;\(a ? &quot;包含&quot; : &quot;不包含&quot;)&quot; + &quot;100&quot;)</span><br><span class="line"></span><br><span class="line">let b &#x3D; array.contains(where: &#123; $0 &gt; 8 &#125;)</span><br><span class="line">print(&quot;\(b ? &quot;含有大于8的数字&quot; : &quot;不含有大于8的数字&quot;)&quot;)</span><br><span class="line"></span><br><span class="line">let c &#x3D; array.allSatisfy &#123; $0 &gt;&#x3D; 6 &#125;</span><br><span class="line">print(&quot;\(c ? &quot;所有数字都大于等于6&quot; : &quot;有数字小于6&quot;)&quot;)</span><br><span class="line"></span><br><span class="line">print(&quot;数组中第一个元素是&quot; + &quot;\(String(describing: array.first))&quot;)</span><br><span class="line"></span><br><span class="line">print(&quot;数组中最后一个元素是&quot; + &quot;\(String(describing: array.last))&quot;)</span><br><span class="line"></span><br><span class="line">let first &#x3D; array.first(where: &#123; $0 &gt; 8 &#125;)</span><br><span class="line">if let first &#x3D; first &#123;</span><br><span class="line">    print(&quot;第一个大于8的数字是&quot; + &quot;\(first)&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let last &#x3D; array.last(where: &#123; $0 &gt; 8 &#125;)</span><br><span class="line">if let last &#x3D; last &#123;</span><br><span class="line">    print(&quot;最后一个大于8的数字是&quot; + &quot;\(last)&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 10 在数组中第一次出现的位置</span><br><span class="line">array.firstIndex(of: 10)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 17 在数组中最后一次出现的位置</span><br><span class="line">array.lastIndex(of: 17)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Swift</category>
-      </categories>
   </entry>
   <entry>
     <title>Swift 添加下标 subscript</title>
@@ -326,28 +326,6 @@
       </tags>
   </entry>
   <entry>
-    <title>TCP 中常见的拥塞控制算法有哪些？</title>
-    <url>/2021/02/05/1000-002TCP%20%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
-    <content><![CDATA[<h1 id="TCP-中常见的拥塞控制算法有哪些？"><a href="#TCP-中常见的拥塞控制算法有哪些？" class="headerlink" title="TCP 中常见的拥塞控制算法有哪些？"></a>TCP 中常见的拥塞控制算法有哪些？</h1><h1 id="TCP-Tahoe-Reno"><a href="#TCP-Tahoe-Reno" class="headerlink" title="TCP Tahoe/Reno"></a>TCP Tahoe/Reno</h1><p>最初的实现，包括慢启动、拥塞避免两个部分。基于重传超时（retransmission timeout/RTO）和重复确认为条件判断是否发生了丢包。两者的区别在于：Tahoe算法下如果收到三次重复确认，就进入快重传立即重发丢失的数据包，同时将慢启动阈值设置为当前拥塞窗口的一半，将拥塞窗口设置为1MSS，进入慢启动状态；而Reno算法如果收到三次重复确认，就进入快重传，但不进入慢启动状态，而是直接将拥塞窗口减半，进入拥塞控制阶段，这称为“快恢复”。<br>而Tahoe和Reno算法在出现RTO时的措施一致，都是将拥塞窗口降为1个MSS，然后进入慢启动阶段。</p>
-<h1 id="TCP-Vegas"><a href="#TCP-Vegas" class="headerlink" title="TCP Vegas"></a>TCP Vegas</h1><p>TCP Vegas算法由 Lawrence Brakmo 和 Larry L. Peterson 在1994年提出，它和其他拥塞控制算法的不同之处在于Vegas算法并不急于丢包来判断是否发生了拥塞，而是通过数据包延迟来判断。Vegas通过RTT（roundtrip time）来决定增加或者减小拥塞窗口，它能够将拥塞要发生时就避免拥塞，而不是等到拥塞已经发生之后再减小发送速度，因此能够减小重传和超时的几率。Vegas算法与其他算法（比如Reno）共存时，会由于比其他算法更先降低发送速率而出现公平性问题。</p>
-<h1 id="TCP-New-Reno"><a href="#TCP-New-Reno" class="headerlink" title="TCP New Reno"></a>TCP New Reno</h1><p> TCP New Reno主要改进了TCP Reno中快速恢复阶段的重传。<br>在Reno的快恢复中，一旦出现3次重复确认，TCP发送方会重发数据包并设置定时器等待该重发数据包被确认。当重发的数据包被确认后，就立即退出快速恢复阶段，进入拥塞控制阶段。但如果一次拥塞中出现多个丢包，Reno会误以为发生了多次拥塞而重复减小拥塞窗口导致发送速率下降。<br>而在New Reno的快速恢复中，一旦出现3次重复确认，会记下出现重复确认时未确认的数据包的最大序列号，然后重发重复确认的数据包。如果有多个数据包丢失，则继续重发丢失的数据包，直到最大序列号的数据包被确认才推出快恢复阶段。<br>New Reno在低错误率时运行效率和“选择确认”（Selective ACKnowledgement，SACK）相当，在高错误率仍优于Reno。</p>
-<h1 id="TCP-BIC-CUBIC"><a href="#TCP-BIC-CUBIC" class="headerlink" title="TCP BIC/CUBIC"></a>TCP BIC/CUBIC</h1><p>TCP BIC（Binary Increase Congestion control）旨在优化高速高延迟网络（即“长肥网络”（long fat network，LFN））的拥塞控制，其拥塞窗口算法使用二分搜索算法尝试找到能长时间保持拥塞窗口最大值的值。Linux内核在2.6.8至2.6.18使用该算法作为默认TCP拥塞算法。<br>BIC算法采用二分查找的方式来确定最大的窗口大小：如果发生丢包时窗口大小是W1，那么最大窗口Wmax应该小于W1；这时将窗口缩小到W2（乘以一个系数，也就是乘法减小），那么可以预期W1&gt;Wmax&gt;W2；这时再将窗口大小设置为(W1+W2)2（也就是二分查找），即每收到一个ACK就把窗口大小设置为两个界限的中点。<br>如果窗口大小已经无限逼近W1，说明网络状况又变好了（可用带宽增加了），这时BIC会尝试往上寻找更大的Wmax。而在往上寻找时，BIC会镜像的利用逼近当前Wmax的路径去搜寻，也就是前面是如何先快后慢慢地靠近当前Wmax的，后面就反过来先慢后快地增长。<br>而CUBIC则是比BIC更温和和系统化的分支版本，其使用三次函数代替二分算法作为其拥塞窗口算法（因为实际上BIC的搜索曲线看起来就像一个三次函数，所以干脆就写一个三次函数来模拟曲线），并且使用函数拐点作为拥塞窗口的设置值。Linux内核在2.6.19后使用该算法作为默认TCP拥塞算法。</p>
-<h1 id="TCP-Westwood-Westwood"><a href="#TCP-Westwood-Westwood" class="headerlink" title="TCP Westwood/Westwood+"></a>TCP Westwood/Westwood+</h1><p>TCP Westwood改良自New Reno，不同于以往其他拥塞控制算法使用丢失来测量，其通过对确认包测量来确定一个“合适的发送速度”，并以此调整拥塞窗口和慢启动阈值。Westwood改良了慢启动阶段算法为“敏捷探测（Agile Probing）”，并且设计了一种持续探测拥塞窗口的方法来控制进入“敏捷探测”，使连接尽可能地使用更多的带宽。Westwood+使用更长的带宽估计间隔和优化的滤波器来修正Westwood对ACK压缩场景对带宽估计过高的问题。通过以上改良，TCP Westwood系列算法在有线网络和无线网络的拥塞控制上取得平衡，尤其研究中针对于无线通信网络上。</p>
-<h1 id="Compound-TCP"><a href="#Compound-TCP" class="headerlink" title="Compound TCP"></a>Compound TCP</h1><p>Compound TCP是微软自己实现的TCP拥塞控制算法，通过同时维护两个拥塞窗口，来实现在长肥网络有较好的性能而又不损失公平性。CTCP维护两个拥塞窗口：一个常规的AIMD（英语：Additive increase/multiplicative decrease）窗口，以及一个基于延迟的窗口，最终实际使用的滑动窗口大小是这两个窗口的和。AIMD窗口与Reno的增加方式相同；如果延迟小，基于延迟的窗口将迅速增加以提高网络的利用率。一旦经历了排队，延迟窗口将逐渐减小以补偿增加的AIMD窗口。这样的目的是保持两者的总和大致恒定，使算法估计带宽时延积的路径。</p>
-<h1 id="TCP-PRR"><a href="#TCP-PRR" class="headerlink" title="TCP PRR"></a>TCP PRR</h1><p>TCP PRR（TCP Proportional Rate Reduction ）是旨在恢复期间提高发送数据的准确性。该算法确保恢复后的拥塞窗口大小尽可能接近慢启动阈值</p>
-<h1 id="TCP-BBR"><a href="#TCP-BBR" class="headerlink" title="TCP BBR"></a>TCP BBR</h1><p>TCP BBR（Bottleneck Bandwidth and Round-trip propagation time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥塞算法是基于丢包来作为降低传输速率的信号，而BBR则基于模型主动探测。该算法使用网络最近出站数据分组当时的最大带宽和往返时间来建立网络的显式模型。数据包传输的每个累积或选择性确认用于生成记录在数据包传输过程和确认返回期间的时间内所传送数据量的采样率。该算法认为随着网络接口控制器逐渐进入千兆速度时，分组丢失不应该被认为是识别拥塞的主要决定因素，所以基于模型的拥塞控制算法能有更高的吞吐量和更低的延迟，可以用BBR来替代其他流行的拥塞算法，例如CUBIC。</p>
-<blockquote>
-<p>摘录于 <a class="link"   href="https://juejin.cn/post/6844904003654926350" >https://juejin.cn/post/6844904003654926350<i class="fas fa-external-link-alt"></i></a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>网络协议</category>
-      </categories>
-      <tags>
-        <tag>TCP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>简述 HTTPS 的加密与认证过程</title>
     <url>/2021/02/06/1000-003%E7%AE%80%E8%BF%B0%20HTTPS%20%E7%9A%84%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h1><ul>
@@ -378,6 +356,28 @@
       <tags>
         <tag>HTTPS</tag>
         <tag>SSL/TLS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TCP 中常见的拥塞控制算法有哪些？</title>
+    <url>/2021/02/05/1000-002TCP%20%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
+    <content><![CDATA[<h1 id="TCP-中常见的拥塞控制算法有哪些？"><a href="#TCP-中常见的拥塞控制算法有哪些？" class="headerlink" title="TCP 中常见的拥塞控制算法有哪些？"></a>TCP 中常见的拥塞控制算法有哪些？</h1><h1 id="TCP-Tahoe-Reno"><a href="#TCP-Tahoe-Reno" class="headerlink" title="TCP Tahoe/Reno"></a>TCP Tahoe/Reno</h1><p>最初的实现，包括慢启动、拥塞避免两个部分。基于重传超时（retransmission timeout/RTO）和重复确认为条件判断是否发生了丢包。两者的区别在于：Tahoe算法下如果收到三次重复确认，就进入快重传立即重发丢失的数据包，同时将慢启动阈值设置为当前拥塞窗口的一半，将拥塞窗口设置为1MSS，进入慢启动状态；而Reno算法如果收到三次重复确认，就进入快重传，但不进入慢启动状态，而是直接将拥塞窗口减半，进入拥塞控制阶段，这称为“快恢复”。<br>而Tahoe和Reno算法在出现RTO时的措施一致，都是将拥塞窗口降为1个MSS，然后进入慢启动阶段。</p>
+<h1 id="TCP-Vegas"><a href="#TCP-Vegas" class="headerlink" title="TCP Vegas"></a>TCP Vegas</h1><p>TCP Vegas算法由 Lawrence Brakmo 和 Larry L. Peterson 在1994年提出，它和其他拥塞控制算法的不同之处在于Vegas算法并不急于丢包来判断是否发生了拥塞，而是通过数据包延迟来判断。Vegas通过RTT（roundtrip time）来决定增加或者减小拥塞窗口，它能够将拥塞要发生时就避免拥塞，而不是等到拥塞已经发生之后再减小发送速度，因此能够减小重传和超时的几率。Vegas算法与其他算法（比如Reno）共存时，会由于比其他算法更先降低发送速率而出现公平性问题。</p>
+<h1 id="TCP-New-Reno"><a href="#TCP-New-Reno" class="headerlink" title="TCP New Reno"></a>TCP New Reno</h1><p> TCP New Reno主要改进了TCP Reno中快速恢复阶段的重传。<br>在Reno的快恢复中，一旦出现3次重复确认，TCP发送方会重发数据包并设置定时器等待该重发数据包被确认。当重发的数据包被确认后，就立即退出快速恢复阶段，进入拥塞控制阶段。但如果一次拥塞中出现多个丢包，Reno会误以为发生了多次拥塞而重复减小拥塞窗口导致发送速率下降。<br>而在New Reno的快速恢复中，一旦出现3次重复确认，会记下出现重复确认时未确认的数据包的最大序列号，然后重发重复确认的数据包。如果有多个数据包丢失，则继续重发丢失的数据包，直到最大序列号的数据包被确认才推出快恢复阶段。<br>New Reno在低错误率时运行效率和“选择确认”（Selective ACKnowledgement，SACK）相当，在高错误率仍优于Reno。</p>
+<h1 id="TCP-BIC-CUBIC"><a href="#TCP-BIC-CUBIC" class="headerlink" title="TCP BIC/CUBIC"></a>TCP BIC/CUBIC</h1><p>TCP BIC（Binary Increase Congestion control）旨在优化高速高延迟网络（即“长肥网络”（long fat network，LFN））的拥塞控制，其拥塞窗口算法使用二分搜索算法尝试找到能长时间保持拥塞窗口最大值的值。Linux内核在2.6.8至2.6.18使用该算法作为默认TCP拥塞算法。<br>BIC算法采用二分查找的方式来确定最大的窗口大小：如果发生丢包时窗口大小是W1，那么最大窗口Wmax应该小于W1；这时将窗口缩小到W2（乘以一个系数，也就是乘法减小），那么可以预期W1&gt;Wmax&gt;W2；这时再将窗口大小设置为(W1+W2)2（也就是二分查找），即每收到一个ACK就把窗口大小设置为两个界限的中点。<br>如果窗口大小已经无限逼近W1，说明网络状况又变好了（可用带宽增加了），这时BIC会尝试往上寻找更大的Wmax。而在往上寻找时，BIC会镜像的利用逼近当前Wmax的路径去搜寻，也就是前面是如何先快后慢慢地靠近当前Wmax的，后面就反过来先慢后快地增长。<br>而CUBIC则是比BIC更温和和系统化的分支版本，其使用三次函数代替二分算法作为其拥塞窗口算法（因为实际上BIC的搜索曲线看起来就像一个三次函数，所以干脆就写一个三次函数来模拟曲线），并且使用函数拐点作为拥塞窗口的设置值。Linux内核在2.6.19后使用该算法作为默认TCP拥塞算法。</p>
+<h1 id="TCP-Westwood-Westwood"><a href="#TCP-Westwood-Westwood" class="headerlink" title="TCP Westwood/Westwood+"></a>TCP Westwood/Westwood+</h1><p>TCP Westwood改良自New Reno，不同于以往其他拥塞控制算法使用丢失来测量，其通过对确认包测量来确定一个“合适的发送速度”，并以此调整拥塞窗口和慢启动阈值。Westwood改良了慢启动阶段算法为“敏捷探测（Agile Probing）”，并且设计了一种持续探测拥塞窗口的方法来控制进入“敏捷探测”，使连接尽可能地使用更多的带宽。Westwood+使用更长的带宽估计间隔和优化的滤波器来修正Westwood对ACK压缩场景对带宽估计过高的问题。通过以上改良，TCP Westwood系列算法在有线网络和无线网络的拥塞控制上取得平衡，尤其研究中针对于无线通信网络上。</p>
+<h1 id="Compound-TCP"><a href="#Compound-TCP" class="headerlink" title="Compound TCP"></a>Compound TCP</h1><p>Compound TCP是微软自己实现的TCP拥塞控制算法，通过同时维护两个拥塞窗口，来实现在长肥网络有较好的性能而又不损失公平性。CTCP维护两个拥塞窗口：一个常规的AIMD（英语：Additive increase/multiplicative decrease）窗口，以及一个基于延迟的窗口，最终实际使用的滑动窗口大小是这两个窗口的和。AIMD窗口与Reno的增加方式相同；如果延迟小，基于延迟的窗口将迅速增加以提高网络的利用率。一旦经历了排队，延迟窗口将逐渐减小以补偿增加的AIMD窗口。这样的目的是保持两者的总和大致恒定，使算法估计带宽时延积的路径。</p>
+<h1 id="TCP-PRR"><a href="#TCP-PRR" class="headerlink" title="TCP PRR"></a>TCP PRR</h1><p>TCP PRR（TCP Proportional Rate Reduction ）是旨在恢复期间提高发送数据的准确性。该算法确保恢复后的拥塞窗口大小尽可能接近慢启动阈值</p>
+<h1 id="TCP-BBR"><a href="#TCP-BBR" class="headerlink" title="TCP BBR"></a>TCP BBR</h1><p>TCP BBR（Bottleneck Bandwidth and Round-trip propagation time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥塞算法是基于丢包来作为降低传输速率的信号，而BBR则基于模型主动探测。该算法使用网络最近出站数据分组当时的最大带宽和往返时间来建立网络的显式模型。数据包传输的每个累积或选择性确认用于生成记录在数据包传输过程和确认返回期间的时间内所传送数据量的采样率。该算法认为随着网络接口控制器逐渐进入千兆速度时，分组丢失不应该被认为是识别拥塞的主要决定因素，所以基于模型的拥塞控制算法能有更高的吞吐量和更低的延迟，可以用BBR来替代其他流行的拥塞算法，例如CUBIC。</p>
+<blockquote>
+<p>摘录于 <a class="link"   href="https://juejin.cn/post/6844904003654926350" >https://juejin.cn/post/6844904003654926350<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>TCP</tag>
       </tags>
   </entry>
   <entry>
@@ -478,6 +478,35 @@
       </tags>
   </entry>
   <entry>
+    <title>UDP 有拥塞控制吗？</title>
+    <url>/2021/02/11/1000-008UDP/</url>
+    <content><![CDATA[<h1 id="UDP-有拥塞控制吗？"><a href="#UDP-有拥塞控制吗？" class="headerlink" title="UDP 有拥塞控制吗？"></a>UDP 有拥塞控制吗？</h1><ol>
+<li><strong>UDP 没有拥塞控制</strong>，网络出现拥塞不会使源主机的发送速率降低。这对某些实时应用是很重要的。</li>
+<li>UDP 支持一对一、一对多和多对的的交互通信。</li>
+<li>UDP 的首部开销小，只有8个字节，比TCP的20个字节的首部要短。</li>
+</ol>
+<h1 id="TCP-与-UDP-的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。"><a href="#TCP-与-UDP-的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。" class="headerlink" title="TCP 与 UDP 的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。"></a>TCP 与 UDP 的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。</h1><h1 id="UDP-概述"><a href="#UDP-概述" class="headerlink" title="UDP 概述"></a>UDP 概述</h1><p>UDP用户数据报协议，是面向无连接的通讯协议，UDP数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。<br>用户数据报协议 UDP 只在 IP 的数据报服务之上增加了很少一点的功能，这就是复用和分用的功能以及查错检测的功能。</p>
+<h1 id="UDP-的主要特点"><a href="#UDP-的主要特点" class="headerlink" title="UDP 的主要特点"></a>UDP 的主要特点</h1><ol>
+<li>UDP 是无连接的，即发送数据之前不需要建立连接(发送数据结束时也没有连接可释放)，减少了开销和发送数据之前的时延</li>
+<li>UDP 使用尽最大努力交付，即不保证可靠交付，主机不需要维持复杂的连接状态表</li>
+<li>UDP 是面向报文的，发送方的 UDP 对应用程序交下来的报文，在添加首部后就向下交付 IP 层。UDP 对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界</li>
+</ol>
+<h1 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h1><ol>
+<li>某些实时应用需要使用没有拥塞控制的 UDP，但很多的源主机同时都向网络发送高速率的实时视频流时，网络就有可能发生拥塞，导致大家都无法正常接收。</li>
+<li>还有一些使用 UDP 的实时应用，需要对 UDP 的不可靠传输进行适当的改进，以减少数据的丢失。应用进程可以在不影响应用的实时性的前提下，增加一些提高可靠性的措施，如采用前向纠错或重传已丢失的报文</li>
+</ol>
+<blockquote>
+<p><a class="link"   href="https://developer.aliyun.com/article/699136" >https://developer.aliyun.com/article/699136<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="https://www.runoob.com/w3cnote/summary-of-network.html#_label7" >https://www.runoob.com/w3cnote/summary-of-network.html#_label7<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>简述常见的 HTTP 状态码的含义（301，304，401，403）</title>
     <url>/2021/02/10/1000-007%E7%AE%80%E8%BF%B0%E5%B8%B8%E8%A7%81%E7%9A%84%20HTTP%20%E7%8A%B6%E6%80%81%E7%A0%81%E7%9A%84%E5%90%AB%E4%B9%89%EF%BC%88301%EF%BC%8C304%EF%BC%8C401%EF%BC%8C403%EF%BC%89/</url>
     <content><![CDATA[<h1 id="3-重定向"><a href="#3-重定向" class="headerlink" title="3** 重定向"></a>3** 重定向</h1><p><strong>300 Multiple Choice</strong><br>被请求的资源有一系列可供选择的回馈信息，每个都有自己特定的地址和浏览器驱动的商议信息。用户或浏览器能够自行选择一个首选的地址进行重定向。</p>
@@ -510,35 +539,6 @@
       <tags>
         <tag>HTTP</tag>
         <tag>状态码</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UDP 有拥塞控制吗？</title>
-    <url>/2021/02/11/1000-008UDP/</url>
-    <content><![CDATA[<h1 id="UDP-有拥塞控制吗？"><a href="#UDP-有拥塞控制吗？" class="headerlink" title="UDP 有拥塞控制吗？"></a>UDP 有拥塞控制吗？</h1><ol>
-<li><strong>UDP 没有拥塞控制</strong>，网络出现拥塞不会使源主机的发送速率降低。这对某些实时应用是很重要的。</li>
-<li>UDP 支持一对一、一对多和多对的的交互通信。</li>
-<li>UDP 的首部开销小，只有8个字节，比TCP的20个字节的首部要短。</li>
-</ol>
-<h1 id="TCP-与-UDP-的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。"><a href="#TCP-与-UDP-的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。" class="headerlink" title="TCP 与 UDP 的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。"></a>TCP 与 UDP 的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。</h1><h1 id="UDP-概述"><a href="#UDP-概述" class="headerlink" title="UDP 概述"></a>UDP 概述</h1><p>UDP用户数据报协议，是面向无连接的通讯协议，UDP数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。<br>用户数据报协议 UDP 只在 IP 的数据报服务之上增加了很少一点的功能，这就是复用和分用的功能以及查错检测的功能。</p>
-<h1 id="UDP-的主要特点"><a href="#UDP-的主要特点" class="headerlink" title="UDP 的主要特点"></a>UDP 的主要特点</h1><ol>
-<li>UDP 是无连接的，即发送数据之前不需要建立连接(发送数据结束时也没有连接可释放)，减少了开销和发送数据之前的时延</li>
-<li>UDP 使用尽最大努力交付，即不保证可靠交付，主机不需要维持复杂的连接状态表</li>
-<li>UDP 是面向报文的，发送方的 UDP 对应用程序交下来的报文，在添加首部后就向下交付 IP 层。UDP 对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界</li>
-</ol>
-<h1 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h1><ol>
-<li>某些实时应用需要使用没有拥塞控制的 UDP，但很多的源主机同时都向网络发送高速率的实时视频流时，网络就有可能发生拥塞，导致大家都无法正常接收。</li>
-<li>还有一些使用 UDP 的实时应用，需要对 UDP 的不可靠传输进行适当的改进，以减少数据的丢失。应用进程可以在不影响应用的实时性的前提下，增加一些提高可靠性的措施，如采用前向纠错或重传已丢失的报文</li>
-</ol>
-<blockquote>
-<p><a class="link"   href="https://developer.aliyun.com/article/699136" >https://developer.aliyun.com/article/699136<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="https://www.runoob.com/w3cnote/summary-of-network.html#_label7" >https://www.runoob.com/w3cnote/summary-of-network.html#_label7<i class="fas fa-external-link-alt"></i></a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>网络协议</category>
-      </categories>
-      <tags>
-        <tag>UDP</tag>
       </tags>
   </entry>
   <entry>
@@ -705,6 +705,36 @@
       </tags>
   </entry>
   <entry>
+    <title>Cookie 和 Session 的关系和区别是什么？</title>
+    <url>/2021/02/18/1000-015Cookie%20%E5%92%8C%20Session%20%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/</url>
+    <content><![CDATA[<h1 id="Cookie-和-Session-的关系和区别"><a href="#Cookie-和-Session-的关系和区别" class="headerlink" title="Cookie 和 Session 的关系和区别"></a>Cookie 和 Session 的关系和区别</h1><ol>
+<li>Cookie 在客户端（浏览器），Session 在服务器端。 </li>
+<li>Cookie 的安全性一般，他人可通过分析存放在本地的 Cookie 并进行 Cookie 欺骗。在安全性第一的前提下，选择 Session 更优。重要交互信息比如权限等就要放在 Session 中，一般的信息记录放 Cookie 就好了。 </li>
+<li>单个 Cookie 保存的数据不能超过 4K，很多浏览器都限制一个站点最多保存 20 个 Cookie。 </li>
+<li>Session 可以放在文件、数据库或内存中，比如在使用 Node 时将 Session 保存在 redis 中。由于一定时间内它是保存在服务器上的，当访问增多时，会较大地占用服务器的性能。考虑到减轻服务器性能方面，应当适时使用 Cookie。 </li>
+<li>Session 的运行依赖 Session ID，而 Session ID 是存在 Cookie 中的，也就是说，如果浏览器禁用了 Cookie，Session 也会失效（但是可以通过其它方式实现，比如在 url 中传递 Session ID）。 </li>
+<li>用户验证这种场合一般会用 Session。因此，维持一个会话的核心就是客户端的唯一标识，即 Session ID。</li>
+</ol>
+<p>题外话，那么话说 Session Cookie 能被篡改么？ 理论上可以，只要改变了连接时的 Session ID 就可以了~</p>
+<h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p>Cookie 是客户端保存用户信息的一种机制，用来记录用户的一些信息。如何识别特定的客户呢？cookie 就可以做到。每次 HTTP 请求时，客户端都会发送相应的 Cookie 信息到服务端。它的过期时间可以任意设置，如果你不主动清除它，在很长一段时间里面都可以保留着，即便这之间你把电脑关机了。<br>既然它是存储在客户端的，换句话说通过某些手法我就可以篡改本地存储的信息来欺骗服务端的某些策略。</p>
+<h1 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h1><p>Session 是在无状态的 HTTP 协议下，服务端记录用户状态时用于标识具体用户的机制。它是在服务端保存的用来跟踪用户的状态的数据结构，可以保存在文件、数据库或者集群中。在浏览器关闭后这次的 Session 就消失了，下次打开就不再拥有这个 Session。其实并不是 Session 消失了，而是 Session ID 变了，服务器端可能还是存着你上次的 Session ID 及其 Session 信息，只是他们是无主状态，也许一段时间后会被删除。</p>
+<hr>
+<p>实际上 Cookie 与 Session 都是会话的一种方式。它们的典型使用场景比如 “购物车”，当你点击下单按钮时，服务端并不清楚具体用户的具体操作，为了标识并跟踪该用户，了解购物车中有几样物品，服务端通过为该用户创建 Cookie/Session 来获取这些信息。</p>
+<p>如果你的站点是多节点部署，使用 Nginx 做负载均衡，那么有可能会出现 Session 丢失的情况（比如，忽然就处于未登录状态）。这时可以使用 IP 负载均衡（IP 绑定 ip_hash，每个请求按访问 ip 的 hash 结果分配，这样每个访客固定访问一个后端服务器，可以解决 Session 的问题），或者将 Session 信息存储在集群中。在大型的网站中，一般会有专门的 Session 服务器集群，用来保存用户会话，这时可以使用缓存服务比如 Memcached 或者 Redis 之类的来存放 Session。</p>
+<p>目前大多数的应用都是用 Cookie 实现 Session 跟踪的。第一次创建 Session 时，服务端会通过在 HTTP 协议中反馈到客户端，需要在 Cookie 中记录一个 Session ID，以便今后每次请求时都可分辨你是谁。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？建议使用 URL 重写技术进行会话跟踪，即每次 HTTP 交互，URL 后面都被附加上诸如 sid=xxxxx 的参数，以便服务端依此识别用户。</p>
+<blockquote>
+<p>摘录于 <a class="link"   href="https://ruby-china.org/topics/33313" >https://ruby-china.org/topics/33313<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>Cookie</tag>
+        <tag>Session</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>简述 JWT 的原理和校验机制</title>
     <url>/2021/02/17/1000-014%E7%AE%80%E8%BF%B0%20JWT%20%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E6%A0%A1%E9%AA%8C%E6%9C%BA%E5%88%B6/</url>
     <content><![CDATA[<h1 id="JSON-Web-Token（缩写-JWT）是目前最流行的跨域认证解决方案。"><a href="#JSON-Web-Token（缩写-JWT）是目前最流行的跨域认证解决方案。" class="headerlink" title="JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案。"></a>JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案。</h1><h1 id="JWT的原理"><a href="#JWT的原理" class="headerlink" title="JWT的原理"></a>JWT的原理</h1><p>JWT 的原理是，服务器认证以后，生成一个 JSON 对象，发回给用户，就像下面这样。</p>
@@ -751,36 +781,6 @@
       </categories>
       <tags>
         <tag>JWT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Cookie 和 Session 的关系和区别是什么？</title>
-    <url>/2021/02/18/1000-015Cookie%20%E5%92%8C%20Session%20%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/</url>
-    <content><![CDATA[<h1 id="Cookie-和-Session-的关系和区别"><a href="#Cookie-和-Session-的关系和区别" class="headerlink" title="Cookie 和 Session 的关系和区别"></a>Cookie 和 Session 的关系和区别</h1><ol>
-<li>Cookie 在客户端（浏览器），Session 在服务器端。 </li>
-<li>Cookie 的安全性一般，他人可通过分析存放在本地的 Cookie 并进行 Cookie 欺骗。在安全性第一的前提下，选择 Session 更优。重要交互信息比如权限等就要放在 Session 中，一般的信息记录放 Cookie 就好了。 </li>
-<li>单个 Cookie 保存的数据不能超过 4K，很多浏览器都限制一个站点最多保存 20 个 Cookie。 </li>
-<li>Session 可以放在文件、数据库或内存中，比如在使用 Node 时将 Session 保存在 redis 中。由于一定时间内它是保存在服务器上的，当访问增多时，会较大地占用服务器的性能。考虑到减轻服务器性能方面，应当适时使用 Cookie。 </li>
-<li>Session 的运行依赖 Session ID，而 Session ID 是存在 Cookie 中的，也就是说，如果浏览器禁用了 Cookie，Session 也会失效（但是可以通过其它方式实现，比如在 url 中传递 Session ID）。 </li>
-<li>用户验证这种场合一般会用 Session。因此，维持一个会话的核心就是客户端的唯一标识，即 Session ID。</li>
-</ol>
-<p>题外话，那么话说 Session Cookie 能被篡改么？ 理论上可以，只要改变了连接时的 Session ID 就可以了~</p>
-<h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p>Cookie 是客户端保存用户信息的一种机制，用来记录用户的一些信息。如何识别特定的客户呢？cookie 就可以做到。每次 HTTP 请求时，客户端都会发送相应的 Cookie 信息到服务端。它的过期时间可以任意设置，如果你不主动清除它，在很长一段时间里面都可以保留着，即便这之间你把电脑关机了。<br>既然它是存储在客户端的，换句话说通过某些手法我就可以篡改本地存储的信息来欺骗服务端的某些策略。</p>
-<h1 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h1><p>Session 是在无状态的 HTTP 协议下，服务端记录用户状态时用于标识具体用户的机制。它是在服务端保存的用来跟踪用户的状态的数据结构，可以保存在文件、数据库或者集群中。在浏览器关闭后这次的 Session 就消失了，下次打开就不再拥有这个 Session。其实并不是 Session 消失了，而是 Session ID 变了，服务器端可能还是存着你上次的 Session ID 及其 Session 信息，只是他们是无主状态，也许一段时间后会被删除。</p>
-<hr>
-<p>实际上 Cookie 与 Session 都是会话的一种方式。它们的典型使用场景比如 “购物车”，当你点击下单按钮时，服务端并不清楚具体用户的具体操作，为了标识并跟踪该用户，了解购物车中有几样物品，服务端通过为该用户创建 Cookie/Session 来获取这些信息。</p>
-<p>如果你的站点是多节点部署，使用 Nginx 做负载均衡，那么有可能会出现 Session 丢失的情况（比如，忽然就处于未登录状态）。这时可以使用 IP 负载均衡（IP 绑定 ip_hash，每个请求按访问 ip 的 hash 结果分配，这样每个访客固定访问一个后端服务器，可以解决 Session 的问题），或者将 Session 信息存储在集群中。在大型的网站中，一般会有专门的 Session 服务器集群，用来保存用户会话，这时可以使用缓存服务比如 Memcached 或者 Redis 之类的来存放 Session。</p>
-<p>目前大多数的应用都是用 Cookie 实现 Session 跟踪的。第一次创建 Session 时，服务端会通过在 HTTP 协议中反馈到客户端，需要在 Cookie 中记录一个 Session ID，以便今后每次请求时都可分辨你是谁。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？建议使用 URL 重写技术进行会话跟踪，即每次 HTTP 交互，URL 后面都被附加上诸如 sid=xxxxx 的参数，以便服务端依此识别用户。</p>
-<blockquote>
-<p>摘录于 <a class="link"   href="https://ruby-china.org/topics/33313" >https://ruby-china.org/topics/33313<i class="fas fa-external-link-alt"></i></a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>网络协议</category>
-      </categories>
-      <tags>
-        <tag>Cookie</tag>
-        <tag>Session</tag>
       </tags>
   </entry>
   <entry>
@@ -872,6 +872,9 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">net.ipv4.tcp_timestamps&#x3D;1（连接发起方和接收方都需要开启）</span><br><span class="line">net.ipv4.tcp_tw_reuse&#x3D;1（只影响连接发起方）</span><br></pre></td></tr></table></figure>
 
 <p>上述配置只影响连接发起方，也就是客户端，对服务端是无效的。<br>它的作用是向外发起连接的时候，可以复用 TIME_WAIT 的端口，但是有一个前提<br>该端口最后一次通讯时间距离当前系统时间&gt;1 秒</p>
+<blockquote>
+<p>摘录于 <a class="link"   href="https://yuerblog.cc/2020/03/09/%E5%85%B3%E4%BA%8Etime_wait%E9%97%AE%E9%A2%98%E7%AE%80%E8%BF%B0%E4%B8%8E%E4%BC%98%E5%8C%96/" >https://yuerblog.cc/2020/03/09/关于time_wait问题简述与优化/<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
 ]]></content>
       <categories>
         <category>网络协议</category>
@@ -1212,6 +1215,25 @@
       </categories>
       <tags>
         <tag>快慢指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>912. 排序数组</title>
+    <url>/2021/02/22/2000-006-912.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[<h1 id="912-排序数组"><a href="#912-排序数组" class="headerlink" title="912. 排序数组"></a><a class="link"   href="https://leetcode-cn.com/problems/sort-an-array/" >912. 排序数组<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/stmaiz.png"
+                      alt="912. 排序数组"
+                ></p>
+<h1 id="快速排序-递归解法"><a href="#快速排序-递归解法" class="headerlink" title="快速排序 递归解法"></a>快速排序 递归解法</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    func sortArray(_ nums: [Int]) -&gt; [Int] &#123;</span><br><span class="line">        var nums &#x3D; nums</span><br><span class="line">        sort2(&amp;nums, 0, nums.count - 1)</span><br><span class="line">        return nums</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func sort2(_ nums: inout [Int], _ left: Int, _ right: Int) &#123;</span><br><span class="line">        if left &lt; right &#123;</span><br><span class="line">            let p &#x3D; partition(&amp;nums, left, right)</span><br><span class="line">            &#x2F;&#x2F; 同样的方法处理分界值左边的数据 分界值的位置已经确定 所以传入 right &#x3D; p - 1</span><br><span class="line">            sort2(&amp;nums, left, p - 1)</span><br><span class="line">            &#x2F;&#x2F; 同样的方法处理分界值右边的数据 分界值的位置已经确定 所以传入 left &#x3D; p + 1</span><br><span class="line">            sort2(&amp;nums, p + 1, right)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func partition(_ nums: inout [Int], _ left: Int, _ right: Int) -&gt; Int &#123;</span><br><span class="line">        &#x2F;&#x2F; 直接以 nums[right] 为分界值</span><br><span class="line">        let p &#x3D; nums[right]</span><br><span class="line">        &#x2F;&#x2F; 记录下一个 比分界值小的值 应该移动到哪个位置， 默认为最左边</span><br><span class="line">        var minL &#x3D; left</span><br><span class="line">        for i in left ..&lt; right &#123;</span><br><span class="line">            &#x2F;&#x2F; 当前值 小于等于分界值，那么交换 i 和 minL 的值。否则不做处理</span><br><span class="line">            if nums[i] &lt;&#x3D; p &#123;</span><br><span class="line">                swap(&amp;nums, minL, i)</span><br><span class="line">                &#x2F;&#x2F; minL 已经被小于等于分界值的值占用，那么 +&#x3D; 1</span><br><span class="line">                minL +&#x3D; 1</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 到这里，在 minL 索引 前的值都是小于等于 分界值的，在 minL 到 right - 1，包括 minL 的值都是大于 分界值的。 分界值一直在最后</span><br><span class="line">        &#x2F;&#x2F; 所以 把分界值 和 nums[minL] 交换位置</span><br><span class="line">        swap(&amp;nums, minL, right)</span><br><span class="line">        &#x2F;&#x2F; 返回分界值所在的 位置</span><br><span class="line">        return minL</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func swap(_ nums: inout [Int], _ a: Int, _ b: Int) &#123;</span><br><span class="line">        let temp &#x3D; nums[a]</span><br><span class="line">        nums[a] &#x3D; nums[b]</span><br><span class="line">        nums[b] &#x3D; temp</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="快速排序-迭代解法"><a href="#快速排序-迭代解法" class="headerlink" title="快速排序 迭代解法"></a>快速排序 迭代解法</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ution &#123;</span><br><span class="line">    func sortArray(_ nums: [Int]) -&gt; [Int] &#123;</span><br><span class="line">         var nums &#x3D; nums</span><br><span class="line">        sort(&amp;nums, 0, nums.count - 1)</span><br><span class="line">        return nums</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func sort(_ nums: inout [Int], _ left: Int, _ right: Int) &#123;</span><br><span class="line">        &#x2F;&#x2F; 取中间值 做为当前的 分界值</span><br><span class="line">        let pivot &#x3D; nums[(right - left) &#x2F; 2 + left]</span><br><span class="line">        var L &#x3D; left</span><br><span class="line">        var R &#x3D; right</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; L &lt; R 说明 L 和 R 没相遇</span><br><span class="line">        while L &lt; R &#123;</span><br><span class="line">            &#x2F;&#x2F; 如果 pivot 左边的数小于 pivot，那么就不用移动这个数。</span><br><span class="line">            &#x2F;&#x2F; 接着继续看下一个 因为是从左往右  所以 L +&#x3D; 1</span><br><span class="line">            &#x2F;&#x2F; 如果这个数大于 pivot ， 那么跳出这个循环 且这个数的索引位 L</span><br><span class="line"></span><br><span class="line">            while nums[L] &lt; pivot &#123;</span><br><span class="line">                L +&#x3D; 1</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 如果 pivot 右边的数大于 pivot，那么就不用移动这个数。</span><br><span class="line">            &#x2F;&#x2F; 接着继续看下一个 因为是从右往左 所以 R -&#x3D; 1</span><br><span class="line">            &#x2F;&#x2F; 如果这个数小于 pivot ， 那么跳出这个循环 且这个数的索引位 R</span><br><span class="line"></span><br><span class="line">            while nums[R] &gt; pivot &#123;</span><br><span class="line">                R -&#x3D; 1</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; L &gt;&#x3D; R 说明 pivot 左边已经是 全部小于等于 pivot ，右边 全部是 大于等于 pivot。 可以提前退出</span><br><span class="line">            if L &gt;&#x3D; R &#123;</span><br><span class="line">                break</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 跳出了上边的两个循环之后 说明 分别找到了</span><br><span class="line">            &#x2F;&#x2F; 一个在 pivot 左边，但大于等于 pivot 的数，它的索引为 L</span><br><span class="line">            &#x2F;&#x2F; 一个在 pivot 右边，但小于等于 pivot 的数，它的索引位 R</span><br><span class="line">            &#x2F;&#x2F; 那么交换这两个数的位置</span><br><span class="line"></span><br><span class="line">            let temp &#x3D; nums[L]</span><br><span class="line">            nums[L] &#x3D; nums[R]</span><br><span class="line">            nums[R] &#x3D; temp</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 交换完后 nums[L] 是小于等于 pivot, nums[R] 是大于等于 pivot</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 如果 nums[L] &#x3D;&#x3D; pivot 了,要让 R -&#x3D; 1，</span><br><span class="line">            if nums[L] &#x3D;&#x3D; pivot &#123;</span><br><span class="line">                R -&#x3D; 1</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 如果 nums[R] &#x3D;&#x3D; pivot 了,要让 L +&#x3D; 1</span><br><span class="line">            if nums[R] &#x3D;&#x3D; pivot &#123;</span><br><span class="line">                L +&#x3D; 1</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 如果不处理 交换完后 nums[L] &#x3D;&#x3D; pivot 和 nums[R] &#x3D;&#x3D; pivot 的情况，</span><br><span class="line">            &#x2F;&#x2F; 当 nums[L] &#x3D;&#x3D; pivot 和 nums[R] &#x3D;&#x3D; pivot 都是 true 时，</span><br><span class="line">            &#x2F;&#x2F; 上边的两个 while 也不会在执行了， 那么 L 和 R 的数值也不会再发生变化 就卡死在这里了</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 到这里 L &gt;&#x3D; R 说明相遇了</span><br><span class="line">        &#x2F;&#x2F; 那么 pivot 左边的数都是 小于等于 pivot 的</span><br><span class="line">        &#x2F;&#x2F; 那么 pivot 右边的数都是 大于等于 pivot 的</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 这一步是防止对 pivot 左右分别操作时越界</span><br><span class="line">        if L &#x3D;&#x3D; R &#123;</span><br><span class="line">            L +&#x3D; 1</span><br><span class="line">            R -&#x3D; 1</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if left &lt; R &#123;</span><br><span class="line">            &#x2F;&#x2F; 继续处理 pivot 左边的数据</span><br><span class="line">            sort(&amp;nums, left, R)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if right &gt; L &#123;</span><br><span class="line">            &#x2F;&#x2F; 继续处理 pivot 右边的数据</span><br><span class="line">            sort(&amp;nums, L, right)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>快速排序</tag>
       </tags>
   </entry>
   <entry>
@@ -1916,6 +1938,28 @@
       </tags>
   </entry>
   <entry>
+    <title>iOS Widget 不显示无法添加、iOS Widget 加载网络图片</title>
+    <url>/2020/12/07/500-iOS-Widget-%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E6%B7%BB%E5%8A%A0-%E3%80%81iOS-Widget-%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<h3 id="Intent-Widget-开发"><a href="#Intent-Widget-开发" class="headerlink" title="Intent Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Static-Widget-开发"><a href="#Static-Widget-开发" class="headerlink" title="Static Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/84c180963ac6" >Static Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Demo下载"><a href="#Demo下载" class="headerlink" title="Demo下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo下载<i class="fas fa-external-link-alt"></i></a></h3><h1 id="Widget-在添加时找不到"><a href="#Widget-在添加时找不到" class="headerlink" title="Widget 在添加时找不到"></a>Widget 在添加时找不到</h1><p> 出现这种情况，可能是只配置了可编辑的 <code>Widget</code>。<br>导致<code>NSExtensionPointIdentifier</code>只有这一种类型 <code>com.apple.intents-service</code> 会被识别为 Siri 扩展。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>再添加一个不可编辑的 <code>Widget</code> 即可。不需要展示出，在 <code>@main</code>方法里不添加就好。<br>确定新添加的<code>NSExtensionPointIdentifier</code>类型为 <code>com.apple.widgetkit-extension</code> 。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-7fe44d27ed6af214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="plist"
+                ></p>
+<hr>
+<h1 id="Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步"><a href="#Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步" class="headerlink" title="Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步"></a>Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 同步下载图片，Widget 不能异步刷新</span><br><span class="line"></span><br><span class="line">funcgetImage(_imgUrlString:String) -&gt;UIImage? &#123;</span><br><span class="line"></span><br><span class="line"> guardletdata &#x3D;try?Data(contentsOf:URL(string: imgUrlString)!)else&#123;</span><br><span class="line"></span><br><span class="line">        print(&quot;图片下载失败&quot;)</span><br><span class="line"></span><br><span class="line"> returnnil&#125;</span><br><span class="line"></span><br><span class="line">    print(&quot;图片下载成功&quot;)</span><br><span class="line"></span><br><span class="line"> returnUIImage(data: data)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line"></span><br><span class="line">Image(uiImage:getImage(entry.imageUrlStr) ??UIImage(named:&quot;aaaa&quot;)!)</span><br><span class="line"></span><br><span class="line">                        .resizable()</span><br><span class="line"></span><br><span class="line">                        .frame(width:60,</span><br><span class="line"></span><br><span class="line">                               height:60,</span><br><span class="line"></span><br><span class="line">                               alignment: .center)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>Widget</tag>
+        <tag>iOS小组件</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>WKWebView 加载 html</title>
     <url>/2020/12/17/500-iOS-WKWebView-loadHTMLString-%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87-%E4%B8%BA%E5%9B%BE%E7%89%87%E6%B7%BB%E5%8A%A0%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6/</url>
     <content><![CDATA[<blockquote>
@@ -1941,28 +1985,6 @@
       </categories>
       <tags>
         <tag>WKWebView</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>iOS Widget 不显示无法添加、iOS Widget 加载网络图片</title>
-    <url>/2020/12/07/500-iOS-Widget-%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E6%B7%BB%E5%8A%A0-%E3%80%81iOS-Widget-%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87/</url>
-    <content><![CDATA[<h3 id="Intent-Widget-开发"><a href="#Intent-Widget-开发" class="headerlink" title="Intent Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Static-Widget-开发"><a href="#Static-Widget-开发" class="headerlink" title="Static Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/84c180963ac6" >Static Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Demo下载"><a href="#Demo下载" class="headerlink" title="Demo下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo下载<i class="fas fa-external-link-alt"></i></a></h3><h1 id="Widget-在添加时找不到"><a href="#Widget-在添加时找不到" class="headerlink" title="Widget 在添加时找不到"></a>Widget 在添加时找不到</h1><p> 出现这种情况，可能是只配置了可编辑的 <code>Widget</code>。<br>导致<code>NSExtensionPointIdentifier</code>只有这一种类型 <code>com.apple.intents-service</code> 会被识别为 Siri 扩展。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>再添加一个不可编辑的 <code>Widget</code> 即可。不需要展示出，在 <code>@main</code>方法里不添加就好。<br>确定新添加的<code>NSExtensionPointIdentifier</code>类型为 <code>com.apple.widgetkit-extension</code> 。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://upload-images.jianshu.io/upload_images/2331323-7fe44d27ed6af214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-                      alt="plist"
-                ></p>
-<hr>
-<h1 id="Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步"><a href="#Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步" class="headerlink" title="Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步"></a>Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 同步下载图片，Widget 不能异步刷新</span><br><span class="line"></span><br><span class="line">funcgetImage(_imgUrlString:String) -&gt;UIImage? &#123;</span><br><span class="line"></span><br><span class="line"> guardletdata &#x3D;try?Data(contentsOf:URL(string: imgUrlString)!)else&#123;</span><br><span class="line"></span><br><span class="line">        print(&quot;图片下载失败&quot;)</span><br><span class="line"></span><br><span class="line"> returnnil&#125;</span><br><span class="line"></span><br><span class="line">    print(&quot;图片下载成功&quot;)</span><br><span class="line"></span><br><span class="line"> returnUIImage(data: data)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line"></span><br><span class="line">Image(uiImage:getImage(entry.imageUrlStr) ??UIImage(named:&quot;aaaa&quot;)!)</span><br><span class="line"></span><br><span class="line">                        .resizable()</span><br><span class="line"></span><br><span class="line">                        .frame(width:60,</span><br><span class="line"></span><br><span class="line">                               height:60,</span><br><span class="line"></span><br><span class="line">                               alignment: .center)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>Widget</tag>
-        <tag>iOS小组件</tag>
       </tags>
   </entry>
   <entry>
@@ -2042,6 +2064,50 @@
       </tags>
   </entry>
   <entry>
+    <title>iOS14 Widget</title>
+    <url>/2020/11/26/500-iOS14-Widget-%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<h1 id="Demo-下载"><a href="#Demo-下载" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1><h3 id="这个是用户不可配置的，没有编辑选项的-widget"><a href="#这个是用户不可配置的，没有编辑选项的-widget" class="headerlink" title="这个是用户不可配置的，没有编辑选项的 widget"></a>这个是用户不可配置的，没有编辑选项的 widget</h3><h3 id="Intent-用户可编辑的点我去看"><a href="#Intent-用户可编辑的点我去看" class="headerlink" title="Intent 用户可编辑的点我去看"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent 用户可编辑的点我去看<i class="fas fa-external-link-alt"></i></a></h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-126d13797dd4e2de.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="效果图"
+                ></p>
+<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 时间线</span><br><span class="line">struct XXXProvider: TimelineProvider &#123;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 占位的展示</span><br><span class="line">    func placeholder(in context: Context) -&gt; XXXSimpleEntry &#123;</span><br><span class="line">        XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData())</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 快照</span><br><span class="line">    func getSnapshot(in context: Context, completion: @escaping (XXXSimpleEntry) -&gt; ()) &#123;</span><br><span class="line">        let entry &#x3D; XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData())</span><br><span class="line">        completion(entry)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#x2F;根据时间线提供需要展示的状态</span><br><span class="line">    func getTimeline(in context: Context, completion: @escaping (Timeline&lt;Entry&gt;) -&gt; ()) &#123;</span><br><span class="line">        </span><br><span class="line">        print(&quot;时间线刷新了&quot; + &quot;\(Date())&quot;)</span><br><span class="line">        </span><br><span class="line">        var entrys: [XXXSimpleEntry] &#x3D; []</span><br><span class="line">        let currentData &#x3D; Date()</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;&#x2F; 提供当前时间后 1个小时内  每一秒的状态 (已经提供了3600个状态，太多会不展示卡死)</span><br><span class="line">        for i in 0...60*60 &#123;</span><br><span class="line">            guard let entryDate &#x3D; Calendar.current.date(byAdding: .second, value: i, to: currentData) else &#123;</span><br><span class="line">                return</span><br><span class="line">            &#125;</span><br><span class="line">            entrys.append(XXXSimpleEntry(date: entryDate, displayTime: XXXData.displayData(entryDate)))</span><br><span class="line">        &#125;</span><br><span class="line">        let timeline &#x3D; Timeline(entries: entrys, policy: .atEnd)</span><br><span class="line">        completion(timeline)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 每一个时间线的实体</span><br><span class="line">struct XXXSimpleEntry: TimelineEntry &#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F;展示该状态的时间</span><br><span class="line">    let date: Date</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 自己配置的数据</span><br><span class="line">    let displayTime: String</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; widget 展示 view</span><br><span class="line">struct XXXWidgetEntryView : View &#123;</span><br><span class="line">    var entry: XXXProvider.Entry</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 返回在这个时间 (entry.date)    你想要展示的widegt样式</span><br><span class="line">    var body: some View &#123;</span><br><span class="line">        ZStack &#123;</span><br><span class="line">            </span><br><span class="line">            Color.orange.edgesIgnoringSafeArea(.all)</span><br><span class="line">            VStack &#123;</span><br><span class="line">                Text(entry.displayTime)</span><br><span class="line">                    .multilineTextAlignment(.center)</span><br><span class="line">                    .foregroundColor(.blue)</span><br><span class="line">                    &#x2F;&#x2F;&#x2F;配置点击链接会在主工程收到拉起事件</span><br><span class="line">                    .widgetURL(URL(string: &quot;widgetDemo:&#x2F;&#x2F;789&quot;))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;widget</span><br><span class="line">struct XXXWidget: Widget &#123;</span><br><span class="line">    let kind: String &#x3D; &quot;XXXWidget&quot;</span><br><span class="line"></span><br><span class="line">    var body: some WidgetConfiguration &#123;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; StaticConfiguration 是静态的，用户不可配置的 长按不会出现编辑</span><br><span class="line">        StaticConfiguration(kind: kind, provider: XXXProvider()) &#123; entry in</span><br><span class="line">            XXXWidgetEntryView(entry: entry)</span><br><span class="line">        &#125;</span><br><span class="line">        .configurationDisplayName(&quot;添加时的标题&quot;)</span><br><span class="line">        .description(&quot;添加时的描述&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;提供预览状态</span><br><span class="line">struct XXXWidget_Previews: PreviewProvider &#123;</span><br><span class="line">    </span><br><span class="line">    static var previews: some View &#123;</span><br><span class="line">        XXXWidgetEntryView(entry: XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData()))</span><br><span class="line">            .previewContext(WidgetPreviewContext(family: .systemSmall))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;主入口</span><br><span class="line">@main</span><br><span class="line">struct AllWidget: WidgetBundle &#123;</span><br><span class="line">    </span><br><span class="line">    @WidgetBundleBuilder</span><br><span class="line">    var body: some Widget &#123;</span><br><span class="line">        XXXWidget()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="部分操作的详细截图"><a href="#部分操作的详细截图" class="headerlink" title="部分操作的详细截图"></a>部分操作的详细截图</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-d4e70bcacfcacc7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="File -&gt; New -&gt; Target"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-b19a4ce4f064179c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="这个是用户不可配置的widget，勾选的是用户可配置的。我们先来做不可配置的"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-786376718471b3c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="调整最低运行系统"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-5fcaf3ede4232577.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="关联主工程数据"
+                ></p>
+<h1 id="Demo-下载-1"><a href="#Demo-下载-1" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1>]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>Widget</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>iOS 用户可编辑的 Widget</title>
     <url>/2020/11/27/500-iOS14-Widget-%E5%BC%80%E5%8F%91-1/</url>
     <content><![CDATA[<h3 id="本篇是用户可编辑的-Widget"><a href="#本篇是用户可编辑的-Widget" class="headerlink" title="本篇是用户可编辑的 Widget"></a>本篇是用户可编辑的 Widget</h3><h3 id="用户不可编辑的-Widget，点我去看"><a href="#用户不可编辑的-Widget，点我去看" class="headerlink" title="用户不可编辑的 Widget，点我去看"></a><a class="link"   href="https://www.jianshu.com/p/84c180963ac6" >用户不可编辑的 Widget，点我去看<i class="fas fa-external-link-alt"></i></a></h3><h3 id="编辑屏幕-Widget-不显示，Widget-加载网络图片"><a href="#编辑屏幕-Widget-不显示，Widget-加载网络图片" class="headerlink" title="编辑屏幕 Widget 不显示，Widget 加载网络图片"></a><a class="link"   href="https://www.jianshu.com/p/a80d59c94442" >编辑屏幕 Widget 不显示，Widget 加载网络图片<i class="fas fa-external-link-alt"></i></a></h3><h1 id="Demo-下载"><a href="#Demo-下载" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1><h1 id="先来看效果图"><a href="#先来看效果图" class="headerlink" title="先来看效果图"></a>先来看效果图</h1><p><img  
@@ -2097,80 +2163,6 @@
       <tags>
         <tag>Widget</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>iOS14 Widget</title>
-    <url>/2020/11/26/500-iOS14-Widget-%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<h1 id="Demo-下载"><a href="#Demo-下载" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1><h3 id="这个是用户不可配置的，没有编辑选项的-widget"><a href="#这个是用户不可配置的，没有编辑选项的-widget" class="headerlink" title="这个是用户不可配置的，没有编辑选项的 widget"></a>这个是用户不可配置的，没有编辑选项的 widget</h3><h3 id="Intent-用户可编辑的点我去看"><a href="#Intent-用户可编辑的点我去看" class="headerlink" title="Intent 用户可编辑的点我去看"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent 用户可编辑的点我去看<i class="fas fa-external-link-alt"></i></a></h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://upload-images.jianshu.io/upload_images/2331323-126d13797dd4e2de.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-                      alt="效果图"
-                ></p>
-<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 时间线</span><br><span class="line">struct XXXProvider: TimelineProvider &#123;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 占位的展示</span><br><span class="line">    func placeholder(in context: Context) -&gt; XXXSimpleEntry &#123;</span><br><span class="line">        XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData())</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;&#x2F; 快照</span><br><span class="line">    func getSnapshot(in context: Context, completion: @escaping (XXXSimpleEntry) -&gt; ()) &#123;</span><br><span class="line">        let entry &#x3D; XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData())</span><br><span class="line">        completion(entry)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#x2F;根据时间线提供需要展示的状态</span><br><span class="line">    func getTimeline(in context: Context, completion: @escaping (Timeline&lt;Entry&gt;) -&gt; ()) &#123;</span><br><span class="line">        </span><br><span class="line">        print(&quot;时间线刷新了&quot; + &quot;\(Date())&quot;)</span><br><span class="line">        </span><br><span class="line">        var entrys: [XXXSimpleEntry] &#x3D; []</span><br><span class="line">        let currentData &#x3D; Date()</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;&#x2F; 提供当前时间后 1个小时内  每一秒的状态 (已经提供了3600个状态，太多会不展示卡死)</span><br><span class="line">        for i in 0...60*60 &#123;</span><br><span class="line">            guard let entryDate &#x3D; Calendar.current.date(byAdding: .second, value: i, to: currentData) else &#123;</span><br><span class="line">                return</span><br><span class="line">            &#125;</span><br><span class="line">            entrys.append(XXXSimpleEntry(date: entryDate, displayTime: XXXData.displayData(entryDate)))</span><br><span class="line">        &#125;</span><br><span class="line">        let timeline &#x3D; Timeline(entries: entrys, policy: .atEnd)</span><br><span class="line">        completion(timeline)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 每一个时间线的实体</span><br><span class="line">struct XXXSimpleEntry: TimelineEntry &#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F;展示该状态的时间</span><br><span class="line">    let date: Date</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 自己配置的数据</span><br><span class="line">    let displayTime: String</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; widget 展示 view</span><br><span class="line">struct XXXWidgetEntryView : View &#123;</span><br><span class="line">    var entry: XXXProvider.Entry</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 返回在这个时间 (entry.date)    你想要展示的widegt样式</span><br><span class="line">    var body: some View &#123;</span><br><span class="line">        ZStack &#123;</span><br><span class="line">            </span><br><span class="line">            Color.orange.edgesIgnoringSafeArea(.all)</span><br><span class="line">            VStack &#123;</span><br><span class="line">                Text(entry.displayTime)</span><br><span class="line">                    .multilineTextAlignment(.center)</span><br><span class="line">                    .foregroundColor(.blue)</span><br><span class="line">                    &#x2F;&#x2F;&#x2F;配置点击链接会在主工程收到拉起事件</span><br><span class="line">                    .widgetURL(URL(string: &quot;widgetDemo:&#x2F;&#x2F;789&quot;))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;widget</span><br><span class="line">struct XXXWidget: Widget &#123;</span><br><span class="line">    let kind: String &#x3D; &quot;XXXWidget&quot;</span><br><span class="line"></span><br><span class="line">    var body: some WidgetConfiguration &#123;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; StaticConfiguration 是静态的，用户不可配置的 长按不会出现编辑</span><br><span class="line">        StaticConfiguration(kind: kind, provider: XXXProvider()) &#123; entry in</span><br><span class="line">            XXXWidgetEntryView(entry: entry)</span><br><span class="line">        &#125;</span><br><span class="line">        .configurationDisplayName(&quot;添加时的标题&quot;)</span><br><span class="line">        .description(&quot;添加时的描述&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;提供预览状态</span><br><span class="line">struct XXXWidget_Previews: PreviewProvider &#123;</span><br><span class="line">    </span><br><span class="line">    static var previews: some View &#123;</span><br><span class="line">        XXXWidgetEntryView(entry: XXXSimpleEntry(date: Date(), displayTime: XXXData.displayData()))</span><br><span class="line">            .previewContext(WidgetPreviewContext(family: .systemSmall))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;主入口</span><br><span class="line">@main</span><br><span class="line">struct AllWidget: WidgetBundle &#123;</span><br><span class="line">    </span><br><span class="line">    @WidgetBundleBuilder</span><br><span class="line">    var body: some Widget &#123;</span><br><span class="line">        XXXWidget()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="部分操作的详细截图"><a href="#部分操作的详细截图" class="headerlink" title="部分操作的详细截图"></a>部分操作的详细截图</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://upload-images.jianshu.io/upload_images/2331323-d4e70bcacfcacc7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-                      alt="File -&gt; New -&gt; Target"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://upload-images.jianshu.io/upload_images/2331323-b19a4ce4f064179c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-                      alt="这个是用户不可配置的widget，勾选的是用户可配置的。我们先来做不可配置的"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://upload-images.jianshu.io/upload_images/2331323-786376718471b3c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-                      alt="调整最低运行系统"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://upload-images.jianshu.io/upload_images/2331323-5fcaf3ede4232577.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-                      alt="关联主工程数据"
-                ></p>
-<h1 id="Demo-下载-1"><a href="#Demo-下载-1" class="headerlink" title="Demo 下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo 下载<i class="fas fa-external-link-alt"></i></a></h1>]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>Widget</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>iOS占位图、空白页面</title>
-    <url>/2020/11/24/500-iOS%E5%8D%A0%E4%BD%8D%E5%9B%BE%E3%80%81%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2/</url>
-    <content><![CDATA[<h1 id="iOS占位图、空白页面-Github直达"><a href="#iOS占位图、空白页面-Github直达" class="headerlink" title="iOS占位图、空白页面 Github直达"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXPlaceholder" >iOS占位图、空白页面 Github直达<i class="fas fa-external-link-alt"></i></a></h1><h1 id="iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew"><a href="#iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew" class="headerlink" title="iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew"></a>iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew</h1><h1 id="😄😄😄"><a href="#😄😄😄" class="headerlink" title="😄😄😄"></a>😄😄😄</h1><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="http://upload-images.jianshu.io/upload_images/2331323-337781e6ecaac4ae.gif?imageMogr2/auto-orient/strip"
-                      alt="tableView使用效果"
-                ></p>
-<p> <img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="http://upload-images.jianshu.io/upload_images/2331323-37d81ba5477c72c3.gif?imageMogr2/auto-orient/strip"
-                      alt="view使用效果"
-                ></p>
-<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a><em>注意</em></h1><h5 id="1-当tableView、collectionView-有数据时（row-gt-0，item-gt-0）不显示占位图"><a href="#1-当tableView、collectionView-有数据时（row-gt-0，item-gt-0）不显示占位图" class="headerlink" title="1.当tableView、collectionView 有数据时（row&gt;0，item&gt;0）不显示占位图"></a>1.当tableView、collectionView 有数据时（row&gt;0，item&gt;0）不显示占位图</h5><h5 id="2-当scrollView-contentSize-height-gt-scrollView-frame-size-height-时临时禁用滑动属性（tableView、collectionView优先遵循第一条）"><a href="#2-当scrollView-contentSize-height-gt-scrollView-frame-size-height-时临时禁用滑动属性（tableView、collectionView优先遵循第一条）" class="headerlink" title="2.当scrollView.contentSize.height &gt; scrollView.frame.size.height 时临时禁用滑动属性（tableView、collectionView优先遵循第一条）"></a>2.当scrollView.contentSize.height &gt; scrollView.frame.size.height 时临时禁用滑动属性（tableView、collectionView优先遵循第一条）</h5><h5 id="3-建议导入demo中的XXXPlaceholderEX文件夹"><a href="#3-建议导入demo中的XXXPlaceholderEX文件夹" class="headerlink" title="3.建议导入demo中的XXXPlaceholderEX文件夹"></a>3.建议导入demo中的XXXPlaceholderEX文件夹</h5><h5 id="4-占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件"><a href="#4-占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件" class="headerlink" title="4.占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件"></a>4.占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件</h5><h5 id="5-我觉得用法还是挺简单的，看下demo吧😂"><a href="#5-我觉得用法还是挺简单的，看下demo吧😂" class="headerlink" title="5.我觉得用法还是挺简单的，看下demo吧😂"></a>5.我觉得用法还是挺简单的，看下demo吧😂</h5><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod repo update</span><br><span class="line">rm ~&#x2F;Library&#x2F;Caches&#x2F;CocoaPods&#x2F;search_index.json  (清除搜索缓存)</span><br><span class="line">pod &#39;XXXPlaceholder&#39;, &#39;~&gt; 0.0.1&#39;</span><br></pre></td></tr></table></figure>
-<ol>
-<li><p>参照demo创建占位图</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;self为tableView</span><br><span class="line">self.xxx_emptyView &#x3D; [XXXPlaceholderView emptyView];</span><br><span class="line">self.xxx_noNetworkView &#x3D; [XXXPlaceholderView noNetworkView];</span><br><span class="line">&#x2F;&#x2F;占位图会自动添加点击事件</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>tableView、collectionView 展示占位图调用</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">刷新数据源 tableView、collectionView专用</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_reloadData;</span><br><span class="line"> </span><br><span class="line">&#x2F;**</span><br><span class="line">刷新数据源 tableView、collectionView专用</span><br><span class="line">@param clickBlock 占位图点击事件Block</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_reloadDataWithClickBlock:  (nullable   XXXPlaceholderClickBlock)clickBlock;</span><br><span class="line"></span><br><span class="line">[self.tableView xxx_reloadDataWithClickBlock:^&#123;</span><br><span class="line">           &#x2F;&#x2F;这里做再次请求</span><br><span class="line">        &#125;];</span><br></pre></td></tr></table></figure></li>
-<li><p>view使用 </p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &#x2F;**</span><br><span class="line"> 展示无数据占位图</span><br><span class="line"> *&#x2F;</span><br><span class="line">- (void)xxx_showEmptyView;</span><br><span class="line"></span><br><span class="line"> &#x2F;**</span><br><span class="line">展示无数据占位图</span><br><span class="line">@param clickBlock 占位图点击事件Block</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_showEmptyViewWithClickBlock:(nullable XXXPlaceholderClickBlock)clickBlock;</span><br><span class="line"></span><br><span class="line"> &#x2F;**</span><br><span class="line">展示无网络占位图</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_showNoNetWorkView;</span><br><span class="line"></span><br><span class="line"> &#x2F;**</span><br><span class="line">展示无网络占位图</span><br><span class="line">@param clickBlock 占位图点击事件Block</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_showNoNetWorkViewWithClickBlock:(nullable XXXPlaceholderClickBlock)clickBlock;</span><br><span class="line"></span><br><span class="line"> &#x2F;**</span><br><span class="line"> 移出所有占位图</span><br><span class="line"> *&#x2F;</span><br><span class="line">- (void)xxx_removePlaceholderView;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-<h1 id="Github直达"><a href="#Github直达" class="headerlink" title="Github直达"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXPlaceholder" >Github直达<i class="fas fa-external-link-alt"></i></a></h1></li>
-</ol>
-]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
   </entry>
   <entry>
     <title>iOS拖拽卡片</title>
@@ -2244,6 +2236,36 @@
 ]]></content>
       <categories>
         <category>微信小程序</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>iOS占位图、空白页面</title>
+    <url>/2020/11/24/500-iOS%E5%8D%A0%E4%BD%8D%E5%9B%BE%E3%80%81%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2/</url>
+    <content><![CDATA[<h1 id="iOS占位图、空白页面-Github直达"><a href="#iOS占位图、空白页面-Github直达" class="headerlink" title="iOS占位图、空白页面 Github直达"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXPlaceholder" >iOS占位图、空白页面 Github直达<i class="fas fa-external-link-alt"></i></a></h1><h1 id="iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew"><a href="#iOS占位图、空白页面-适用于view、tableView、collectionView、scrollvew" class="headerlink" title="iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew"></a>iOS占位图、空白页面 适用于view、tableView、collectionView、scrollvew</h1><h1 id="😄😄😄"><a href="#😄😄😄" class="headerlink" title="😄😄😄"></a>😄😄😄</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://upload-images.jianshu.io/upload_images/2331323-337781e6ecaac4ae.gif?imageMogr2/auto-orient/strip"
+                      alt="tableView使用效果"
+                ></p>
+<p> <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://upload-images.jianshu.io/upload_images/2331323-37d81ba5477c72c3.gif?imageMogr2/auto-orient/strip"
+                      alt="view使用效果"
+                ></p>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a><em>注意</em></h1><h5 id="1-当tableView、collectionView-有数据时（row-gt-0，item-gt-0）不显示占位图"><a href="#1-当tableView、collectionView-有数据时（row-gt-0，item-gt-0）不显示占位图" class="headerlink" title="1.当tableView、collectionView 有数据时（row&gt;0，item&gt;0）不显示占位图"></a>1.当tableView、collectionView 有数据时（row&gt;0，item&gt;0）不显示占位图</h5><h5 id="2-当scrollView-contentSize-height-gt-scrollView-frame-size-height-时临时禁用滑动属性（tableView、collectionView优先遵循第一条）"><a href="#2-当scrollView-contentSize-height-gt-scrollView-frame-size-height-时临时禁用滑动属性（tableView、collectionView优先遵循第一条）" class="headerlink" title="2.当scrollView.contentSize.height &gt; scrollView.frame.size.height 时临时禁用滑动属性（tableView、collectionView优先遵循第一条）"></a>2.当scrollView.contentSize.height &gt; scrollView.frame.size.height 时临时禁用滑动属性（tableView、collectionView优先遵循第一条）</h5><h5 id="3-建议导入demo中的XXXPlaceholderEX文件夹"><a href="#3-建议导入demo中的XXXPlaceholderEX文件夹" class="headerlink" title="3.建议导入demo中的XXXPlaceholderEX文件夹"></a>3.建议导入demo中的XXXPlaceholderEX文件夹</h5><h5 id="4-占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件"><a href="#4-占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件" class="headerlink" title="4.占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件"></a>4.占位图中的button会自动添加点击事件，无需添加。没有button会给整个占位图添加点击事件</h5><h5 id="5-我觉得用法还是挺简单的，看下demo吧😂"><a href="#5-我觉得用法还是挺简单的，看下demo吧😂" class="headerlink" title="5.我觉得用法还是挺简单的，看下demo吧😂"></a>5.我觉得用法还是挺简单的，看下demo吧😂</h5><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod repo update</span><br><span class="line">rm ~&#x2F;Library&#x2F;Caches&#x2F;CocoaPods&#x2F;search_index.json  (清除搜索缓存)</span><br><span class="line">pod &#39;XXXPlaceholder&#39;, &#39;~&gt; 0.0.1&#39;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>参照demo创建占位图</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;self为tableView</span><br><span class="line">self.xxx_emptyView &#x3D; [XXXPlaceholderView emptyView];</span><br><span class="line">self.xxx_noNetworkView &#x3D; [XXXPlaceholderView noNetworkView];</span><br><span class="line">&#x2F;&#x2F;占位图会自动添加点击事件</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>tableView、collectionView 展示占位图调用</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">刷新数据源 tableView、collectionView专用</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_reloadData;</span><br><span class="line"> </span><br><span class="line">&#x2F;**</span><br><span class="line">刷新数据源 tableView、collectionView专用</span><br><span class="line">@param clickBlock 占位图点击事件Block</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_reloadDataWithClickBlock:  (nullable   XXXPlaceholderClickBlock)clickBlock;</span><br><span class="line"></span><br><span class="line">[self.tableView xxx_reloadDataWithClickBlock:^&#123;</span><br><span class="line">           &#x2F;&#x2F;这里做再次请求</span><br><span class="line">        &#125;];</span><br></pre></td></tr></table></figure></li>
+<li><p>view使用 </p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &#x2F;**</span><br><span class="line"> 展示无数据占位图</span><br><span class="line"> *&#x2F;</span><br><span class="line">- (void)xxx_showEmptyView;</span><br><span class="line"></span><br><span class="line"> &#x2F;**</span><br><span class="line">展示无数据占位图</span><br><span class="line">@param clickBlock 占位图点击事件Block</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_showEmptyViewWithClickBlock:(nullable XXXPlaceholderClickBlock)clickBlock;</span><br><span class="line"></span><br><span class="line"> &#x2F;**</span><br><span class="line">展示无网络占位图</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_showNoNetWorkView;</span><br><span class="line"></span><br><span class="line"> &#x2F;**</span><br><span class="line">展示无网络占位图</span><br><span class="line">@param clickBlock 占位图点击事件Block</span><br><span class="line">*&#x2F;</span><br><span class="line">- (void)xxx_showNoNetWorkViewWithClickBlock:(nullable XXXPlaceholderClickBlock)clickBlock;</span><br><span class="line"></span><br><span class="line"> &#x2F;**</span><br><span class="line"> 移出所有占位图</span><br><span class="line"> *&#x2F;</span><br><span class="line">- (void)xxx_removePlaceholderView;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<h1 id="Github直达"><a href="#Github直达" class="headerlink" title="Github直达"></a><a class="link"   href="https://github.com/xxxIxxxx/XXXPlaceholder" >Github直达<i class="fas fa-external-link-alt"></i></a></h1></li>
+</ol>
+]]></content>
+      <categories>
+        <category>iOS</category>
       </categories>
   </entry>
   <entry>
