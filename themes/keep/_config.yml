@@ -84,7 +84,7 @@ home_article:
     enable: true # show category in home page article block
     limit: 3 # max number of categories shown in home page article block
   tag:
-    enable: false # show tags in home page article block
+    enable: true # show tags in home page article block
     limit: 5 # max number of tags shown in home page article block
 
 # ---------------------------------------------------------------------------------------
