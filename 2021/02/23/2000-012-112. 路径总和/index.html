@@ -9,7 +9,7 @@
     
     <title>
         
-            155. 最小栈 - 简单 |
+            112. 路径总和 - 简单 |
         
         今日营业中
     </title>
@@ -151,7 +151,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">155. 最小栈 - 简单</span>
+            <span class="title-hover-animation">112. 路径总和 - 简单</span>
         </div>
 
         
@@ -167,7 +167,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-02-23 18:23:00
+        <i class="fas fa-edit"></i>&nbsp;2021-02-23 23:55:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -195,17 +195,23 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="155-最小栈"><a href="#155-最小栈" class="headerlink" title="155. 最小栈"></a><a class="link"   target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/min-stack/" >155. 最小栈<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+            <h1 id="112-路径总和"><a href="#112-路径总和" class="headerlink" title="112. 路径总和"></a><a class="link"   target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/path-sum/" >112. 路径总和<i class="fas fa-external-link-alt"></i></a></h1><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://files.catbox.moe/g135og.png"
-                      alt="155. 最小栈"
+                     data-src="https://files.catbox.moe/lxqfb4.png"
+                      alt="112. 路径总和"
                 ></p>
-<h1 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h1><ul>
-<li>时间复杂度<br>对于题目中的所有操作，时间复杂度均为 O(1)。因为栈的插入、删除与读取操作都是<br>O(1)，我们定义的每个操作最多调用栈操作两次。</li>
-<li>空间复杂度<br>其中 n 为总操作数。最坏情况下，我们会连续插入 n 个元素，此时两个栈占用的空间为 O(n)。</li>
+<h1 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h1><ul>
+<li>时间复杂度<br>O(n),每个节点都要访问一次</li>
+<li>空间复杂度<br>O(H)，其中 H 是树的高度。空间复杂度主要取决于递归时栈空间的开销，最坏情况下，树呈现链状，空间复杂度为 O(N)。平均情况下树的高度与节点数的对数正相关，空间复杂度为 O(logN)。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">class MinStack &#123;</span><br><span class="line">    &#x2F;** initialize your data structure here. *&#x2F;</span><br><span class="line">    var list: [Int] &#x3D; []</span><br><span class="line">    &#x2F;&#x2F;记录当前最小值</span><br><span class="line">    var minNum: Int?</span><br><span class="line">    &#x2F;&#x2F;只存最小值</span><br><span class="line">    var minNums: [Int] &#x3D; []</span><br><span class="line"></span><br><span class="line">    init() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    func push(_ x: Int) &#123;</span><br><span class="line">        list.append(x)</span><br><span class="line">        minNum &#x3D; min(minNum ?? .max, x)</span><br><span class="line">        if minNum &#x3D;&#x3D; x &#123;</span><br><span class="line">            minNums.append(minNum!)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func pop() &#123;</span><br><span class="line">        let p &#x3D; list.removeLast()</span><br><span class="line">        if minNum &#x3D;&#x3D; p &#123;</span><br><span class="line">            minNum &#x3D; list.min()</span><br><span class="line">            minNums.removeLast()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func top() -&gt; Int &#123;</span><br><span class="line">        return list.last ?? 0</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func getMin() -&gt; Int &#123;</span><br><span class="line">        return minNums.last ?? 0</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">func hasPathSum(_ root: TreeNode?, _ targetSum: Int) -&gt; Bool &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return false &#125;</span><br><span class="line">        if root.left &#x3D;&#x3D; nil, root.right &#x3D;&#x3D; nil &#123;</span><br><span class="line">            return root.val &#x3D;&#x3D; targetSum</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 递归每次用当前的 sum - 当前 root.val</span><br><span class="line">        &#x2F;&#x2F; 一直 减减减 减到 叶子节点， 就判断当前的 sum 和 root.val 是否相等即可</span><br><span class="line">        return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="广度优先解法"><a href="#广度优先解法" class="headerlink" title="广度优先解法"></a>广度优先解法</h1><ul>
+<li>时间复杂度<br>O(n),每个节点都要访问一次</li>
+<li>空间复杂度<br>O(N)，其中 N 是树的节点数。空间复杂度主要取决于队列的开销，队列中的元素个数不会超过树的节点数。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">func hasPathSum(_ root: TreeNode?, _ targetSum: Int) -&gt; Bool &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; &#x2F;&#x2F; 如果 root &#x3D; nil 那么就一定不存在了</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        var stackTree: [TreeNode] &#x3D; [root]</span><br><span class="line">        var treeVal: [Int] &#x3D; [root.val]</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;           1</span><br><span class="line">        &#x2F;&#x2F;         &#x2F;   \</span><br><span class="line">        &#x2F;&#x2F;        2     3</span><br><span class="line">        &#x2F;&#x2F;       &#x2F; \    &#x2F; \</span><br><span class="line">        &#x2F;&#x2F;      4   5   6  7</span><br><span class="line">        &#x2F;&#x2F; stackTree 移除 1 添加 2 3,同时 treeVal 移除 1.val 添加 1+2.val ，1+3.val</span><br><span class="line">        &#x2F;&#x2F; stackTree 移除 2 添加 4 5,同时 treeVal 移除 2.val 添加 2+4.val ，2+5.val</span><br><span class="line">        &#x2F;&#x2F; stackTree 移除 3 添加 6 7,同时 treeVal 移除 3.val 添加 3+6.val ，3+7.val</span><br><span class="line">        while !stackTree.isEmpty &#123;</span><br><span class="line">            let tree: TreeNode &#x3D; stackTree.popLast()!</span><br><span class="line">            let sum &#x3D; treeVal.popLast()</span><br><span class="line">            if tree.left &#x3D;&#x3D; nil, tree.right &#x3D;&#x3D; nil &#123;</span><br><span class="line">                if sum &#x3D;&#x3D; targetSum &#123;</span><br><span class="line">                    return true</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if tree.left !&#x3D; nil &#123;</span><br><span class="line">                stackTree.append(tree.left!)</span><br><span class="line">                treeVal.append(sum! + tree.left!.val)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if tree.right !&#x3D; nil &#123;</span><br><span class="line">                stackTree.append(tree.right!)</span><br><span class="line">                treeVal.append(sum! + tree.right!.val)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
         </div>
 
@@ -213,11 +219,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：155. 最小栈 - 简单</li>
+        <li>Post title：112. 路径总和 - 简单</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2021-02-23 18:23:00</li>
+        <li>Create time：2021-02-23 23:55:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2021/02/23/2000-011-155. 最小栈/
+            Post link：https://xxxixxx.github.io/2021/02/23/2000-012-112. 路径总和/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -231,29 +237,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2021/02/23/2000-012-112.%20%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">112. 路径总和 - 简单</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/02/23/1000-020%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB%EF%BC%9F%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E6%94%BB%E5%87%BB%EF%BC%9F/"
+                           href="/2021/02/23/2000-011-155.%20%E6%9C%80%E5%B0%8F%E6%A0%88/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">什么是中间人攻击？如何防止攻击？</span>
+                                <span class="post-nav-title-item">155. 最小栈 - 简单</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -454,7 +445,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#155-%E6%9C%80%E5%B0%8F%E6%A0%88"><span class="nav-text">155. 最小栈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95"><span class="nav-text">解法</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#112-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C"><span class="nav-text">112. 路径总和</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E8%A7%A3%E6%B3%95"><span class="nav-text">递归解法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E8%A7%A3%E6%B3%95"><span class="nav-text">广度优先解法</span></a></li></ol>
     </div>
 </div>
         </aside>
