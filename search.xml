@@ -1387,6 +1387,179 @@
       </categories>
   </entry>
   <entry>
+    <title>剑指 Offer 11. 旋转数组的最小数字 - 简单</title>
+    <url>/2021/02/24/2000-013-%E5%89%91%E6%8C%87%20Offer%2011.%20%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<h1 id="剑指-Offer-11-旋转数组的最小数字"><a href="#剑指-Offer-11-旋转数组的最小数字" class="headerlink" title="剑指 Offer 11. 旋转数组的最小数字"></a><a class="link"   href="https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/" >剑指 Offer 11. 旋转数组的最小数字<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://ftp.bmp.ovh/imgs/2021/02/f8daa4e0fade64f3.png"
+                      alt="剑指 Offer 11. 旋转数组的最小数字"
+                ></p>
+<h1 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h1><ul>
+<li>时间复杂度<br>O(log n) 在二分查找的过程中，大部分情况都会忽略一半的区间。</li>
+<li>空间复杂度<br>O(1)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func minArray(_ numbers: [Int]) -&gt; Int &#123;</span><br><span class="line">        if numbers.count &#x3D;&#x3D; 1 &#123;</span><br><span class="line">            return numbers[0]</span><br><span class="line">        &#125;</span><br><span class="line">        var left &#x3D; 0</span><br><span class="line">        var right &#x3D; numbers.count - 1</span><br><span class="line">        while right &gt; left &#123;</span><br><span class="line">            let mid &#x3D; (right - left) &#x2F; 2 + left</span><br><span class="line">            if numbers[mid] &gt; numbers[right] &#123;</span><br><span class="line">                &#x2F;&#x2F; numbers[mid] &gt; numbers[right] mid 已经大于 right 所以 mid 不应该包含在区间内  所以 mid + 1</span><br><span class="line">                left &#x3D; mid + 1</span><br><span class="line">            &#125; else if numbers[mid] &lt; numbers[right] &#123;</span><br><span class="line">                right &#x3D; mid</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                &#x2F;&#x2F;  mid 和 left right 相等的情况， 就让right -&#x3D;1</span><br><span class="line">                right -&#x3D; 1</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return numbers[left]</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="一次遍历法"><a href="#一次遍历法" class="headerlink" title="一次遍历法"></a>一次遍历法</h1><ul>
+<li>时间复杂度<br>O(n)</li>
+<li>空间复杂度<br>O(1)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func minArray(_ numbers: [Int]) -&gt; Int &#123;</span><br><span class="line">        if numbers.isEmpty &#123;</span><br><span class="line">            return -1</span><br><span class="line">        &#125;</span><br><span class="line">        var ans &#x3D; numbers[0]</span><br><span class="line">        for item in numbers &#123;</span><br><span class="line">            ans &#x3D; min(ans, item)</span><br><span class="line">        &#125;</span><br><span class="line">        return ans</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>81. 搜索旋转排序数组 II - 中等</title>
+    <url>/2021/02/24/2000-014-81.%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%20II/</url>
+    <content><![CDATA[<h1 id="81-搜索旋转排序数组-II"><a href="#81-搜索旋转排序数组-II" class="headerlink" title="81. 搜索旋转排序数组 II"></a><a class="link"   href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/" >81. 搜索旋转排序数组 II<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/pwhsby.png"
+                      alt="81. 搜索旋转排序数组 II"
+                ></p>
+<h1 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h1><ul>
+<li><p>时间复杂度<br>O(n) 大多情况下每次都减少一般的数据</p>
+</li>
+<li><p>空间复杂度<br>O(1)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func search(_ nums: [Int], _ target: Int) -&gt; Bool &#123;</span><br><span class="line">      if nums.isEmpty &#123;</span><br><span class="line">          return false</span><br><span class="line">      &#125;</span><br><span class="line">      if nums.count &#x3D;&#x3D; 1 &#123;</span><br><span class="line">          return nums[0] &#x3D;&#x3D; target</span><br><span class="line">      &#125;</span><br><span class="line">      var left &#x3D; 0</span><br><span class="line">      var right &#x3D; nums.count - 1</span><br><span class="line">      &#x2F;&#x2F; [1, 2]</span><br><span class="line">      &#x2F;&#x2F; 必须是 &gt;&#x3D; 会存在 到最后左右指针相遇 才找到 目标值的情况</span><br><span class="line">      while right &gt;&#x3D; left &#123;</span><br><span class="line">          let mid &#x3D; (right - left) &#x2F; 2 + left</span><br><span class="line">          if nums[mid] &#x3D;&#x3D; target &#123;</span><br><span class="line">              return true</span><br><span class="line">          &#125;</span><br><span class="line">          if nums[mid] &lt; nums[right] &#123;</span><br><span class="line">              if nums[mid] &lt; target, target &lt;&#x3D; nums[right] &#123;</span><br><span class="line">                  left &#x3D; mid + 1</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                  right &#x3D; mid - 1</span><br><span class="line">              &#125;</span><br><span class="line">          &#125; else if nums[mid] &gt; nums[right] &#123;</span><br><span class="line">              if nums[left] &lt;&#x3D; target, target &lt; nums[mid] &#123;</span><br><span class="line">                  right &#x3D; mid - 1</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                  left &#x3D; mid + 1</span><br><span class="line">              &#125;</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">              right -&#x3D; 1</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      return false</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>236. 二叉树的最近公共祖先 - 中等</title>
+    <url>/2021/02/24/2000-015-236.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</url>
+    <content><![CDATA[<h1 id="236-二叉树的最近公共祖先"><a href="#236-二叉树的最近公共祖先" class="headerlink" title="236. 二叉树的最近公共祖先"></a><a class="link"   href="https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/" >236. 二叉树的最近公共祖先<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/8s3kd1.png"
+                      alt="236. 二叉树的最近公共祖先"
+                ></p>
+<h1 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h1><ul>
+<li>时间复杂度<br>O(n) 其中 N 是二叉树的节点数，所有节点都会被访问一次。</li>
+<li>空间复杂度<br>O(n) 其中 N 是二叉树的节点数。递归调用的栈深度取决于二叉树的高度，二叉树最坏情况下为一条链，此时高度为 N，因此空间复杂度为 O(N)。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var commTree: TreeNode?</span><br><span class="line"></span><br><span class="line">    func lowestCommonAncestor(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -&gt; TreeNode? &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return nil &#125;</span><br><span class="line">        _ &#x3D; dfs(root, p, q)</span><br><span class="line">        return commTree</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func dfs(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -&gt; Bool &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return false &#125;</span><br><span class="line">        &#x2F;&#x2F; 左子树是否包含 q 或 q</span><br><span class="line">        let lson &#x3D; dfs(root.left, p, q)</span><br><span class="line">        &#x2F;&#x2F; 右子树是否包含 q 或 q</span><br><span class="line">        let rson &#x3D; dfs(root.right, p, q)</span><br><span class="line">        &#x2F;&#x2F; 左右子树包含pq || (左子树或右子树包含 且 当前root.val &#x3D;&#x3D; p.val 或 q.val)</span><br><span class="line">        if (lson &amp;&amp; rson) || ((lson || rson) &amp;&amp; (root.val &#x3D;&#x3D; p?.val || root.val &#x3D;&#x3D; q?.val)) &#123;</span><br><span class="line">            commTree &#x3D; root</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 如果包含 p q, 会先命中 root.val &#x3D;&#x3D; p?.val || root.val &#x3D;&#x3D; q?.val</span><br><span class="line">        &#x2F;&#x2F; 这时返回的值是 true, 后面 会命中 lson || rson</span><br><span class="line">        return root.val &#x3D;&#x3D; p?.val || root.val &#x3D;&#x3D; q?.val || lson || rson</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>70. 爬楼梯 - 简单</title>
+    <url>/2021/02/24/2000-016-70.%20%E7%88%AC%E6%A5%BC%E6%A2%AF/</url>
+    <content><![CDATA[<h1 id="70-爬楼梯"><a href="#70-爬楼梯" class="headerlink" title="70. 爬楼梯"></a><a class="link"   href="https://leetcode-cn.com/problems/climbing-stairs/" >70. 爬楼梯<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/kmucz8.png"
+                      alt="70. 爬楼梯"
+                ></p>
+<h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><ul>
+<li>时间复杂度<br>O(n) n 是输入的，循环执行 n 次</li>
+<li>空间复杂度<br>O(1) 只用了常数个变量作为辅助空间，故渐进空间复杂度为 O(1)。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; n ans</span><br><span class="line">&#x2F;&#x2F; 1  1</span><br><span class="line">&#x2F;&#x2F; 2  2</span><br><span class="line">&#x2F;&#x2F; 3  3</span><br><span class="line">&#x2F;&#x2F; 4  5</span><br><span class="line">&#x2F;&#x2F;( n 的 ans) &#x3D; (n-1 的 ans) + (n-2 的 ans)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">func climbStairs(_ n: Int) -&gt; Int &#123;</span><br><span class="line">        var b1 &#x3D; 0</span><br><span class="line">        var b2 &#x3D; 1</span><br><span class="line">        var ans &#x3D; 0</span><br><span class="line"></span><br><span class="line">        for _ in 1 ... n &#123;</span><br><span class="line">            ans &#x3D; b1 + b2</span><br><span class="line">            b1 &#x3D; b2</span><br><span class="line">            b2 &#x3D; ans</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return ans</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>226. 翻转二叉树 - 简单</title>
+    <url>/2021/02/24/2000-017-226.%20%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<h1 id="226-翻转二叉树"><a href="#226-翻转二叉树" class="headerlink" title="226. 翻转二叉树"></a><a class="link"   href="https://leetcode-cn.com/problems/invert-binary-tree/" >226. 翻转二叉树<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/spum89.png"
+                      alt="226. 翻转二叉树"
+                ></p>
+<h1 id="迭代解法"><a href="#迭代解法" class="headerlink" title="迭代解法"></a>迭代解法</h1><ul>
+<li>时间复杂度<br>O(n) n 为节点个数，每个节点访问一次</li>
+<li>空间复杂度<br>O(n)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 从根节点开始反转的</span><br><span class="line">    func invertTree2(_ root: TreeNode?) -&gt; TreeNode? &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return nil &#125;</span><br><span class="line"></span><br><span class="line">        var treeRoot &#x3D; root</span><br><span class="line">        let ansRoot &#x3D; root</span><br><span class="line">        var list: [TreeNode] &#x3D; [treeRoot]</span><br><span class="line">        while !list.isEmpty &#123;</span><br><span class="line">            treeRoot &#x3D; list.popLast()!</span><br><span class="line">            let temp &#x3D; treeRoot.right</span><br><span class="line">            treeRoot.right &#x3D; treeRoot.left</span><br><span class="line">            treeRoot.left &#x3D; temp</span><br><span class="line">            if treeRoot.left !&#x3D; nil &#123;</span><br><span class="line">                list.append(treeRoot.left!)</span><br><span class="line">            &#125;</span><br><span class="line">            if treeRoot.right !&#x3D; nil &#123;</span><br><span class="line">                list.append(treeRoot.right!)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return ansRoot</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h1><ul>
+<li>时间复杂度<br>O(n) n 为节点个数，每个节点访问一次</li>
+<li>空间复杂度<br>O(n)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 从叶子节点开始反转的</span><br><span class="line">    func invertTree(_ root: TreeNode?) -&gt; TreeNode? &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return nil &#125;</span><br><span class="line">        let left &#x3D; invertTree(root.left)</span><br><span class="line">        let right &#x3D; invertTree(root.right)</span><br><span class="line">        root.left &#x3D; right</span><br><span class="line">        root.right &#x3D; left</span><br><span class="line">        return root</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>105. 从前序与中序遍历序列构造二叉树 - 中等</title>
+    <url>/2021/02/24/2000-018-105.%20%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<h1 id="105-从前序与中序遍历序列构造二叉树"><a href="#105-从前序与中序遍历序列构造二叉树" class="headerlink" title="105. 从前序与中序遍历序列构造二叉树"></a><a class="link"   href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" >105. 从前序与中序遍历序列构造二叉树<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/zn7zcr.png"
+                      alt="105. 从前序与中序遍历序列构造二叉树"
+                ></p>
+<h1 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h1><ul>
+<li>时间复杂度<br>O(n) n 是节点的个数，每个节点都访问一次</li>
+<li>空间复杂度<br>O(n) 除去返回的答案需要的 O(n) 空间之外，我们还需要使用 O(n) 的空间存储哈希映射，以及 O(h)（其中 h 是树的高度）的空间表示递归时栈空间。这里 h &lt; n，所以总空间复杂度为 O(n)。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var inorderMap: [Int: Int] &#x3D; [:]</span><br><span class="line"></span><br><span class="line">    func buildTree(_ preorder: [Int], _ inorder: [Int]) -&gt; TreeNode? &#123;</span><br><span class="line">        let count &#x3D; preorder.count</span><br><span class="line">        &#x2F;&#x2F; 这一步是为了节省时间 但是增加了空间占用</span><br><span class="line">        for (index, val) in inorder.enumerated() &#123;</span><br><span class="line">            inorderMap[val] &#x3D; index</span><br><span class="line">        &#125;</span><br><span class="line">        return myBuildTree(preorder, inorder, 0, count - 1, 0, count - 1)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func myBuildTree(_ preorder: [Int], _ inorder: [Int], _ preorderLeft: Int, _ preorderRight: Int, _ inorderLeft: Int, _ inorderRight: Int) -&gt; TreeNode? &#123;</span><br><span class="line">        if preorderLeft &gt; preorderRight &#123;</span><br><span class="line">            return nil</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 前序遍历的第一个节点就是根节点</span><br><span class="line">        let preorderRoot &#x3D; preorderLeft</span><br><span class="line">        &#x2F;&#x2F; 找出中序遍历的根节点位置</span><br><span class="line">        let inorderRoot &#x3D; inorderMap[preorder[preorderRoot]]!</span><br><span class="line">        &#x2F;&#x2F; 先把根节点建立出来</span><br><span class="line">        let root &#x3D; TreeNode(preorder[preorderRoot])</span><br><span class="line">        &#x2F;&#x2F; 左子树的节点数目</span><br><span class="line">        let leftTreeCount &#x3D; inorderRoot - inorderLeft</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 递归地构造左子树，并连接到根节点</span><br><span class="line">        &#x2F;&#x2F; 前序遍历中从 [preorderLeft + 1 开始的 leftTreeCount 个元素就是 当前 root 左子树的所有节点</span><br><span class="line">        &#x2F;&#x2F; 中序遍历中从 [inorderLeft 开始到 inorderRoot - 1]  就是当前 root 左子树的 所有节点</span><br><span class="line"></span><br><span class="line">        root.left &#x3D; myBuildTree(preorder, inorder, preorderLeft + 1, preorderLeft + leftTreeCount, inorderLeft, inorderRoot - 1)</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 递归地构造右子树，并连接到根节点</span><br><span class="line">        &#x2F;&#x2F; 先序遍历中「从 左边界+1+左子树节点数目 开始到 右边界」的元素就对应了中序遍历中「从 根节点定位+1 到 右边界」的元素</span><br><span class="line">        &#x2F;&#x2F; 前序遍历中从 [preorderRoot + 1(这个1是根节点的长度) + leftTreeCount 到 preorderRight] 是当前 root 右子树的所有节点</span><br><span class="line">        &#x2F;&#x2F; 中序遍历中从 [inorderRoot + 1 到 inorderRight] 是当前 root 右子树的所有节点</span><br><span class="line">        root.right &#x3D; myBuildTree(preorder, inorder, preorderRoot + 1 + leftTreeCount, preorderRight, inorderRoot + 1, inorderRight)</span><br><span class="line"></span><br><span class="line">        return root</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>102. 二叉树的层序遍历</title>
+    <url>/2021/02/24/2000-019-102.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<h1 id="102-二叉树的层序遍历"><a href="#102-二叉树的层序遍历" class="headerlink" title="102. 二叉树的层序遍历"></a><a class="link"   href="https://leetcode-cn.com/problems/binary-tree-level-order-traversal/" >102. 二叉树的层序遍历<i class="fas fa-external-link-alt"></i></a></h1><ul>
+<li>时间复杂度<br>O(n) 每个节点访问一次</li>
+<li>空间复杂度<br>O(n)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func levelOrder(_ root: TreeNode?) -&gt; [[Int]] &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return [] &#125;</span><br><span class="line">        var treeList: [TreeNode] &#x3D; [root]</span><br><span class="line">        var ans: [[Int]] &#x3D; []</span><br><span class="line"></span><br><span class="line">        while !treeList.isEmpty &#123;</span><br><span class="line">            var valList: [Int] &#x3D; []</span><br><span class="line">            var tempList: [TreeNode] &#x3D; []</span><br><span class="line">            for tree in treeList &#123;</span><br><span class="line">                valList.append(tree.val)</span><br><span class="line">                if tree.left !&#x3D; nil &#123;</span><br><span class="line">                    tempList.append(tree.left!)</span><br><span class="line">                &#125;</span><br><span class="line">                if tree.right !&#x3D; nil &#123;</span><br><span class="line">                    tempList.append(tree.right!)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ans.append(valList)</span><br><span class="line">            treeList &#x3D; tempList</span><br><span class="line">        &#125;</span><br><span class="line">        return ans</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>剑指 Offer 32 - III. 从上到下打印二叉树 III</title>
+    <url>/2021/02/24/2000-020-%E5%89%91%E6%8C%87%20Offer%2032%20-%20III.%20%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91%20III/</url>
+    <content><![CDATA[<h1 id="剑指-Offer-32-III-从上到下打印二叉树-III"><a href="#剑指-Offer-32-III-从上到下打印二叉树-III" class="headerlink" title="剑指 Offer 32 - III. 从上到下打印二叉树 III"></a><a class="link"   href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/" >剑指 Offer 32 - III. 从上到下打印二叉树 III<i class="fas fa-external-link-alt"></i></a></h1><ul>
+<li>时间复杂度<br>O(n) 每个节点访问一次</li>
+<li>空间复杂度<br>O(n)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func levelOrder(_ root: TreeNode?) -&gt; [[Int]] &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return [] &#125;</span><br><span class="line">        var ans: [[Int]] &#x3D; []</span><br><span class="line">        var listTree: [TreeNode] &#x3D; [root]</span><br><span class="line"></span><br><span class="line">        var isLR &#x3D; false</span><br><span class="line">        while !listTree.isEmpty &#123;</span><br><span class="line">            var valList: [Int] &#x3D; []</span><br><span class="line">            var tempTree: [TreeNode] &#x3D; []</span><br><span class="line">            isLR &#x3D; !isLR</span><br><span class="line">            for tree in listTree &#123;</span><br><span class="line">                if tree.left !&#x3D; nil &#123;</span><br><span class="line">                    tempTree.append(tree.left!)</span><br><span class="line">                &#125;</span><br><span class="line">                if tree.right !&#x3D; nil &#123;</span><br><span class="line">                    tempTree.append(tree.right!)</span><br><span class="line">                &#125;</span><br><span class="line">                if isLR &#123;</span><br><span class="line">                    valList.append(tree.val)</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    valList.insert(tree.val, at: 0)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            listTree &#x3D; tempTree</span><br><span class="line">            ans.append(valList)</span><br><span class="line">        &#125;</span><br><span class="line">        return ans</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>199. 二叉树的右视图</title>
+    <url>/2021/02/24/2000-021-199.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%8F%B3%E8%A7%86%E5%9B%BE/</url>
+    <content><![CDATA[<h1 id="199-二叉树的右视图"><a href="#199-二叉树的右视图" class="headerlink" title="199. 二叉树的右视图"></a><a class="link"   href="https://leetcode-cn.com/problems/binary-tree-right-side-view/" >199. 二叉树的右视图<i class="fas fa-external-link-alt"></i></a></h1><h1 id="解法一-BFS-广度优先-层序遍历"><a href="#解法一-BFS-广度优先-层序遍历" class="headerlink" title="解法一 BFS 广度优先 层序遍历"></a>解法一 BFS 广度优先 层序遍历</h1><ul>
+<li>时间复杂度<br>O(n) 每个节点访问一次</li>
+<li>空间复杂度<br>O(n)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func rightSideView(_ root: TreeNode?) -&gt; [Int] &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return [] &#125;</span><br><span class="line">        var ans: [Int] &#x3D; []</span><br><span class="line">        var treeList &#x3D; [root]</span><br><span class="line"></span><br><span class="line">        while !treeList.isEmpty &#123;</span><br><span class="line">            let count &#x3D; treeList.count</span><br><span class="line">            for i in 0 ..&lt; count &#123;</span><br><span class="line">                let tree &#x3D; treeList.remove(at: 0)</span><br><span class="line">                if i &#x3D;&#x3D; count - 1 &#123;</span><br><span class="line">                    ans.append(tree.val)</span><br><span class="line">                &#125;</span><br><span class="line">                if tree.left !&#x3D; nil &#123;</span><br><span class="line">                    treeList.append(tree.left!)</span><br><span class="line">                &#125;</span><br><span class="line">                if tree.right !&#x3D; nil &#123;</span><br><span class="line">                    treeList.append(tree.right!)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return ans</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="解法二-DFS-深度优先-前序遍历-变形"><a href="#解法二-DFS-深度优先-前序遍历-变形" class="headerlink" title="解法二 DFS 深度优先 前序遍历 变形"></a>解法二 DFS 深度优先 前序遍历 变形</h1><ul>
+<li>时间复杂度<br>O(n) 每个节点访问一次</li>
+<li>空间复杂度<br>O(n)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var ans: [Int] &#x3D; []</span><br><span class="line">    func rightSideView(_ root: TreeNode?) -&gt; [Int] &#123;</span><br><span class="line">        dfsSlideView(root, 0)</span><br><span class="line">        return ans</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func dfsSlideView(_ root: TreeNode?, _ depth: Int) &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return &#125;</span><br><span class="line">        if depth &#x3D;&#x3D; ans.count &#123;</span><br><span class="line">            ans.append(root.val)</span><br><span class="line">        &#125;</span><br><span class="line">        let d &#x3D; depth + 1</span><br><span class="line">        dfsSlideView(root.right, d)</span><br><span class="line">        dfsSlideView(root.left, d)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>树、二叉树、二叉搜索树</title>
     <url>/2021/02/06/2000-%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
     <content><![CDATA[<h1 id="二叉树-LeetCode"><a href="#二叉树-LeetCode" class="headerlink" title="二叉树 LeetCode"></a><a class="link"   href="https://leetcode-cn.com/leetbook/read/data-structure-binary-tree/xe17x7/" >二叉树 LeetCode<i class="fas fa-external-link-alt"></i></a></h1><h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><blockquote>
