@@ -30,22 +30,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Swift GCD 死锁</title>
-    <url>/2020/11/04/100-Swift-GCD-%E6%AD%BB%E9%94%81/</url>
-    <content><![CDATA[<h1 id="1-串行队列中，在异步任务中添加同步任务"><a href="#1-串行队列中，在异步任务中添加同步任务" class="headerlink" title="1. 串行队列中，在异步任务中添加同步任务"></a>1. 串行队列中，在异步任务中添加同步任务</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; 由于没有定义 attributes 所以是串行队列</span><br><span class="line">let queue &#x3D; DispatchQueue(label: &quot;myQueue&quot;)</span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;----- task 1 -------&quot;)</span><br><span class="line">    queue.sync &#123;</span><br><span class="line">        print(&quot;----- task 2 -------&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">⚠️解决方法</span><br><span class="line">&#x2F;&#x2F;&#x2F; 解决方法将串行改为并行</span><br><span class="line">let queue &#x3D; DispatchQueue(label: &quot;myQueue&quot;, attributes: DispatchQueue.Attributes.concurrent)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h1 id="2-主线程同步"><a href="#2-主线程同步" class="headerlink" title="2. 主线程同步"></a>2. 主线程同步</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let queue &#x3D; DispatchQueue.main</span><br><span class="line">queue.sync &#123;</span><br><span class="line">    print(&quot;----- task 1 -------&quot;)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Swift</category>
-      </categories>
-      <tags>
-        <tag>GCD</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Swift GCD 的串行队列与并行队列</title>
     <url>/2020/11/07/100-Swift-GCD-%E7%9A%84%E4%B8%B2%E8%A1%8C%E9%98%9F%E5%88%97%E4%B8%8E%E5%B9%B6%E8%A1%8C%E9%98%9F%E5%88%97/</url>
     <content><![CDATA[<table>
@@ -73,6 +57,22 @@
 <h1 id="串行队列异步任务不会阻塞线程，同步会阻塞当前线程，执行顺序按添加顺序"><a href="#串行队列异步任务不会阻塞线程，同步会阻塞当前线程，执行顺序按添加顺序" class="headerlink" title="串行队列异步任务不会阻塞线程，同步会阻塞当前线程，执行顺序按添加顺序"></a>串行队列异步任务不会阻塞线程，同步会阻塞当前线程，执行顺序按添加顺序</h1><h1 id="并行队列异步任务不会阻塞线程，同步会阻塞当前线程，同时执行，但会被同步阻塞"><a href="#并行队列异步任务不会阻塞线程，同步会阻塞当前线程，同时执行，但会被同步阻塞" class="headerlink" title="并行队列异步任务不会阻塞线程，同步会阻塞当前线程，同时执行，但会被同步阻塞"></a>并行队列异步任务不会阻塞线程，同步会阻塞当前线程，同时执行，但会被同步阻塞</h1><hr>
 <h1 id="串行队列"><a href="#串行队列" class="headerlink" title="串行队列"></a>串行队列</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let queue &#x3D; DispatchQueue(label: &quot;queue&quot;)</span><br><span class="line">print(&quot;------ 开始 -------&quot;)</span><br><span class="line">queue.async &#123;</span><br><span class="line">    Thread.sleep(forTimeInterval: 3)</span><br><span class="line">    print(&quot;------ async 1 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(&quot;------ async 1 不阻塞 -------&quot;)</span><br><span class="line"></span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;------ async 2 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">queue.sync &#123;</span><br><span class="line">    Thread.sleep(forTimeInterval: 3)</span><br><span class="line">    print(&quot;------ sync 1 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(&quot;------ 被 sync 1 阻塞 -------&quot;)</span><br><span class="line"></span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;------ async 3 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">------ 开始 -------</span><br><span class="line">------ async 1 不阻塞 -------</span><br><span class="line">------ async 1 -------</span><br><span class="line">------ async 2 -------</span><br><span class="line">------ sync 1 -------</span><br><span class="line">------ 被 sync 1 阻塞 -------</span><br><span class="line">------ async 3 -------</span><br></pre></td></tr></table></figure>
 <h1 id="并行队列"><a href="#并行队列" class="headerlink" title="并行队列"></a>并行队列</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let queue &#x3D; DispatchQueue(label: &quot;queue&quot;, attributes: DispatchQueue.Attributes.concurrent)</span><br><span class="line">print(&quot;------ 开始 -------&quot;)</span><br><span class="line">queue.async &#123;</span><br><span class="line">    Thread.sleep(forTimeInterval: 3)</span><br><span class="line">    print(&quot;------ async 1 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(&quot;------ async 1 不阻塞 -------&quot;)</span><br><span class="line"></span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;------ async 2 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">queue.sync &#123;</span><br><span class="line">    Thread.sleep(forTimeInterval: 5)</span><br><span class="line">    print(&quot;------ sync 1 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(&quot;------ 被 sync 1 阻塞 -------&quot;)</span><br><span class="line"></span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;------ async 3 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">------ 开始 -------</span><br><span class="line">------ async 1 不阻塞 -------</span><br><span class="line">------ async 2 -------</span><br><span class="line">------ async 1 -------</span><br><span class="line">------ sync 1 -------</span><br><span class="line">------ 被 sync 1 阻塞 -------</span><br><span class="line">------ async 3 -------</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>GCD</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Swift GCD 死锁</title>
+    <url>/2020/11/04/100-Swift-GCD-%E6%AD%BB%E9%94%81/</url>
+    <content><![CDATA[<h1 id="1-串行队列中，在异步任务中添加同步任务"><a href="#1-串行队列中，在异步任务中添加同步任务" class="headerlink" title="1. 串行队列中，在异步任务中添加同步任务"></a>1. 串行队列中，在异步任务中添加同步任务</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; 由于没有定义 attributes 所以是串行队列</span><br><span class="line">let queue &#x3D; DispatchQueue(label: &quot;myQueue&quot;)</span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;----- task 1 -------&quot;)</span><br><span class="line">    queue.sync &#123;</span><br><span class="line">        print(&quot;----- task 2 -------&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">⚠️解决方法</span><br><span class="line">&#x2F;&#x2F;&#x2F; 解决方法将串行改为并行</span><br><span class="line">let queue &#x3D; DispatchQueue(label: &quot;myQueue&quot;, attributes: DispatchQueue.Attributes.concurrent)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="2-主线程同步"><a href="#2-主线程同步" class="headerlink" title="2. 主线程同步"></a>2. 主线程同步</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let queue &#x3D; DispatchQueue.main</span><br><span class="line">queue.sync &#123;</span><br><span class="line">    print(&quot;----- task 1 -------&quot;)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Swift</category>
@@ -151,19 +151,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Swift 添加下标 subscript</title>
-    <url>/2020/11/23/100-Swift-%E6%B7%BB%E5%8A%A0%E4%B8%8B%E6%A0%87-subscript/</url>
-    <content><![CDATA[<h1 id="关键子-subscript"><a href="#关键子-subscript" class="headerlink" title="关键子 subscript "></a>关键子 <code>subscript </code></h1><p>参数和返回值可以是任意类型（<code>inout</code>输入输出除外）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct People &#123;</span><br><span class="line">    var name &#x3D; &quot;&quot;, age &#x3D; 0</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 给实例添加下标</span><br><span class="line">    subscript(n: String) -&gt; Int &#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            return age</span><br><span class="line">        &#125;</span><br><span class="line">        set &#123;</span><br><span class="line">            age &#x3D; newValue</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 给结构体添加下标</span><br><span class="line">    static subscript(name: String, age: Int) -&gt; People &#123;</span><br><span class="line">        People(name: name, age: age)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var a &#x3D; People(name: &quot;哈哈哈&quot;, age: 18)</span><br><span class="line">print(a[&quot;哈哈哈&quot;])&#x2F;&#x2F;18</span><br><span class="line">a[&quot;哈哈哈&quot;] &#x3D; 20</span><br><span class="line">print(a[&quot;哈哈哈&quot;])&#x2F;&#x2F;20</span><br><span class="line">let p &#x3D; People[&quot;哈喽&quot;, 20]</span><br><span class="line">print(p)&#x2F;&#x2F;People(name: &quot;哈喽&quot;, age: 20)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Swift</category>
-      </categories>
-      <tags>
-        <tag>下标</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Swift 的一些高阶函数 map、filter、reduce、flatMap、compactMap</title>
     <url>/2020/11/17/100-Swift-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-map-filter-reduce-flatMap-compactMap/</url>
     <content><![CDATA[<h1 id="map-对集合里的每一个元素进行操作，然后返回个新的集合"><a href="#map-对集合里的每一个元素进行操作，然后返回个新的集合" class="headerlink" title="map 对集合里的每一个元素进行操作，然后返回个新的集合"></a>map 对集合里的每一个元素进行操作，然后返回个新的集合</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let numbers &#x3D; [1, 3, 5, 7, 9]</span><br><span class="line">&#x2F;&#x2F;&#x2F; 对集合里的每一个元素进行操作，然后返回个新的集合</span><br><span class="line">print(numbers.map &#123; $0 * 10 &#125;)</span><br><span class="line">&#x2F;&#x2F; [10, 30, 50, 70, 90]</span><br></pre></td></tr></table></figure>
@@ -181,6 +168,19 @@
       </categories>
       <tags>
         <tag>高阶函数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Swift 添加下标 subscript</title>
+    <url>/2020/11/23/100-Swift-%E6%B7%BB%E5%8A%A0%E4%B8%8B%E6%A0%87-subscript/</url>
+    <content><![CDATA[<h1 id="关键子-subscript"><a href="#关键子-subscript" class="headerlink" title="关键子 subscript "></a>关键子 <code>subscript </code></h1><p>参数和返回值可以是任意类型（<code>inout</code>输入输出除外）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct People &#123;</span><br><span class="line">    var name &#x3D; &quot;&quot;, age &#x3D; 0</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 给实例添加下标</span><br><span class="line">    subscript(n: String) -&gt; Int &#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            return age</span><br><span class="line">        &#125;</span><br><span class="line">        set &#123;</span><br><span class="line">            age &#x3D; newValue</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 给结构体添加下标</span><br><span class="line">    static subscript(name: String, age: Int) -&gt; People &#123;</span><br><span class="line">        People(name: name, age: age)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var a &#x3D; People(name: &quot;哈哈哈&quot;, age: 18)</span><br><span class="line">print(a[&quot;哈哈哈&quot;])&#x2F;&#x2F;18</span><br><span class="line">a[&quot;哈哈哈&quot;] &#x3D; 20</span><br><span class="line">print(a[&quot;哈哈哈&quot;])&#x2F;&#x2F;20</span><br><span class="line">let p &#x3D; People[&quot;哈喽&quot;, 20]</span><br><span class="line">print(p)&#x2F;&#x2F;People(name: &quot;哈喽&quot;, age: 20)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>下标</tag>
       </tags>
   </entry>
   <entry>
@@ -644,35 +644,6 @@
       </tags>
   </entry>
   <entry>
-    <title>简述对称与非对称加密的概念</title>
-    <url>/2021/02/16/1000-012%E7%AE%80%E8%BF%B0%E5%AF%B9%E7%A7%B0%E4%B8%8E%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%9A%84%E6%A6%82%E5%BF%B5/</url>
-    <content><![CDATA[<h1 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h1><p>对称加密是最快速、最简单的一种加密方式，加密与解密用的是同样的密钥。对称加密有很多种算法，由于它效率很高，所以被广泛使用在很多加密协议的核心当中。</p>
-<p><strong>密钥交换的发送过程中有很大的风险会被黑客们拦截。现实中通常的做法是将对称加密的密钥进行非对称加密，然后传送给需要它的人。</strong></p>
-<h2 id="对称加密常用算法"><a href="#对称加密常用算法" class="headerlink" title="对称加密常用算法"></a>对称加密常用算法</h2><ol>
-<li><strong>DES（Data Encryption Standard）</strong>：数据加密标准，速度较快，适用于加密大量数据的场合；</li>
-<li><strong>3DES（Triple DES）</strong>：是基于DES，对一块数据用三个不同的密钥进行三次加密，强度更高；</li>
-<li><strong>AES（Advanced Encryption Standard）</strong>：高级加密标准，是下一代的加密算法标准，速度快，安全级别高，支持128、192、256、512位密钥的加密；</li>
-</ol>
-<h2 id="算法特征"><a href="#算法特征" class="headerlink" title="算法特征"></a>算法特征</h2><ol>
-<li>加密方和解密方使用同一个密钥；</li>
-<li>加密解密的速度比较快，适合数据比较长时的使用；</li>
-<li>密钥传输的过程不安全，且容易被破解，密钥管理也比较麻烦；</li>
-</ol>
-<h1 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h1><p>非对称加密为数据的加密与解密提供了一个非常安全的方法，它使用了一对密钥，公钥（public key）和私钥（private key）。私钥只能由一方安全保管，不能外泄，而公钥则可以发给任何请求它的人。非对称加密使用这对密钥中的一个进行加密，而解密则需要另一个密钥。</p>
-<h2 id="非对称加密常用算法"><a href="#非对称加密常用算法" class="headerlink" title="非对称加密常用算法"></a>非对称加密常用算法</h2><p>RSA、Elgamal、背包算法、Rabin、D-H、ECC（椭圆曲线加密算法）。</p>
-<p>使用最广泛的是RSA算法，Elgamal是另一种常用的非对称加密算法。</p>
-<h1 id="MD5-单向加密算法不可解密，属于散列算法。"><a href="#MD5-单向加密算法不可解密，属于散列算法。" class="headerlink" title="MD5 单向加密算法不可解密，属于散列算法。"></a>MD5 单向加密算法不可解密，属于散列算法。</h1><h1 id="Base64-是编码。"><a href="#Base64-是编码。" class="headerlink" title="Base64 是编码。"></a>Base64 是编码。</h1><blockquote>
-<p>对称加密与非对称加密 <a class="link"   href="https://zhuanlan.zhihu.com/p/30573146" >https://zhuanlan.zhihu.com/p/30573146<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="https://baike.baidu.com/item/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86" >https://baike.baidu.com/item/对称加密<i class="fas fa-external-link-alt"></i></a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>网络协议</category>
-      </categories>
-      <tags>
-        <tag>加密</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HTTP 的方法有哪些？</title>
     <url>/2021/02/17/1000-013HTTP%20%E7%9A%84%E6%96%B9%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
     <content><![CDATA[<h1 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h1><p>GET方法请求一个指定资源的表示形式. 使用GET的请求应该只被用于获取数据.</p>
@@ -702,6 +673,65 @@
       </categories>
       <tags>
         <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>简述对称与非对称加密的概念</title>
+    <url>/2021/02/16/1000-012%E7%AE%80%E8%BF%B0%E5%AF%B9%E7%A7%B0%E4%B8%8E%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%9A%84%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<h1 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h1><p>对称加密是最快速、最简单的一种加密方式，加密与解密用的是同样的密钥。对称加密有很多种算法，由于它效率很高，所以被广泛使用在很多加密协议的核心当中。</p>
+<p><strong>密钥交换的发送过程中有很大的风险会被黑客们拦截。现实中通常的做法是将对称加密的密钥进行非对称加密，然后传送给需要它的人。</strong></p>
+<h2 id="对称加密常用算法"><a href="#对称加密常用算法" class="headerlink" title="对称加密常用算法"></a>对称加密常用算法</h2><ol>
+<li><strong>DES（Data Encryption Standard）</strong>：数据加密标准，速度较快，适用于加密大量数据的场合；</li>
+<li><strong>3DES（Triple DES）</strong>：是基于DES，对一块数据用三个不同的密钥进行三次加密，强度更高；</li>
+<li><strong>AES（Advanced Encryption Standard）</strong>：高级加密标准，是下一代的加密算法标准，速度快，安全级别高，支持128、192、256、512位密钥的加密；</li>
+</ol>
+<h2 id="算法特征"><a href="#算法特征" class="headerlink" title="算法特征"></a>算法特征</h2><ol>
+<li>加密方和解密方使用同一个密钥；</li>
+<li>加密解密的速度比较快，适合数据比较长时的使用；</li>
+<li>密钥传输的过程不安全，且容易被破解，密钥管理也比较麻烦；</li>
+</ol>
+<h1 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h1><p>非对称加密为数据的加密与解密提供了一个非常安全的方法，它使用了一对密钥，公钥（public key）和私钥（private key）。私钥只能由一方安全保管，不能外泄，而公钥则可以发给任何请求它的人。非对称加密使用这对密钥中的一个进行加密，而解密则需要另一个密钥。</p>
+<h2 id="非对称加密常用算法"><a href="#非对称加密常用算法" class="headerlink" title="非对称加密常用算法"></a>非对称加密常用算法</h2><p>RSA、Elgamal、背包算法、Rabin、D-H、ECC（椭圆曲线加密算法）。</p>
+<p>使用最广泛的是RSA算法，Elgamal是另一种常用的非对称加密算法。</p>
+<h1 id="MD5-单向加密算法不可解密，属于散列算法。"><a href="#MD5-单向加密算法不可解密，属于散列算法。" class="headerlink" title="MD5 单向加密算法不可解密，属于散列算法。"></a>MD5 单向加密算法不可解密，属于散列算法。</h1><h1 id="Base64-是编码。"><a href="#Base64-是编码。" class="headerlink" title="Base64 是编码。"></a>Base64 是编码。</h1><blockquote>
+<p>对称加密与非对称加密 <a class="link"   href="https://zhuanlan.zhihu.com/p/30573146" >https://zhuanlan.zhihu.com/p/30573146<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="https://baike.baidu.com/item/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86" >https://baike.baidu.com/item/对称加密<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>加密</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cookie 和 Session 的关系和区别是什么？</title>
+    <url>/2021/02/18/1000-015Cookie%20%E5%92%8C%20Session%20%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/</url>
+    <content><![CDATA[<h1 id="Cookie-和-Session-的关系和区别"><a href="#Cookie-和-Session-的关系和区别" class="headerlink" title="Cookie 和 Session 的关系和区别"></a>Cookie 和 Session 的关系和区别</h1><ol>
+<li>Cookie 在客户端（浏览器），Session 在服务器端。 </li>
+<li>Cookie 的安全性一般，他人可通过分析存放在本地的 Cookie 并进行 Cookie 欺骗。在安全性第一的前提下，选择 Session 更优。重要交互信息比如权限等就要放在 Session 中，一般的信息记录放 Cookie 就好了。 </li>
+<li>单个 Cookie 保存的数据不能超过 4K，很多浏览器都限制一个站点最多保存 20 个 Cookie。 </li>
+<li>Session 可以放在文件、数据库或内存中，比如在使用 Node 时将 Session 保存在 redis 中。由于一定时间内它是保存在服务器上的，当访问增多时，会较大地占用服务器的性能。考虑到减轻服务器性能方面，应当适时使用 Cookie。 </li>
+<li>Session 的运行依赖 Session ID，而 Session ID 是存在 Cookie 中的，也就是说，如果浏览器禁用了 Cookie，Session 也会失效（但是可以通过其它方式实现，比如在 url 中传递 Session ID）。 </li>
+<li>用户验证这种场合一般会用 Session。因此，维持一个会话的核心就是客户端的唯一标识，即 Session ID。</li>
+</ol>
+<p>题外话，那么话说 Session Cookie 能被篡改么？ 理论上可以，只要改变了连接时的 Session ID 就可以了~</p>
+<h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p>Cookie 是客户端保存用户信息的一种机制，用来记录用户的一些信息。如何识别特定的客户呢？cookie 就可以做到。每次 HTTP 请求时，客户端都会发送相应的 Cookie 信息到服务端。它的过期时间可以任意设置，如果你不主动清除它，在很长一段时间里面都可以保留着，即便这之间你把电脑关机了。<br>既然它是存储在客户端的，换句话说通过某些手法我就可以篡改本地存储的信息来欺骗服务端的某些策略。</p>
+<h1 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h1><p>Session 是在无状态的 HTTP 协议下，服务端记录用户状态时用于标识具体用户的机制。它是在服务端保存的用来跟踪用户的状态的数据结构，可以保存在文件、数据库或者集群中。在浏览器关闭后这次的 Session 就消失了，下次打开就不再拥有这个 Session。其实并不是 Session 消失了，而是 Session ID 变了，服务器端可能还是存着你上次的 Session ID 及其 Session 信息，只是他们是无主状态，也许一段时间后会被删除。</p>
+<hr>
+<p>实际上 Cookie 与 Session 都是会话的一种方式。它们的典型使用场景比如 “购物车”，当你点击下单按钮时，服务端并不清楚具体用户的具体操作，为了标识并跟踪该用户，了解购物车中有几样物品，服务端通过为该用户创建 Cookie/Session 来获取这些信息。</p>
+<p>如果你的站点是多节点部署，使用 Nginx 做负载均衡，那么有可能会出现 Session 丢失的情况（比如，忽然就处于未登录状态）。这时可以使用 IP 负载均衡（IP 绑定 ip_hash，每个请求按访问 ip 的 hash 结果分配，这样每个访客固定访问一个后端服务器，可以解决 Session 的问题），或者将 Session 信息存储在集群中。在大型的网站中，一般会有专门的 Session 服务器集群，用来保存用户会话，这时可以使用缓存服务比如 Memcached 或者 Redis 之类的来存放 Session。</p>
+<p>目前大多数的应用都是用 Cookie 实现 Session 跟踪的。第一次创建 Session 时，服务端会通过在 HTTP 协议中反馈到客户端，需要在 Cookie 中记录一个 Session ID，以便今后每次请求时都可分辨你是谁。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？建议使用 URL 重写技术进行会话跟踪，即每次 HTTP 交互，URL 后面都被附加上诸如 sid=xxxxx 的参数，以便服务端依此识别用户。</p>
+<blockquote>
+<p>摘录于 <a class="link"   href="https://ruby-china.org/topics/33313" >https://ruby-china.org/topics/33313<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>Cookie</tag>
+        <tag>Session</tag>
       </tags>
   </entry>
   <entry>
@@ -751,36 +781,6 @@
       </categories>
       <tags>
         <tag>JWT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Cookie 和 Session 的关系和区别是什么？</title>
-    <url>/2021/02/18/1000-015Cookie%20%E5%92%8C%20Session%20%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/</url>
-    <content><![CDATA[<h1 id="Cookie-和-Session-的关系和区别"><a href="#Cookie-和-Session-的关系和区别" class="headerlink" title="Cookie 和 Session 的关系和区别"></a>Cookie 和 Session 的关系和区别</h1><ol>
-<li>Cookie 在客户端（浏览器），Session 在服务器端。 </li>
-<li>Cookie 的安全性一般，他人可通过分析存放在本地的 Cookie 并进行 Cookie 欺骗。在安全性第一的前提下，选择 Session 更优。重要交互信息比如权限等就要放在 Session 中，一般的信息记录放 Cookie 就好了。 </li>
-<li>单个 Cookie 保存的数据不能超过 4K，很多浏览器都限制一个站点最多保存 20 个 Cookie。 </li>
-<li>Session 可以放在文件、数据库或内存中，比如在使用 Node 时将 Session 保存在 redis 中。由于一定时间内它是保存在服务器上的，当访问增多时，会较大地占用服务器的性能。考虑到减轻服务器性能方面，应当适时使用 Cookie。 </li>
-<li>Session 的运行依赖 Session ID，而 Session ID 是存在 Cookie 中的，也就是说，如果浏览器禁用了 Cookie，Session 也会失效（但是可以通过其它方式实现，比如在 url 中传递 Session ID）。 </li>
-<li>用户验证这种场合一般会用 Session。因此，维持一个会话的核心就是客户端的唯一标识，即 Session ID。</li>
-</ol>
-<p>题外话，那么话说 Session Cookie 能被篡改么？ 理论上可以，只要改变了连接时的 Session ID 就可以了~</p>
-<h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p>Cookie 是客户端保存用户信息的一种机制，用来记录用户的一些信息。如何识别特定的客户呢？cookie 就可以做到。每次 HTTP 请求时，客户端都会发送相应的 Cookie 信息到服务端。它的过期时间可以任意设置，如果你不主动清除它，在很长一段时间里面都可以保留着，即便这之间你把电脑关机了。<br>既然它是存储在客户端的，换句话说通过某些手法我就可以篡改本地存储的信息来欺骗服务端的某些策略。</p>
-<h1 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h1><p>Session 是在无状态的 HTTP 协议下，服务端记录用户状态时用于标识具体用户的机制。它是在服务端保存的用来跟踪用户的状态的数据结构，可以保存在文件、数据库或者集群中。在浏览器关闭后这次的 Session 就消失了，下次打开就不再拥有这个 Session。其实并不是 Session 消失了，而是 Session ID 变了，服务器端可能还是存着你上次的 Session ID 及其 Session 信息，只是他们是无主状态，也许一段时间后会被删除。</p>
-<hr>
-<p>实际上 Cookie 与 Session 都是会话的一种方式。它们的典型使用场景比如 “购物车”，当你点击下单按钮时，服务端并不清楚具体用户的具体操作，为了标识并跟踪该用户，了解购物车中有几样物品，服务端通过为该用户创建 Cookie/Session 来获取这些信息。</p>
-<p>如果你的站点是多节点部署，使用 Nginx 做负载均衡，那么有可能会出现 Session 丢失的情况（比如，忽然就处于未登录状态）。这时可以使用 IP 负载均衡（IP 绑定 ip_hash，每个请求按访问 ip 的 hash 结果分配，这样每个访客固定访问一个后端服务器，可以解决 Session 的问题），或者将 Session 信息存储在集群中。在大型的网站中，一般会有专门的 Session 服务器集群，用来保存用户会话，这时可以使用缓存服务比如 Memcached 或者 Redis 之类的来存放 Session。</p>
-<p>目前大多数的应用都是用 Cookie 实现 Session 跟踪的。第一次创建 Session 时，服务端会通过在 HTTP 协议中反馈到客户端，需要在 Cookie 中记录一个 Session ID，以便今后每次请求时都可分辨你是谁。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？建议使用 URL 重写技术进行会话跟踪，即每次 HTTP 交互，URL 后面都被附加上诸如 sid=xxxxx 的参数，以便服务端依此识别用户。</p>
-<blockquote>
-<p>摘录于 <a class="link"   href="https://ruby-china.org/topics/33313" >https://ruby-china.org/topics/33313<i class="fas fa-external-link-alt"></i></a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>网络协议</category>
-      </categories>
-      <tags>
-        <tag>Cookie</tag>
-        <tag>Session</tag>
       </tags>
   </entry>
   <entry>
@@ -1272,27 +1272,6 @@
       </categories>
   </entry>
   <entry>
-    <title>94. 二叉树的中序遍历 - 中等</title>
-    <url>/2021/02/23/2000-008-94.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
-    <content><![CDATA[<h1 id="94-二叉树的中序遍历"><a href="#94-二叉树的中序遍历" class="headerlink" title="94. 二叉树的中序遍历"></a><a class="link"   href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/" >94. 二叉树的中序遍历<i class="fas fa-external-link-alt"></i></a></h1><p><a class="link"   href="https://leetcode-cn.com/leetbook/read/data-structure-binary-tree/xe17x7/" >二叉树遍历<i class="fas fa-external-link-alt"></i></a></p>
-<p>二叉树中序遍历顺序为 左 根 右<br>当根节点的左子树为空时添加该根节点，即在 root.left = nil, 后 add root.val</p>
-<h1 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h1><ul>
-<li>时间复杂度 O(n)<br>其中 n 为二叉树节点的个数。二叉树的遍历中每个节点会被访问一次且只会被访问一次。</li>
-<li>空间复杂度 O(n)<br>空间复杂度取决于递归的栈深度，而栈深度在二叉树为一条链的情况下会达到 O(n) 的级别。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func inorderTraversal(_ root: TreeNode?) -&gt; [Int] &#123;</span><br><span class="line">        var list: [Int] &#x3D; []</span><br><span class="line">        inorder(root, &amp;list)</span><br><span class="line">        return list</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func inorder(_ root: TreeNode?, _ list: inout [Int]) &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 中序遍历 左 中 右</span><br><span class="line">        &#x2F;&#x2F; 即中序遍历，左根右。当根结点的左子树为空时，那么 add root.val</span><br><span class="line">        &#x2F;&#x2F; 即前序遍历，根左右。当根节点不为空时，那么 add root.val</span><br><span class="line">        &#x2F;&#x2F; 即后序遍历，左右根。当根节点的左右子树均为空时，那么 add root.val</span><br><span class="line">        inorder(root.left, &amp;list)</span><br><span class="line">        list.append(root.val)</span><br><span class="line">        inorder(root.right, &amp;list)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="迭代解法"><a href="#迭代解法" class="headerlink" title="迭代解法"></a>迭代解法</h1><ul>
-<li>时间复杂度 O(n)<br>其中 n 为二叉树节点的个数。二叉树的遍历中每个节点会被访问一次且只会被访问一次。</li>
-<li>空间复杂度 O(n)<br>空间复杂度取决于栈深度，而栈深度在二叉树为一条链的情况下会达到 O(n) 的级别。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func inorderTraversal(_ root: TreeNode?) -&gt; [Int] &#123;</span><br><span class="line">        var list: [Int] &#x3D; []</span><br><span class="line">        var tempList: [TreeNode] &#x3D; []</span><br><span class="line">        var root &#x3D; root</span><br><span class="line"></span><br><span class="line">        while root !&#x3D; nil || !tempList.isEmpty &#123;</span><br><span class="line">            while root !&#x3D; nil &#123;</span><br><span class="line">                tempList.append(root!)</span><br><span class="line">                root &#x3D; root?.left</span><br><span class="line">            &#125;</span><br><span class="line">            root &#x3D; tempList.popLast()</span><br><span class="line">            list.append(root!.val)</span><br><span class="line">            root &#x3D; root?.right</span><br><span class="line">        &#125;</span><br><span class="line">        return list</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-  </entry>
-  <entry>
     <title>144. 二叉树的前序遍历 - 中等</title>
     <url>/2021/02/23/2000-009-144.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
     <content><![CDATA[<h1 id="144-二叉树的前序遍历"><a href="#144-二叉树的前序遍历" class="headerlink" title="144. 二叉树的前序遍历"></a><a class="link"   href="https://leetcode-cn.com/problems/binary-tree-preorder-traversal/" >144. 二叉树的前序遍历<i class="fas fa-external-link-alt"></i></a></h1><p><a class="link"   href="https://leetcode-cn.com/leetbook/read/data-structure-binary-tree/xe17x7/" >二叉树遍历<i class="fas fa-external-link-alt"></i></a></p>
@@ -1309,6 +1288,27 @@
 <li>空间复杂度<br>O(n) 为迭代过程中显式栈的开销，平均情况下为 O(logn)，最坏情况下树呈现链状，为 O(n)。</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func preorderTraversal(_ root: TreeNode?) -&gt; [Int] &#123;</span><br><span class="line">        var list: [Int] &#x3D; []</span><br><span class="line">        var stackTree: [TreeNode] &#x3D; []</span><br><span class="line">        var root &#x3D; root</span><br><span class="line">        while root !&#x3D; nil || !stackTree.isEmpty &#123;</span><br><span class="line">            while root !&#x3D; nil &#123;</span><br><span class="line">                list.append(root!.val)</span><br><span class="line">                stackTree.append(root!)</span><br><span class="line">                root &#x3D; root?.left</span><br><span class="line">            &#125;</span><br><span class="line">            root &#x3D; stackTree.popLast()</span><br><span class="line">            root &#x3D; root?.right</span><br><span class="line">        &#125;</span><br><span class="line">        return list</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>94. 二叉树的中序遍历 - 中等</title>
+    <url>/2021/02/23/2000-008-94.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<h1 id="94-二叉树的中序遍历"><a href="#94-二叉树的中序遍历" class="headerlink" title="94. 二叉树的中序遍历"></a><a class="link"   href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/" >94. 二叉树的中序遍历<i class="fas fa-external-link-alt"></i></a></h1><p><a class="link"   href="https://leetcode-cn.com/leetbook/read/data-structure-binary-tree/xe17x7/" >二叉树遍历<i class="fas fa-external-link-alt"></i></a></p>
+<p>二叉树中序遍历顺序为 左 根 右<br>当根节点的左子树为空时添加该根节点，即在 root.left = nil, 后 add root.val</p>
+<h1 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h1><ul>
+<li>时间复杂度 O(n)<br>其中 n 为二叉树节点的个数。二叉树的遍历中每个节点会被访问一次且只会被访问一次。</li>
+<li>空间复杂度 O(n)<br>空间复杂度取决于递归的栈深度，而栈深度在二叉树为一条链的情况下会达到 O(n) 的级别。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func inorderTraversal(_ root: TreeNode?) -&gt; [Int] &#123;</span><br><span class="line">        var list: [Int] &#x3D; []</span><br><span class="line">        inorder(root, &amp;list)</span><br><span class="line">        return list</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func inorder(_ root: TreeNode?, _ list: inout [Int]) &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 中序遍历 左 中 右</span><br><span class="line">        &#x2F;&#x2F; 即中序遍历，左根右。当根结点的左子树为空时，那么 add root.val</span><br><span class="line">        &#x2F;&#x2F; 即前序遍历，根左右。当根节点不为空时，那么 add root.val</span><br><span class="line">        &#x2F;&#x2F; 即后序遍历，左右根。当根节点的左右子树均为空时，那么 add root.val</span><br><span class="line">        inorder(root.left, &amp;list)</span><br><span class="line">        list.append(root.val)</span><br><span class="line">        inorder(root.right, &amp;list)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="迭代解法"><a href="#迭代解法" class="headerlink" title="迭代解法"></a>迭代解法</h1><ul>
+<li>时间复杂度 O(n)<br>其中 n 为二叉树节点的个数。二叉树的遍历中每个节点会被访问一次且只会被访问一次。</li>
+<li>空间复杂度 O(n)<br>空间复杂度取决于栈深度，而栈深度在二叉树为一条链的情况下会达到 O(n) 的级别。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func inorderTraversal(_ root: TreeNode?) -&gt; [Int] &#123;</span><br><span class="line">        var list: [Int] &#x3D; []</span><br><span class="line">        var tempList: [TreeNode] &#x3D; []</span><br><span class="line">        var root &#x3D; root</span><br><span class="line"></span><br><span class="line">        while root !&#x3D; nil || !tempList.isEmpty &#123;</span><br><span class="line">            while root !&#x3D; nil &#123;</span><br><span class="line">                tempList.append(root!)</span><br><span class="line">                root &#x3D; root?.left</span><br><span class="line">            &#125;</span><br><span class="line">            root &#x3D; tempList.popLast()</span><br><span class="line">            list.append(root!.val)</span><br><span class="line">            root &#x3D; root?.right</span><br><span class="line">        &#125;</span><br><span class="line">        return list</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode</category>
@@ -1471,6 +1471,25 @@
       </categories>
   </entry>
   <entry>
+    <title>105. 从前序与中序遍历序列构造二叉树 - 中等</title>
+    <url>/2021/02/24/2000-018-105.%20%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<h1 id="105-从前序与中序遍历序列构造二叉树"><a href="#105-从前序与中序遍历序列构造二叉树" class="headerlink" title="105. 从前序与中序遍历序列构造二叉树"></a><a class="link"   href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" >105. 从前序与中序遍历序列构造二叉树<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/zn7zcr.png"
+                      alt="105. 从前序与中序遍历序列构造二叉树"
+                ></p>
+<h1 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h1><ul>
+<li>时间复杂度<br>O(n) n 是节点的个数，每个节点都访问一次</li>
+<li>空间复杂度<br>O(n) 除去返回的答案需要的 O(n) 空间之外，我们还需要使用 O(n) 的空间存储哈希映射，以及 O(h)（其中 h 是树的高度）的空间表示递归时栈空间。这里 h &lt; n，所以总空间复杂度为 O(n)。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var inorderMap: [Int: Int] &#x3D; [:]</span><br><span class="line"></span><br><span class="line">    func buildTree(_ preorder: [Int], _ inorder: [Int]) -&gt; TreeNode? &#123;</span><br><span class="line">        let count &#x3D; preorder.count</span><br><span class="line">        &#x2F;&#x2F; 这一步是为了节省时间 但是增加了空间占用</span><br><span class="line">        for (index, val) in inorder.enumerated() &#123;</span><br><span class="line">            inorderMap[val] &#x3D; index</span><br><span class="line">        &#125;</span><br><span class="line">        return myBuildTree(preorder, inorder, 0, count - 1, 0, count - 1)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func myBuildTree(_ preorder: [Int], _ inorder: [Int], _ preorderLeft: Int, _ preorderRight: Int, _ inorderLeft: Int, _ inorderRight: Int) -&gt; TreeNode? &#123;</span><br><span class="line">        if preorderLeft &gt; preorderRight &#123;</span><br><span class="line">            return nil</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 前序遍历的第一个节点就是根节点</span><br><span class="line">        let preorderRoot &#x3D; preorderLeft</span><br><span class="line">        &#x2F;&#x2F; 找出中序遍历的根节点位置</span><br><span class="line">        let inorderRoot &#x3D; inorderMap[preorder[preorderRoot]]!</span><br><span class="line">        &#x2F;&#x2F; 先把根节点建立出来</span><br><span class="line">        let root &#x3D; TreeNode(preorder[preorderRoot])</span><br><span class="line">        &#x2F;&#x2F; 左子树的节点数目</span><br><span class="line">        let leftTreeCount &#x3D; inorderRoot - inorderLeft</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 递归地构造左子树，并连接到根节点</span><br><span class="line">        &#x2F;&#x2F; 前序遍历中从 [preorderLeft + 1 开始的 leftTreeCount 个元素就是 当前 root 左子树的所有节点</span><br><span class="line">        &#x2F;&#x2F; 中序遍历中从 [inorderLeft 开始到 inorderRoot - 1]  就是当前 root 左子树的 所有节点</span><br><span class="line"></span><br><span class="line">        root.left &#x3D; myBuildTree(preorder, inorder, preorderLeft + 1, preorderLeft + leftTreeCount, inorderLeft, inorderRoot - 1)</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 递归地构造右子树，并连接到根节点</span><br><span class="line">        &#x2F;&#x2F; 先序遍历中「从 左边界+1+左子树节点数目 开始到 右边界」的元素就对应了中序遍历中「从 根节点定位+1 到 右边界」的元素</span><br><span class="line">        &#x2F;&#x2F; 前序遍历中从 [preorderRoot + 1(这个1是根节点的长度) + leftTreeCount 到 preorderRight] 是当前 root 右子树的所有节点</span><br><span class="line">        &#x2F;&#x2F; 中序遍历中从 [inorderRoot + 1 到 inorderRight] 是当前 root 右子树的所有节点</span><br><span class="line">        root.right &#x3D; myBuildTree(preorder, inorder, preorderRoot + 1 + leftTreeCount, preorderRight, inorderRoot + 1, inorderRight)</span><br><span class="line"></span><br><span class="line">        return root</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>226. 翻转二叉树 - 简单</title>
     <url>/2021/02/24/2000-017-226.%20%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
     <content><![CDATA[<h1 id="226-翻转二叉树"><a href="#226-翻转二叉树" class="headerlink" title="226. 翻转二叉树"></a><a class="link"   href="https://leetcode-cn.com/problems/invert-binary-tree/" >226. 翻转二叉树<i class="fas fa-external-link-alt"></i></a></h1><p><img  
@@ -1490,25 +1509,6 @@
 <li>空间复杂度<br>O(n)</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 从叶子节点开始反转的</span><br><span class="line">    func invertTree(_ root: TreeNode?) -&gt; TreeNode? &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return nil &#125;</span><br><span class="line">        let left &#x3D; invertTree(root.left)</span><br><span class="line">        let right &#x3D; invertTree(root.right)</span><br><span class="line">        root.left &#x3D; right</span><br><span class="line">        root.right &#x3D; left</span><br><span class="line">        return root</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>105. 从前序与中序遍历序列构造二叉树 - 中等</title>
-    <url>/2021/02/24/2000-018-105.%20%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
-    <content><![CDATA[<h1 id="105-从前序与中序遍历序列构造二叉树"><a href="#105-从前序与中序遍历序列构造二叉树" class="headerlink" title="105. 从前序与中序遍历序列构造二叉树"></a><a class="link"   href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" >105. 从前序与中序遍历序列构造二叉树<i class="fas fa-external-link-alt"></i></a></h1><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://files.catbox.moe/zn7zcr.png"
-                      alt="105. 从前序与中序遍历序列构造二叉树"
-                ></p>
-<h1 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h1><ul>
-<li>时间复杂度<br>O(n) n 是节点的个数，每个节点都访问一次</li>
-<li>空间复杂度<br>O(n) 除去返回的答案需要的 O(n) 空间之外，我们还需要使用 O(n) 的空间存储哈希映射，以及 O(h)（其中 h 是树的高度）的空间表示递归时栈空间。这里 h &lt; n，所以总空间复杂度为 O(n)。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var inorderMap: [Int: Int] &#x3D; [:]</span><br><span class="line"></span><br><span class="line">    func buildTree(_ preorder: [Int], _ inorder: [Int]) -&gt; TreeNode? &#123;</span><br><span class="line">        let count &#x3D; preorder.count</span><br><span class="line">        &#x2F;&#x2F; 这一步是为了节省时间 但是增加了空间占用</span><br><span class="line">        for (index, val) in inorder.enumerated() &#123;</span><br><span class="line">            inorderMap[val] &#x3D; index</span><br><span class="line">        &#125;</span><br><span class="line">        return myBuildTree(preorder, inorder, 0, count - 1, 0, count - 1)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func myBuildTree(_ preorder: [Int], _ inorder: [Int], _ preorderLeft: Int, _ preorderRight: Int, _ inorderLeft: Int, _ inorderRight: Int) -&gt; TreeNode? &#123;</span><br><span class="line">        if preorderLeft &gt; preorderRight &#123;</span><br><span class="line">            return nil</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 前序遍历的第一个节点就是根节点</span><br><span class="line">        let preorderRoot &#x3D; preorderLeft</span><br><span class="line">        &#x2F;&#x2F; 找出中序遍历的根节点位置</span><br><span class="line">        let inorderRoot &#x3D; inorderMap[preorder[preorderRoot]]!</span><br><span class="line">        &#x2F;&#x2F; 先把根节点建立出来</span><br><span class="line">        let root &#x3D; TreeNode(preorder[preorderRoot])</span><br><span class="line">        &#x2F;&#x2F; 左子树的节点数目</span><br><span class="line">        let leftTreeCount &#x3D; inorderRoot - inorderLeft</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 递归地构造左子树，并连接到根节点</span><br><span class="line">        &#x2F;&#x2F; 前序遍历中从 [preorderLeft + 1 开始的 leftTreeCount 个元素就是 当前 root 左子树的所有节点</span><br><span class="line">        &#x2F;&#x2F; 中序遍历中从 [inorderLeft 开始到 inorderRoot - 1]  就是当前 root 左子树的 所有节点</span><br><span class="line"></span><br><span class="line">        root.left &#x3D; myBuildTree(preorder, inorder, preorderLeft + 1, preorderLeft + leftTreeCount, inorderLeft, inorderRoot - 1)</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 递归地构造右子树，并连接到根节点</span><br><span class="line">        &#x2F;&#x2F; 先序遍历中「从 左边界+1+左子树节点数目 开始到 右边界」的元素就对应了中序遍历中「从 根节点定位+1 到 右边界」的元素</span><br><span class="line">        &#x2F;&#x2F; 前序遍历中从 [preorderRoot + 1(这个1是根节点的长度) + leftTreeCount 到 preorderRight] 是当前 root 右子树的所有节点</span><br><span class="line">        &#x2F;&#x2F; 中序遍历中从 [inorderRoot + 1 到 inorderRight] 是当前 root 右子树的所有节点</span><br><span class="line">        root.right &#x3D; myBuildTree(preorder, inorder, preorderRoot + 1 + leftTreeCount, preorderRight, inorderRoot + 1, inorderRight)</span><br><span class="line"></span><br><span class="line">        return root</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode</category>
@@ -1574,6 +1574,7 @@
 <h1 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h1><h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>前序遍历首先访问根节点，然后遍历左子树，最后遍历右子树。</p>
 <h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p>中序遍历是先遍历左子树，然后访问根节点，然后遍历右子树。</p>
 <h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><p>后序遍历是先遍历左子树，然后遍历右子树，最后访问树的根节点。</p>
+<h1 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h1><p>一棵深度为 k 的有 n 个结点的二叉树，对树中的结点按从上至下、从左到右的顺序进行编号，如果编号为 i（1≤i≤n）的结点与满二叉树中编号为 i 的结点在二叉树中的位置相同，则这棵二叉树称为完全二叉树。</p>
 ]]></content>
       <categories>
         <category>数据结构</category>
@@ -1583,6 +1584,22 @@
         <tag>二叉树</tag>
         <tag>二叉树遍历</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>位运算</title>
+    <url>/2021/02/28/2000-%E4%BD%8D%E8%BF%90%E7%AE%97/</url>
+    <content><![CDATA[<h1 id="左移运算-lt-lt"><a href="#左移运算-lt-lt" class="headerlink" title="左移运算 &lt;&lt;"></a>左移运算 &lt;&lt;</h1><p>3 &lt;&lt; 2，则是将数字 3 左移 2 位</p>
+<h2 id="计算过程："><a href="#计算过程：" class="headerlink" title="计算过程："></a>计算过程：</h2><p>3 &lt;&lt; 2 首先把 3 转换为二进制数字 0000 0011，然后把该数字高位(左侧)的两个零移出，其他的数字都朝左平移 2 位，最后在低位(右侧)的两个空位补零。则得到的最终结果是 0000 1100，则转换为十进制是 12。</p>
+<h2 id="数学意义"><a href="#数学意义" class="headerlink" title="数学意义:"></a>数学意义:</h2><p>在数字没有溢出的前提下，对于正数和负数，左移一位都相当于乘以 2 的 1 次方，左移 n 位就相当于乘以 2 的 n 次方。</p>
+<h1 id="amp-与运算"><a href="#amp-与运算" class="headerlink" title="&amp; 与运算"></a>&amp; 与运算</h1><p>参加运算的两个数据，按二进制位进行“与”运算。<br>运算规则：0&amp;0=0;0&amp;1=0;1&amp;0=0;1&amp;1=1;<br>即：两位同时为“1”，结果才为“1”，否则为 0<br>例如：3&amp;5 即 0000 0011 &amp; 0000 0101 = 0000 0001 因此，3&amp;5 的值得 1。</p>
+<h1 id="十进制转二进制"><a href="#十进制转二进制" class="headerlink" title="十进制转二进制"></a>十进制转二进制</h1><p>用 2 整除十进制整数，可以得到一个商和余数；再用 2 去除商，又会得到一个商和余数，如此进行，直到商为小于 1 时为止，然后把先得到的余数作为二进制数的低位有效位，后得到的余数作为二进制数的高位有效位，依次排列起来。</p>
+<blockquote>
+<p><a class="link"   href="https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6" >https://baike.baidu.com/item/二进制<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
   </entry>
   <entry>
     <title>Dart 基础之 类、set、get、构造函数、方法</title>
@@ -1643,20 +1660,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Dart abstract 抽象类</title>
-    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%805/</url>
-    <content><![CDATA[<h1 id="抽象类-相当于协议-接口"><a href="#抽象类-相当于协议-接口" class="headerlink" title="抽象类 相当于协议 接口"></a>抽象类 相当于协议 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">  &#x2F;&#x2F;抽象方法 只有方法名 没有具体实现</span><br><span class="line">  run();</span><br><span class="line"></span><br><span class="line">  String name;</span><br><span class="line"></span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;普通方法&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Animal-an-Animal-抽象类-不能被实例化"><a href="#Animal-an-Animal-抽象类-不能被实例化" class="headerlink" title="Animal an = Animal();   //抽象类 不能被实例化"></a>Animal an = Animal();   //抽象类 不能被实例化</h2><h1 id="继承抽象类"><a href="#继承抽象类" class="headerlink" title="继承抽象类"></a>继承抽象类</h1><blockquote>
-<p>继承自抽象类必须实现抽象方法     继承自抽象类的属性不是必须实现</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Dog extends Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小狗跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="implements-声明、with"><a href="#implements-声明、with" class="headerlink" title="implements 声明、with"></a>implements 声明、with</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Cat implements Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;我是🐱&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小🐱跑的快&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  String name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Duck with Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小鸭跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Dart</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Dart 多继承</title>
     <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%806/</url>
     <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">  printA() &#123;</span><br><span class="line">    print(&#39;AAAAA&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;A run&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B &#123;</span><br><span class="line">  printB() &#123;</span><br><span class="line">    print(&#39;BBBBBBBBB&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; B.bbb()&#123;&#125;    作为 minxins 的类不能有构造函数</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;B run&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1666,6 +1669,20 @@
 <h1 id="继承-mixins-混入"><a href="#继承-mixins-混入" class="headerlink" title="继承 + mixins 混入"></a>继承 + mixins 混入</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class X extends Person with A, B &#123;</span><br><span class="line">  X.aa() : super.aa();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="A-和-B-共有的方法后继承的覆盖之前的"><a href="#A-和-B-共有的方法后继承的覆盖之前的" class="headerlink" title="A 和 B 共有的方法后继承的覆盖之前的"></a>A 和 B 共有的方法后继承的覆盖之前的</h1>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Dart abstract 抽象类</title>
+    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%805/</url>
+    <content><![CDATA[<h1 id="抽象类-相当于协议-接口"><a href="#抽象类-相当于协议-接口" class="headerlink" title="抽象类 相当于协议 接口"></a>抽象类 相当于协议 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">  &#x2F;&#x2F;抽象方法 只有方法名 没有具体实现</span><br><span class="line">  run();</span><br><span class="line"></span><br><span class="line">  String name;</span><br><span class="line"></span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;普通方法&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Animal-an-Animal-抽象类-不能被实例化"><a href="#Animal-an-Animal-抽象类-不能被实例化" class="headerlink" title="Animal an = Animal();   //抽象类 不能被实例化"></a>Animal an = Animal();   //抽象类 不能被实例化</h2><h1 id="继承抽象类"><a href="#继承抽象类" class="headerlink" title="继承抽象类"></a>继承抽象类</h1><blockquote>
+<p>继承自抽象类必须实现抽象方法     继承自抽象类的属性不是必须实现</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Dog extends Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小狗跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="implements-声明、with"><a href="#implements-声明、with" class="headerlink" title="implements 声明、with"></a>implements 声明、with</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Cat implements Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;我是🐱&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小🐱跑的快&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  String name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Duck with Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小鸭跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Dart</category>
       </categories>
@@ -1733,6 +1750,17 @@
       </categories>
   </entry>
   <entry>
+    <title>Flutter 工程修复</title>
+    <url>/2020/12/04/400-Flutter%E5%B7%A5%E7%A8%8B%E4%BF%AE%E5%A4%8D/</url>
+    <content><![CDATA[<p>Flutter工程 误删iOS、误删Android等文件时</p>
+<p>解决方案</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">打开终端输入</span><br><span class="line">flutter create 工程目录</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Flutter</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Flutter 配置相关</title>
     <url>/2020/12/03/400-Flutter-%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%85%B3/</url>
     <content><![CDATA[<h3 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h3><blockquote>
@@ -1752,11 +1780,17 @@
       </categories>
   </entry>
   <entry>
-    <title>Flutter 工程修复</title>
-    <url>/2020/12/04/400-Flutter%E5%B7%A5%E7%A8%8B%E4%BF%AE%E5%A4%8D/</url>
-    <content><![CDATA[<p>Flutter工程 误删iOS、误删Android等文件时</p>
-<p>解决方案</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">打开终端输入</span><br><span class="line">flutter create 工程目录</span><br></pre></td></tr></table></figure>
+    <title>Flutter 组件 AspectRatio、Card</title>
+    <url>/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6AspectRatio%E3%80%81Card/</url>
+    <content><![CDATA[<h1 id="AspectRatio"><a href="#AspectRatio" class="headerlink" title="AspectRatio"></a>AspectRatio</h1><blockquote>
+<p>设置自身比例</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AspectRatio(</span><br><span class="line">        aspectRatio: 5.0 &#x2F; 1.0,</span><br><span class="line">        child: Container(</span><br><span class="line">          child: Text(</span><br><span class="line">            &#39;AspectRatio 宽高比 5&#x2F;1&#39;,</span><br><span class="line">            textAlign: TextAlign.center,</span><br><span class="line">            style: TextStyle(fontSize: 30),</span><br><span class="line">          ),</span><br><span class="line">          color: Colors.greenAccent,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br></pre></td></tr></table></figure>
+
+<h1 id="Card"><a href="#Card" class="headerlink" title="Card"></a>Card</h1><blockquote>
+<p>卡片样式</p>
+</blockquote>
+<p>```<br>Card(<br>      margin: EdgeInsets.all(10),<br>      shape: RoundedRectangleBorder(<br>          side: BorderSide(color: Colors.orange, width: 2),<br>          borderRadius: BorderRadius.circular(10)),<br>      child: Column(<br>        children: [<br>          AspectRatio(<br>            aspectRatio: 16 / 9,<br>            child: Image.network(<br>              randomImgSrc(),<br>              fit: BoxFit.cover,<br>            ),<br>          ),<br>          Padding(<br>            padding: EdgeInsets.all(12),<br>            child: Row(<br>              crossAxisAlignment: CrossAxisAlignment.baseline,<br>              children: [<br>                ClipOval(<br>                  child: Image.network(randomImgSrc(),<br>                      width: 60, fit: BoxFit.cover),<br>                ),<br>                Container(<br>                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),<br>                  height: 60,<br>                  child: Stack(<br>                    children: [<br>                      Align(<br>                        alignment: Alignment.topLeft,<br>                        child: Text(<br>                          ‘我是一只大猫’,<br>                          style: TextStyle(<br>                              fontWeight: FontWeight.bold, fontSize: 22),<br>                        ),<br>                      ),<br>                      Align(<br>                        alignment: Alignment.bottomLeft,<br>                        child: Text(‘啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦’),<br>                      )<br>                    ],<br>                  ),<br>                ),<br>                CircleAvatar(<br>                  backgroundImage: NetworkImage(randomImgSrc()),<br>                ),<br>              ],<br>            ),<br>          ),<br>        ],<br>      ),<br>    );<br>``</p>
 ]]></content>
       <categories>
         <category>Flutter</category>
@@ -1769,23 +1803,6 @@
 <p>地址为 <a class="link"   href="https://pub.flutter-io.cn/packages" >https://pub.flutter-io.cn/packages<i class="fas fa-external-link-alt"></i></a></p>
 </blockquote>
 <p><a class="link"   href="https://pub.flutter-io.cn/packages" >点我前往查询<i class="fas fa-external-link-alt"></i></a></p>
-]]></content>
-      <categories>
-        <category>Flutter</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Flutter 组件 AspectRatio、Card</title>
-    <url>/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6AspectRatio%E3%80%81Card/</url>
-    <content><![CDATA[<h1 id="AspectRatio"><a href="#AspectRatio" class="headerlink" title="AspectRatio"></a>AspectRatio</h1><blockquote>
-<p>设置自身比例</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AspectRatio(</span><br><span class="line">        aspectRatio: 5.0 &#x2F; 1.0,</span><br><span class="line">        child: Container(</span><br><span class="line">          child: Text(</span><br><span class="line">            &#39;AspectRatio 宽高比 5&#x2F;1&#39;,</span><br><span class="line">            textAlign: TextAlign.center,</span><br><span class="line">            style: TextStyle(fontSize: 30),</span><br><span class="line">          ),</span><br><span class="line">          color: Colors.greenAccent,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br></pre></td></tr></table></figure>
-
-<h1 id="Card"><a href="#Card" class="headerlink" title="Card"></a>Card</h1><blockquote>
-<p>卡片样式</p>
-</blockquote>
-<p>```<br>Card(<br>      margin: EdgeInsets.all(10),<br>      shape: RoundedRectangleBorder(<br>          side: BorderSide(color: Colors.orange, width: 2),<br>          borderRadius: BorderRadius.circular(10)),<br>      child: Column(<br>        children: [<br>          AspectRatio(<br>            aspectRatio: 16 / 9,<br>            child: Image.network(<br>              randomImgSrc(),<br>              fit: BoxFit.cover,<br>            ),<br>          ),<br>          Padding(<br>            padding: EdgeInsets.all(12),<br>            child: Row(<br>              crossAxisAlignment: CrossAxisAlignment.baseline,<br>              children: [<br>                ClipOval(<br>                  child: Image.network(randomImgSrc(),<br>                      width: 60, fit: BoxFit.cover),<br>                ),<br>                Container(<br>                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),<br>                  height: 60,<br>                  child: Stack(<br>                    children: [<br>                      Align(<br>                        alignment: Alignment.topLeft,<br>                        child: Text(<br>                          ‘我是一只大猫’,<br>                          style: TextStyle(<br>                              fontWeight: FontWeight.bold, fontSize: 22),<br>                        ),<br>                      ),<br>                      Align(<br>                        alignment: Alignment.bottomLeft,<br>                        child: Text(‘啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦’),<br>                      )<br>                    ],<br>                  ),<br>                ),<br>                CircleAvatar(<br>                  backgroundImage: NetworkImage(randomImgSrc()),<br>                ),<br>              ],<br>            ),<br>          ),<br>        ],<br>      ),<br>    );<br>``</p>
 ]]></content>
       <categories>
         <category>Flutter</category>
@@ -2261,6 +2278,28 @@
       </tags>
   </entry>
   <entry>
+    <title>iOS Widget 不显示无法添加、iOS Widget 加载网络图片</title>
+    <url>/2020/12/07/500-iOS-Widget-%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E6%B7%BB%E5%8A%A0-%E3%80%81iOS-Widget-%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<h3 id="Intent-Widget-开发"><a href="#Intent-Widget-开发" class="headerlink" title="Intent Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Static-Widget-开发"><a href="#Static-Widget-开发" class="headerlink" title="Static Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/84c180963ac6" >Static Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Demo下载"><a href="#Demo下载" class="headerlink" title="Demo下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo下载<i class="fas fa-external-link-alt"></i></a></h3><h1 id="Widget-在添加时找不到"><a href="#Widget-在添加时找不到" class="headerlink" title="Widget 在添加时找不到"></a>Widget 在添加时找不到</h1><p> 出现这种情况，可能是只配置了可编辑的 <code>Widget</code>。<br>导致<code>NSExtensionPointIdentifier</code>只有这一种类型 <code>com.apple.intents-service</code> 会被识别为 Siri 扩展。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>再添加一个不可编辑的 <code>Widget</code> 即可。不需要展示出，在 <code>@main</code>方法里不添加就好。<br>确定新添加的<code>NSExtensionPointIdentifier</code>类型为 <code>com.apple.widgetkit-extension</code> 。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-7fe44d27ed6af214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="plist"
+                ></p>
+<hr>
+<h1 id="Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步"><a href="#Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步" class="headerlink" title="Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步"></a>Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 同步下载图片，Widget 不能异步刷新</span><br><span class="line"></span><br><span class="line">funcgetImage(_imgUrlString:String) -&gt;UIImage? &#123;</span><br><span class="line"></span><br><span class="line"> guardletdata &#x3D;try?Data(contentsOf:URL(string: imgUrlString)!)else&#123;</span><br><span class="line"></span><br><span class="line">        print(&quot;图片下载失败&quot;)</span><br><span class="line"></span><br><span class="line"> returnnil&#125;</span><br><span class="line"></span><br><span class="line">    print(&quot;图片下载成功&quot;)</span><br><span class="line"></span><br><span class="line"> returnUIImage(data: data)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line"></span><br><span class="line">Image(uiImage:getImage(entry.imageUrlStr) ??UIImage(named:&quot;aaaa&quot;)!)</span><br><span class="line"></span><br><span class="line">                        .resizable()</span><br><span class="line"></span><br><span class="line">                        .frame(width:60,</span><br><span class="line"></span><br><span class="line">                               height:60,</span><br><span class="line"></span><br><span class="line">                               alignment: .center)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>Widget</tag>
+        <tag>iOS小组件</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>WKWebView 加载 html</title>
     <url>/2020/12/17/500-iOS-WKWebView-loadHTMLString-%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87-%E4%B8%BA%E5%9B%BE%E7%89%87%E6%B7%BB%E5%8A%A0%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6/</url>
     <content><![CDATA[<blockquote>
@@ -2286,28 +2325,6 @@
       </categories>
       <tags>
         <tag>WKWebView</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>iOS Widget 不显示无法添加、iOS Widget 加载网络图片</title>
-    <url>/2020/12/07/500-iOS-Widget-%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E6%B7%BB%E5%8A%A0-%E3%80%81iOS-Widget-%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87/</url>
-    <content><![CDATA[<h3 id="Intent-Widget-开发"><a href="#Intent-Widget-开发" class="headerlink" title="Intent Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/029c85bdf16b" >Intent Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Static-Widget-开发"><a href="#Static-Widget-开发" class="headerlink" title="Static Widget 开发"></a><a class="link"   href="https://www.jianshu.com/p/84c180963ac6" >Static Widget 开发<i class="fas fa-external-link-alt"></i></a></h3><h3 id="Demo下载"><a href="#Demo下载" class="headerlink" title="Demo下载"></a><a class="link"   href="https://github.com/xxxIxxxx/WidgetDemo" >Demo下载<i class="fas fa-external-link-alt"></i></a></h3><h1 id="Widget-在添加时找不到"><a href="#Widget-在添加时找不到" class="headerlink" title="Widget 在添加时找不到"></a>Widget 在添加时找不到</h1><p> 出现这种情况，可能是只配置了可编辑的 <code>Widget</code>。<br>导致<code>NSExtensionPointIdentifier</code>只有这一种类型 <code>com.apple.intents-service</code> 会被识别为 Siri 扩展。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>再添加一个不可编辑的 <code>Widget</code> 即可。不需要展示出，在 <code>@main</code>方法里不添加就好。<br>确定新添加的<code>NSExtensionPointIdentifier</code>类型为 <code>com.apple.widgetkit-extension</code> 。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://upload-images.jianshu.io/upload_images/2331323-7fe44d27ed6af214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-                      alt="plist"
-                ></p>
-<hr>
-<h1 id="Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步"><a href="#Widget-是不能做动画也不能异步刷新的，所以图片加载必须同步" class="headerlink" title="Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步"></a>Widget 是不能做动画也不能异步刷新的，所以图片加载必须同步</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; 同步下载图片，Widget 不能异步刷新</span><br><span class="line"></span><br><span class="line">funcgetImage(_imgUrlString:String) -&gt;UIImage? &#123;</span><br><span class="line"></span><br><span class="line"> guardletdata &#x3D;try?Data(contentsOf:URL(string: imgUrlString)!)else&#123;</span><br><span class="line"></span><br><span class="line">        print(&quot;图片下载失败&quot;)</span><br><span class="line"></span><br><span class="line"> returnnil&#125;</span><br><span class="line"></span><br><span class="line">    print(&quot;图片下载成功&quot;)</span><br><span class="line"></span><br><span class="line"> returnUIImage(data: data)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line"></span><br><span class="line">Image(uiImage:getImage(entry.imageUrlStr) ??UIImage(named:&quot;aaaa&quot;)!)</span><br><span class="line"></span><br><span class="line">                        .resizable()</span><br><span class="line"></span><br><span class="line">                        .frame(width:60,</span><br><span class="line"></span><br><span class="line">                               height:60,</span><br><span class="line"></span><br><span class="line">                               alignment: .center)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>Widget</tag>
-        <tag>iOS小组件</tag>
       </tags>
   </entry>
   <entry>
