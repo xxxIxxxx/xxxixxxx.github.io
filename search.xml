@@ -30,6 +30,22 @@
       </tags>
   </entry>
   <entry>
+    <title>Swift GCD 死锁</title>
+    <url>/2020/11/04/100-Swift-GCD-%E6%AD%BB%E9%94%81/</url>
+    <content><![CDATA[<h1 id="1-串行队列中，在异步任务中添加同步任务"><a href="#1-串行队列中，在异步任务中添加同步任务" class="headerlink" title="1. 串行队列中，在异步任务中添加同步任务"></a>1. 串行队列中，在异步任务中添加同步任务</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; 由于没有定义 attributes 所以是串行队列</span><br><span class="line">let queue &#x3D; DispatchQueue(label: &quot;myQueue&quot;)</span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;----- task 1 -------&quot;)</span><br><span class="line">    queue.sync &#123;</span><br><span class="line">        print(&quot;----- task 2 -------&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">⚠️解决方法</span><br><span class="line">&#x2F;&#x2F;&#x2F; 解决方法将串行改为并行</span><br><span class="line">let queue &#x3D; DispatchQueue(label: &quot;myQueue&quot;, attributes: DispatchQueue.Attributes.concurrent)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="2-主线程同步"><a href="#2-主线程同步" class="headerlink" title="2. 主线程同步"></a>2. 主线程同步</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let queue &#x3D; DispatchQueue.main</span><br><span class="line">queue.sync &#123;</span><br><span class="line">    print(&quot;----- task 1 -------&quot;)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>GCD</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Swift GCD 的串行队列与并行队列</title>
     <url>/2020/11/07/100-Swift-GCD-%E7%9A%84%E4%B8%B2%E8%A1%8C%E9%98%9F%E5%88%97%E4%B8%8E%E5%B9%B6%E8%A1%8C%E9%98%9F%E5%88%97/</url>
     <content><![CDATA[<table>
@@ -57,22 +73,6 @@
 <h1 id="串行队列异步任务不会阻塞线程，同步会阻塞当前线程，执行顺序按添加顺序"><a href="#串行队列异步任务不会阻塞线程，同步会阻塞当前线程，执行顺序按添加顺序" class="headerlink" title="串行队列异步任务不会阻塞线程，同步会阻塞当前线程，执行顺序按添加顺序"></a>串行队列异步任务不会阻塞线程，同步会阻塞当前线程，执行顺序按添加顺序</h1><h1 id="并行队列异步任务不会阻塞线程，同步会阻塞当前线程，同时执行，但会被同步阻塞"><a href="#并行队列异步任务不会阻塞线程，同步会阻塞当前线程，同时执行，但会被同步阻塞" class="headerlink" title="并行队列异步任务不会阻塞线程，同步会阻塞当前线程，同时执行，但会被同步阻塞"></a>并行队列异步任务不会阻塞线程，同步会阻塞当前线程，同时执行，但会被同步阻塞</h1><hr>
 <h1 id="串行队列"><a href="#串行队列" class="headerlink" title="串行队列"></a>串行队列</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let queue &#x3D; DispatchQueue(label: &quot;queue&quot;)</span><br><span class="line">print(&quot;------ 开始 -------&quot;)</span><br><span class="line">queue.async &#123;</span><br><span class="line">    Thread.sleep(forTimeInterval: 3)</span><br><span class="line">    print(&quot;------ async 1 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(&quot;------ async 1 不阻塞 -------&quot;)</span><br><span class="line"></span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;------ async 2 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">queue.sync &#123;</span><br><span class="line">    Thread.sleep(forTimeInterval: 3)</span><br><span class="line">    print(&quot;------ sync 1 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(&quot;------ 被 sync 1 阻塞 -------&quot;)</span><br><span class="line"></span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;------ async 3 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">------ 开始 -------</span><br><span class="line">------ async 1 不阻塞 -------</span><br><span class="line">------ async 1 -------</span><br><span class="line">------ async 2 -------</span><br><span class="line">------ sync 1 -------</span><br><span class="line">------ 被 sync 1 阻塞 -------</span><br><span class="line">------ async 3 -------</span><br></pre></td></tr></table></figure>
 <h1 id="并行队列"><a href="#并行队列" class="headerlink" title="并行队列"></a>并行队列</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let queue &#x3D; DispatchQueue(label: &quot;queue&quot;, attributes: DispatchQueue.Attributes.concurrent)</span><br><span class="line">print(&quot;------ 开始 -------&quot;)</span><br><span class="line">queue.async &#123;</span><br><span class="line">    Thread.sleep(forTimeInterval: 3)</span><br><span class="line">    print(&quot;------ async 1 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(&quot;------ async 1 不阻塞 -------&quot;)</span><br><span class="line"></span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;------ async 2 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">queue.sync &#123;</span><br><span class="line">    Thread.sleep(forTimeInterval: 5)</span><br><span class="line">    print(&quot;------ sync 1 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(&quot;------ 被 sync 1 阻塞 -------&quot;)</span><br><span class="line"></span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;------ async 3 -------&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">------ 开始 -------</span><br><span class="line">------ async 1 不阻塞 -------</span><br><span class="line">------ async 2 -------</span><br><span class="line">------ async 1 -------</span><br><span class="line">------ sync 1 -------</span><br><span class="line">------ 被 sync 1 阻塞 -------</span><br><span class="line">------ async 3 -------</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Swift</category>
-      </categories>
-      <tags>
-        <tag>GCD</tag>
-        <tag>多线程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Swift GCD 死锁</title>
-    <url>/2020/11/04/100-Swift-GCD-%E6%AD%BB%E9%94%81/</url>
-    <content><![CDATA[<h1 id="1-串行队列中，在异步任务中添加同步任务"><a href="#1-串行队列中，在异步任务中添加同步任务" class="headerlink" title="1. 串行队列中，在异步任务中添加同步任务"></a>1. 串行队列中，在异步任务中添加同步任务</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; 由于没有定义 attributes 所以是串行队列</span><br><span class="line">let queue &#x3D; DispatchQueue(label: &quot;myQueue&quot;)</span><br><span class="line">queue.async &#123;</span><br><span class="line">    print(&quot;----- task 1 -------&quot;)</span><br><span class="line">    queue.sync &#123;</span><br><span class="line">        print(&quot;----- task 2 -------&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">⚠️解决方法</span><br><span class="line">&#x2F;&#x2F;&#x2F; 解决方法将串行改为并行</span><br><span class="line">let queue &#x3D; DispatchQueue(label: &quot;myQueue&quot;, attributes: DispatchQueue.Attributes.concurrent)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h1 id="2-主线程同步"><a href="#2-主线程同步" class="headerlink" title="2. 主线程同步"></a>2. 主线程同步</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let queue &#x3D; DispatchQueue.main</span><br><span class="line">queue.sync &#123;</span><br><span class="line">    print(&quot;----- task 1 -------&quot;)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Swift</category>
@@ -151,6 +151,19 @@
       </categories>
   </entry>
   <entry>
+    <title>Swift 添加下标 subscript</title>
+    <url>/2020/11/23/100-Swift-%E6%B7%BB%E5%8A%A0%E4%B8%8B%E6%A0%87-subscript/</url>
+    <content><![CDATA[<h1 id="关键子-subscript"><a href="#关键子-subscript" class="headerlink" title="关键子 subscript "></a>关键子 <code>subscript </code></h1><p>参数和返回值可以是任意类型（<code>inout</code>输入输出除外）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct People &#123;</span><br><span class="line">    var name &#x3D; &quot;&quot;, age &#x3D; 0</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 给实例添加下标</span><br><span class="line">    subscript(n: String) -&gt; Int &#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            return age</span><br><span class="line">        &#125;</span><br><span class="line">        set &#123;</span><br><span class="line">            age &#x3D; newValue</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 给结构体添加下标</span><br><span class="line">    static subscript(name: String, age: Int) -&gt; People &#123;</span><br><span class="line">        People(name: name, age: age)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var a &#x3D; People(name: &quot;哈哈哈&quot;, age: 18)</span><br><span class="line">print(a[&quot;哈哈哈&quot;])&#x2F;&#x2F;18</span><br><span class="line">a[&quot;哈哈哈&quot;] &#x3D; 20</span><br><span class="line">print(a[&quot;哈哈哈&quot;])&#x2F;&#x2F;20</span><br><span class="line">let p &#x3D; People[&quot;哈喽&quot;, 20]</span><br><span class="line">print(p)&#x2F;&#x2F;People(name: &quot;哈喽&quot;, age: 20)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>下标</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Swift 的一些高阶函数 map、filter、reduce、flatMap、compactMap</title>
     <url>/2020/11/17/100-Swift-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-map-filter-reduce-flatMap-compactMap/</url>
     <content><![CDATA[<h1 id="map-对集合里的每一个元素进行操作，然后返回个新的集合"><a href="#map-对集合里的每一个元素进行操作，然后返回个新的集合" class="headerlink" title="map 对集合里的每一个元素进行操作，然后返回个新的集合"></a>map 对集合里的每一个元素进行操作，然后返回个新的集合</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let numbers &#x3D; [1, 3, 5, 7, 9]</span><br><span class="line">&#x2F;&#x2F;&#x2F; 对集合里的每一个元素进行操作，然后返回个新的集合</span><br><span class="line">print(numbers.map &#123; $0 * 10 &#125;)</span><br><span class="line">&#x2F;&#x2F; [10, 30, 50, 70, 90]</span><br></pre></td></tr></table></figure>
@@ -171,19 +184,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Swift 添加下标 subscript</title>
-    <url>/2020/11/23/100-Swift-%E6%B7%BB%E5%8A%A0%E4%B8%8B%E6%A0%87-subscript/</url>
-    <content><![CDATA[<h1 id="关键子-subscript"><a href="#关键子-subscript" class="headerlink" title="关键子 subscript "></a>关键子 <code>subscript </code></h1><p>参数和返回值可以是任意类型（<code>inout</code>输入输出除外）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct People &#123;</span><br><span class="line">    var name &#x3D; &quot;&quot;, age &#x3D; 0</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 给实例添加下标</span><br><span class="line">    subscript(n: String) -&gt; Int &#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            return age</span><br><span class="line">        &#125;</span><br><span class="line">        set &#123;</span><br><span class="line">            age &#x3D; newValue</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 给结构体添加下标</span><br><span class="line">    static subscript(name: String, age: Int) -&gt; People &#123;</span><br><span class="line">        People(name: name, age: age)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var a &#x3D; People(name: &quot;哈哈哈&quot;, age: 18)</span><br><span class="line">print(a[&quot;哈哈哈&quot;])&#x2F;&#x2F;18</span><br><span class="line">a[&quot;哈哈哈&quot;] &#x3D; 20</span><br><span class="line">print(a[&quot;哈哈哈&quot;])&#x2F;&#x2F;20</span><br><span class="line">let p &#x3D; People[&quot;哈喽&quot;, 20]</span><br><span class="line">print(p)&#x2F;&#x2F;People(name: &quot;哈喽&quot;, age: 20)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Swift</category>
-      </categories>
-      <tags>
-        <tag>下标</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Swift 类型转换</title>
     <url>/2020/12/21/100-Swift-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</url>
     <content><![CDATA[<h1 id="Swift-类型转换-as-的使用"><a href="#Swift-类型转换-as-的使用" class="headerlink" title="Swift 类型转换 as 的使用"></a>Swift 类型转换 as 的使用</h1><h2 id="if-let-as"><a href="#if-let-as" class="headerlink" title="if let as"></a>if let as</h2><p> 类型转换，此时 <code>btn</code> 是 <code>Any</code> 类型，使用 <code>as?</code> 将他尝试转为 <code>UIButton</code>类型。并赋值给 <code>a</code>。 实际开发中建议 <code>a</code> 与 <code>btn</code> 命名一致，这里为了便于区分</p>
@@ -191,6 +191,19 @@
 
 <h2 id="guard-let-as"><a href="#guard-let-as" class="headerlink" title="guard let as"></a>guard let as</h2><p>和 <code>if let as</code> 基本一致，只是当转换失败时提前退出。适用于一些异步回调里。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">guard let btn &#x3D; btn as? UIButton else &#123; return &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>第三方库提示</title>
+    <url>/2020/11/11/100-Swift%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E3%80%81%E4%BB%A3%E7%A0%81%E4%B8%8D%E6%8F%90%E7%A4%BA/</url>
+    <content><![CDATA[<h4 id="1-像OC的pch文件一样导入第三方库"><a href="#1-像OC的pch文件一样导入第三方库" class="headerlink" title="1.像OC的pch文件一样导入第三方库"></a>1.像OC的pch文件一样导入第三方库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">创建一个Swift文件，在导入的库前添加 @_exported</span><br><span class="line">🌰</span><br><span class="line"></span><br><span class="line">@_exported import Alamofire</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="2-Swift导入的第三方库代码没提示"><a href="#2-Swift导入的第三方库代码没提示" class="headerlink" title="2.Swift导入的第三方库代码没提示"></a>2.Swift导入的第三方库代码没提示</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.选择target </span><br><span class="line">2.选择Build Settings </span><br><span class="line">3.搜索 User Header Search Paths</span><br><span class="line">4.填写 $(PODS_ROOT)，并设置为“recursive”  </span><br></pre></td></tr></table></figure>
+
+
+
 ]]></content>
       <categories>
         <category>Swift</category>
@@ -229,19 +242,6 @@
         <tag>Protocol</tag>
         <tag>Extension</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>第三方库提示</title>
-    <url>/2020/11/11/100-Swift%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E3%80%81%E4%BB%A3%E7%A0%81%E4%B8%8D%E6%8F%90%E7%A4%BA/</url>
-    <content><![CDATA[<h4 id="1-像OC的pch文件一样导入第三方库"><a href="#1-像OC的pch文件一样导入第三方库" class="headerlink" title="1.像OC的pch文件一样导入第三方库"></a>1.像OC的pch文件一样导入第三方库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">创建一个Swift文件，在导入的库前添加 @_exported</span><br><span class="line">🌰</span><br><span class="line"></span><br><span class="line">@_exported import Alamofire</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="2-Swift导入的第三方库代码没提示"><a href="#2-Swift导入的第三方库代码没提示" class="headerlink" title="2.Swift导入的第三方库代码没提示"></a>2.Swift导入的第三方库代码没提示</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.选择target </span><br><span class="line">2.选择Build Settings </span><br><span class="line">3.搜索 User Header Search Paths</span><br><span class="line">4.填写 $(PODS_ROOT)，并设置为“recursive”  </span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <categories>
-        <category>Swift</category>
-      </categories>
   </entry>
   <entry>
     <title>Swift获取值的类型</title>
@@ -326,28 +326,6 @@
       </tags>
   </entry>
   <entry>
-    <title>TCP 中常见的拥塞控制算法有哪些？</title>
-    <url>/2021/02/05/1000-002TCP%20%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
-    <content><![CDATA[<h1 id="TCP-中常见的拥塞控制算法有哪些？"><a href="#TCP-中常见的拥塞控制算法有哪些？" class="headerlink" title="TCP 中常见的拥塞控制算法有哪些？"></a>TCP 中常见的拥塞控制算法有哪些？</h1><h1 id="TCP-Tahoe-Reno"><a href="#TCP-Tahoe-Reno" class="headerlink" title="TCP Tahoe/Reno"></a>TCP Tahoe/Reno</h1><p>最初的实现，包括慢启动、拥塞避免两个部分。基于重传超时（retransmission timeout/RTO）和重复确认为条件判断是否发生了丢包。两者的区别在于：Tahoe算法下如果收到三次重复确认，就进入快重传立即重发丢失的数据包，同时将慢启动阈值设置为当前拥塞窗口的一半，将拥塞窗口设置为1MSS，进入慢启动状态；而Reno算法如果收到三次重复确认，就进入快重传，但不进入慢启动状态，而是直接将拥塞窗口减半，进入拥塞控制阶段，这称为“快恢复”。<br>而Tahoe和Reno算法在出现RTO时的措施一致，都是将拥塞窗口降为1个MSS，然后进入慢启动阶段。</p>
-<h1 id="TCP-Vegas"><a href="#TCP-Vegas" class="headerlink" title="TCP Vegas"></a>TCP Vegas</h1><p>TCP Vegas算法由 Lawrence Brakmo 和 Larry L. Peterson 在1994年提出，它和其他拥塞控制算法的不同之处在于Vegas算法并不急于丢包来判断是否发生了拥塞，而是通过数据包延迟来判断。Vegas通过RTT（roundtrip time）来决定增加或者减小拥塞窗口，它能够将拥塞要发生时就避免拥塞，而不是等到拥塞已经发生之后再减小发送速度，因此能够减小重传和超时的几率。Vegas算法与其他算法（比如Reno）共存时，会由于比其他算法更先降低发送速率而出现公平性问题。</p>
-<h1 id="TCP-New-Reno"><a href="#TCP-New-Reno" class="headerlink" title="TCP New Reno"></a>TCP New Reno</h1><p> TCP New Reno主要改进了TCP Reno中快速恢复阶段的重传。<br>在Reno的快恢复中，一旦出现3次重复确认，TCP发送方会重发数据包并设置定时器等待该重发数据包被确认。当重发的数据包被确认后，就立即退出快速恢复阶段，进入拥塞控制阶段。但如果一次拥塞中出现多个丢包，Reno会误以为发生了多次拥塞而重复减小拥塞窗口导致发送速率下降。<br>而在New Reno的快速恢复中，一旦出现3次重复确认，会记下出现重复确认时未确认的数据包的最大序列号，然后重发重复确认的数据包。如果有多个数据包丢失，则继续重发丢失的数据包，直到最大序列号的数据包被确认才推出快恢复阶段。<br>New Reno在低错误率时运行效率和“选择确认”（Selective ACKnowledgement，SACK）相当，在高错误率仍优于Reno。</p>
-<h1 id="TCP-BIC-CUBIC"><a href="#TCP-BIC-CUBIC" class="headerlink" title="TCP BIC/CUBIC"></a>TCP BIC/CUBIC</h1><p>TCP BIC（Binary Increase Congestion control）旨在优化高速高延迟网络（即“长肥网络”（long fat network，LFN））的拥塞控制，其拥塞窗口算法使用二分搜索算法尝试找到能长时间保持拥塞窗口最大值的值。Linux内核在2.6.8至2.6.18使用该算法作为默认TCP拥塞算法。<br>BIC算法采用二分查找的方式来确定最大的窗口大小：如果发生丢包时窗口大小是W1，那么最大窗口Wmax应该小于W1；这时将窗口缩小到W2（乘以一个系数，也就是乘法减小），那么可以预期W1&gt;Wmax&gt;W2；这时再将窗口大小设置为(W1+W2)2（也就是二分查找），即每收到一个ACK就把窗口大小设置为两个界限的中点。<br>如果窗口大小已经无限逼近W1，说明网络状况又变好了（可用带宽增加了），这时BIC会尝试往上寻找更大的Wmax。而在往上寻找时，BIC会镜像的利用逼近当前Wmax的路径去搜寻，也就是前面是如何先快后慢慢地靠近当前Wmax的，后面就反过来先慢后快地增长。<br>而CUBIC则是比BIC更温和和系统化的分支版本，其使用三次函数代替二分算法作为其拥塞窗口算法（因为实际上BIC的搜索曲线看起来就像一个三次函数，所以干脆就写一个三次函数来模拟曲线），并且使用函数拐点作为拥塞窗口的设置值。Linux内核在2.6.19后使用该算法作为默认TCP拥塞算法。</p>
-<h1 id="TCP-Westwood-Westwood"><a href="#TCP-Westwood-Westwood" class="headerlink" title="TCP Westwood/Westwood+"></a>TCP Westwood/Westwood+</h1><p>TCP Westwood改良自New Reno，不同于以往其他拥塞控制算法使用丢失来测量，其通过对确认包测量来确定一个“合适的发送速度”，并以此调整拥塞窗口和慢启动阈值。Westwood改良了慢启动阶段算法为“敏捷探测（Agile Probing）”，并且设计了一种持续探测拥塞窗口的方法来控制进入“敏捷探测”，使连接尽可能地使用更多的带宽。Westwood+使用更长的带宽估计间隔和优化的滤波器来修正Westwood对ACK压缩场景对带宽估计过高的问题。通过以上改良，TCP Westwood系列算法在有线网络和无线网络的拥塞控制上取得平衡，尤其研究中针对于无线通信网络上。</p>
-<h1 id="Compound-TCP"><a href="#Compound-TCP" class="headerlink" title="Compound TCP"></a>Compound TCP</h1><p>Compound TCP是微软自己实现的TCP拥塞控制算法，通过同时维护两个拥塞窗口，来实现在长肥网络有较好的性能而又不损失公平性。CTCP维护两个拥塞窗口：一个常规的AIMD（英语：Additive increase/multiplicative decrease）窗口，以及一个基于延迟的窗口，最终实际使用的滑动窗口大小是这两个窗口的和。AIMD窗口与Reno的增加方式相同；如果延迟小，基于延迟的窗口将迅速增加以提高网络的利用率。一旦经历了排队，延迟窗口将逐渐减小以补偿增加的AIMD窗口。这样的目的是保持两者的总和大致恒定，使算法估计带宽时延积的路径。</p>
-<h1 id="TCP-PRR"><a href="#TCP-PRR" class="headerlink" title="TCP PRR"></a>TCP PRR</h1><p>TCP PRR（TCP Proportional Rate Reduction ）是旨在恢复期间提高发送数据的准确性。该算法确保恢复后的拥塞窗口大小尽可能接近慢启动阈值</p>
-<h1 id="TCP-BBR"><a href="#TCP-BBR" class="headerlink" title="TCP BBR"></a>TCP BBR</h1><p>TCP BBR（Bottleneck Bandwidth and Round-trip propagation time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥塞算法是基于丢包来作为降低传输速率的信号，而BBR则基于模型主动探测。该算法使用网络最近出站数据分组当时的最大带宽和往返时间来建立网络的显式模型。数据包传输的每个累积或选择性确认用于生成记录在数据包传输过程和确认返回期间的时间内所传送数据量的采样率。该算法认为随着网络接口控制器逐渐进入千兆速度时，分组丢失不应该被认为是识别拥塞的主要决定因素，所以基于模型的拥塞控制算法能有更高的吞吐量和更低的延迟，可以用BBR来替代其他流行的拥塞算法，例如CUBIC。</p>
-<blockquote>
-<p>摘录于 <a class="link"   href="https://juejin.cn/post/6844904003654926350" >https://juejin.cn/post/6844904003654926350<i class="fas fa-external-link-alt"></i></a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>网络协议</category>
-      </categories>
-      <tags>
-        <tag>TCP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>简述 HTTPS 的加密与认证过程</title>
     <url>/2021/02/06/1000-003%E7%AE%80%E8%BF%B0%20HTTPS%20%E7%9A%84%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h1><ul>
@@ -378,6 +356,28 @@
       <tags>
         <tag>HTTPS</tag>
         <tag>SSL/TLS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TCP 中常见的拥塞控制算法有哪些？</title>
+    <url>/2021/02/05/1000-002TCP%20%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
+    <content><![CDATA[<h1 id="TCP-中常见的拥塞控制算法有哪些？"><a href="#TCP-中常见的拥塞控制算法有哪些？" class="headerlink" title="TCP 中常见的拥塞控制算法有哪些？"></a>TCP 中常见的拥塞控制算法有哪些？</h1><h1 id="TCP-Tahoe-Reno"><a href="#TCP-Tahoe-Reno" class="headerlink" title="TCP Tahoe/Reno"></a>TCP Tahoe/Reno</h1><p>最初的实现，包括慢启动、拥塞避免两个部分。基于重传超时（retransmission timeout/RTO）和重复确认为条件判断是否发生了丢包。两者的区别在于：Tahoe算法下如果收到三次重复确认，就进入快重传立即重发丢失的数据包，同时将慢启动阈值设置为当前拥塞窗口的一半，将拥塞窗口设置为1MSS，进入慢启动状态；而Reno算法如果收到三次重复确认，就进入快重传，但不进入慢启动状态，而是直接将拥塞窗口减半，进入拥塞控制阶段，这称为“快恢复”。<br>而Tahoe和Reno算法在出现RTO时的措施一致，都是将拥塞窗口降为1个MSS，然后进入慢启动阶段。</p>
+<h1 id="TCP-Vegas"><a href="#TCP-Vegas" class="headerlink" title="TCP Vegas"></a>TCP Vegas</h1><p>TCP Vegas算法由 Lawrence Brakmo 和 Larry L. Peterson 在1994年提出，它和其他拥塞控制算法的不同之处在于Vegas算法并不急于丢包来判断是否发生了拥塞，而是通过数据包延迟来判断。Vegas通过RTT（roundtrip time）来决定增加或者减小拥塞窗口，它能够将拥塞要发生时就避免拥塞，而不是等到拥塞已经发生之后再减小发送速度，因此能够减小重传和超时的几率。Vegas算法与其他算法（比如Reno）共存时，会由于比其他算法更先降低发送速率而出现公平性问题。</p>
+<h1 id="TCP-New-Reno"><a href="#TCP-New-Reno" class="headerlink" title="TCP New Reno"></a>TCP New Reno</h1><p> TCP New Reno主要改进了TCP Reno中快速恢复阶段的重传。<br>在Reno的快恢复中，一旦出现3次重复确认，TCP发送方会重发数据包并设置定时器等待该重发数据包被确认。当重发的数据包被确认后，就立即退出快速恢复阶段，进入拥塞控制阶段。但如果一次拥塞中出现多个丢包，Reno会误以为发生了多次拥塞而重复减小拥塞窗口导致发送速率下降。<br>而在New Reno的快速恢复中，一旦出现3次重复确认，会记下出现重复确认时未确认的数据包的最大序列号，然后重发重复确认的数据包。如果有多个数据包丢失，则继续重发丢失的数据包，直到最大序列号的数据包被确认才推出快恢复阶段。<br>New Reno在低错误率时运行效率和“选择确认”（Selective ACKnowledgement，SACK）相当，在高错误率仍优于Reno。</p>
+<h1 id="TCP-BIC-CUBIC"><a href="#TCP-BIC-CUBIC" class="headerlink" title="TCP BIC/CUBIC"></a>TCP BIC/CUBIC</h1><p>TCP BIC（Binary Increase Congestion control）旨在优化高速高延迟网络（即“长肥网络”（long fat network，LFN））的拥塞控制，其拥塞窗口算法使用二分搜索算法尝试找到能长时间保持拥塞窗口最大值的值。Linux内核在2.6.8至2.6.18使用该算法作为默认TCP拥塞算法。<br>BIC算法采用二分查找的方式来确定最大的窗口大小：如果发生丢包时窗口大小是W1，那么最大窗口Wmax应该小于W1；这时将窗口缩小到W2（乘以一个系数，也就是乘法减小），那么可以预期W1&gt;Wmax&gt;W2；这时再将窗口大小设置为(W1+W2)2（也就是二分查找），即每收到一个ACK就把窗口大小设置为两个界限的中点。<br>如果窗口大小已经无限逼近W1，说明网络状况又变好了（可用带宽增加了），这时BIC会尝试往上寻找更大的Wmax。而在往上寻找时，BIC会镜像的利用逼近当前Wmax的路径去搜寻，也就是前面是如何先快后慢慢地靠近当前Wmax的，后面就反过来先慢后快地增长。<br>而CUBIC则是比BIC更温和和系统化的分支版本，其使用三次函数代替二分算法作为其拥塞窗口算法（因为实际上BIC的搜索曲线看起来就像一个三次函数，所以干脆就写一个三次函数来模拟曲线），并且使用函数拐点作为拥塞窗口的设置值。Linux内核在2.6.19后使用该算法作为默认TCP拥塞算法。</p>
+<h1 id="TCP-Westwood-Westwood"><a href="#TCP-Westwood-Westwood" class="headerlink" title="TCP Westwood/Westwood+"></a>TCP Westwood/Westwood+</h1><p>TCP Westwood改良自New Reno，不同于以往其他拥塞控制算法使用丢失来测量，其通过对确认包测量来确定一个“合适的发送速度”，并以此调整拥塞窗口和慢启动阈值。Westwood改良了慢启动阶段算法为“敏捷探测（Agile Probing）”，并且设计了一种持续探测拥塞窗口的方法来控制进入“敏捷探测”，使连接尽可能地使用更多的带宽。Westwood+使用更长的带宽估计间隔和优化的滤波器来修正Westwood对ACK压缩场景对带宽估计过高的问题。通过以上改良，TCP Westwood系列算法在有线网络和无线网络的拥塞控制上取得平衡，尤其研究中针对于无线通信网络上。</p>
+<h1 id="Compound-TCP"><a href="#Compound-TCP" class="headerlink" title="Compound TCP"></a>Compound TCP</h1><p>Compound TCP是微软自己实现的TCP拥塞控制算法，通过同时维护两个拥塞窗口，来实现在长肥网络有较好的性能而又不损失公平性。CTCP维护两个拥塞窗口：一个常规的AIMD（英语：Additive increase/multiplicative decrease）窗口，以及一个基于延迟的窗口，最终实际使用的滑动窗口大小是这两个窗口的和。AIMD窗口与Reno的增加方式相同；如果延迟小，基于延迟的窗口将迅速增加以提高网络的利用率。一旦经历了排队，延迟窗口将逐渐减小以补偿增加的AIMD窗口。这样的目的是保持两者的总和大致恒定，使算法估计带宽时延积的路径。</p>
+<h1 id="TCP-PRR"><a href="#TCP-PRR" class="headerlink" title="TCP PRR"></a>TCP PRR</h1><p>TCP PRR（TCP Proportional Rate Reduction ）是旨在恢复期间提高发送数据的准确性。该算法确保恢复后的拥塞窗口大小尽可能接近慢启动阈值</p>
+<h1 id="TCP-BBR"><a href="#TCP-BBR" class="headerlink" title="TCP BBR"></a>TCP BBR</h1><p>TCP BBR（Bottleneck Bandwidth and Round-trip propagation time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥塞算法是基于丢包来作为降低传输速率的信号，而BBR则基于模型主动探测。该算法使用网络最近出站数据分组当时的最大带宽和往返时间来建立网络的显式模型。数据包传输的每个累积或选择性确认用于生成记录在数据包传输过程和确认返回期间的时间内所传送数据量的采样率。该算法认为随着网络接口控制器逐渐进入千兆速度时，分组丢失不应该被认为是识别拥塞的主要决定因素，所以基于模型的拥塞控制算法能有更高的吞吐量和更低的延迟，可以用BBR来替代其他流行的拥塞算法，例如CUBIC。</p>
+<blockquote>
+<p>摘录于 <a class="link"   href="https://juejin.cn/post/6844904003654926350" >https://juejin.cn/post/6844904003654926350<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>TCP</tag>
       </tags>
   </entry>
   <entry>
@@ -478,6 +478,35 @@
       </tags>
   </entry>
   <entry>
+    <title>UDP 有拥塞控制吗？</title>
+    <url>/2021/02/11/1000-008UDP/</url>
+    <content><![CDATA[<h1 id="UDP-有拥塞控制吗？"><a href="#UDP-有拥塞控制吗？" class="headerlink" title="UDP 有拥塞控制吗？"></a>UDP 有拥塞控制吗？</h1><ol>
+<li><strong>UDP 没有拥塞控制</strong>，网络出现拥塞不会使源主机的发送速率降低。这对某些实时应用是很重要的。</li>
+<li>UDP 支持一对一、一对多和多对的的交互通信。</li>
+<li>UDP 的首部开销小，只有8个字节，比TCP的20个字节的首部要短。</li>
+</ol>
+<h1 id="TCP-与-UDP-的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。"><a href="#TCP-与-UDP-的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。" class="headerlink" title="TCP 与 UDP 的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。"></a>TCP 与 UDP 的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。</h1><h1 id="UDP-概述"><a href="#UDP-概述" class="headerlink" title="UDP 概述"></a>UDP 概述</h1><p>UDP用户数据报协议，是面向无连接的通讯协议，UDP数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。<br>用户数据报协议 UDP 只在 IP 的数据报服务之上增加了很少一点的功能，这就是复用和分用的功能以及查错检测的功能。</p>
+<h1 id="UDP-的主要特点"><a href="#UDP-的主要特点" class="headerlink" title="UDP 的主要特点"></a>UDP 的主要特点</h1><ol>
+<li>UDP 是无连接的，即发送数据之前不需要建立连接(发送数据结束时也没有连接可释放)，减少了开销和发送数据之前的时延</li>
+<li>UDP 使用尽最大努力交付，即不保证可靠交付，主机不需要维持复杂的连接状态表</li>
+<li>UDP 是面向报文的，发送方的 UDP 对应用程序交下来的报文，在添加首部后就向下交付 IP 层。UDP 对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界</li>
+</ol>
+<h1 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h1><ol>
+<li>某些实时应用需要使用没有拥塞控制的 UDP，但很多的源主机同时都向网络发送高速率的实时视频流时，网络就有可能发生拥塞，导致大家都无法正常接收。</li>
+<li>还有一些使用 UDP 的实时应用，需要对 UDP 的不可靠传输进行适当的改进，以减少数据的丢失。应用进程可以在不影响应用的实时性的前提下，增加一些提高可靠性的措施，如采用前向纠错或重传已丢失的报文</li>
+</ol>
+<blockquote>
+<p><a class="link"   href="https://developer.aliyun.com/article/699136" >https://developer.aliyun.com/article/699136<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="https://www.runoob.com/w3cnote/summary-of-network.html#_label7" >https://www.runoob.com/w3cnote/summary-of-network.html#_label7<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>简述常见的 HTTP 状态码的含义（301，304，401，403）</title>
     <url>/2021/02/10/1000-007%E7%AE%80%E8%BF%B0%E5%B8%B8%E8%A7%81%E7%9A%84%20HTTP%20%E7%8A%B6%E6%80%81%E7%A0%81%E7%9A%84%E5%90%AB%E4%B9%89%EF%BC%88301%EF%BC%8C304%EF%BC%8C401%EF%BC%8C403%EF%BC%89/</url>
     <content><![CDATA[<h1 id="3-重定向"><a href="#3-重定向" class="headerlink" title="3** 重定向"></a>3** 重定向</h1><p><strong>300 Multiple Choice</strong><br>被请求的资源有一系列可供选择的回馈信息，每个都有自己特定的地址和浏览器驱动的商议信息。用户或浏览器能够自行选择一个首选的地址进行重定向。</p>
@@ -510,35 +539,6 @@
       <tags>
         <tag>HTTP</tag>
         <tag>状态码</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UDP 有拥塞控制吗？</title>
-    <url>/2021/02/11/1000-008UDP/</url>
-    <content><![CDATA[<h1 id="UDP-有拥塞控制吗？"><a href="#UDP-有拥塞控制吗？" class="headerlink" title="UDP 有拥塞控制吗？"></a>UDP 有拥塞控制吗？</h1><ol>
-<li><strong>UDP 没有拥塞控制</strong>，网络出现拥塞不会使源主机的发送速率降低。这对某些实时应用是很重要的。</li>
-<li>UDP 支持一对一、一对多和多对的的交互通信。</li>
-<li>UDP 的首部开销小，只有8个字节，比TCP的20个字节的首部要短。</li>
-</ol>
-<h1 id="TCP-与-UDP-的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。"><a href="#TCP-与-UDP-的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。" class="headerlink" title="TCP 与 UDP 的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。"></a>TCP 与 UDP 的区别：TCP是面向连接的，可靠的字节流服务；UDP是面向无连接的，不可靠的数据报服务。</h1><h1 id="UDP-概述"><a href="#UDP-概述" class="headerlink" title="UDP 概述"></a>UDP 概述</h1><p>UDP用户数据报协议，是面向无连接的通讯协议，UDP数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。<br>用户数据报协议 UDP 只在 IP 的数据报服务之上增加了很少一点的功能，这就是复用和分用的功能以及查错检测的功能。</p>
-<h1 id="UDP-的主要特点"><a href="#UDP-的主要特点" class="headerlink" title="UDP 的主要特点"></a>UDP 的主要特点</h1><ol>
-<li>UDP 是无连接的，即发送数据之前不需要建立连接(发送数据结束时也没有连接可释放)，减少了开销和发送数据之前的时延</li>
-<li>UDP 使用尽最大努力交付，即不保证可靠交付，主机不需要维持复杂的连接状态表</li>
-<li>UDP 是面向报文的，发送方的 UDP 对应用程序交下来的报文，在添加首部后就向下交付 IP 层。UDP 对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界</li>
-</ol>
-<h1 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h1><ol>
-<li>某些实时应用需要使用没有拥塞控制的 UDP，但很多的源主机同时都向网络发送高速率的实时视频流时，网络就有可能发生拥塞，导致大家都无法正常接收。</li>
-<li>还有一些使用 UDP 的实时应用，需要对 UDP 的不可靠传输进行适当的改进，以减少数据的丢失。应用进程可以在不影响应用的实时性的前提下，增加一些提高可靠性的措施，如采用前向纠错或重传已丢失的报文</li>
-</ol>
-<blockquote>
-<p><a class="link"   href="https://developer.aliyun.com/article/699136" >https://developer.aliyun.com/article/699136<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="https://www.runoob.com/w3cnote/summary-of-network.html#_label7" >https://www.runoob.com/w3cnote/summary-of-network.html#_label7<i class="fas fa-external-link-alt"></i></a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>网络协议</category>
-      </categories>
-      <tags>
-        <tag>UDP</tag>
       </tags>
   </entry>
   <entry>
@@ -644,38 +644,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HTTP 的方法有哪些？</title>
-    <url>/2021/02/17/1000-013HTTP%20%E7%9A%84%E6%96%B9%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
-    <content><![CDATA[<h1 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h1><p>GET方法请求一个指定资源的表示形式. 使用GET的请求应该只被用于获取数据.</p>
-<h1 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h1><p>HEAD方法请求一个与GET请求的响应相同的响应，但没有响应体.</p>
-<h1 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h1><p>POST方法用于将实体提交到指定的资源，通常导致在服务器上的状态变化或副作用. </p>
-<h1 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h1><p>PUT方法用请求有效载荷替换目标资源的所有当前表示。</p>
-<h1 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h1><p>DELETE方法删除指定的资源。</p>
-<h1 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h1><p>CONNECT方法建立一个到由目标资源标识的服务器的隧道。</p>
-<h1 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h1><p>OPTIONS方法用于描述目标资源的通信选项。</p>
-<h1 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h1><p>TRACE方法沿着到目标资源的路径执行一个消息环回测试。</p>
-<h1 id="PATCH"><a href="#PATCH" class="headerlink" title="PATCH"></a>PATCH</h1><p>PATCH方法用于对资源应用部分修改。</p>
-<h1 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h1><p>HTTP 定义了一组请求方法, 以表明要对给定资源执行的操作。指示针对给定资源要执行的期望动作. 虽然他们也可以是名词, 但这些请求方法有时被称为HTTP动词. 每一个请求方法都实现了不同的语义, 但一些共同的特征由一组共享：: 例如一个请求方法可以是 safe(安全), idempotent(幂等), 或 cacheable(可缓存).</p>
-<h2 id="safe-安全"><a href="#safe-安全" class="headerlink" title="safe(安全)"></a>safe(安全)</h2><p>如果说一个 HTTP 方法是安全的，是指这是个不会修改服务器的数据的方法。也就是说，这是一个对服务器只读操作的方法。这些方法是安全的：GET，HEAD 和 OPTIONS。所有安全的方法都是幂等的，有些不安全的方法如 PUT 和 DELETE 则不是。</p>
-<h2 id="idempotent-幂等"><a href="#idempotent-幂等" class="headerlink" title="idempotent(幂等)"></a>idempotent(幂等)</h2><p>一个HTTP方法是幂等的，指的是同样的请求被执行一次与连续执行多次的效果是一样的，服务器的状态也是一样的。换句话说就是，幂等方法不应该具有副作用（统计用途除外）。在正确实现的条件下，GET，HEAD，PUT和DELETE 等方法都是幂等的，而 POST 方法不是。所有的 safe 方法也都是幂等的。</p>
-<h2 id="cacheable-可缓存"><a href="#cacheable-可缓存" class="headerlink" title="cacheable(可缓存)"></a>cacheable(可缓存)</h2><p>可缓存的响应是可被缓存的HTTP 响应，它被存储以供稍后检索和使用，从而将新的请求保存在伺服器。不是所有的 HTTP 响应都可以被缓存，可以被缓存的 HTTP 响应需满足如下列条件:</p>
-<ul>
-<li>请求中使用的方法本身是可以被缓存的，如 GET 或 HEAD 方法。如果下达了新的指示，响应 POST 方法也可以被缓存，但这种实施方式极为罕见。其他方法，如： PUT 或 DELETE 都不可以被缓存，同样他们的处理结果也不可以。</li>
-<li>应用程式是会缓存已知的响应的状态码，并且被认为是可缓存的。这些可缓存的状态码如下： 200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 和 501.</li>
-<li>响应中没有指定的头部，如 Cache-Control，它可以阻止缓存。<br>请注意一些不缓存请求/响应到指定的 URI 可能会导致相同 URI 上以前的缓存响应失效。例如，  PUT 到 pageX.html 将使相同 URI 下所有的 GET 或 HEAD 请求缓存失效。</li>
-</ul>
-<blockquote>
-<p>摘录于 <a class="link"   href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods" >https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods<i class="fas fa-external-link-alt"></i></a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>网络协议</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>简述对称与非对称加密的概念</title>
     <url>/2021/02/16/1000-012%E7%AE%80%E8%BF%B0%E5%AF%B9%E7%A7%B0%E4%B8%8E%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%9A%84%E6%A6%82%E5%BF%B5/</url>
     <content><![CDATA[<h1 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h1><p>对称加密是最快速、最简单的一种加密方式，加密与解密用的是同样的密钥。对称加密有很多种算法，由于它效率很高，所以被广泛使用在很多加密协议的核心当中。</p>
@@ -705,33 +673,35 @@
       </tags>
   </entry>
   <entry>
-    <title>Cookie 和 Session 的关系和区别是什么？</title>
-    <url>/2021/02/18/1000-015Cookie%20%E5%92%8C%20Session%20%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/</url>
-    <content><![CDATA[<h1 id="Cookie-和-Session-的关系和区别"><a href="#Cookie-和-Session-的关系和区别" class="headerlink" title="Cookie 和 Session 的关系和区别"></a>Cookie 和 Session 的关系和区别</h1><ol>
-<li>Cookie 在客户端（浏览器），Session 在服务器端。 </li>
-<li>Cookie 的安全性一般，他人可通过分析存放在本地的 Cookie 并进行 Cookie 欺骗。在安全性第一的前提下，选择 Session 更优。重要交互信息比如权限等就要放在 Session 中，一般的信息记录放 Cookie 就好了。 </li>
-<li>单个 Cookie 保存的数据不能超过 4K，很多浏览器都限制一个站点最多保存 20 个 Cookie。 </li>
-<li>Session 可以放在文件、数据库或内存中，比如在使用 Node 时将 Session 保存在 redis 中。由于一定时间内它是保存在服务器上的，当访问增多时，会较大地占用服务器的性能。考虑到减轻服务器性能方面，应当适时使用 Cookie。 </li>
-<li>Session 的运行依赖 Session ID，而 Session ID 是存在 Cookie 中的，也就是说，如果浏览器禁用了 Cookie，Session 也会失效（但是可以通过其它方式实现，比如在 url 中传递 Session ID）。 </li>
-<li>用户验证这种场合一般会用 Session。因此，维持一个会话的核心就是客户端的唯一标识，即 Session ID。</li>
-</ol>
-<p>题外话，那么话说 Session Cookie 能被篡改么？ 理论上可以，只要改变了连接时的 Session ID 就可以了~</p>
-<h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p>Cookie 是客户端保存用户信息的一种机制，用来记录用户的一些信息。如何识别特定的客户呢？cookie 就可以做到。每次 HTTP 请求时，客户端都会发送相应的 Cookie 信息到服务端。它的过期时间可以任意设置，如果你不主动清除它，在很长一段时间里面都可以保留着，即便这之间你把电脑关机了。<br>既然它是存储在客户端的，换句话说通过某些手法我就可以篡改本地存储的信息来欺骗服务端的某些策略。</p>
-<h1 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h1><p>Session 是在无状态的 HTTP 协议下，服务端记录用户状态时用于标识具体用户的机制。它是在服务端保存的用来跟踪用户的状态的数据结构，可以保存在文件、数据库或者集群中。在浏览器关闭后这次的 Session 就消失了，下次打开就不再拥有这个 Session。其实并不是 Session 消失了，而是 Session ID 变了，服务器端可能还是存着你上次的 Session ID 及其 Session 信息，只是他们是无主状态，也许一段时间后会被删除。</p>
-<hr>
-<p>实际上 Cookie 与 Session 都是会话的一种方式。它们的典型使用场景比如 “购物车”，当你点击下单按钮时，服务端并不清楚具体用户的具体操作，为了标识并跟踪该用户，了解购物车中有几样物品，服务端通过为该用户创建 Cookie/Session 来获取这些信息。</p>
-<p>如果你的站点是多节点部署，使用 Nginx 做负载均衡，那么有可能会出现 Session 丢失的情况（比如，忽然就处于未登录状态）。这时可以使用 IP 负载均衡（IP 绑定 ip_hash，每个请求按访问 ip 的 hash 结果分配，这样每个访客固定访问一个后端服务器，可以解决 Session 的问题），或者将 Session 信息存储在集群中。在大型的网站中，一般会有专门的 Session 服务器集群，用来保存用户会话，这时可以使用缓存服务比如 Memcached 或者 Redis 之类的来存放 Session。</p>
-<p>目前大多数的应用都是用 Cookie 实现 Session 跟踪的。第一次创建 Session 时，服务端会通过在 HTTP 协议中反馈到客户端，需要在 Cookie 中记录一个 Session ID，以便今后每次请求时都可分辨你是谁。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？建议使用 URL 重写技术进行会话跟踪，即每次 HTTP 交互，URL 后面都被附加上诸如 sid=xxxxx 的参数，以便服务端依此识别用户。</p>
+    <title>HTTP 的方法有哪些？</title>
+    <url>/2021/02/17/1000-013HTTP%20%E7%9A%84%E6%96%B9%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
+    <content><![CDATA[<h1 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h1><p>GET方法请求一个指定资源的表示形式. 使用GET的请求应该只被用于获取数据.</p>
+<h1 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h1><p>HEAD方法请求一个与GET请求的响应相同的响应，但没有响应体.</p>
+<h1 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h1><p>POST方法用于将实体提交到指定的资源，通常导致在服务器上的状态变化或副作用. </p>
+<h1 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h1><p>PUT方法用请求有效载荷替换目标资源的所有当前表示。</p>
+<h1 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h1><p>DELETE方法删除指定的资源。</p>
+<h1 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h1><p>CONNECT方法建立一个到由目标资源标识的服务器的隧道。</p>
+<h1 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h1><p>OPTIONS方法用于描述目标资源的通信选项。</p>
+<h1 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h1><p>TRACE方法沿着到目标资源的路径执行一个消息环回测试。</p>
+<h1 id="PATCH"><a href="#PATCH" class="headerlink" title="PATCH"></a>PATCH</h1><p>PATCH方法用于对资源应用部分修改。</p>
+<h1 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h1><p>HTTP 定义了一组请求方法, 以表明要对给定资源执行的操作。指示针对给定资源要执行的期望动作. 虽然他们也可以是名词, 但这些请求方法有时被称为HTTP动词. 每一个请求方法都实现了不同的语义, 但一些共同的特征由一组共享：: 例如一个请求方法可以是 safe(安全), idempotent(幂等), 或 cacheable(可缓存).</p>
+<h2 id="safe-安全"><a href="#safe-安全" class="headerlink" title="safe(安全)"></a>safe(安全)</h2><p>如果说一个 HTTP 方法是安全的，是指这是个不会修改服务器的数据的方法。也就是说，这是一个对服务器只读操作的方法。这些方法是安全的：GET，HEAD 和 OPTIONS。所有安全的方法都是幂等的，有些不安全的方法如 PUT 和 DELETE 则不是。</p>
+<h2 id="idempotent-幂等"><a href="#idempotent-幂等" class="headerlink" title="idempotent(幂等)"></a>idempotent(幂等)</h2><p>一个HTTP方法是幂等的，指的是同样的请求被执行一次与连续执行多次的效果是一样的，服务器的状态也是一样的。换句话说就是，幂等方法不应该具有副作用（统计用途除外）。在正确实现的条件下，GET，HEAD，PUT和DELETE 等方法都是幂等的，而 POST 方法不是。所有的 safe 方法也都是幂等的。</p>
+<h2 id="cacheable-可缓存"><a href="#cacheable-可缓存" class="headerlink" title="cacheable(可缓存)"></a>cacheable(可缓存)</h2><p>可缓存的响应是可被缓存的HTTP 响应，它被存储以供稍后检索和使用，从而将新的请求保存在伺服器。不是所有的 HTTP 响应都可以被缓存，可以被缓存的 HTTP 响应需满足如下列条件:</p>
+<ul>
+<li>请求中使用的方法本身是可以被缓存的，如 GET 或 HEAD 方法。如果下达了新的指示，响应 POST 方法也可以被缓存，但这种实施方式极为罕见。其他方法，如： PUT 或 DELETE 都不可以被缓存，同样他们的处理结果也不可以。</li>
+<li>应用程式是会缓存已知的响应的状态码，并且被认为是可缓存的。这些可缓存的状态码如下： 200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 和 501.</li>
+<li>响应中没有指定的头部，如 Cache-Control，它可以阻止缓存。<br>请注意一些不缓存请求/响应到指定的 URI 可能会导致相同 URI 上以前的缓存响应失效。例如，  PUT 到 pageX.html 将使相同 URI 下所有的 GET 或 HEAD 请求缓存失效。</li>
+</ul>
 <blockquote>
-<p>摘录于 <a class="link"   href="https://ruby-china.org/topics/33313" >https://ruby-china.org/topics/33313<i class="fas fa-external-link-alt"></i></a></p>
+<p>摘录于 <a class="link"   href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods" >https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods<i class="fas fa-external-link-alt"></i></a></p>
 </blockquote>
 ]]></content>
       <categories>
         <category>网络协议</category>
       </categories>
       <tags>
-        <tag>Cookie</tag>
-        <tag>Session</tag>
+        <tag>HTTP</tag>
       </tags>
   </entry>
   <entry>
@@ -781,6 +751,36 @@
       </categories>
       <tags>
         <tag>JWT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cookie 和 Session 的关系和区别是什么？</title>
+    <url>/2021/02/18/1000-015Cookie%20%E5%92%8C%20Session%20%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/</url>
+    <content><![CDATA[<h1 id="Cookie-和-Session-的关系和区别"><a href="#Cookie-和-Session-的关系和区别" class="headerlink" title="Cookie 和 Session 的关系和区别"></a>Cookie 和 Session 的关系和区别</h1><ol>
+<li>Cookie 在客户端（浏览器），Session 在服务器端。 </li>
+<li>Cookie 的安全性一般，他人可通过分析存放在本地的 Cookie 并进行 Cookie 欺骗。在安全性第一的前提下，选择 Session 更优。重要交互信息比如权限等就要放在 Session 中，一般的信息记录放 Cookie 就好了。 </li>
+<li>单个 Cookie 保存的数据不能超过 4K，很多浏览器都限制一个站点最多保存 20 个 Cookie。 </li>
+<li>Session 可以放在文件、数据库或内存中，比如在使用 Node 时将 Session 保存在 redis 中。由于一定时间内它是保存在服务器上的，当访问增多时，会较大地占用服务器的性能。考虑到减轻服务器性能方面，应当适时使用 Cookie。 </li>
+<li>Session 的运行依赖 Session ID，而 Session ID 是存在 Cookie 中的，也就是说，如果浏览器禁用了 Cookie，Session 也会失效（但是可以通过其它方式实现，比如在 url 中传递 Session ID）。 </li>
+<li>用户验证这种场合一般会用 Session。因此，维持一个会话的核心就是客户端的唯一标识，即 Session ID。</li>
+</ol>
+<p>题外话，那么话说 Session Cookie 能被篡改么？ 理论上可以，只要改变了连接时的 Session ID 就可以了~</p>
+<h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p>Cookie 是客户端保存用户信息的一种机制，用来记录用户的一些信息。如何识别特定的客户呢？cookie 就可以做到。每次 HTTP 请求时，客户端都会发送相应的 Cookie 信息到服务端。它的过期时间可以任意设置，如果你不主动清除它，在很长一段时间里面都可以保留着，即便这之间你把电脑关机了。<br>既然它是存储在客户端的，换句话说通过某些手法我就可以篡改本地存储的信息来欺骗服务端的某些策略。</p>
+<h1 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h1><p>Session 是在无状态的 HTTP 协议下，服务端记录用户状态时用于标识具体用户的机制。它是在服务端保存的用来跟踪用户的状态的数据结构，可以保存在文件、数据库或者集群中。在浏览器关闭后这次的 Session 就消失了，下次打开就不再拥有这个 Session。其实并不是 Session 消失了，而是 Session ID 变了，服务器端可能还是存着你上次的 Session ID 及其 Session 信息，只是他们是无主状态，也许一段时间后会被删除。</p>
+<hr>
+<p>实际上 Cookie 与 Session 都是会话的一种方式。它们的典型使用场景比如 “购物车”，当你点击下单按钮时，服务端并不清楚具体用户的具体操作，为了标识并跟踪该用户，了解购物车中有几样物品，服务端通过为该用户创建 Cookie/Session 来获取这些信息。</p>
+<p>如果你的站点是多节点部署，使用 Nginx 做负载均衡，那么有可能会出现 Session 丢失的情况（比如，忽然就处于未登录状态）。这时可以使用 IP 负载均衡（IP 绑定 ip_hash，每个请求按访问 ip 的 hash 结果分配，这样每个访客固定访问一个后端服务器，可以解决 Session 的问题），或者将 Session 信息存储在集群中。在大型的网站中，一般会有专门的 Session 服务器集群，用来保存用户会话，这时可以使用缓存服务比如 Memcached 或者 Redis 之类的来存放 Session。</p>
+<p>目前大多数的应用都是用 Cookie 实现 Session 跟踪的。第一次创建 Session 时，服务端会通过在 HTTP 协议中反馈到客户端，需要在 Cookie 中记录一个 Session ID，以便今后每次请求时都可分辨你是谁。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？建议使用 URL 重写技术进行会话跟踪，即每次 HTTP 交互，URL 后面都被附加上诸如 sid=xxxxx 的参数，以便服务端依此识别用户。</p>
+<blockquote>
+<p>摘录于 <a class="link"   href="https://ruby-china.org/topics/33313" >https://ruby-china.org/topics/33313<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>Cookie</tag>
+        <tag>Session</tag>
       </tags>
   </entry>
   <entry>
@@ -1233,6 +1233,25 @@
       </tags>
   </entry>
   <entry>
+    <title>53. 最大子序和-简单</title>
+    <url>/2021/02/23/2000-007-53.%20%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/</url>
+    <content><![CDATA[<h1 id="53-最大子序和"><a href="#53-最大子序和" class="headerlink" title="53. 最大子序和"></a><a class="link"   href="https://leetcode-cn.com/problems/maximum-subarray/" >53. 最大子序和<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/o6raa6.png"
+                      alt="53. 最大子序和"
+                ></p>
+<h1 id="动态规划-解法"><a href="#动态规划-解法" class="headerlink" title="动态规划 解法"></a>动态规划 解法</h1><ul>
+<li>时间复杂度 O(n)<br>一次遍历，其中 n 为 nums 数组的长度。我们只需要遍历一遍数组即可求得答案。</li>
+<li>空间复杂度 O(1)<br>只开辟了两个额外的空间，即只需要常数空间存放若干变量。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func maxSubArray(_ nums: [Int]) -&gt; Int &#123;</span><br><span class="line">        &#x2F;&#x2F; 取nums[0] 为和</span><br><span class="line">        var sum &#x3D; nums[0]</span><br><span class="line">        &#x2F;&#x2F; 取nums[0] 为当前最大值</span><br><span class="line">        var ans &#x3D; nums[0]</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 因为已经把 nums[0] 计算了，所以从 nums[1] 开始</span><br><span class="line">        for i in 1 ..&lt; nums.count &#123;</span><br><span class="line">            if sum &lt; 0 &#123; &#x2F;&#x2F; 如果 sum 小于 0 ，那么 sum + nums[i] 只会让 nums[i] 更小</span><br><span class="line">                sum &#x3D; nums[i] &#x2F;&#x2F; 所以接把 num[i] 赋值给 sum</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                &#x2F;&#x2F; sum &gt;&#x3D; 0 那么就直接加 nums[i] 不用考虑 nums[i] 是大于零 还是小于零</span><br><span class="line">                sum &#x3D; sum + nums[i]</span><br><span class="line">            &#125;</span><br><span class="line">            ans &#x3D; (sum &gt; ans) ? sum : ans</span><br><span class="line">        &#125;</span><br><span class="line">        return ans</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>912. 排序数组</title>
     <url>/2021/02/22/2000-006-912.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/</url>
     <content><![CDATA[<h1 id="912-排序数组"><a href="#912-排序数组" class="headerlink" title="912. 排序数组"></a><a class="link"   href="https://leetcode-cn.com/problems/sort-an-array/" >912. 排序数组<i class="fas fa-external-link-alt"></i></a></h1><p><img  
@@ -1251,25 +1270,6 @@
       <tags>
         <tag>快速排序</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>53. 最大子序和-简单</title>
-    <url>/2021/02/23/2000-007-53.%20%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/</url>
-    <content><![CDATA[<h1 id="53-最大子序和"><a href="#53-最大子序和" class="headerlink" title="53. 最大子序和"></a><a class="link"   href="https://leetcode-cn.com/problems/maximum-subarray/" >53. 最大子序和<i class="fas fa-external-link-alt"></i></a></h1><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://files.catbox.moe/o6raa6.png"
-                      alt="53. 最大子序和"
-                ></p>
-<h1 id="动态规划-解法"><a href="#动态规划-解法" class="headerlink" title="动态规划 解法"></a>动态规划 解法</h1><ul>
-<li>时间复杂度 O(n)<br>一次遍历，其中 n 为 nums 数组的长度。我们只需要遍历一遍数组即可求得答案。</li>
-<li>空间复杂度 O(1)<br>只开辟了两个额外的空间，即只需要常数空间存放若干变量。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func maxSubArray(_ nums: [Int]) -&gt; Int &#123;</span><br><span class="line">        &#x2F;&#x2F; 取nums[0] 为和</span><br><span class="line">        var sum &#x3D; nums[0]</span><br><span class="line">        &#x2F;&#x2F; 取nums[0] 为当前最大值</span><br><span class="line">        var ans &#x3D; nums[0]</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 因为已经把 nums[0] 计算了，所以从 nums[1] 开始</span><br><span class="line">        for i in 1 ..&lt; nums.count &#123;</span><br><span class="line">            if sum &lt; 0 &#123; &#x2F;&#x2F; 如果 sum 小于 0 ，那么 sum + nums[i] 只会让 nums[i] 更小</span><br><span class="line">                sum &#x3D; nums[i] &#x2F;&#x2F; 所以接把 num[i] 赋值给 sum</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                &#x2F;&#x2F; sum &gt;&#x3D; 0 那么就直接加 nums[i] 不用考虑 nums[i] 是大于零 还是小于零</span><br><span class="line">                sum &#x3D; sum + nums[i]</span><br><span class="line">            &#125;</span><br><span class="line">            ans &#x3D; (sum &gt; ans) ? sum : ans</span><br><span class="line">        &#125;</span><br><span class="line">        return ans</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
   </entry>
   <entry>
     <title>144. 二叉树的前序遍历 - 中等</title>
@@ -1471,25 +1471,6 @@
       </categories>
   </entry>
   <entry>
-    <title>105. 从前序与中序遍历序列构造二叉树 - 中等</title>
-    <url>/2021/02/24/2000-018-105.%20%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
-    <content><![CDATA[<h1 id="105-从前序与中序遍历序列构造二叉树"><a href="#105-从前序与中序遍历序列构造二叉树" class="headerlink" title="105. 从前序与中序遍历序列构造二叉树"></a><a class="link"   href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" >105. 从前序与中序遍历序列构造二叉树<i class="fas fa-external-link-alt"></i></a></h1><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://files.catbox.moe/zn7zcr.png"
-                      alt="105. 从前序与中序遍历序列构造二叉树"
-                ></p>
-<h1 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h1><ul>
-<li>时间复杂度<br>O(n) n 是节点的个数，每个节点都访问一次</li>
-<li>空间复杂度<br>O(n) 除去返回的答案需要的 O(n) 空间之外，我们还需要使用 O(n) 的空间存储哈希映射，以及 O(h)（其中 h 是树的高度）的空间表示递归时栈空间。这里 h &lt; n，所以总空间复杂度为 O(n)。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var inorderMap: [Int: Int] &#x3D; [:]</span><br><span class="line"></span><br><span class="line">    func buildTree(_ preorder: [Int], _ inorder: [Int]) -&gt; TreeNode? &#123;</span><br><span class="line">        let count &#x3D; preorder.count</span><br><span class="line">        &#x2F;&#x2F; 这一步是为了节省时间 但是增加了空间占用</span><br><span class="line">        for (index, val) in inorder.enumerated() &#123;</span><br><span class="line">            inorderMap[val] &#x3D; index</span><br><span class="line">        &#125;</span><br><span class="line">        return myBuildTree(preorder, inorder, 0, count - 1, 0, count - 1)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func myBuildTree(_ preorder: [Int], _ inorder: [Int], _ preorderLeft: Int, _ preorderRight: Int, _ inorderLeft: Int, _ inorderRight: Int) -&gt; TreeNode? &#123;</span><br><span class="line">        if preorderLeft &gt; preorderRight &#123;</span><br><span class="line">            return nil</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 前序遍历的第一个节点就是根节点</span><br><span class="line">        let preorderRoot &#x3D; preorderLeft</span><br><span class="line">        &#x2F;&#x2F; 找出中序遍历的根节点位置</span><br><span class="line">        let inorderRoot &#x3D; inorderMap[preorder[preorderRoot]]!</span><br><span class="line">        &#x2F;&#x2F; 先把根节点建立出来</span><br><span class="line">        let root &#x3D; TreeNode(preorder[preorderRoot])</span><br><span class="line">        &#x2F;&#x2F; 左子树的节点数目</span><br><span class="line">        let leftTreeCount &#x3D; inorderRoot - inorderLeft</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 递归地构造左子树，并连接到根节点</span><br><span class="line">        &#x2F;&#x2F; 前序遍历中从 [preorderLeft + 1 开始的 leftTreeCount 个元素就是 当前 root 左子树的所有节点</span><br><span class="line">        &#x2F;&#x2F; 中序遍历中从 [inorderLeft 开始到 inorderRoot - 1]  就是当前 root 左子树的 所有节点</span><br><span class="line"></span><br><span class="line">        root.left &#x3D; myBuildTree(preorder, inorder, preorderLeft + 1, preorderLeft + leftTreeCount, inorderLeft, inorderRoot - 1)</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 递归地构造右子树，并连接到根节点</span><br><span class="line">        &#x2F;&#x2F; 先序遍历中「从 左边界+1+左子树节点数目 开始到 右边界」的元素就对应了中序遍历中「从 根节点定位+1 到 右边界」的元素</span><br><span class="line">        &#x2F;&#x2F; 前序遍历中从 [preorderRoot + 1(这个1是根节点的长度) + leftTreeCount 到 preorderRight] 是当前 root 右子树的所有节点</span><br><span class="line">        &#x2F;&#x2F; 中序遍历中从 [inorderRoot + 1 到 inorderRight] 是当前 root 右子树的所有节点</span><br><span class="line">        root.right &#x3D; myBuildTree(preorder, inorder, preorderRoot + 1 + leftTreeCount, preorderRight, inorderRoot + 1, inorderRight)</span><br><span class="line"></span><br><span class="line">        return root</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-  </entry>
-  <entry>
     <title>226. 翻转二叉树 - 简单</title>
     <url>/2021/02/24/2000-017-226.%20%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
     <content><![CDATA[<h1 id="226-翻转二叉树"><a href="#226-翻转二叉树" class="headerlink" title="226. 翻转二叉树"></a><a class="link"   href="https://leetcode-cn.com/problems/invert-binary-tree/" >226. 翻转二叉树<i class="fas fa-external-link-alt"></i></a></h1><p><img  
@@ -1509,6 +1490,25 @@
 <li>空间复杂度<br>O(n)</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 从叶子节点开始反转的</span><br><span class="line">    func invertTree(_ root: TreeNode?) -&gt; TreeNode? &#123;</span><br><span class="line">        guard let root &#x3D; root else &#123; return nil &#125;</span><br><span class="line">        let left &#x3D; invertTree(root.left)</span><br><span class="line">        let right &#x3D; invertTree(root.right)</span><br><span class="line">        root.left &#x3D; right</span><br><span class="line">        root.right &#x3D; left</span><br><span class="line">        return root</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>105. 从前序与中序遍历序列构造二叉树 - 中等</title>
+    <url>/2021/02/24/2000-018-105.%20%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<h1 id="105-从前序与中序遍历序列构造二叉树"><a href="#105-从前序与中序遍历序列构造二叉树" class="headerlink" title="105. 从前序与中序遍历序列构造二叉树"></a><a class="link"   href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" >105. 从前序与中序遍历序列构造二叉树<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/zn7zcr.png"
+                      alt="105. 从前序与中序遍历序列构造二叉树"
+                ></p>
+<h1 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h1><ul>
+<li>时间复杂度<br>O(n) n 是节点的个数，每个节点都访问一次</li>
+<li>空间复杂度<br>O(n) 除去返回的答案需要的 O(n) 空间之外，我们还需要使用 O(n) 的空间存储哈希映射，以及 O(h)（其中 h 是树的高度）的空间表示递归时栈空间。这里 h &lt; n，所以总空间复杂度为 O(n)。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var inorderMap: [Int: Int] &#x3D; [:]</span><br><span class="line"></span><br><span class="line">    func buildTree(_ preorder: [Int], _ inorder: [Int]) -&gt; TreeNode? &#123;</span><br><span class="line">        let count &#x3D; preorder.count</span><br><span class="line">        &#x2F;&#x2F; 这一步是为了节省时间 但是增加了空间占用</span><br><span class="line">        for (index, val) in inorder.enumerated() &#123;</span><br><span class="line">            inorderMap[val] &#x3D; index</span><br><span class="line">        &#125;</span><br><span class="line">        return myBuildTree(preorder, inorder, 0, count - 1, 0, count - 1)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func myBuildTree(_ preorder: [Int], _ inorder: [Int], _ preorderLeft: Int, _ preorderRight: Int, _ inorderLeft: Int, _ inorderRight: Int) -&gt; TreeNode? &#123;</span><br><span class="line">        if preorderLeft &gt; preorderRight &#123;</span><br><span class="line">            return nil</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 前序遍历的第一个节点就是根节点</span><br><span class="line">        let preorderRoot &#x3D; preorderLeft</span><br><span class="line">        &#x2F;&#x2F; 找出中序遍历的根节点位置</span><br><span class="line">        let inorderRoot &#x3D; inorderMap[preorder[preorderRoot]]!</span><br><span class="line">        &#x2F;&#x2F; 先把根节点建立出来</span><br><span class="line">        let root &#x3D; TreeNode(preorder[preorderRoot])</span><br><span class="line">        &#x2F;&#x2F; 左子树的节点数目</span><br><span class="line">        let leftTreeCount &#x3D; inorderRoot - inorderLeft</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 递归地构造左子树，并连接到根节点</span><br><span class="line">        &#x2F;&#x2F; 前序遍历中从 [preorderLeft + 1 开始的 leftTreeCount 个元素就是 当前 root 左子树的所有节点</span><br><span class="line">        &#x2F;&#x2F; 中序遍历中从 [inorderLeft 开始到 inorderRoot - 1]  就是当前 root 左子树的 所有节点</span><br><span class="line"></span><br><span class="line">        root.left &#x3D; myBuildTree(preorder, inorder, preorderLeft + 1, preorderLeft + leftTreeCount, inorderLeft, inorderRoot - 1)</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 递归地构造右子树，并连接到根节点</span><br><span class="line">        &#x2F;&#x2F; 先序遍历中「从 左边界+1+左子树节点数目 开始到 右边界」的元素就对应了中序遍历中「从 根节点定位+1 到 右边界」的元素</span><br><span class="line">        &#x2F;&#x2F; 前序遍历中从 [preorderRoot + 1(这个1是根节点的长度) + leftTreeCount 到 preorderRight] 是当前 root 右子树的所有节点</span><br><span class="line">        &#x2F;&#x2F; 中序遍历中从 [inorderRoot + 1 到 inorderRight] 是当前 root 右子树的所有节点</span><br><span class="line">        root.right &#x3D; myBuildTree(preorder, inorder, preorderRoot + 1 + leftTreeCount, preorderRight, inorderRoot + 1, inorderRight)</span><br><span class="line"></span><br><span class="line">        return root</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode</category>
@@ -1560,6 +1560,52 @@
       </categories>
   </entry>
   <entry>
+    <title>10亿个数中找出最大的10000个数（top K问题）</title>
+    <url>/2021/03/07/2000-022-10%E4%BA%BF%E4%B8%AA%E6%95%B0%E4%B8%AD%E6%89%BE%E5%87%BA%E6%9C%80%E5%A4%A7%E7%9A%8410000%E4%B8%AA%E6%95%B0%EF%BC%88top%20K%E9%97%AE%E9%A2%98%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="10-亿个数中找出最大的-10000-个数（top-K-问题）"><a href="#10-亿个数中找出最大的-10000-个数（top-K-问题）" class="headerlink" title="10 亿个数中找出最大的 10000 个数（top K 问题）"></a>10 亿个数中找出最大的 10000 个数（top K 问题）</h1><h2 id="1-对全部数据直接进行排序"><a href="#1-对全部数据直接进行排序" class="headerlink" title="1. 对全部数据直接进行排序"></a>1. 对全部数据直接进行排序</h2><ul>
+<li>时间复杂度 O(nlogn)</li>
+<li>空间复杂度 O(n)</li>
+</ul>
+<p>将 10 亿数据直接进行快排，然后如果大堆长度大于 10000，继续将大堆进行快排。 如果小于 10000 ，那么将最近一次的小堆再次进行快排。如果这个大堆长度加上之前的长度大于 10000，那么对这个大堆进行完整的快排。并取最大的 n 个数。</p>
+<h2 id="2-局部淘汰法"><a href="#2-局部淘汰法" class="headerlink" title="2.局部淘汰法"></a>2.局部淘汰法</h2><ul>
+<li>时间复杂度 O(n+m^2) m 为当前容器大小 10000</li>
+<li>空间复杂度 O(m)</li>
+</ul>
+<p>先保存 10000 个数，然后将后续的数依次与 10000 里最小的数比较，小的直接丢弃，大的进行替换。最后这 10000 个数就是答案。</p>
+<h2 id="3-分治法"><a href="#3-分治法" class="headerlink" title="3.分治法"></a>3.分治法</h2><ul>
+<li>时间复杂度 O(nlogn)</li>
+<li>空间复杂度 O(max(a,b)) a 为每份的长度 这里为 100 万，b 为最后的 m 份的最大 k 这里为 100 份的最大 10000 即 100 万。</li>
+</ul>
+<p>先将 1 亿个数分成 100 份， 每份 100 万个数。然后对每一份进行快排找出最大的 10000 个数。<br>方法是：快排中如果大堆大于 10000 ，继续对大堆进行快排。如果小于 10000，那么对最近的小堆进行快排，如果大堆长度 + 之前的大堆长度满足。那么对大堆进行完全快排取最大的 n 个数。<br>这样找出了 100 份 最大的 10000 个数。继续上边的思路进行快排直到找出最大的 10000 个数。</p>
+<h2 id="4-Hash-法"><a href="#4-Hash-法" class="headerlink" title="4.Hash 法"></a>4.Hash 法</h2><p>先将所有的数存入 hash 表中去重复，减少数据量。然后分治法。</p>
+<blockquote>
+<p><a class="link"   href="https://blog.csdn.net/zyq522376829/article/details/47686867" >https://blog.csdn.net/zyq522376829/article/details/47686867<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>Top K</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何通过一个不均匀的硬币得到公平的结果？</title>
+    <url>/2021/03/07/2000-023-%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E4%B8%AA%E4%B8%8D%E5%9D%87%E5%8C%80%E7%9A%84%E7%A1%AC%E5%B8%81%E5%BE%97%E5%88%B0%E5%85%AC%E5%B9%B3%E7%9A%84%E7%BB%93%E6%9E%9C%EF%BC%9F/</url>
+    <content><![CDATA[<h1 id="如何通过一个不均匀的硬币得到公平的结果？"><a href="#如何通过一个不均匀的硬币得到公平的结果？" class="headerlink" title="如何通过一个不均匀的硬币得到公平的结果？"></a>如何通过一个不均匀的硬币得到公平的结果？</h1><p>假设 60% 概率 正面，40% 概率反面<br>那么抛两次会有下面四种结果</p>
+<ul>
+<li>正 正 36%</li>
+<li>正 反 24%</li>
+<li>反 正 24%</li>
+<li>反 反 16%</li>
+</ul>
+<p>可以看出 正反 与 反正 的概率是相等的。<br>所以抛两次当正反面不同时，都取第一次的结果为最终结果即可。</p>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+  </entry>
+  <entry>
     <title>树、二叉树、二叉搜索树</title>
     <url>/2021/02/06/2000-%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
     <content><![CDATA[<h1 id="二叉树-LeetCode"><a href="#二叉树-LeetCode" class="headerlink" title="二叉树 LeetCode"></a><a class="link"   href="https://leetcode-cn.com/leetbook/read/data-structure-binary-tree/xe17x7/" >二叉树 LeetCode<i class="fas fa-external-link-alt"></i></a></h1><h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><blockquote>
@@ -1577,7 +1623,7 @@
 <h1 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h1><p>一棵深度为 k 的有 n 个结点的二叉树，对树中的结点按从上至下、从左到右的顺序进行编号，如果编号为 i（1≤i≤n）的结点与满二叉树中编号为 i 的结点在二叉树中的位置相同，则这棵二叉树称为完全二叉树。</p>
 ]]></content>
       <categories>
-        <category>数据结构</category>
+        <category>数据结构与算法</category>
       </categories>
       <tags>
         <tag>二叉搜索树</tag>
@@ -1598,7 +1644,7 @@
 </blockquote>
 ]]></content>
       <categories>
-        <category>数据结构</category>
+        <category>数据结构与算法</category>
       </categories>
   </entry>
   <entry>
@@ -1660,20 +1706,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Dart 多继承</title>
-    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%806/</url>
-    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">  printA() &#123;</span><br><span class="line">    print(&#39;AAAAA&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;A run&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B &#123;</span><br><span class="line">  printB() &#123;</span><br><span class="line">    print(&#39;BBBBBBBBB&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; B.bbb()&#123;&#125;    作为 minxins 的类不能有构造函数</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;B run&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="mixins-混入"><a href="#mixins-混入" class="headerlink" title="mixins 混入"></a>mixins 混入</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;MARK:   mixins 的必须是单独的一个object 类 A不能继承于其他类</span><br><span class="line">class Z with A, B &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="继承-mixins-混入"><a href="#继承-mixins-混入" class="headerlink" title="继承 + mixins 混入"></a>继承 + mixins 混入</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class X extends Person with A, B &#123;</span><br><span class="line">  X.aa() : super.aa();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="A-和-B-共有的方法后继承的覆盖之前的"><a href="#A-和-B-共有的方法后继承的覆盖之前的" class="headerlink" title="A 和 B 共有的方法后继承的覆盖之前的"></a>A 和 B 共有的方法后继承的覆盖之前的</h1>]]></content>
-      <categories>
-        <category>Dart</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Dart abstract 抽象类</title>
     <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%805/</url>
     <content><![CDATA[<h1 id="抽象类-相当于协议-接口"><a href="#抽象类-相当于协议-接口" class="headerlink" title="抽象类 相当于协议 接口"></a>抽象类 相当于协议 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">  &#x2F;&#x2F;抽象方法 只有方法名 没有具体实现</span><br><span class="line">  run();</span><br><span class="line"></span><br><span class="line">  String name;</span><br><span class="line"></span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;普通方法&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1683,6 +1715,20 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Dog extends Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小狗跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="implements-声明、with"><a href="#implements-声明、with" class="headerlink" title="implements 声明、with"></a>implements 声明、with</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Cat implements Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;我是🐱&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小🐱跑的快&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  String name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Duck with Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小鸭跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Dart 多继承</title>
+    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%806/</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">  printA() &#123;</span><br><span class="line">    print(&#39;AAAAA&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;A run&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B &#123;</span><br><span class="line">  printB() &#123;</span><br><span class="line">    print(&#39;BBBBBBBBB&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; B.bbb()&#123;&#125;    作为 minxins 的类不能有构造函数</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;B run&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="mixins-混入"><a href="#mixins-混入" class="headerlink" title="mixins 混入"></a>mixins 混入</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;MARK:   mixins 的必须是单独的一个object 类 A不能继承于其他类</span><br><span class="line">class Z with A, B &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="继承-mixins-混入"><a href="#继承-mixins-混入" class="headerlink" title="继承 + mixins 混入"></a>继承 + mixins 混入</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class X extends Person with A, B &#123;</span><br><span class="line">  X.aa() : super.aa();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="A-和-B-共有的方法后继承的覆盖之前的"><a href="#A-和-B-共有的方法后继承的覆盖之前的" class="headerlink" title="A 和 B 共有的方法后继承的覆盖之前的"></a>A 和 B 共有的方法后继承的覆盖之前的</h1>]]></content>
       <categories>
         <category>Dart</category>
       </categories>
@@ -1712,24 +1758,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Flutter 开发错误 StatefulWidget createState must return a subtype of State</title>
-    <url>/2020/12/01/400-Flutter-%E5%BC%80%E5%8F%91%E9%94%99%E8%AF%AF-StatefulWidget-createState-must-return-a-subtype-of-State/</url>
-    <content><![CDATA[<p>报错如下:</p>
-<p>StatefulWidget.createState must return a subtype of State</p>
-<p>The createState function for XXXX2 returned a state of type _XXXXState, which is not a subtype of State<XXXX2>, violating the contract for createState.</p>
-<p>错误分析：<br>其实就是返回的 Widget 类型不对，<br>大意了，修改正确即可。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://upload-images.jianshu.io/upload_images/2331323-a44eecc36a9468ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-                      alt="错误图"
-                ></p>
-]]></content>
-      <categories>
-        <category>Flutter</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Flutter 本地图片配置工具 FlutterGen</title>
     <url>/2020/12/02/400-Flutter-%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7-FlutterGen/</url>
     <content><![CDATA[<h1 id="github-gt-FlutterGen"><a href="#github-gt-FlutterGen" class="headerlink" title="github -&gt; FlutterGen"></a><a class="link"   href="https://github.com/FlutterGen" >github -&gt; FlutterGen<i class="fas fa-external-link-alt"></i></a></h1><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 推荐使用 Homebrew 安装</span><br><span class="line">$ brew install FlutterGen&#x2F;tap&#x2F;fluttergen</span><br></pre></td></tr></table></figure>
@@ -1750,11 +1778,18 @@
       </categories>
   </entry>
   <entry>
-    <title>Flutter 工程修复</title>
-    <url>/2020/12/04/400-Flutter%E5%B7%A5%E7%A8%8B%E4%BF%AE%E5%A4%8D/</url>
-    <content><![CDATA[<p>Flutter工程 误删iOS、误删Android等文件时</p>
-<p>解决方案</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">打开终端输入</span><br><span class="line">flutter create 工程目录</span><br></pre></td></tr></table></figure>
+    <title>Flutter 开发错误 StatefulWidget createState must return a subtype of State</title>
+    <url>/2020/12/01/400-Flutter-%E5%BC%80%E5%8F%91%E9%94%99%E8%AF%AF-StatefulWidget-createState-must-return-a-subtype-of-State/</url>
+    <content><![CDATA[<p>报错如下:</p>
+<p>StatefulWidget.createState must return a subtype of State</p>
+<p>The createState function for XXXX2 returned a state of type _XXXXState, which is not a subtype of State<XXXX2>, violating the contract for createState.</p>
+<p>错误分析：<br>其实就是返回的 Widget 类型不对，<br>大意了，修改正确即可。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-a44eecc36a9468ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="错误图"
+                ></p>
 ]]></content>
       <categories>
         <category>Flutter</category>
@@ -1780,17 +1815,11 @@
       </categories>
   </entry>
   <entry>
-    <title>Flutter 组件 AspectRatio、Card</title>
-    <url>/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6AspectRatio%E3%80%81Card/</url>
-    <content><![CDATA[<h1 id="AspectRatio"><a href="#AspectRatio" class="headerlink" title="AspectRatio"></a>AspectRatio</h1><blockquote>
-<p>设置自身比例</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AspectRatio(</span><br><span class="line">        aspectRatio: 5.0 &#x2F; 1.0,</span><br><span class="line">        child: Container(</span><br><span class="line">          child: Text(</span><br><span class="line">            &#39;AspectRatio 宽高比 5&#x2F;1&#39;,</span><br><span class="line">            textAlign: TextAlign.center,</span><br><span class="line">            style: TextStyle(fontSize: 30),</span><br><span class="line">          ),</span><br><span class="line">          color: Colors.greenAccent,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br></pre></td></tr></table></figure>
-
-<h1 id="Card"><a href="#Card" class="headerlink" title="Card"></a>Card</h1><blockquote>
-<p>卡片样式</p>
-</blockquote>
-<p>```<br>Card(<br>      margin: EdgeInsets.all(10),<br>      shape: RoundedRectangleBorder(<br>          side: BorderSide(color: Colors.orange, width: 2),<br>          borderRadius: BorderRadius.circular(10)),<br>      child: Column(<br>        children: [<br>          AspectRatio(<br>            aspectRatio: 16 / 9,<br>            child: Image.network(<br>              randomImgSrc(),<br>              fit: BoxFit.cover,<br>            ),<br>          ),<br>          Padding(<br>            padding: EdgeInsets.all(12),<br>            child: Row(<br>              crossAxisAlignment: CrossAxisAlignment.baseline,<br>              children: [<br>                ClipOval(<br>                  child: Image.network(randomImgSrc(),<br>                      width: 60, fit: BoxFit.cover),<br>                ),<br>                Container(<br>                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),<br>                  height: 60,<br>                  child: Stack(<br>                    children: [<br>                      Align(<br>                        alignment: Alignment.topLeft,<br>                        child: Text(<br>                          ‘我是一只大猫’,<br>                          style: TextStyle(<br>                              fontWeight: FontWeight.bold, fontSize: 22),<br>                        ),<br>                      ),<br>                      Align(<br>                        alignment: Alignment.bottomLeft,<br>                        child: Text(‘啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦’),<br>                      )<br>                    ],<br>                  ),<br>                ),<br>                CircleAvatar(<br>                  backgroundImage: NetworkImage(randomImgSrc()),<br>                ),<br>              ],<br>            ),<br>          ),<br>        ],<br>      ),<br>    );<br>``</p>
+    <title>Flutter 工程修复</title>
+    <url>/2020/12/04/400-Flutter%E5%B7%A5%E7%A8%8B%E4%BF%AE%E5%A4%8D/</url>
+    <content><![CDATA[<p>Flutter工程 误删iOS、误删Android等文件时</p>
+<p>解决方案</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">打开终端输入</span><br><span class="line">flutter create 工程目录</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Flutter</category>
@@ -1803,6 +1832,23 @@
 <p>地址为 <a class="link"   href="https://pub.flutter-io.cn/packages" >https://pub.flutter-io.cn/packages<i class="fas fa-external-link-alt"></i></a></p>
 </blockquote>
 <p><a class="link"   href="https://pub.flutter-io.cn/packages" >点我前往查询<i class="fas fa-external-link-alt"></i></a></p>
+]]></content>
+      <categories>
+        <category>Flutter</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Flutter 组件 AspectRatio、Card</title>
+    <url>/2020/12/29/400-Flutter%E7%BB%84%E4%BB%B6AspectRatio%E3%80%81Card/</url>
+    <content><![CDATA[<h1 id="AspectRatio"><a href="#AspectRatio" class="headerlink" title="AspectRatio"></a>AspectRatio</h1><blockquote>
+<p>设置自身比例</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AspectRatio(</span><br><span class="line">        aspectRatio: 5.0 &#x2F; 1.0,</span><br><span class="line">        child: Container(</span><br><span class="line">          child: Text(</span><br><span class="line">            &#39;AspectRatio 宽高比 5&#x2F;1&#39;,</span><br><span class="line">            textAlign: TextAlign.center,</span><br><span class="line">            style: TextStyle(fontSize: 30),</span><br><span class="line">          ),</span><br><span class="line">          color: Colors.greenAccent,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br></pre></td></tr></table></figure>
+
+<h1 id="Card"><a href="#Card" class="headerlink" title="Card"></a>Card</h1><blockquote>
+<p>卡片样式</p>
+</blockquote>
+<p>```<br>Card(<br>      margin: EdgeInsets.all(10),<br>      shape: RoundedRectangleBorder(<br>          side: BorderSide(color: Colors.orange, width: 2),<br>          borderRadius: BorderRadius.circular(10)),<br>      child: Column(<br>        children: [<br>          AspectRatio(<br>            aspectRatio: 16 / 9,<br>            child: Image.network(<br>              randomImgSrc(),<br>              fit: BoxFit.cover,<br>            ),<br>          ),<br>          Padding(<br>            padding: EdgeInsets.all(12),<br>            child: Row(<br>              crossAxisAlignment: CrossAxisAlignment.baseline,<br>              children: [<br>                ClipOval(<br>                  child: Image.network(randomImgSrc(),<br>                      width: 60, fit: BoxFit.cover),<br>                ),<br>                Container(<br>                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),<br>                  height: 60,<br>                  child: Stack(<br>                    children: [<br>                      Align(<br>                        alignment: Alignment.topLeft,<br>                        child: Text(<br>                          ‘我是一只大猫’,<br>                          style: TextStyle(<br>                              fontWeight: FontWeight.bold, fontSize: 22),<br>                        ),<br>                      ),<br>                      Align(<br>                        alignment: Alignment.bottomLeft,<br>                        child: Text(‘啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦’),<br>                      )<br>                    ],<br>                  ),<br>                ),<br>                CircleAvatar(<br>                  backgroundImage: NetworkImage(randomImgSrc()),<br>                ),<br>              ],<br>            ),<br>          ),<br>        ],<br>      ),<br>    );<br>``</p>
 ]]></content>
       <categories>
         <category>Flutter</category>
@@ -2105,6 +2151,38 @@
       </tags>
   </entry>
   <entry>
+    <title>iOS OC 与 Swift 混编</title>
+    <url>/2020/12/06/500-iOS-OC-%E4%B8%8E-Swift-%E6%B7%B7%E7%BC%96/</url>
+    <content><![CDATA[<h1 id="1-XXX-Bridging-Header-h"><a href="#1-XXX-Bridging-Header-h" class="headerlink" title="1. XXX-Bridging-Header.h"></a>1. XXX-Bridging-Header.h</h1><p>新建Swift文件时一般会自动提示创建<code>XXX-Bridging-Header.h</code>文件。如果没有那么自己新建一个 Header 文件，命名为<code>项目名-Bridging-Header.h</code><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-40814d95e9d8b2f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="新建 Header 文件"
+                ></p>
+<h1 id="2-打开-Target-gt-BuildSettings-搜索-Header"><a href="#2-打开-Target-gt-BuildSettings-搜索-Header" class="headerlink" title="2. 打开 Target -&gt; BuildSettings 搜索 Header"></a>2. 打开 Target -&gt; BuildSettings 搜索 <code>Header</code></h1><h2 id="User-Header-Search-Paths-填写-SRCROOT"><a href="#User-Header-Search-Paths-填写-SRCROOT" class="headerlink" title="User Header Search Paths 填写 $(SRCROOT)"></a><code>User Header Search Paths</code> 填写 <code>$(SRCROOT)</code></h2><h2 id="Enable-Modules-c-and-objective-C-填写-YES"><a href="#Enable-Modules-c-and-objective-C-填写-YES" class="headerlink" title="Enable Modules(c and objective-C) 填写 YES"></a><code>Enable Modules(c and objective-C)</code> 填写 <code>YES</code></h2><h2 id="Objective-C-Bridging-Header-填写-项目名称-项目名称-Bridging-Header-h-⚠️这里是个路径"><a href="#Objective-C-Bridging-Header-填写-项目名称-项目名称-Bridging-Header-h-⚠️这里是个路径" class="headerlink" title="Objective-C Bridging Header 填写 项目名称/项目名称-Bridging-Header.h ⚠️这里是个路径"></a><code>Objective-C Bridging Header</code> 填写 <code>项目名称/项目名称-Bridging-Header.h</code> ⚠️这里是个路径</h2><h2 id="Objective-C-Generated-Interface-Header-Name-填写-项目名称-Swift-h-这里是-OC-引用-Swift-需要用到的。"><a href="#Objective-C-Generated-Interface-Header-Name-填写-项目名称-Swift-h-这里是-OC-引用-Swift-需要用到的。" class="headerlink" title="Objective-C Generated Interface Header Name 填写 项目名称-Swift.h 这里是 OC 引用 Swift 需要用到的。"></a><code>Objective-C Generated Interface Header Name</code> 填写 <code>项目名称-Swift.h</code> 这里是 OC 引用 Swift 需要用到的。</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://upload-images.jianshu.io/upload_images/2331323-c91b49763e023f54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                      alt="BuildSettings 需要修改的地方"
+                ></p>
+<h1 id="3-pod-需要修改的地方"><a href="#3-pod-需要修改的地方" class="headerlink" title="3. pod 需要修改的地方"></a>3. pod 需要修改的地方</h1><p>Podfile 增加 <code>use_frameworks!</code> 后重新 <code>pod install</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">target&#39;XXXXX&#39; do</span><br><span class="line">use_frameworks!</span><br></pre></td></tr></table></figure>
+<p><strong>⚠️并把所有 <code>pod</code> 导入的库 使用 <code>&lt;&gt;</code> 导入 而不是<code>&quot;&quot;</code> 例如<code>#import &lt;AFNetworking.h&gt;</code></strong></p>
+<blockquote>
+<p>⚠️第三库报错大多都是导入方式不对引起的⚠️</p>
+</blockquote>
+<h1 id="4-OC-引用-Swift"><a href="#4-OC-引用-Swift" class="headerlink" title="4. OC 引用 Swift"></a>4. OC 引用 Swift</h1><p>在需要的地方导入 <code>#import &quot;项目名-Swift.h&quot;</code> 然后在需要被引用的属性、方法前增加 <code>@objc</code><br>⚠️ <code> 项目名-Swift.h 这个是隐藏文件看不到</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class XXXViewController: UIViewController &#123;</span><br><span class="line"></span><br><span class="line">    @objc var name:String &#x3D; &quot;&quot;</span><br><span class="line"></span><br><span class="line">    override func viewDidLoad() &#123;</span><br><span class="line">        super.viewDidLoad()</span><br><span class="line">    &#125;  </span><br><span class="line">    @objc func data()  &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="5-Swift-引用-OC"><a href="#5-Swift-引用-OC" class="headerlink" title="5. Swift 引用 OC"></a>5. Swift 引用 OC</h1><p>把需要引用的文件导入到 <code>项目名-Bridging-Header.h</code> ，即可在 Swift 中引用。</p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>iOS混编</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Xcode-快捷键，Xcode12-打开控制台</title>
     <url>/2020/11/22/500-Xcode-%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8CXcode12-%E6%89%93%E5%BC%80%E6%8E%A7%E5%88%B6%E5%8F%B0/</url>
     <content><![CDATA[<table>
@@ -2226,38 +2304,6 @@
       </categories>
       <tags>
         <tag>快捷键</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>iOS OC 与 Swift 混编</title>
-    <url>/2020/12/06/500-iOS-OC-%E4%B8%8E-Swift-%E6%B7%B7%E7%BC%96/</url>
-    <content><![CDATA[<h1 id="1-XXX-Bridging-Header-h"><a href="#1-XXX-Bridging-Header-h" class="headerlink" title="1. XXX-Bridging-Header.h"></a>1. XXX-Bridging-Header.h</h1><p>新建Swift文件时一般会自动提示创建<code>XXX-Bridging-Header.h</code>文件。如果没有那么自己新建一个 Header 文件，命名为<code>项目名-Bridging-Header.h</code><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://upload-images.jianshu.io/upload_images/2331323-40814d95e9d8b2f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-                      alt="新建 Header 文件"
-                ></p>
-<h1 id="2-打开-Target-gt-BuildSettings-搜索-Header"><a href="#2-打开-Target-gt-BuildSettings-搜索-Header" class="headerlink" title="2. 打开 Target -&gt; BuildSettings 搜索 Header"></a>2. 打开 Target -&gt; BuildSettings 搜索 <code>Header</code></h1><h2 id="User-Header-Search-Paths-填写-SRCROOT"><a href="#User-Header-Search-Paths-填写-SRCROOT" class="headerlink" title="User Header Search Paths 填写 $(SRCROOT)"></a><code>User Header Search Paths</code> 填写 <code>$(SRCROOT)</code></h2><h2 id="Enable-Modules-c-and-objective-C-填写-YES"><a href="#Enable-Modules-c-and-objective-C-填写-YES" class="headerlink" title="Enable Modules(c and objective-C) 填写 YES"></a><code>Enable Modules(c and objective-C)</code> 填写 <code>YES</code></h2><h2 id="Objective-C-Bridging-Header-填写-项目名称-项目名称-Bridging-Header-h-⚠️这里是个路径"><a href="#Objective-C-Bridging-Header-填写-项目名称-项目名称-Bridging-Header-h-⚠️这里是个路径" class="headerlink" title="Objective-C Bridging Header 填写 项目名称/项目名称-Bridging-Header.h ⚠️这里是个路径"></a><code>Objective-C Bridging Header</code> 填写 <code>项目名称/项目名称-Bridging-Header.h</code> ⚠️这里是个路径</h2><h2 id="Objective-C-Generated-Interface-Header-Name-填写-项目名称-Swift-h-这里是-OC-引用-Swift-需要用到的。"><a href="#Objective-C-Generated-Interface-Header-Name-填写-项目名称-Swift-h-这里是-OC-引用-Swift-需要用到的。" class="headerlink" title="Objective-C Generated Interface Header Name 填写 项目名称-Swift.h 这里是 OC 引用 Swift 需要用到的。"></a><code>Objective-C Generated Interface Header Name</code> 填写 <code>项目名称-Swift.h</code> 这里是 OC 引用 Swift 需要用到的。</h2><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://upload-images.jianshu.io/upload_images/2331323-c91b49763e023f54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-                      alt="BuildSettings 需要修改的地方"
-                ></p>
-<h1 id="3-pod-需要修改的地方"><a href="#3-pod-需要修改的地方" class="headerlink" title="3. pod 需要修改的地方"></a>3. pod 需要修改的地方</h1><p>Podfile 增加 <code>use_frameworks!</code> 后重新 <code>pod install</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">target&#39;XXXXX&#39; do</span><br><span class="line">use_frameworks!</span><br></pre></td></tr></table></figure>
-<p><strong>⚠️并把所有 <code>pod</code> 导入的库 使用 <code>&lt;&gt;</code> 导入 而不是<code>&quot;&quot;</code> 例如<code>#import &lt;AFNetworking.h&gt;</code></strong></p>
-<blockquote>
-<p>⚠️第三库报错大多都是导入方式不对引起的⚠️</p>
-</blockquote>
-<h1 id="4-OC-引用-Swift"><a href="#4-OC-引用-Swift" class="headerlink" title="4. OC 引用 Swift"></a>4. OC 引用 Swift</h1><p>在需要的地方导入 <code>#import &quot;项目名-Swift.h&quot;</code> 然后在需要被引用的属性、方法前增加 <code>@objc</code><br>⚠️ <code> 项目名-Swift.h 这个是隐藏文件看不到</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class XXXViewController: UIViewController &#123;</span><br><span class="line"></span><br><span class="line">    @objc var name:String &#x3D; &quot;&quot;</span><br><span class="line"></span><br><span class="line">    override func viewDidLoad() &#123;</span><br><span class="line">        super.viewDidLoad()</span><br><span class="line">    &#125;  </span><br><span class="line">    @objc func data()  &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="5-Swift-引用-OC"><a href="#5-Swift-引用-OC" class="headerlink" title="5. Swift 引用 OC"></a>5. Swift 引用 OC</h1><p>把需要引用的文件导入到 <code>项目名-Bridging-Header.h</code> ，即可在 Swift 中引用。</p>
-]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>iOS混编</tag>
       </tags>
   </entry>
   <entry>
@@ -2564,6 +2610,21 @@
       </categories>
   </entry>
   <entry>
+    <title>微信小程序引入模块，App.js</title>
+    <url>/2021/01/14/600-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E5%BC%95%E5%85%A5%E6%A8%A1%E5%9D%97/</url>
+    <content><![CDATA[<h1 id="创建一个模块-utils-appConfig-js"><a href="#创建一个模块-utils-appConfig-js" class="headerlink" title="创建一个模块 utils/appConfig.js"></a>创建一个模块 utils/appConfig.js</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const appConfig &#x3D; &#123;</span><br><span class="line">  host: &#39;https:&#x2F;&#x2F;www.baidu.com&#39;,</span><br><span class="line">  sayHi(e) &#123;</span><br><span class="line">    console.log(&#39;hi&#39; + e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default appConfig</span><br></pre></td></tr></table></figure>
+
+<h1 id="导入创建的模块使用-其他-js-文件内"><a href="#导入创建的模块使用-其他-js-文件内" class="headerlink" title="导入创建的模块使用     其他 .js 文件内"></a>导入创建的模块使用     其他 .js 文件内</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import appConfig from &#39;..&#x2F;..&#x2F;..&#x2F;utils&#x2F;appConfig.js&#39;;</span><br><span class="line">console.log(appConfig.host);</span><br><span class="line">appConfig.sayHi(&#39;朱小明&#39;)</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="获取-App-js"><a href="#获取-App-js" class="headerlink" title="获取 App.js"></a>获取 App.js</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;app.js</span><br><span class="line">App(&#123;</span><br><span class="line">  userToken:&#39;zhu xiao ming&#39;,</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;&#x2F; 省略其他</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let app &#x3D; getApp();</span><br><span class="line">console.log(app.userToken);</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>微信小程序</category>
+      </categories>
+  </entry>
+  <entry>
     <title>iOS mask 遮罩，彩色文本</title>
     <url>/2020/11/20/500-iOS%E6%B8%90%E5%8F%98%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97%E3%80%81iOS-mask-%E9%81%AE%E7%BD%A9/</url>
     <content><![CDATA[<h1 id="iOS渐变彩色文字、iOS-mask-遮罩"><a href="#iOS渐变彩色文字、iOS-mask-遮罩" class="headerlink" title="iOS渐变彩色文字、iOS mask 遮罩"></a>iOS渐变彩色文字、iOS mask 遮罩</h1><p><img  
@@ -2579,21 +2640,6 @@
 ]]></content>
       <categories>
         <category>iOS</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>微信小程序引入模块，App.js</title>
-    <url>/2021/01/14/600-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E5%BC%95%E5%85%A5%E6%A8%A1%E5%9D%97/</url>
-    <content><![CDATA[<h1 id="创建一个模块-utils-appConfig-js"><a href="#创建一个模块-utils-appConfig-js" class="headerlink" title="创建一个模块 utils/appConfig.js"></a>创建一个模块 utils/appConfig.js</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const appConfig &#x3D; &#123;</span><br><span class="line">  host: &#39;https:&#x2F;&#x2F;www.baidu.com&#39;,</span><br><span class="line">  sayHi(e) &#123;</span><br><span class="line">    console.log(&#39;hi&#39; + e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default appConfig</span><br></pre></td></tr></table></figure>
-
-<h1 id="导入创建的模块使用-其他-js-文件内"><a href="#导入创建的模块使用-其他-js-文件内" class="headerlink" title="导入创建的模块使用     其他 .js 文件内"></a>导入创建的模块使用     其他 .js 文件内</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import appConfig from &#39;..&#x2F;..&#x2F;..&#x2F;utils&#x2F;appConfig.js&#39;;</span><br><span class="line">console.log(appConfig.host);</span><br><span class="line">appConfig.sayHi(&#39;朱小明&#39;)</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="获取-App-js"><a href="#获取-App-js" class="headerlink" title="获取 App.js"></a>获取 App.js</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;app.js</span><br><span class="line">App(&#123;</span><br><span class="line">  userToken:&#39;zhu xiao ming&#39;,</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;&#x2F; 省略其他</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let app &#x3D; getApp();</span><br><span class="line">console.log(app.userToken);</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>微信小程序</category>
       </categories>
   </entry>
   <entry>
