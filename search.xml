@@ -2686,109 +2686,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Runtime 相关知识</title>
-    <url>/2021/03/08/6666-001-runtime/</url>
-    <content><![CDATA[<h1 id="1-介绍下-runtime-的内存模型（isa、对象、类、metaclass、结构体的存储信息等）"><a href="#1-介绍下-runtime-的内存模型（isa、对象、类、metaclass、结构体的存储信息等）" class="headerlink" title="1.介绍下 runtime 的内存模型（isa、对象、类、metaclass、结构体的存储信息等）"></a>1.介绍下 runtime 的内存模型（isa、对象、类、metaclass、结构体的存储信息等）</h1><ul>
-<li><strong>对象(实例)</strong><br>OC 中的对象指向的是一个 objc_object 指针类型，typedef struct objc_object *id;从它的结构体中可以看出，它包括一个 isa 指针，指向的是这个对象的类对象,一个对象实例就是通过这个 isa 找到它自己的 Class，而这个 Class 中存储的就是这个实例的方法列表、属性列表、成员变量列表等相关信息的。</li>
-<li><strong>类(Class)</strong><ol>
-<li>在 OC 中的类是用 Class 来表示的，实际上它指向的是一个 objc_class 的指针类型，typedef struct objc_class *Class.</li>
-<li>OC 的 Class 类型包括如下 元数据（metadata）：super_class（父类类对象）；name（类对象的名称）；version、info（版本和相关信息）；instance_size（实例内存大小）；ivars（实例变量列表）；methodLists（方法列表）；cache（缓存）；protocols（实现的协议列表）;</li>
-<li>当然也包括一个 isa 指针，这说明 Class 也是一个对象类型，所以我们称之为类对象，这里的 isa 指向的是元类对象（metaclass），元类中保存了创建类对象（Class）的类方法的全部信息。</li>
-</ol>
-</li>
-<li><strong>OC 对象、类、元类之间的关系</strong><br>对象(实例)的 isa 指针指向类对象(Class)，类对象的 isa 指针指向元类(meta Class), 元类的 isa 指针指向根元类(root meta Class). 根元类的 isa 指针指向他自己。<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://files.catbox.moe/kj1q75.png"
-                      alt="OC 对象、类、元类之间的关系"
-                ></li>
-</ul>
-<h1 id="2-为什么要设计-metaclass"><a href="#2-为什么要设计-metaclass" class="headerlink" title="2.为什么要设计 metaclass?"></a>2.为什么要设计 metaclass?</h1><ul>
-<li>类对象、元类对象能够复用消息发送流程机制；</li>
-<li>单一职责原则<br>metaclass 代表的是类对象的对象，它存储了类的类方法，它的目的是将实例和类的相关方法列表以及构建信息区分开来，方便各司其职，符合单一职责设计原则。</li>
-</ul>
-<h1 id="3-class-copyIvarList-amp-class-copyPropertyList-区别"><a href="#3-class-copyIvarList-amp-class-copyPropertyList-区别" class="headerlink" title="3.class_copyIvarList &amp; class_copyPropertyList 区别"></a>3.class_copyIvarList &amp; class_copyPropertyList 区别</h1><ul>
-<li><strong>class_copyIvarList</strong><br>会返回所有的成员变量，包括属性生成的成员变量。<br>获取类对象中的所有实例变量信息，从 class_ro_t 中获取。</li>
-<li><strong>class_copyPropertyList</strong><br>获取类对象中的属性信息， class_rw_t 的 properties，先后输出了 category / extension/ baseClass 的属性，而且仅输出当前的类的属性信息，而不会向上去找 superClass 中定义的属性。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@interface ViewController ()</span><br><span class="line">&#123;</span><br><span class="line">    NSString *_ddd;</span><br><span class="line">    NSString *_ccc;</span><br><span class="line">&#125;</span><br><span class="line">@property (nonatomic, copy) NSString *abc1;</span><br><span class="line">@property (nonatomic, copy) NSString *abc2;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; class_copyIvarList</span><br><span class="line">unsigned int count &#x3D; 0;</span><br><span class="line">Ivar * ivars &#x3D; class_copyIvarList(self.class, &amp;count);</span><br><span class="line">for (unsigned int i &#x3D; 0; i &lt; count; i++) &#123;</span><br><span class="line">      const char *name &#x3D; ivar_getName(ivars[i]);</span><br><span class="line">      NSLog(@&quot;name &#x3D;&#x3D; %@&quot;,[NSString stringWithUTF8String:name]);</span><br><span class="line">  &#125;</span><br><span class="line">free(ivars);</span><br><span class="line">&#x2F;&#x2F;name &#x3D;&#x3D; _ddd</span><br><span class="line">&#x2F;&#x2F;name &#x3D;&#x3D; _ccc</span><br><span class="line">&#x2F;&#x2F;name &#x3D;&#x3D; _abc1</span><br><span class="line">&#x2F;&#x2F;name &#x3D;&#x3D; _abc2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; class_copyPropertyList</span><br><span class="line">unsigned int outCount &#x3D; 0;</span><br><span class="line">objc_property_t *prs &#x3D; class_copyPropertyList(self.class, &amp;outCount);</span><br><span class="line">for (unsigned int i &#x3D; 0; i &lt; outCount; i++) &#123;</span><br><span class="line">    const char *pname &#x3D;  property_getName(prs[i]);</span><br><span class="line">    NSLog(@&quot;pname &#x3D;&#x3D;&#x3D; %@&quot;,[NSString stringWithUTF8String:pname]);</span><br><span class="line">&#125;</span><br><span class="line">free(prs);</span><br><span class="line">&#x2F;&#x2F;pname &#x3D;&#x3D;&#x3D; abc1</span><br><span class="line">&#x2F;&#x2F;pname &#x3D;&#x3D;&#x3D; abc2</span><br></pre></td></tr></table></figure>
-
-<h1 id="4-class-rw-t-和-class-ro-t-的区别"><a href="#4-class-rw-t-和-class-ro-t-的区别" class="headerlink" title="4.class_rw_t 和 class_ro_t 的区别"></a>4.class_rw_t 和 class_ro_t 的区别</h1><ul>
-<li><p>class_ro_t 存储了当前类在编译期就已经确定的属性、方法以及遵循的协议，里面是没有分类的方法的。 ro = read only</p>
-</li>
-<li><p>class_rw_t 运行时添加的方法将会存储在运行时生成的 class_rw_t 中。 rw = read write</p>
-</li>
-</ul>
-<h1 id="5-category-如何被加载的-两个-category-的-load-方法的加载顺序，两个-category-的同名方法的加载顺序"><a href="#5-category-如何被加载的-两个-category-的-load-方法的加载顺序，两个-category-的同名方法的加载顺序" class="headerlink" title="5.category 如何被加载的,两个 category 的 load 方法的加载顺序，两个 category 的同名方法的加载顺序"></a>5.category 如何被加载的,两个 category 的 load 方法的加载顺序，两个 category 的同名方法的加载顺序</h1><p>+load 方法是 images 加载的时候调用，先调用父类的方法然后才是本类的方法。 category 的 +load 则是按照编译顺序来的，先编译的先调用，后编译的后调用，可在 Xcode 的 BuildPhase 中查看<br>分类添加到了 rw = cls-&gt;data() 中的 methods/properties/protocols 中，实际上并无覆盖，只是查找到就返回了，导致本类函数无法加载。</p>
-<h1 id="6-initialize-amp-amp-Load"><a href="#6-initialize-amp-amp-Load" class="headerlink" title="6.initialize &amp;&amp; Load"></a>6.initialize &amp;&amp; Load</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+ (void)load &#123;</span><br><span class="line">    NSLog(@&quot; load &quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)initialize</span><br><span class="line">&#123;</span><br><span class="line">    if (self &#x3D;&#x3D; [self class]) &#123;</span><br><span class="line">        NSLog(@&quot; initialize &quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>load 方法会先调用，initialize 方法 当前对象第一次初始化创建时才会调用，<strong>如果该对象的父类的 initialize 方法还未调用，会先调用父类的方法。父类再初始化创建时不再调用。</strong>。这两个方法在 App 生命周期内仅调用一次。 category 的 load 方法按照编译顺序，先编译先调用。category 实现 initialize 方法那么本类的不会调用，多个 category 都实现调用最后编译的(这时走的是消息发送流程)。编译顺序在 BuildPhase 中查看。</p>
-<p>不管是 load 还是 initialize 方法都是 runtime 底层自动调用的，如果开发自己手动进行了 [super load] ,那么会调用父类的 load 方法。<br>调用 [super initialize] 方法，那么调用父类的 initialize 方法。 实际上是走消息发送流程。</p>
-<h1 id="7-category-amp-extension-区别，能给-NSObject-添加-Extension-吗，结果如何"><a href="#7-category-amp-extension-区别，能给-NSObject-添加-Extension-吗，结果如何" class="headerlink" title="7.category &amp; extension 区别，能给 NSObject 添加 Extension 吗，结果如何"></a>7.category &amp; extension 区别，能给 NSObject 添加 Extension 吗，结果如何</h1><ul>
-<li>category 可以给类添加方法和属性(需要借助 runtime<br><code>objc_setAssociatedObject(self, &amp;redXXKey, redXX, OBJC_ASSOCIATION_COPY_NONATOMIC);</code><br>及<code>objc_getAssociatedObject(self, &amp;redXXKey);</code>)</li>
-<li>extension 可以给类添加成员变量和方法，但是是私有的在 .m 内。</li>
-<li>不能给 NSObject 及系统类 添加 Extension，必须有源码才行 .m</li>
-</ul>
-<h1 id="8-在方法调用的时候，方法查询-gt-动态解析-gt-消息转发-之前做了什么"><a href="#8-在方法调用的时候，方法查询-gt-动态解析-gt-消息转发-之前做了什么" class="headerlink" title="8.在方法调用的时候，方法查询-&gt; 动态解析-&gt; 消息转发 之前做了什么"></a>8.在方法调用的时候，方法查询-&gt; 动态解析-&gt; 消息转发 之前做了什么</h1><p>OC 中的方法调用，编译后的代码最终都会转成 <code>objc_msgSend(id , SEL, ...)</code> 方法进行调用。这个方法第一个参数是一个消息接收者对象，runtime 通过这个对象的 isa 指针找到这个对象的类对象，从类对象中的 cache 中查找(哈希查找，bucket 桶实现)是否存在 SEL 对应的 IMP，如果不存在，则会在 method_list 中查找（二分查找或者顺序查找），如果还是没找到，则会到 supper_class 中查找，仍然没找到的话，就会调用<code>_objc_msgForward(id, SEL, ...)</code>进行消息转发。</p>
-<h1 id="9-IMP、SEL、Method-的区别和使用场景"><a href="#9-IMP、SEL、Method-的区别和使用场景" class="headerlink" title="9.IMP、SEL、Method 的区别和使用场景"></a>9.IMP、SEL、Method 的区别和使用场景</h1><ul>
-<li><p>IMP:IMP 定义为 <code>id (*IMP) (id, SEL, …)</code>。这样说来,IMP 是一个指向函数的指针，这个被指向的函数包括 id(“self”指针)，调用的 SEL（方法名），再加上一些其他参数.说白了 IMP 就是实现方法。</p>
-</li>
-<li><p>SEL:是“selector”的一个类型，表示一个方法的名字</p>
-</li>
-<li><p>Method:（我们常说的方法）表示一种类型，这种类型与 selector 和实现(implementation)相关</p>
-</li>
-</ul>
-<h1 id="10-load、initialize-方法的区别什么？在继承关系中他们有什么区别"><a href="#10-load、initialize-方法的区别什么？在继承关系中他们有什么区别" class="headerlink" title="10.load、initialize 方法的区别什么？在继承关系中他们有什么区别"></a>10.load、initialize 方法的区别什么？在继承关系中他们有什么区别</h1><p>load 会在程序启动后自动调用，initialize 会在当前对象初始化创建时调用。在 App 生命周期内都是仅调用一次。</p>
-<p>继承中会先执行父类的 load 方法然后才是本类的，继承中如果本类的父类还未执行过 initialize 方法，父类会先调用 initialize 方法，然后才是本类。如果本类未实现 initialize 方法，会继承父类的并调用执行一次。</p>
-<h1 id="11-说说消息转发机制的优劣"><a href="#11-说说消息转发机制的优劣" class="headerlink" title="11.说说消息转发机制的优劣"></a>11.说说消息转发机制的优劣</h1><ul>
-<li>优势：动态特性，可以动态的为对象添加方法，也可以将消息转发给其他对象去处理间接实现多继承。</li>
-<li>劣势：当一个方法只声明没实现时，编译不会出错，运行时会崩溃。</li>
-</ul>
-<h2 id="消息转发三部曲"><a href="#消息转发三部曲" class="headerlink" title="消息转发三部曲"></a>消息转发三部曲</h2><p><strong>1. 第一步动态添加一个实现方法。</strong> 如果是实例对象会调用这个实例所属的类方法<br><code>resolveInstanceMethod</code>，如果是类方法会调用<code>+ (BOOL)resolveClassMethod:(SEL)sel;</code></p>
-<p>我们可以动态的给该对象添加该方法。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+(BOOL)resolveInstanceMethod:(SEL)sel &#123;</span><br><span class="line">    if (sel &#x3D;&#x3D; @selector(abc)) &#123;</span><br><span class="line">      &#x2F;&#x2F;v@:表示这个函数的性质,v代表返回值为void,@代表self,:代表_cmd;</span><br><span class="line">        class_addMethod(self, sel, (IMP)aaa, &quot;v@:&quot;);</span><br><span class="line">        return YES;</span><br><span class="line">    &#125;</span><br><span class="line">    return [super resolveInstanceMethod:sel];</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; C 方法</span><br><span class="line">void aaa (id self,SEL _cmd)&#123;</span><br><span class="line">    NSLog(@&quot;添加了&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><strong>2. 消息转发，可以将消息转发给实现了该方法的对象。</strong> 系统会调用下面的这个方法。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (id)forwardingTargetForSelector:(SEL)aSelector &#123;</span><br><span class="line">    if (aSelector &#x3D;&#x3D; @selector(abc)) &#123;</span><br><span class="line">      &#x2F;&#x2F; 返回一个实现了该方法的对象</span><br><span class="line">        return [SubViewController new];</span><br><span class="line">    &#125;</span><br><span class="line">    return [super forwardingTargetForSelector:aSelector];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>3. 完整的消息转发</strong><br>先调用 <code>- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector</code><br>获取一个方法签名，如果没有返回一个有效的签名则直接调用<br><code>- (void)doesNotRecognizeSelector:(SEL)aSelector;</code>抛出异常。<br>如果获取到则将签名包装成<code>NSInvocation</code><br>传给<code>- (void)forwardInvocation:(NSInvocation *)anInvocation;</code><br>进行消息转发(也可以在这个方法里不进行处理，直接丢弃。但是该方法必须实现)。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 返回一个方法签名</span><br><span class="line">- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector &#123;</span><br><span class="line">    if (aSelector &#x3D;&#x3D; @selector(abc)) &#123;</span><br><span class="line">        &#x2F;&#x2F; v@:表示这个函数的性质,v代表返回值为void,@代表self,:代表_cmd;</span><br><span class="line">        return [NSMethodSignature signatureWithObjCTypes:&quot;v@:&quot;];</span><br><span class="line">    &#125;</span><br><span class="line">    return [super methodSignatureForSelector:aSelector];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 如果返回了有效的签名将调用这个方法进行转发</span><br><span class="line">- (void)forwardInvocation:(NSInvocation *)anInvocation &#123;</span><br><span class="line">    &#x2F;&#x2F; 获取方法</span><br><span class="line">    SEL selector &#x3D; [anInvocation selector];</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 这一步可以将方法转发给多个对象，第二步的只能转发给一个对象</span><br><span class="line">    &#x2F;&#x2F; 也可以不处理，但是该方法必须实现，否则还是会 unrecognized selector 崩溃</span><br><span class="line"></span><br><span class="line">    SubViewController *subVC &#x3D; [SubViewController new];</span><br><span class="line">    if ([subVC respondsToSelector:selector]) &#123;</span><br><span class="line">        [anInvocation invokeWithTarget:subVC];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ABC *abc &#x3D; [ABC new];</span><br><span class="line">    if ([abc respondsToSelector:selector]) &#123;</span><br><span class="line">        [anInvocation invokeWithTarget:abc];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="12-weak-的实现原理？SideTable-的结构是什么样的"><a href="#12-weak-的实现原理？SideTable-的结构是什么样的" class="headerlink" title="12.weak 的实现原理？SideTable 的结构是什么样的"></a>12.weak 的实现原理？SideTable 的结构是什么样的</h1><p>runtime 维护着一个 weak 表，这个表是 hash 表。以 weak 指向对象的内存地址为 key，<br>value 是存放着所有的 weak 指针地址的数组。当对象的引用计数为 0 被回收的时候，会在这个 hash 表中以对象的内存地址为 key 找到所有的 weak 指针置为 nil.<br>runtime 源码，objc-weak.m 的 arr_clear_deallocating 函数<br>weak 指针的使用涉及到 Hash 表的增删改查，有一定的性能开销.</p>
-<p>SideTable 结构</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct SideTable &#123;</span><br><span class="line">     spinlock_t slock;&#x2F;&#x2F;操作SideTable时用到的自旋锁</span><br><span class="line">     RefcountMap refcnts;&#x2F;&#x2F;引用计数器的 map</span><br><span class="line">     weak_table_t weak_table;&#x2F;&#x2F;存放weak指针的哈希表</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="13-关联对象的应用？系统如何实现关联对象的"><a href="#13-关联对象的应用？系统如何实现关联对象的" class="headerlink" title="13.关联对象的应用？系统如何实现关联对象的"></a>13.关联对象的应用？系统如何实现关联对象的</h1><ul>
-<li>应用：给 category 添加属性。</li>
-<li>如何实现关联的？<br>首先系统中有一个全局 AssociationsManager,里面有个 AssociationsHashMap 哈希表，哈希表中的 key 是对象的内存地址，value 是 ObjectAssociationMap,也是一个哈希表。<br>ObjectAssociationMap 中的 key 是我们设置关联对象时所设置的唯一 key，value 是 ObjcAssociation,里面存放着关联对象设置的值和内存管理的策略。<br>以<code>void objc_setAssociatedObject(id object, const void * key,id value, objc_AssociationPolicy policy)</code>为例，<br>首先会通过 AssociationsManager 获取 AssociationsHashMap，然后以 object 的内存地址为 key，从 AssociationsHashMap 中取出 ObjectAssociationMap，若没有，则新创建一个 ObjectAssociationMap，<br>然后通过 key 获取旧值，以及通过 key 和 policy 生成新值 ObjcAssociation(policy, new_value)，把新值存放到 ObjectAssociationMap 中，<br>若新值不为 nil，并且内存管理策略为 retain，则会对新值进行一次 retain，若新值为 nil，则会删除旧值，若旧值不为空并且内存管理的策略是 retain，则对旧值进行一次 release.</li>
-<li>其被释放的时候需要手动将所有的关联对象的指针置空么？<br>对这个问题我的理解是：当对象被释放时，需要手动移除该对象所设置的关联对象吗？ 不需要，因为在对象的 dealloc 中，若发现对象有关联对象时，会调用<code>_object_remove_assocations</code> 方法来移除所有的关联对象，并根据内存策略，来判断是否需要对关联对象的值进行 release</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@interface UIView (XX)</span><br><span class="line">@property (nonatomic, copy) NSString *redXX;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@implementation UIView (XX)</span><br><span class="line">static char redXXKey;</span><br><span class="line">- (void)setRedXX:(NSString *)redXX &#123;</span><br><span class="line">    &#x2F;&#x2F; 被关联的对象、关联的key唯一、关联的对象、内存管理策略</span><br><span class="line">    objc_setAssociatedObject(self, &amp;redXXKey, redXX, OBJC_ASSOCIATION_COPY_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line">- (NSString *)redXX &#123;</span><br><span class="line">    return objc_getAssociatedObject(self, &amp;redXXKey);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-
-<h1 id="14-关联对象的如何进行内存管理的？关联对象如何实现-weak-属性"><a href="#14-关联对象的如何进行内存管理的？关联对象如何实现-weak-属性" class="headerlink" title="14.关联对象的如何进行内存管理的？关联对象如何实现 weak 属性"></a>14.关联对象的如何进行内存管理的？关联对象如何实现 weak 属性</h1><p>在关联对象时又一个参数<code>objc_AssociationPolicy policy</code>设置内存管理策略<br>OBJC_ASSOCIATION_ASSIGN 类型的关联对象和 weak 有一定差别，而更加接近于 unsafe_unretained，<br>即当目标对象遭到摧毁时，属性值不会自动清空。<br>然后内部封装一个 weak 变量持有；或者不用 weak，但是还是封装一层，但是在 dealloc 中进行置为 nil 操作。</p>
-<h1 id="15-Autoreleasepool-的原理？所使用的的数据结构是什么"><a href="#15-Autoreleasepool-的原理？所使用的的数据结构是什么" class="headerlink" title="15.Autoreleasepool 的原理？所使用的的数据结构是什么"></a>15.Autoreleasepool 的原理？所使用的的数据结构是什么</h1><ul>
-<li>Autoreleasepool 是由多个 AutoreleasePoolPage 以双向链表的形式连接起来的。</li>
-<li>释放时机: 当前 RunLoop 迭代结束时候释放。</li>
-<li>Autoreleasepool 的基本原理：在每个自动释放池创建的时候，会在当前的 AutoreleasePoolPage 中设置一个标记位，在此期间，当有对象调用 autorelsease 时，会把对象添加到 AutoreleasePoolPage 中，若当前页添加满了，会初始化一个新页，然后用双向量表链接起来，并把新初始化的这一页设置为 hotPage,当自动释放池 pop 时，从最下面依次往上 pop，调用每个对象的 release 方法，直到遇到标志位。</li>
-<li>AutoreleasePoolPage 结构如下</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class AutoreleasePoolPage &#123;</span><br><span class="line">     magic_t const magic;</span><br><span class="line">     id *next;&#x2F;&#x2F;下一个存放autorelease对象的地址</span><br><span class="line">     pthread_t const thread; &#x2F;&#x2F;AutoreleasePoolPage 所在的线程</span><br><span class="line">     AutoreleasePoolPage * const parent;&#x2F;&#x2F;父节点</span><br><span class="line">     AutoreleasePoolPage *child;&#x2F;&#x2F;子节点</span><br><span class="line">     uint32_t const depth;&#x2F;&#x2F;深度,也可以理解为当前page在链表中的位置</span><br><span class="line">     uint32_t hiwat;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="16-ARC-的实现原理？ARC-下对-retain-amp-release-做了哪些优化"><a href="#16-ARC-的实现原理？ARC-下对-retain-amp-release-做了哪些优化" class="headerlink" title="16.ARC 的实现原理？ARC 下对 retain &amp; release 做了哪些优化"></a>16.ARC 的实现原理？ARC 下对 retain &amp; release 做了哪些优化</h1><ul>
-<li>Automatic Reference Counting，自动引用计数，即 ARC,ARC 会自动帮你插入 retain 和 release 语句,<br>ARC 编译器有两部分，分别是前端编译器和优化器</li>
-<li>前端编译器:前端编译器会为“拥有的”每一个对象插入相应的 release 语句。如果对象的所有权修饰符是<code>__strong</code>，那么它就是被拥有的。如果在某个方法内创建了一个对象，前端编译器会在方法末尾自动插入 release 语句以销毁它。而类拥有的对象（实例变量/属性）会在 dealloc 方法内被释放。事实上，你并不需要写 dealloc 方法或调用父类的 dealloc 方法，ARC 会自动帮你完成一切。此外，由编译器生成的代码甚至会比你自己写的 release 语句的性能还要好，因为编辑器可以作出一些假设。在 ARC 中，没有类可以覆盖 release 方法，也没有调用它的必要。ARC 会通过直接使用 objc_release 来优化调用过程。而对于 retain 也是同样的方法。ARC 会调用 objc_retain 来取代保留消息</li>
-<li>ARC 优化器: 虽然前端编译器听起来很厉害的样子，但代码中有时仍会出现几个对 retain 和 release 的重复调用。ARC 优化器负责移除多余的 retain 和 release 语句，确保生成的代码运行速度高于手动引用计数的代码</li>
-</ul>
-<h1 id="17-ARC-下哪些情况会造成内存泄漏"><a href="#17-ARC-下哪些情况会造成内存泄漏" class="headerlink" title="17.ARC 下哪些情况会造成内存泄漏"></a>17.ARC 下哪些情况会造成内存泄漏</h1><ul>
-<li>循环引用</li>
-<li>注册通知，不移除</li>
-</ul>
-]]></content>
-      <categories>
-        <category>iOS 知识点</category>
-      </categories>
-  </entry>
-  <entry>
     <title>从输入 URL 到展现页面的全过程</title>
     <url>/2021/02/03/1000-000%E4%BB%8E%E8%BE%93%E5%85%A5%20URL%20%E5%88%B0%E5%B1%95%E7%8E%B0%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%85%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="从输入-URL-到展现页面的全过程"><a href="#从输入-URL-到展现页面的全过程" class="headerlink" title="从输入 URL 到展现页面的全过程"></a>从输入 URL 到展现页面的全过程</h1><blockquote>
@@ -3028,5 +2925,113 @@
         <tag>DNS</tag>
         <tag>HTTP 请求</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Runtime 相关知识</title>
+    <url>/2021/03/08/6666-001-runtime/</url>
+    <content><![CDATA[<h1 id="1-介绍下-runtime-的内存模型（isa、对象、类、metaclass、结构体的存储信息等）"><a href="#1-介绍下-runtime-的内存模型（isa、对象、类、metaclass、结构体的存储信息等）" class="headerlink" title="1.介绍下 runtime 的内存模型（isa、对象、类、metaclass、结构体的存储信息等）"></a>1.介绍下 runtime 的内存模型（isa、对象、类、metaclass、结构体的存储信息等）</h1><ul>
+<li><strong>对象(实例)</strong><br>OC 中的对象指向的是一个 objc_object 指针类型，typedef struct objc_object *id;从它的结构体中可以看出，它包括一个 isa 指针，指向的是这个对象的类对象,一个对象实例就是通过这个 isa 找到它自己的 Class，而这个 Class 中存储的就是这个实例的方法列表、属性列表、成员变量列表等相关信息的。</li>
+<li><strong>类(Class)</strong><ol>
+<li>在 OC 中的类是用 Class 来表示的，实际上它指向的是一个 objc_class 的指针类型，typedef struct objc_class *Class.</li>
+<li>OC 的 Class 类型包括如下 元数据（metadata）：super_class（父类类对象）；name（类对象的名称）；version、info（版本和相关信息）；instance_size（实例内存大小）；ivars（实例变量列表）；methodLists（方法列表）；cache（缓存）；protocols（实现的协议列表）;</li>
+<li>当然也包括一个 isa 指针，这说明 Class 也是一个对象类型，所以我们称之为类对象，这里的 isa 指向的是元类对象（metaclass），元类中保存了创建类对象（Class）的类方法的全部信息。</li>
+</ol>
+</li>
+<li><strong>OC 对象、类、元类之间的关系</strong><br>对象(实例)的 isa 指针指向类对象(Class)，类对象的 isa 指针指向元类(meta Class), 元类的 isa 指针指向根元类(root meta Class). 根元类的 isa 指针指向他自己。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/kj1q75.png"
+                      alt="OC 对象、类、元类之间的关系"
+                ></li>
+</ul>
+<h1 id="2-为什么要设计-metaclass"><a href="#2-为什么要设计-metaclass" class="headerlink" title="2.为什么要设计 metaclass?"></a>2.为什么要设计 metaclass?</h1><ul>
+<li>类对象、元类对象能够复用消息发送流程机制；</li>
+<li>单一职责原则<br>metaclass 代表的是类对象的对象，它存储了类的类方法，它的目的是将实例和类的相关方法列表以及构建信息区分开来，方便各司其职，符合单一职责设计原则。</li>
+</ul>
+<h1 id="3-class-copyIvarList-amp-class-copyPropertyList-区别"><a href="#3-class-copyIvarList-amp-class-copyPropertyList-区别" class="headerlink" title="3.class_copyIvarList &amp; class_copyPropertyList 区别"></a>3.class_copyIvarList &amp; class_copyPropertyList 区别</h1><ul>
+<li><strong>class_copyIvarList</strong><br>会返回所有的成员变量，包括属性生成的成员变量。<br>获取类对象中的所有实例变量信息，从 class_ro_t 中获取。</li>
+<li><strong>class_copyPropertyList</strong><br>获取类对象中的属性信息， class_rw_t 的 properties，先后输出了 category / extension/ baseClass 的属性，而且仅输出当前的类的属性信息，而不会向上去找 superClass 中定义的属性。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@interface ViewController ()</span><br><span class="line">&#123;</span><br><span class="line">    NSString *_ddd;</span><br><span class="line">    NSString *_ccc;</span><br><span class="line">&#125;</span><br><span class="line">@property (nonatomic, copy) NSString *abc1;</span><br><span class="line">@property (nonatomic, copy) NSString *abc2;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; class_copyIvarList</span><br><span class="line">unsigned int count &#x3D; 0;</span><br><span class="line">Ivar * ivars &#x3D; class_copyIvarList(self.class, &amp;count);</span><br><span class="line">for (unsigned int i &#x3D; 0; i &lt; count; i++) &#123;</span><br><span class="line">      const char *name &#x3D; ivar_getName(ivars[i]);</span><br><span class="line">      NSLog(@&quot;name &#x3D;&#x3D; %@&quot;,[NSString stringWithUTF8String:name]);</span><br><span class="line">  &#125;</span><br><span class="line">free(ivars);</span><br><span class="line">&#x2F;&#x2F;name &#x3D;&#x3D; _ddd</span><br><span class="line">&#x2F;&#x2F;name &#x3D;&#x3D; _ccc</span><br><span class="line">&#x2F;&#x2F;name &#x3D;&#x3D; _abc1</span><br><span class="line">&#x2F;&#x2F;name &#x3D;&#x3D; _abc2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; class_copyPropertyList</span><br><span class="line">unsigned int outCount &#x3D; 0;</span><br><span class="line">objc_property_t *prs &#x3D; class_copyPropertyList(self.class, &amp;outCount);</span><br><span class="line">for (unsigned int i &#x3D; 0; i &lt; outCount; i++) &#123;</span><br><span class="line">    const char *pname &#x3D;  property_getName(prs[i]);</span><br><span class="line">    NSLog(@&quot;pname &#x3D;&#x3D;&#x3D; %@&quot;,[NSString stringWithUTF8String:pname]);</span><br><span class="line">&#125;</span><br><span class="line">free(prs);</span><br><span class="line">&#x2F;&#x2F;pname &#x3D;&#x3D;&#x3D; abc1</span><br><span class="line">&#x2F;&#x2F;pname &#x3D;&#x3D;&#x3D; abc2</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-class-rw-t-和-class-ro-t-的区别"><a href="#4-class-rw-t-和-class-ro-t-的区别" class="headerlink" title="4.class_rw_t 和 class_ro_t 的区别"></a>4.class_rw_t 和 class_ro_t 的区别</h1><ul>
+<li><p>class_ro_t 存储了当前类在编译期就已经确定的属性、方法以及遵循的协议，里面是没有分类的方法的。 ro = read only</p>
+</li>
+<li><p>class_rw_t 运行时添加的方法将会存储在运行时生成的 class_rw_t 中。 rw = read write</p>
+</li>
+</ul>
+<h1 id="5-category-如何被加载的-两个-category-的-load-方法的加载顺序，两个-category-的同名方法的加载顺序"><a href="#5-category-如何被加载的-两个-category-的-load-方法的加载顺序，两个-category-的同名方法的加载顺序" class="headerlink" title="5.category 如何被加载的,两个 category 的 load 方法的加载顺序，两个 category 的同名方法的加载顺序"></a>5.category 如何被加载的,两个 category 的 load 方法的加载顺序，两个 category 的同名方法的加载顺序</h1><p>+load 方法是 images 加载的时候调用，先调用父类的方法然后才是本类的方法。 category 的 +load 则是按照编译顺序来的，先编译的先调用，后编译的后调用，可在 Xcode 的 BuildPhase 中查看<br>分类添加到了 rw = cls-&gt;data() 中的 methods/properties/protocols 中，实际上并无覆盖，只是查找到就返回了，导致本类函数无法加载。</p>
+<h1 id="6-initialize-amp-amp-Load"><a href="#6-initialize-amp-amp-Load" class="headerlink" title="6.initialize &amp;&amp; Load"></a>6.initialize &amp;&amp; Load</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+ (void)load &#123;</span><br><span class="line">    NSLog(@&quot; load &quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)initialize</span><br><span class="line">&#123;</span><br><span class="line">    if (self &#x3D;&#x3D; [self class]) &#123;</span><br><span class="line">        NSLog(@&quot; initialize &quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>load 方法会先调用，initialize 方法 当前对象第一次初始化创建时才会调用，<strong>如果该对象的父类的 initialize 方法还未调用，会先调用父类的方法。父类再初始化创建时不再调用。</strong>。这两个方法在 App 生命周期内仅调用一次。 category 的 load 方法按照编译顺序，先编译先调用。category 实现 initialize 方法那么本类的不会调用，多个 category 都实现调用最后编译的(这时走的是消息发送流程)。编译顺序在 BuildPhase 中查看。</p>
+<p>不管是 load 还是 initialize 方法都是 runtime 底层自动调用的，如果开发自己手动进行了 [super load] ,那么会调用父类的 load 方法。<br>调用 [super initialize] 方法，那么调用父类的 initialize 方法。 实际上是走消息发送流程。</p>
+<h1 id="7-category-amp-extension-区别，能给-NSObject-添加-Extension-吗，结果如何"><a href="#7-category-amp-extension-区别，能给-NSObject-添加-Extension-吗，结果如何" class="headerlink" title="7.category &amp; extension 区别，能给 NSObject 添加 Extension 吗，结果如何"></a>7.category &amp; extension 区别，能给 NSObject 添加 Extension 吗，结果如何</h1><ul>
+<li>category 可以给类添加方法和属性(需要借助 runtime<br><code>objc_setAssociatedObject(self, &amp;redXXKey, redXX, OBJC_ASSOCIATION_COPY_NONATOMIC);</code><br>及<code>objc_getAssociatedObject(self, &amp;redXXKey);</code>)</li>
+<li>extension 可以给类添加成员变量和方法，但是是私有的在 .m 内。</li>
+<li>不能给 NSObject 及系统类 添加 Extension，必须有源码才行 .m</li>
+</ul>
+<h1 id="8-在方法调用的时候，方法查询-gt-动态解析-gt-消息转发-之前做了什么"><a href="#8-在方法调用的时候，方法查询-gt-动态解析-gt-消息转发-之前做了什么" class="headerlink" title="8.在方法调用的时候，方法查询-&gt; 动态解析-&gt; 消息转发 之前做了什么"></a>8.在方法调用的时候，方法查询-&gt; 动态解析-&gt; 消息转发 之前做了什么</h1><p>OC 中的方法调用，编译后的代码最终都会转成 <code>objc_msgSend(id , SEL, ...)</code> 方法进行调用。这个方法第一个参数是一个消息接收者对象，runtime 通过这个对象的 isa 指针找到这个对象的类对象，从类对象中的 cache 中查找(哈希查找，bucket 桶实现)是否存在 SEL 对应的 IMP，如果不存在，则会在 method_list 中查找（二分查找或者顺序查找），如果还是没找到，则会到 supper_class 中查找，仍然没找到的话，就会调用<code>_objc_msgForward(id, SEL, ...)</code>进行消息转发。</p>
+<h1 id="9-IMP、SEL、Method-的区别和使用场景"><a href="#9-IMP、SEL、Method-的区别和使用场景" class="headerlink" title="9.IMP、SEL、Method 的区别和使用场景"></a>9.IMP、SEL、Method 的区别和使用场景</h1><ul>
+<li><p>IMP:IMP 定义为 <code>id (*IMP) (id, SEL, …)</code>。这样说来,IMP 是一个指向函数的指针，这个被指向的函数包括 id(“self”指针)，调用的 SEL（方法名），再加上一些其他参数.说白了 IMP 就是实现方法。</p>
+</li>
+<li><p>SEL:是“selector”的一个类型，表示一个方法的名字</p>
+</li>
+<li><p>Method:（我们常说的方法）表示一种类型，这种类型与 selector 和实现(implementation)相关</p>
+</li>
+</ul>
+<h1 id="10-load、initialize-方法的区别什么？在继承关系中他们有什么区别"><a href="#10-load、initialize-方法的区别什么？在继承关系中他们有什么区别" class="headerlink" title="10.load、initialize 方法的区别什么？在继承关系中他们有什么区别"></a>10.load、initialize 方法的区别什么？在继承关系中他们有什么区别</h1><p>load 会在程序启动后自动调用，initialize 会在当前对象初始化创建时调用。在 App 生命周期内都是仅调用一次。</p>
+<p>继承中会先执行父类的 load 方法然后才是本类的，继承中如果本类的父类还未执行过 initialize 方法，父类会先调用 initialize 方法，然后才是本类。如果本类未实现 initialize 方法，会继承父类的并调用执行一次。</p>
+<h1 id="11-说说消息转发机制的优劣"><a href="#11-说说消息转发机制的优劣" class="headerlink" title="11.说说消息转发机制的优劣"></a>11.说说消息转发机制的优劣</h1><ul>
+<li>优势：动态特性，可以动态的为对象添加方法，也可以将消息转发给其他对象去处理间接实现多继承。</li>
+<li>劣势：当一个方法只声明没实现时，编译不会出错，运行时会崩溃。</li>
+</ul>
+<h2 id="消息转发三部曲"><a href="#消息转发三部曲" class="headerlink" title="消息转发三部曲"></a>消息转发三部曲</h2><p><strong>1. 第一步动态添加一个实现方法。</strong> 如果是实例对象会调用这个实例所属的类方法<br><code>resolveInstanceMethod</code>，如果是类方法会调用<code>+ (BOOL)resolveClassMethod:(SEL)sel;</code></p>
+<p>我们可以动态的给该对象添加该方法。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+(BOOL)resolveInstanceMethod:(SEL)sel &#123;</span><br><span class="line">    if (sel &#x3D;&#x3D; @selector(abc)) &#123;</span><br><span class="line">      &#x2F;&#x2F;v@:表示这个函数的性质,v代表返回值为void,@代表self,:代表_cmd;</span><br><span class="line">        class_addMethod(self, sel, (IMP)aaa, &quot;v@:&quot;);</span><br><span class="line">        return YES;</span><br><span class="line">    &#125;</span><br><span class="line">    return [super resolveInstanceMethod:sel];</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; C 方法</span><br><span class="line">void aaa (id self,SEL _cmd)&#123;</span><br><span class="line">    NSLog(@&quot;添加了&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 消息转发，可以将消息转发给实现了该方法的对象。</strong> 系统会调用下面的这个方法。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (id)forwardingTargetForSelector:(SEL)aSelector &#123;</span><br><span class="line">    if (aSelector &#x3D;&#x3D; @selector(abc)) &#123;</span><br><span class="line">      &#x2F;&#x2F; 返回一个实现了该方法的对象</span><br><span class="line">        return [SubViewController new];</span><br><span class="line">    &#125;</span><br><span class="line">    return [super forwardingTargetForSelector:aSelector];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 完整的消息转发</strong><br>先调用 <code>- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector</code><br>获取一个方法签名，如果没有返回一个有效的签名则直接调用<br><code>- (void)doesNotRecognizeSelector:(SEL)aSelector;</code>抛出异常。<br>如果获取到则将签名包装成<code>NSInvocation</code><br>传给<code>- (void)forwardInvocation:(NSInvocation *)anInvocation;</code><br>进行消息转发(也可以在这个方法里不进行处理，直接丢弃。但是该方法必须实现)。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 返回一个方法签名</span><br><span class="line">- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector &#123;</span><br><span class="line">    if (aSelector &#x3D;&#x3D; @selector(abc)) &#123;</span><br><span class="line">        &#x2F;&#x2F; v@:表示这个函数的性质,v代表返回值为void,@代表self,:代表_cmd;</span><br><span class="line">        return [NSMethodSignature signatureWithObjCTypes:&quot;v@:&quot;];</span><br><span class="line">    &#125;</span><br><span class="line">    return [super methodSignatureForSelector:aSelector];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 如果返回了有效的签名将调用这个方法进行转发</span><br><span class="line">- (void)forwardInvocation:(NSInvocation *)anInvocation &#123;</span><br><span class="line">    &#x2F;&#x2F; 获取方法</span><br><span class="line">    SEL selector &#x3D; [anInvocation selector];</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 这一步可以将方法转发给多个对象，第二步的只能转发给一个对象</span><br><span class="line">    &#x2F;&#x2F; 也可以不处理，但是该方法必须实现，否则还是会 unrecognized selector 崩溃</span><br><span class="line"></span><br><span class="line">    SubViewController *subVC &#x3D; [SubViewController new];</span><br><span class="line">    if ([subVC respondsToSelector:selector]) &#123;</span><br><span class="line">        [anInvocation invokeWithTarget:subVC];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ABC *abc &#x3D; [ABC new];</span><br><span class="line">    if ([abc respondsToSelector:selector]) &#123;</span><br><span class="line">        [anInvocation invokeWithTarget:abc];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="12-weak-的实现原理？SideTable-的结构是什么样的"><a href="#12-weak-的实现原理？SideTable-的结构是什么样的" class="headerlink" title="12.weak 的实现原理？SideTable 的结构是什么样的"></a>12.weak 的实现原理？SideTable 的结构是什么样的</h1><p>runtime 维护着一个 weak 表，这个表是 hash 表。以 weak 指向对象的内存地址为 key，<br>value 是存放着所有的 weak 指针地址的数组。当对象的引用计数为 0 被回收的时候，会在这个 hash 表中以对象的内存地址为 key 找到所有的 weak 指针置为 nil.<br>runtime 源码，objc-weak.m 的 arr_clear_deallocating 函数<br>weak 指针的使用涉及到 Hash 表的增删改查，有一定的性能开销.</p>
+<p>SideTable 结构</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct SideTable &#123;</span><br><span class="line">     spinlock_t slock;&#x2F;&#x2F;操作SideTable时用到的自旋锁</span><br><span class="line">     RefcountMap refcnts;&#x2F;&#x2F;引用计数器的 map</span><br><span class="line">     weak_table_t weak_table;&#x2F;&#x2F;存放weak指针的哈希表</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="13-关联对象的应用？系统如何实现关联对象的"><a href="#13-关联对象的应用？系统如何实现关联对象的" class="headerlink" title="13.关联对象的应用？系统如何实现关联对象的"></a>13.关联对象的应用？系统如何实现关联对象的</h1><ul>
+<li>应用：给 category 添加属性。</li>
+<li>如何实现关联的？<br>首先系统中有一个全局 AssociationsManager,里面有个 AssociationsHashMap 哈希表，哈希表中的 key 是对象的内存地址，value 是 ObjectAssociationMap,也是一个哈希表。<br>ObjectAssociationMap 中的 key 是我们设置关联对象时所设置的唯一 key，value 是 ObjcAssociation,里面存放着关联对象设置的值和内存管理的策略。<br>以<code>void objc_setAssociatedObject(id object, const void * key,id value, objc_AssociationPolicy policy)</code>为例，<br>首先会通过 AssociationsManager 获取 AssociationsHashMap，然后以 object 的内存地址为 key，从 AssociationsHashMap 中取出 ObjectAssociationMap，若没有，则新创建一个 ObjectAssociationMap，<br>然后通过 key 获取旧值，以及通过 key 和 policy 生成新值 ObjcAssociation(policy, new_value)，把新值存放到 ObjectAssociationMap 中，<br>若新值不为 nil，并且内存管理策略为 retain，则会对新值进行一次 retain，若新值为 nil，则会删除旧值，若旧值不为空并且内存管理的策略是 retain，则对旧值进行一次 release.</li>
+<li>其被释放的时候需要手动将所有的关联对象的指针置空么？<br>对这个问题我的理解是：当对象被释放时，需要手动移除该对象所设置的关联对象吗？ 不需要，因为在对象的 dealloc 中，若发现对象有关联对象时，会调用<code>_object_remove_assocations</code> 方法来移除所有的关联对象，并根据内存策略，来判断是否需要对关联对象的值进行 release</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@interface UIView (XX)</span><br><span class="line">@property (nonatomic, copy) NSString *redXX;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@implementation UIView (XX)</span><br><span class="line">static char redXXKey;</span><br><span class="line">- (void)setRedXX:(NSString *)redXX &#123;</span><br><span class="line">    &#x2F;&#x2F; 被关联的对象、关联的key唯一、关联的对象、内存管理策略</span><br><span class="line">    objc_setAssociatedObject(self, &amp;redXXKey, redXX, OBJC_ASSOCIATION_COPY_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line">- (NSString *)redXX &#123;</span><br><span class="line">    return objc_getAssociatedObject(self, &amp;redXXKey);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<h1 id="14-关联对象的如何进行内存管理的？关联对象如何实现-weak-属性"><a href="#14-关联对象的如何进行内存管理的？关联对象如何实现-weak-属性" class="headerlink" title="14.关联对象的如何进行内存管理的？关联对象如何实现 weak 属性"></a>14.关联对象的如何进行内存管理的？关联对象如何实现 weak 属性</h1><p>在关联对象时又一个参数<code>objc_AssociationPolicy policy</code>设置内存管理策略<br>OBJC_ASSOCIATION_ASSIGN 类型的关联对象和 weak 有一定差别，而更加接近于 unsafe_unretained，<br>即当目标对象遭到摧毁时，属性值不会自动清空。<br>然后内部封装一个 weak 变量持有；或者不用 weak，但是还是封装一层，但是在 dealloc 中进行置为 nil 操作。</p>
+<h1 id="15-Autoreleasepool-的原理？所使用的的数据结构是什么"><a href="#15-Autoreleasepool-的原理？所使用的的数据结构是什么" class="headerlink" title="15.Autoreleasepool 的原理？所使用的的数据结构是什么"></a>15.Autoreleasepool 的原理？所使用的的数据结构是什么</h1><ul>
+<li>Autoreleasepool 是由多个 AutoreleasePoolPage 以双向链表的形式连接起来的。</li>
+<li>释放时机: 当前 RunLoop 迭代结束时候释放。</li>
+<li>Autoreleasepool 的基本原理：在每个自动释放池创建的时候，会在当前的 AutoreleasePoolPage 中设置一个标记位，在此期间，当有对象调用 autorelsease 时，会把对象添加到 AutoreleasePoolPage 中，若当前页添加满了，会初始化一个新页，然后用双向量表链接起来，并把新初始化的这一页设置为 hotPage,当自动释放池 pop 时，从最下面依次往上 pop，调用每个对象的 release 方法，直到遇到标志位。</li>
+<li>AutoreleasePoolPage 结构如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class AutoreleasePoolPage &#123;</span><br><span class="line">     magic_t const magic;</span><br><span class="line">     id *next;&#x2F;&#x2F;下一个存放autorelease对象的地址</span><br><span class="line">     pthread_t const thread; &#x2F;&#x2F;AutoreleasePoolPage 所在的线程</span><br><span class="line">     AutoreleasePoolPage * const parent;&#x2F;&#x2F;父节点</span><br><span class="line">     AutoreleasePoolPage *child;&#x2F;&#x2F;子节点</span><br><span class="line">     uint32_t const depth;&#x2F;&#x2F;深度,也可以理解为当前page在链表中的位置</span><br><span class="line">     uint32_t hiwat;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="16-ARC-的实现原理？ARC-下对-retain-amp-release-做了哪些优化"><a href="#16-ARC-的实现原理？ARC-下对-retain-amp-release-做了哪些优化" class="headerlink" title="16.ARC 的实现原理？ARC 下对 retain &amp; release 做了哪些优化"></a>16.ARC 的实现原理？ARC 下对 retain &amp; release 做了哪些优化</h1><ul>
+<li>Automatic Reference Counting，自动引用计数，即 ARC,ARC 会自动帮你插入 retain 和 release 语句,<br>ARC 编译器有两部分，分别是前端编译器和优化器</li>
+<li>前端编译器:前端编译器会为“拥有的”每一个对象插入相应的 release 语句。如果对象的所有权修饰符是<code>__strong</code>，那么它就是被拥有的。如果在某个方法内创建了一个对象，前端编译器会在方法末尾自动插入 release 语句以销毁它。而类拥有的对象（实例变量/属性）会在 dealloc 方法内被释放。事实上，你并不需要写 dealloc 方法或调用父类的 dealloc 方法，ARC 会自动帮你完成一切。此外，由编译器生成的代码甚至会比你自己写的 release 语句的性能还要好，因为编辑器可以作出一些假设。在 ARC 中，没有类可以覆盖 release 方法，也没有调用它的必要。ARC 会通过直接使用 objc_release 来优化调用过程。而对于 retain 也是同样的方法。ARC 会调用 objc_retain 来取代保留消息</li>
+<li>ARC 优化器: 虽然前端编译器听起来很厉害的样子，但代码中有时仍会出现几个对 retain 和 release 的重复调用。ARC 优化器负责移除多余的 retain 和 release 语句，确保生成的代码运行速度高于手动引用计数的代码</li>
+</ul>
+<h1 id="17-ARC-下哪些情况会造成内存泄漏"><a href="#17-ARC-下哪些情况会造成内存泄漏" class="headerlink" title="17.ARC 下哪些情况会造成内存泄漏"></a>17.ARC 下哪些情况会造成内存泄漏</h1><ul>
+<li>循环引用</li>
+<li>注册通知，不移除</li>
+</ul>
+<h1 id="18-Method-Swizzle-注意事项"><a href="#18-Method-Swizzle-注意事项" class="headerlink" title="18. Method Swizzle 注意事项"></a>18. Method Swizzle 注意事项</h1><p>如果直接替换，相当于交换了父类这个方法的实现，但这个新的实现是在子类中的，父类的实例调用这个方法时，会崩溃。建议先添加：class_addMethod</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AFNetworking 源码涉及代码</span><br><span class="line">static inline void af_swizzleSelector(Class theClass, SEL originalSelector, SEL swizzledSelector) &#123;</span><br><span class="line">    Method originalMethod &#x3D; class_getInstanceMethod(theClass, originalSelector);</span><br><span class="line">    Method swizzledMethod &#x3D; class_getInstanceMethod(theClass, swizzledSelector);</span><br><span class="line">    method_exchangeImplementations(originalMethod, swizzledMethod);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline BOOL af_addMethod(Class theClass, SEL selector, Method method) &#123;</span><br><span class="line">    return class_addMethod(theClass, selector,  method_getImplementation(method),  method_getTypeEncoding(method));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)swizzleResumeAndSuspendMethodForClass:(Class)theClass &#123;</span><br><span class="line">    Method afResumeMethod &#x3D; class_getInstanceMethod(self, @selector(af_resume));</span><br><span class="line">    Method afSuspendMethod &#x3D; class_getInstanceMethod(self, @selector(af_suspend));</span><br><span class="line"></span><br><span class="line">    if (af_addMethod(theClass, @selector(af_resume), afResumeMethod)) &#123;</span><br><span class="line">        af_swizzleSelector(theClass, @selector(resume), @selector(af_resume));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (af_addMethod(theClass, @selector(af_suspend), afSuspendMethod)) &#123;</span><br><span class="line">        af_swizzleSelector(theClass, @selector(suspend), @selector(af_suspend));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="19-iOS-中内省的几个方法有哪些？内部实现原理是什么"><a href="#19-iOS-中内省的几个方法有哪些？内部实现原理是什么" class="headerlink" title="19. iOS 中内省的几个方法有哪些？内部实现原理是什么"></a>19. iOS 中内省的几个方法有哪些？内部实现原理是什么</h1><p>对象在运行时获取其类型的能力称为内省</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-(BOOL) isKindOfClass:            判断是否是这个类或者这个类的子类的实例</span><br><span class="line">-(BOOL) isMemberOfClass:      判断是否是这个类的实例</span><br><span class="line">-(BOOL) respondsToSelector:                      判读实例是否有这样方法</span><br><span class="line">+(BOOL) instancesRespondToSelector:      判断类是否有这个方法</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>iOS 知识点</category>
+      </categories>
   </entry>
 </search>
