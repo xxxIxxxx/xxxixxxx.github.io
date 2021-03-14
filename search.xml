@@ -3119,7 +3119,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; Port</span><br><span class="line">NSRunLoop *runLoop &#x3D; [NSRunLoop currentRunLoop];</span><br><span class="line">[runLoop addPort:[NSMachPort port] forMode:NSDefaultRunLoopMode];</span><br><span class="line">[runLoop run];</span><br></pre></td></tr></table></figure>
 
 <h2 id="8-runloop-和线程有什么关系？"><a href="#8-runloop-和线程有什么关系？" class="headerlink" title="8.runloop 和线程有什么关系？"></a>8.runloop 和线程有什么关系？</h2><p>runloop 为线程而生，没有线程他就没有存在的必要。<br>runloop 是线程的基础架构部分，runloop 和线程是一一对应关系<br>主线程的 runloop 是默认启动的，其他线程的 runloop 是没有启动的，<br>如果你需要更多的线程交互则可以手动配置和启动。</p>
-<h1 id="24-KVO"><a href="#24-KVO" class="headerlink" title="24.KVO"></a>24.KVO</h1><h2 id="1-KVO-实现原理"><a href="#1-KVO-实现原理" class="headerlink" title="1.KVO 实现原理"></a>1.KVO 实现原理</h2><p>当你观察一个对象时，系统会动态的创建一个以 <code>NSKVONotifying_</code> 为前缀的类。<br>然后将被观察对象的 isa 指针指向这个新创建的类。<br>这个类继承自该对象的原本类，并重写了被观察属性的 setter 方法。<br>同时也会重写 class 方法，返回原先类对象，这样外部就无感知了。</p>
+<h1 id="24-KVO、KVC"><a href="#24-KVO、KVC" class="headerlink" title="24.KVO、KVC"></a>24.KVO、KVC</h1><h2 id="1-KVO-实现原理"><a href="#1-KVO-实现原理" class="headerlink" title="1.KVO 实现原理"></a>1.KVO 实现原理</h2><p>当你观察一个对象时，系统会动态的创建一个以 <code>NSKVONotifying_</code> 为前缀的类。<br>然后将被观察对象的 isa 指针指向这个新创建的类。<br>这个类继承自该对象的原本类，并重写了被观察属性的 setter 方法。<br>同时也会重写 class 方法，返回原先类对象，这样外部就无感知了。</p>
 <p>重写所有要观察属性的 setter 方法，统一会走一个方法，<br>内部实现是 willChangeValueForKey 和 didChangevlueForKey 方法，<br>然后就是 observeValueForKey:ofObject:change:context:<br>通知所有观察对象值的更改。</p>
 <h2 id="2-如何手动关闭-KVO"><a href="#2-如何手动关闭-KVO" class="headerlink" title="2.如何手动关闭 KVO"></a>2.如何手动关闭 KVO</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+(BOOL)automaticallyNotifiesObserversForKey:(NSString *)key &#123;</span><br><span class="line">    if ([key isEqualToString:@&quot;closeType&quot;]) &#123;</span><br><span class="line">        return NO;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return [super automaticallyNotifiesObserversForKey:key];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(void)setProperty:(NSString *)Property&#123;</span><br><span class="line"></span><br><span class="line">    if (_Property!&#x3D;Property) &#123;</span><br><span class="line"></span><br><span class="line">        [self willChangeValueForKey:@&quot;Property&quot;];</span><br><span class="line">        _Property&#x3D;Property;</span><br><span class="line">        [self didChangeValueForKey:@&quot;Property&quot;];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -3146,6 +3146,133 @@
 <li>KVC<br>优点：没有 property 的变量（私有）也能通过 KVC 进行设置，或者简化代码（多级属性）<br>缺点：如果 key 只写错，编写的时候不会报错，但是运行的时候会报错</li>
 <li>KVO 优点：<br>能够提供一种简单的方法实现两个对象的同步；<br>能够对内部对象的状态改变作出响应，而且不需要改变内部对象的实现；<br>能够提供被观察者属性的最新值和之前的值；<br>使用 key Path 来观察属性，因此可以观察嵌套对象；<br>完成了对观察对象的抽象，因为不需要额外的代码来允许观察者被观察。</li>
 <li>KVO 缺点：<br>KVO 只能检测类中的属性，并且属性名都是通过 NSString 来查找，编译器不会补全（编译时不会出现警告），容易写错；<br>对属性重构，将导致观察代码不可用；<br>复杂的 “if” 语句要求对象正在观察多个值，是因为所有的观察代码通过一个方法来指向；</li>
+</ul>
+<h1 id="25-Block"><a href="#25-Block" class="headerlink" title="25. Block"></a>25. Block</h1><h2 id="1-block-的内部结构和作用"><a href="#1-block-的内部结构和作用" class="headerlink" title="1.block 的内部结构和作用"></a>1.block 的内部结构和作用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct Block_layout &#123;</span><br><span class="line">    void *isa;</span><br><span class="line">    int flags;</span><br><span class="line">    int reserved;</span><br><span class="line">    void (*invoke)(void *, ...);</span><br><span class="line">    struct Block_descriptor *descriptor;</span><br><span class="line">    &#x2F;&#x2F; imported variables</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct Block_descriptor &#123;</span><br><span class="line">    unsigned long int reserved;</span><br><span class="line">    unsigned long int size;</span><br><span class="line">    void (*copy)(void *dst, void *src);</span><br><span class="line">    void (*dispose)(void *);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>通过上面的结构, 可以看出一个 block 实例的构成实际上有 6 个部分：</p>
+<ol>
+<li>isa 指针: 所有对象都有该指针，用于实现对象相关的功能。</li>
+<li>flags: 附加标识位, 在 copy 和 dispose 等情况下可以用到。</li>
+<li>reserved:保留变量。</li>
+<li>invoke: 函数指针，指向 block 的实现代码, 也可以说是函数调用地址。</li>
+<li>descriptor: 表示该 block 的附加描述信息，主要是 size，以及 copy 和 dispose 函数的指针。这两个辅助函数在拷贝及丢弃块对象时运行, 其中会执行一些操作, 比方说, 前者要保留捕获的对象,而后者则将之释放。</li>
+<li>variables: 捕获的变量，block 能够访问它外部的局部变量，就是因为将这些变量复制到了结构体中。</li>
+</ol>
+<h2 id="2-block-的类型"><a href="#2-block-的类型" class="headerlink" title="2.block 的类型"></a>2.block 的类型</h2><p>block 其实是有类型的, 且一共有 3 种类型, 全局块, 栈块, 堆块:</p>
+<ol>
+<li><code>__NSGlobalBlock__</code>: 存储在全局/静态的 block，不会捕获任何外部变量。</li>
+<li><code>__NSStackBlock__</code>: 存储在栈中的 block，当函数返回时会被销毁。</li>
+<li><code>__NSMallocBlock__</code>: 存储在堆中的 block，当引用计数为 0 时会被销毁。</li>
+</ol>
+<ul>
+<li>NSGlobalBlock<br><strong>这种块不会捕捉任何变量, 运行时也无须有状态来参与</strong>。全局块声明在全局内存里, 在编译期已经完全确定了。所以, 无论是 ARC 还是 MRC 下, 如下代码中的 block 都是全局静态的。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; NSGlobalBlock</span><br><span class="line">- (void)globalBlock &#123;</span><br><span class="line">    void (^block)(void) &#x3D; ^&#123;</span><br><span class="line">        NSLog(@&quot;GlobalBlock内部&quot;);               &#x2F;&#x2F; 全局静态区</span><br><span class="line">    &#125;;</span><br><span class="line">    block();</span><br><span class="line">    NSLog(@&quot;GlobalBlock：%@&quot;, block);           &#x2F;&#x2F; 全局静态区</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>NSStackBlock 或 NSMallocBlock<br>ARC 下为 NSMallocBlock(堆区), MRC 下为 NSStackBlock(栈区)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; ARC下为NSMallocBlock(堆区), MRC下为NSStackBlock(栈区)</span><br><span class="line">- (void)stackBlockInMRCAndHeapBlockInARC &#123;</span><br><span class="line">    __block int a &#x3D; 0;</span><br><span class="line">    void (^block)(void) &#x3D; ^&#123;</span><br><span class="line">        a &#x3D; 1;</span><br><span class="line">        NSLog(@&quot;Block内部：%p&quot;, &amp;a);</span><br><span class="line">    &#125;;</span><br><span class="line">    block();</span><br><span class="line">    NSLog(@&quot;Block：%@&quot;, block);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>NSMallocBlock</li>
+</ul>
+<p>要问 MRC 下有没有存储于堆区的 block, 当然有了。但 block 默认会分配在栈区, 需要保留的话, 也可以手动改到堆区, 这样它就是堆块了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; MRC下为NSMallocBlock(堆区), ARC下为NSMallocBlock(堆区)</span><br><span class="line">- (void)heapBlock &#123;</span><br><span class="line">    __block int a &#x3D; 0;</span><br><span class="line">    void (^block)(void) &#x3D; [^&#123;</span><br><span class="line">        a &#x3D; 1;</span><br><span class="line">        NSLog(@&quot;MallocBlock内部：%p&quot;, &amp;a);</span><br><span class="line">    &#125; copy];</span><br><span class="line">    block();</span><br><span class="line">    NSLog(@&quot;MallocBlock：%@&quot;, block);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>block 在 ARC 和 MRC 下都是存储于堆区的, 所以其类型是 NSMallocBlock 的。<br>为了解决栈块在其变量作用域结束之后被释放的问题，我们需要把 block copy 到堆中，延长其生命周期。<strong>在开启 ARC 时，编译器会判断其是不是全局块, 若不是全局块则需要将 block 从栈 copy 到堆中，并自动生成相应代码。所以, 上面的例子中, 本不用手动添加 copy 代码的, ARC 会帮我们来做这个事情。</strong></p>
+<ul>
+<li>NSStackBlock<br>创建的 block 没有被持有的时候，编译器就不会做出将其拷贝到堆区的操作，所以这种情况下，它还在栈区。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)stackBlockInARC &#123;</span><br><span class="line">    int a &#x3D; 0;</span><br><span class="line">    &#x2F;&#x2F; 由于不需要持有block， 所以不需要编译器做多余的拷贝到堆区的操作</span><br><span class="line">    NSLog(@&quot;StackBlock：%@&quot;, ^&#123; NSLog(@&quot;%p&quot;, &amp;a); &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-block-类型总结"><a href="#2-block-类型总结" class="headerlink" title="2.block 类型总结"></a>2.block 类型总结</h2><p>总结一下, 在 MRC 中, 可能有三种 block, 就是全局块, 栈块和堆块。 但是在 <strong>ARC 中, 一版情况下只有两种 block, 即全局块和堆块</strong>。由于 ARC 已经能很好地处理对象的生命周期的管理, 所以都放到堆上管理, 不再使用栈区管理了, 所以就栈块的情况就很少了。<br>而且捕获了变量的 block 默认会分配在栈区, 在 MRC 中需要保留的话, 可以手动改到堆区; <strong>在 ARC 中, block 也是在栈区的, 但编译器会并自动将其 copy 到堆中</strong>, 所以会存储在堆区。所以每一个堆块都是由栈块 copy 而来的。<br><strong>在 ARC 下, 当你所创建的 block 没有被指针所持有的时候，编译器就不会做出将其拷贝到堆区的操作。在这种情况下，block 就是一个直接的栈块。</strong></p>
+<h2 id="3-block-捕获局部变量"><a href="#3-block-捕获局部变量" class="headerlink" title="3.block 捕获局部变量"></a>3.block 捕获局部变量</h2><p>不加 <code>__block</code>捕获的是值，加了捕获的是指针</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)captureVariable &#123;</span><br><span class="line">    int a &#x3D; 100;</span><br><span class="line">    NSLog(@&quot;Block前：%p&quot;, &amp;a);             &#x2F;&#x2F; 栈区</span><br><span class="line">    void (^block)(void) &#x3D; ^&#123;</span><br><span class="line">        NSLog(@&quot;Block内部：%p&quot;, &amp;a);       &#x2F;&#x2F; ARC下存储于堆区, MRC下存储于栈区</span><br><span class="line">    &#125;;</span><br><span class="line">    block();</span><br><span class="line">    NSLog(@&quot;Block后：%p&quot;, &amp;a);             &#x2F;&#x2F; 栈区</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; MRC 下</span><br><span class="line">Block前：0x7ffee3ac9a5c</span><br><span class="line">Block内部：0x7ffee3ac9a48</span><br><span class="line">Block后：0x7ffee3ac9a5c</span><br><span class="line">&#x2F;&#x2F; ARC 下:</span><br><span class="line">Block前：0x7ffee4d91a5c</span><br><span class="line">Block内部：0x6000002590d0</span><br><span class="line">Block后：0x7ffee4d91a5c</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子 不加<code>__block</code> 在构建 block 的时候, <strong>传入的捕获变量是变量 a 的值(即传入 a)**。 所以对于 block 捕获的变量, block 默认是将其复制到其数据结构中来实现访问的, **且 block 捕获的变量是在 block 内部进行修改是不会影响外部变量的。</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)capture__blockVariable &#123;</span><br><span class="line">    __block int a &#x3D; 0;</span><br><span class="line">    NSLog(@&quot;Block前：%p&quot;, &amp;a);            &#x2F;&#x2F; 栈区</span><br><span class="line">    void (^block)(void) &#x3D; ^&#123;</span><br><span class="line">        NSLog(@&quot;Block内部：%p&quot;, &amp;a);      &#x2F;&#x2F; ARC下存储于堆区, MRC下存储于栈区</span><br><span class="line">    &#125;;</span><br><span class="line">    block();</span><br><span class="line">    NSLog(@&quot;Block后：%p&quot;, &amp;a);            &#x2F;&#x2F; ARC下存储于堆区, MRC下存储于栈区</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; MRC 下</span><br><span class="line">Block前：0x7ffee0110a58</span><br><span class="line">Block内部：0x7ffee0110a58</span><br><span class="line">Block后：0x7ffee0110a58</span><br><span class="line">&#x2F;&#x2F; ARC 下</span><br><span class="line">Block前：0x7ffee4d91a58</span><br><span class="line">Block内部：0x600000233578</span><br><span class="line">Block后：0x600000233578</span><br></pre></td></tr></table></figure>
+
+<p><strong>上面的例子使用 <code>__block</code>修饰 在 ARC 下, block 内部和 block 后的地址是相同的都存在于堆中, 且与 block 前的地址不同。在构建 block 时, 传入捕获变量 a 的地址(即传入&amp;a)。所以对于 block 捕获的<code>__block</code> 修饰的变量，block 是复制其引用地址来实现访问的。自然就可以在 block 内部修改变量从而影响外部的变量了, 且 block 内外打印其地址都是同一个地址。</strong><br><strong>这里的 copy, 都是浅拷贝, 就是所谓的指针拷贝, 所以 a 指针指向的内存地址还是之前定义对象 a 的某块堆区区域。</strong></p>
+<h2 id="4-block-可以用-strong-修饰吗"><a href="#4-block-可以用-strong-修饰吗" class="headerlink" title="4.block 可以用 strong 修饰吗"></a>4.block 可以用 strong 修饰吗</h2><p>ARC 是可以的 strong 和 copy 的操作都是将栈上 block 拷贝到堆上。</p>
+<h2 id="5-block-在修改-NSMutableArray，需不需要添加-block"><a href="#5-block-在修改-NSMutableArray，需不需要添加-block" class="headerlink" title="5.block 在修改 NSMutableArray，需不需要添加__block"></a>5.block 在修改 NSMutableArray，需不需要添加__block</h2><p>不需要，本身 block 内部就捕获了 NSMutableArray 指针，除非你要修改指针指向的对象，而这里明显只是修改内存数据，这个可以类比 NSMutableString。</p>
+<h2 id="6-怎么进行内存管理的"><a href="#6-怎么进行内存管理的" class="headerlink" title="6.怎么进行内存管理的"></a>6.怎么进行内存管理的</h2><ul>
+<li><code>_NSConcreteGlobalBlock</code>:是设置在程序的全局数据区域（.data 区）中的 Block 对象。在全局声明实现的 block 或者 没有用到自动变量的 block 为<code>_NSConcreteGlobalBlock</code>，生命周期从创建到应用程序结束。</li>
+<li><code>_NSConcreteStackBlock</code> 是设置在栈上的 block 对象，生命周期由系统控制的，一旦所属作用域结束，就被系统销毁了。</li>
+</ul>
+<h2 id="7-block-发生-copy-时机"><a href="#7-block-发生-copy-时机" class="headerlink" title="7.block 发生 copy 时机"></a>7.block 发生 copy 时机</h2><ul>
+<li>调用 Block 的 copy 方法</li>
+<li>将 Block 作为函数返回值时</li>
+<li>将 Block 赋值给__strong 修饰的变量或 Block 类型成员变量时</li>
+<li>向 Cocoa 框架含有 usingBlock 的方法或者 GCD 的 API 传递 Block 参数时</li>
+</ul>
+<h1 id="26-多线程"><a href="#26-多线程" class="headerlink" title="26.多线程"></a>26.多线程</h1><h2 id="1-iOS-开发中有多少类型的多线程？分别对比"><a href="#1-iOS-开发中有多少类型的多线程？分别对比" class="headerlink" title="1.iOS 开发中有多少类型的多线程？分别对比"></a>1.iOS 开发中有多少类型的多线程？分别对比</h2><p><strong>1. Pthread</strong>，较少使用。</p>
+<p><strong>2. NSThread</strong>，每个 NSThread 对象对应一个线程，量级较轻，通常我们会起一个 runloop 保活，然后通过添加自定义 source0 源或者 perform onThread 来进行调用。</p>
+<ul>
+<li>优点 轻量级，使用简单，</li>
+<li>缺点：需要自己管理线程的生命周期，保活，另外还会线程同步，加锁、睡眠和唤醒。</li>
+</ul>
+<p><strong>3. GCD</strong>：Grand Central Dispatch（派发） 是基于 C 语言的框架，可以充分利用多核，是苹果推荐使用的多线程技术</p>
+<ul>
+<li>优点：GCD 更接近底层，而 NSOperationQueue 则更高级抽象，所以 GCD 在追求性能的底层操作来说，是速度最快的，有待确认</li>
+<li>缺点：操作之间的事务性，顺序行，依赖关系。GCD 需要自己写更多的代码来实现</li>
+</ul>
+<p><strong>4. NSOperation</strong> 基于 GCD 更高一层封装</p>
+<ul>
+<li>优点： 使用者的关注点都放在了 operation 上，而不需要线程管理。<br>支持在操作对象之间依赖关系，方便控制执行顺序。<br>支持可选的完成块，它在操作的主要任务完成后执行。<br>支持使用 KVO 通知监视操作执行状态的变化。<br>支持设定操作的优先级，从而影响它们的相对执行顺序。<br>支持取消操作，允许您在操作执行时暂停操作。</li>
+<li>缺点：高级抽象，性能方面相较 GCD 来说不足一些;</li>
+</ul>
+<h2 id="2-GCD-有哪些队列，默认提供哪些队列"><a href="#2-GCD-有哪些队列，默认提供哪些队列" class="headerlink" title="2.GCD 有哪些队列，默认提供哪些队列"></a>2.GCD 有哪些队列，默认提供哪些队列</h2><ol>
+<li><p>主队列（main queue ）【串行】<br>保证所有的任务都在主线程执行，而主线程是唯一用于 UI 更新的线程。此外还用于发送消息给视图或发送通知。</p>
+</li>
+<li><p>四个全局调度队列（high、default、low、background【并发】<br>Apple 的接口也会使用这些队列，所以你添加的任何任务都不会是这些队列中唯一的任务</p>
+</li>
+<li><p>自定义队列</p>
+<ul>
+<li>多个任务以串行方式执行，但又不想在主线程中</li>
+<li>多个任务以并行方式执行，但不希望队列中有其他系统的任务干扰。</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-GCD-主线程-amp-主队列的关系"><a href="#3-GCD-主线程-amp-主队列的关系" class="headerlink" title="3.GCD 主线程 &amp; 主队列的关系"></a>3.GCD 主线程 &amp; 主队列的关系</h2><p>队列其实就是一个数据结构体，主队列由于是串行队列，所以入队列中的 task 会逐一派发到主线程中执行；但是其他队列也可能会派发到主线程执行</p>
+<h2 id="4-如何实现同步，有多少方式就说多少"><a href="#4-如何实现同步，有多少方式就说多少" class="headerlink" title="4.如何实现同步，有多少方式就说多少"></a>4.如何实现同步，有多少方式就说多少</h2><ul>
+<li>dispatch_sync</li>
+<li>@synchronized</li>
+<li>dispatch_group，</li>
+<li>dispatch_semaphore</li>
+<li>NSLock/NSRecursiveLock</li>
+<li>pthread_mutex_t 互斥锁、递归锁等</li>
+</ul>
+<h2 id="5-有哪些类型的线程锁，分别介绍下作用和使用场景"><a href="#5-有哪些类型的线程锁，分别介绍下作用和使用场景" class="headerlink" title="5.有哪些类型的线程锁，分别介绍下作用和使用场景"></a>5.有哪些类型的线程锁，分别介绍下作用和使用场景</h2><ul>
+<li>@synchronized 性能最差,SD 和 AFN 等框架内部有使用这个.</li>
+<li>NSRecursiveLock 和 NSLock ：建议使用前者，避免循环调用出现死锁</li>
+<li>OSSpinLock 自旋锁,存在的问题是:优先级反转问题,破坏了 spinlock</li>
+<li>dispatch_semaphore 信号量 : 保持线程同步为线程加锁</li>
+</ul>
+<h1 id="27-通过-UIImage-imageNamed-生成的对象什么时候被释放？"><a href="#27-通过-UIImage-imageNamed-生成的对象什么时候被释放？" class="headerlink" title="27.通过[UIImage imageNamed:]生成的对象什么时候被释放？"></a>27.通过[UIImage imageNamed:]生成的对象什么时候被释放？</h1><ul>
+<li>建议针对小图标/场景出现较多图片（此类方式加载，会缓存到内存）</li>
+<li>@autoreleasepool 如果没有使用局部释放池，并且在主线程，则是当前主线程 Runloop 一次循环结束前释放。</li>
+<li>imageWithContentsOfFile ： 加载适用于大图片,不常用的图片,一般无引用时候,会释放</li>
+</ul>
+<h1 id="28-UIView-amp-CALayer-的区别"><a href="#28-UIView-amp-CALayer-的区别" class="headerlink" title="28.UIView &amp; CALayer 的区别"></a>28.UIView &amp; CALayer 的区别</h1><ul>
+<li>UIView 为 CALayer 提供内容，以及负责处理触摸等事件，参与响应链；</li>
+<li>CALayer 负责显示内容 contents</li>
+</ul>
+<h2 id="layoutsubviews"><a href="#layoutsubviews" class="headerlink" title="layoutsubviews"></a>layoutsubviews</h2><ul>
+<li>init 初始化不会触发 layoutSubviews。</li>
+<li>addSubview 会触发 layoutSubviews。</li>
+<li>改变一个 UIView 的 Frame 会触发 layoutSubviews，当然前提是 frame 的值设置前后发生了变化。</li>
+<li>滚动一个 UIScrollView 引发 UIView 的重新布局会触发 layoutSubviews。</li>
+<li>旋转 Screen 会触发父 UIView 上的 layoutSubviews 事件。</li>
+<li>直接调用 setNeedsLayout 或者 layoutIfNeeded。</li>
+<li>setNeedsLayout 标记为需要重新布局，异步调用 layoutIfNeeded 刷新布局，不立即刷新，在下一轮 runloop 结束前刷新，对于这一轮 runloop 之内的所有布局和 UI 上的更新只会刷新一次，layoutSubviews 一定会被调用。</li>
+<li>layoutIfNeeded 如果有需要刷新的标记，立即调用 layoutSubviews 进行布局（如果没有标记，不会调用 layoutSubviews）。</li>
+</ul>
+<h2 id="drawrect"><a href="#drawrect" class="headerlink" title="drawrect"></a>drawrect</h2><ul>
+<li>如果在 UIView 初始化时没有设置 frame，会导致 drawRect 不被自动调用</li>
+<li>sizeToFit 后会调用。这时候可以先用 sizeToFit 中计算出 size，然后系统自动调用 drawRect 方法</li>
+<li>通过设置 contentMode 为.redraw 时，那么在每次设置或更改 frame 的时候自动调用 drawRect</li>
+<li>直接调用 setNeedsDisplay，或者 setNeedsDisplayInRect 会触发 drawRect</li>
 </ul>
 ]]></content>
       <categories>
