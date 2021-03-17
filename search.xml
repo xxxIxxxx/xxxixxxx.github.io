@@ -2384,6 +2384,15 @@
       </tags>
   </entry>
   <entry>
+    <title>iOS 与 web 交互传图</title>
+    <url>/2020/12/07/500-iOS-%E4%B8%8E-web-%E4%BA%A4%E4%BA%92-%E4%BC%A0%E5%9B%BE/</url>
+    <content><![CDATA[<p>web 端将图片 base64 编码后传给 iOS 端，会在 base64 编码前加上 <code>data:image/png;base64,</code> 需要先把这一串给去掉后进行解码，然后转 data 再转为 image </p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+  </entry>
+  <entry>
     <title>iOS 修改状态栏的颜色 preferredStatusBarStyle</title>
     <url>/2020/11/02/500-iOS-%E4%BF%AE%E6%94%B9%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E9%A2%9C%E8%89%B2-preferredStatusBarStyle/</url>
     <content><![CDATA[<h3 id="⚠️⚠️⚠️首先要在项目的-Info-plist-文件里设置-View-controller-based-status-bar-appearance-为-YES，如果没有就不用添加⚠️-⚠️⚠️"><a href="#⚠️⚠️⚠️首先要在项目的-Info-plist-文件里设置-View-controller-based-status-bar-appearance-为-YES，如果没有就不用添加⚠️-⚠️⚠️" class="headerlink" title="⚠️⚠️⚠️首先要在项目的 Info.plist 文件里设置 View controller-based status bar appearance 为 YES，如果没有就不用添加⚠️ ⚠️⚠️"></a>⚠️⚠️⚠️首先要在项目的 Info.plist 文件里设置 View controller-based status bar appearance 为 YES，如果没有就不用添加⚠️ ⚠️⚠️</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">1. 重写 UINavigationController 的 childViewControllerForStatusBarStyle</span><br><span class="line">可以写在基类的 UINavigationController 中，也可以使用Category</span><br><span class="line">*&#x2F;</span><br><span class="line">- (UIViewController *)childViewControllerForStatusBarStyle &#123;</span><br><span class="line">    return self.topViewController;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;Swift </span><br><span class="line">override var childForStatusBarStyle: UIViewController? &#123;</span><br><span class="line">        return topViewController</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">2.  在需要改变状态栏颜色的 UIViewController 中实现 preferredStatusBarStyle</span><br><span class="line">*&#x2F;</span><br><span class="line">- (UIStatusBarStyle)preferredStatusBarStyle &#123;</span><br><span class="line">   return UIStatusBarStyleLightContent;</span><br><span class="line">   &#x2F;&#x2F; return UIStatusBarStyleDefault;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;Swift</span><br><span class="line">override var preferredStatusBarStyle: UIStatusBarStyle &#123;</span><br><span class="line">      return .lightContent</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">3. 当触发某个条件需要改变状态栏颜色时在 UIViewController 中调用</span><br><span class="line">然后在 - (UIStatusBarStyle)preferredStatusBarStyle; 中判断你的条件是否满足改变颜色</span><br><span class="line">*&#x2F;</span><br><span class="line">[self setNeedsStatusBarAppearanceUpdate];</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;Swift</span><br><span class="line">setNeedsStatusBarAppearanceUpdate()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -2396,15 +2405,6 @@
       <tags>
         <tag>UI</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>iOS 与 web 交互传图</title>
-    <url>/2020/12/07/500-iOS-%E4%B8%8E-web-%E4%BA%A4%E4%BA%92-%E4%BC%A0%E5%9B%BE/</url>
-    <content><![CDATA[<p>web 端将图片 base64 编码后传给 iOS 端，会在 base64 编码前加上 <code>data:image/png;base64,</code> 需要先把这一串给去掉后进行解码，然后转 data 再转为 image </p>
-]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
   </entry>
   <entry>
     <title>iOS 多 Target CocoaPods 管理</title>
@@ -3348,6 +3348,29 @@
 <li>对于过大的项目，数据绑定和数据转化需要花费更多的内存（成本）。主要成本在于：</li>
 <li>数据绑定使得 Bug 很难被调试。你看到界面异常了，有可能是你 View 的代码有 Bug，也可能是 Model 的代码有问题。数据绑定使得一个位置的 Bug 被快速传递到别的位置，要定位原始出问题的地方就变得不那么容易了。</li>
 </ul>
+<h1 id="32-用过设计模式介绍下"><a href="#32-用过设计模式介绍下" class="headerlink" title="32.用过设计模式介绍下"></a>32.用过设计模式介绍下</h1><p><strong>单例模式:</strong> 保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
+<ul>
+<li>优点： 1. 在内存里只有一个实例，减少了内存的开销，尤其是频繁的创建和销毁实例（比如管理学院首页页面缓存）。2. 避免对资源的多重占用（比如写文件操作）。</li>
+<li>缺点： 没有接口，不能继承，与单一职责原则冲突，一个类应该只关心内部逻辑，而不关心外面怎么样来实例化。</li>
+</ul>
+<p><strong>工厂模式:</strong> 定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行。</p>
+<ul>
+<li>优点： 1、一个调用者想创建一个对象，只要知道其名称就可以了。 2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。 3、屏蔽产品的具体实现，调用者只关心产品的接口。</li>
+<li>缺点：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。</li>
+</ul>
+<p><strong>观察者模式:</strong> 系统的 KVO</p>
+<h1 id="33-描述一个-ViewController-的生命周期"><a href="#33-描述一个-ViewController-的生命周期" class="headerlink" title="33.描述一个 ViewController 的生命周期"></a>33.描述一个 ViewController 的生命周期</h1><ol>
+<li>当我们调用 UIViewControlller 的 view 时，</li>
+<li>系统首先判断当前的 UIViewControlller 是否存在 view，如果存在直接返回 view，</li>
+<li>如果不存在的话，会调用 loadview 方法，</li>
+<li>然后判断 loadview 方法是否是自定义方法，</li>
+<li>如果是自定义方法，就执行自定义方法，</li>
+<li>如果不是自定义方法，判断当时视图控制器是否有 xib、stroyboard。</li>
+<li>如果有 xib、stroyboard 就加载 xib、stroyboard。</li>
+<li>如果没有创建一个空白的 view。</li>
+<li>调用 viewDidLoad 方法。</li>
+<li>最后返回 view</li>
+</ol>
 ]]></content>
       <categories>
         <category>iOS 知识点</category>
