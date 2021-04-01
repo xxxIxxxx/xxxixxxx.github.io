@@ -233,7 +233,7 @@
 <p>不管是 load 还是 initialize 方法都是 runtime 底层自动调用的，如果开发自己手动进行了 [super load] ,那么会调用父类的 load 方法。<br>调用 [super initialize] 方法，那么调用父类的 initialize 方法。 实际上是走消息发送流程。</p>
 <h1 id="7-category-amp-extension-区别，能给-NSObject-添加-Extension-吗，结果如何"><a href="#7-category-amp-extension-区别，能给-NSObject-添加-Extension-吗，结果如何" class="headerlink" title="7.category &amp; extension 区别，能给 NSObject 添加 Extension 吗，结果如何"></a>7.category &amp; extension 区别，能给 NSObject 添加 Extension 吗，结果如何</h1><ul>
 <li>category 可以给类添加方法和属性(需要借助 runtime<br><code>objc_setAssociatedObject(self, &amp;redXXKey, redXX, OBJC_ASSOCIATION_COPY_NONATOMIC);</code><br>及<code>objc_getAssociatedObject(self, &amp;redXXKey);</code>)</li>
-<li>extension 可以给类添加成员变量和方法，但是是私有的在 .m 内。</li>
+<li>extension 可以给类添加成员变量和方法，但是是私有的在 .m 内(只有在.m 里才是私有的)。</li>
 <li>不能给 NSObject 及系统类 添加 Extension，必须有源码才行 .m</li>
 </ul>
 <h1 id="8-在方法调用的时候，方法查询-gt-动态解析-gt-消息转发-之前做了什么"><a href="#8-在方法调用的时候，方法查询-gt-动态解析-gt-消息转发-之前做了什么" class="headerlink" title="8.在方法调用的时候，方法查询-&gt; 动态解析-&gt; 消息转发 之前做了什么"></a>8.在方法调用的时候，方法查询-&gt; 动态解析-&gt; 消息转发 之前做了什么</h1><p>OC 中的方法调用，编译后的代码最终都会转成 <code>objc_msgSend(id , SEL, ...)</code> 方法进行调用。这个方法第一个参数是一个消息接收者对象，runtime 通过这个对象的 isa 指针找到这个对象的类对象，从类对象中的 cache 中查找(哈希查找，bucket 桶实现)是否存在 SEL 对应的 IMP，如果不存在，则会在 method_list 中查找（二分查找或者顺序查找），如果还是没找到，则会到 supper_class 中查找，仍然没找到的话，就会调用<code>_objc_msgForward(id, SEL, ...)</code>进行消息转发。</p>
@@ -593,7 +593,7 @@
 <li><p><strong>对 GPU 处理的优化</strong><br>尽量避免使用 CALayer 的 Border、corner、shadow、mask 等技术，这样能少触发离屏渲染<br>尽可能将多张图片合成为一张进行显示，减轻视图层级</p>
 </li>
 </ul>
-<h1 id="31-MVVM-和-MVC-的区别"><a href="#31-MVVM-和-MVC-的区别" class="headerlink" title="31.MVVM 和 MVC 的区别"></a>31.MVVM 和 MVC 的区别</h1><h2 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h2><p>M：数据模型， V：视图， C：控制器<br>视图 和 数据 通过控制器进行交互传递。<br><strong>弊端</strong>：C 控制器层 代码逻辑较多</p>
+<h1 id="31-MVVM-和-MVC-的区别"><a href="#31-MVVM-和-MVC-的区别" class="headerlink" title="31.MVVM 和 MVC 的区别"></a>31.MVVM 和 MVC 的区别</h1><h2 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h2><p>M：数据模型， V：视图， C：控制器<br>controller 层拿到 model 更新 view，<br>view 事件传递到 controller 层，更新 model<br><strong>弊端</strong>：C 控制器层 代码逻辑较多</p>
 <h2 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h2><p>M：数据模型，V：视图、控制器，VM：处理逻辑、网络</p>
 <ol>
 <li>View 引用 ViewModel，但 ViewModle 不能引用 View 视图、控制器。</li>
