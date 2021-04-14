@@ -9,7 +9,7 @@
     
     <title>
         
-            Category: iOS |
+            iOS 代理检测 |
         
         今日营业中
     </title>
@@ -76,7 +76,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/categories"
                             >
                                 分类
@@ -123,7 +123,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/categories">分类</a>
                 </li>
             
@@ -148,88 +148,178 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="category-container">
-        <div class="category-name">
-            <i class="fas fa-folder"></i>&nbsp;iOS
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">iOS 代理检测</span>
         </div>
-        <div class="category-post-list">
-            
-<div class="archive-list-container">
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://files.catbox.moe/elmpn1.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">xxxixxxx</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-04-14 16:05:00
+    </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2020</span>
-                <span class="archive-year-post-count">[7]</span>
-            </div>
-            <ul class="article-list">
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
                 
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/11/22/500-iOS%E6%8B%96%E6%8B%BD%E5%8D%A1%E7%89%87%E5%8F%A0%E5%8A%A0%E5%8D%A1%E7%89%87/"
-                        >iOS拖拽卡片</a>
-                        <span class="article-date">11-22</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/11/21/500-Xcode-%E4%BB%A3%E7%A0%81%E5%9D%97/"
-                        >iOS 常用代码块</a>
-                        <span class="article-date">11-21</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/11/20/500-SnapKit%E9%80%82%E9%85%8D%E5%88%98%E6%B5%B7%E5%B1%8F%E3%80%81%E5%BC%82%E5%BD%A2%E5%B1%8F/"
-                        >SnapKit适配刘海屏、异形屏</a>
-                        <span class="article-date">11-20</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/11/20/500-iOS-%E6%8A%A5%E9%94%99-'sharedApplication'-is-unavailable--not-available-on-iOS-(App-E/"
-                        >iOS-报错-&#39;sharedApplication&#39;-is-unavailable--not-available-on-iOS</a>
-                        <span class="article-date">11-20</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/11/20/500-iOS%E6%B8%90%E5%8F%98%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97%E3%80%81iOS-mask-%E9%81%AE%E7%BD%A9/"
-                        >iOS mask 遮罩，彩色文本</a>
-                        <span class="article-date">11-20</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/11/10/100-Swift-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"
-                        >iOS 多线程</a>
-                        <span class="article-date">11-10</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/11/02/500-iOS-%E4%BF%AE%E6%94%B9%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E9%A2%9C%E8%89%B2-preferredStatusBarStyle/"
-                        >iOS 修改状态栏的颜色 preferredStatusBarStyle</a>
-                        <span class="article-date">11-02</span>
+                    <li>
+                        <a href="/categories/iOS/">iOS</a>&nbsp;
                     </li>
                 
             </ul>
-        </section>
+        </span>
+    
+    
+
+    
+    
+    
     
 </div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">NSDictionary *proxySettings &#x3D; CFBridgingRelease(CFNetworkCopySystemProxySettings());</span><br><span class="line">    NSArray *proxies &#x3D; CFBridgingRelease(CFNetworkCopyProxiesForURL((__bridge CFURLRef)[NSURL URLWithString:@&quot;https:&#x2F;&#x2F;www.baidu.com&quot;], (__bridge CFDictionaryRef)proxySettings));</span><br><span class="line">    if (proxies.count &gt; 0) &#123;</span><br><span class="line">        NSDictionary *settings &#x3D; proxies[0];</span><br><span class="line">        NSString *type &#x3D; [settings objectForKey:(NSString *)kCFProxyTypeKey];</span><br><span class="line">        if (![type isEqualToString:(NSString *)kCFProxyTypeNone]) &#123;</span><br><span class="line">            NSLog(@&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 开启代理&quot;);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 未开启代理&quot;);</span><br></pre></td></tr></table></figure>
 
         </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：iOS 代理检测</li>
+        <li>Post author：xxxixxxx</li>
+        <li>Create time：2021-04-14 16:05:00</li>
+        <li>
+            Post link：https://xxxixxx.github.io/2021/04/14/500-iOS检测代理/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/03/08/6666-001-runtime/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Runtime 相关知识</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
     </div>
-    <div class="category-paginator">
-        <div class="paginator">
-    
-        <a class="prev btn"
-           href="/categories/iOS/"
-        >Prev</a>
     
 
+        
+            
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '1zMbU0F6CLL5EFJNQOkNJSSP-gzGzoHsz',
+                    appKey: 'zCB8Eokt3Assyi0cPe2SgDOD',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '来交流吧～',
+                    lang: 'en'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'xxxixxxx';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
     
 </div>
 
+            </div>
+        
     </div>
 </div>
 
@@ -260,6 +350,27 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -315,6 +426,14 @@
     </div>
 
     
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        
+    </div>
+</div>
+        </aside>
+    
 
     <div class="image-viewer-container">
     <img src="">
@@ -369,6 +488,8 @@
 
 
 <div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/toc.js"></script>
     
 </div>
 

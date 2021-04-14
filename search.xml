@@ -1445,27 +1445,6 @@
       </categories>
   </entry>
   <entry>
-    <title>81. 搜索旋转排序数组 II - 中等</title>
-    <url>/2021/02/24/2000-014-81.%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%20II/</url>
-    <content><![CDATA[<h1 id="81-搜索旋转排序数组-II"><a href="#81-搜索旋转排序数组-II" class="headerlink" title="81. 搜索旋转排序数组 II"></a><a class="link"   href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/" >81. 搜索旋转排序数组 II<i class="fas fa-external-link-alt"></i></a></h1><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://files.catbox.moe/pwhsby.png"
-                      alt="81. 搜索旋转排序数组 II"
-                ></p>
-<h1 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h1><ul>
-<li><p>时间复杂度<br>O(n) 大多情况下每次都减少一般的数据</p>
-</li>
-<li><p>空间复杂度<br>O(1)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func search(_ nums: [Int], _ target: Int) -&gt; Bool &#123;</span><br><span class="line">      if nums.isEmpty &#123;</span><br><span class="line">          return false</span><br><span class="line">      &#125;</span><br><span class="line">      if nums.count &#x3D;&#x3D; 1 &#123;</span><br><span class="line">          return nums[0] &#x3D;&#x3D; target</span><br><span class="line">      &#125;</span><br><span class="line">      var left &#x3D; 0</span><br><span class="line">      var right &#x3D; nums.count - 1</span><br><span class="line">      &#x2F;&#x2F; [1, 2]</span><br><span class="line">      &#x2F;&#x2F; 必须是 &gt;&#x3D; 会存在 到最后左右指针相遇 才找到 目标值的情况</span><br><span class="line">      while right &gt;&#x3D; left &#123;</span><br><span class="line">          let mid &#x3D; (right - left) &#x2F; 2 + left</span><br><span class="line">          if nums[mid] &#x3D;&#x3D; target &#123;</span><br><span class="line">              return true</span><br><span class="line">          &#125;</span><br><span class="line">          if nums[mid] &lt; nums[right] &#123;</span><br><span class="line">              if nums[mid] &lt; target, target &lt;&#x3D; nums[right] &#123;</span><br><span class="line">                  left &#x3D; mid + 1</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                  right &#x3D; mid - 1</span><br><span class="line">              &#125;</span><br><span class="line">          &#125; else if nums[mid] &gt; nums[right] &#123;</span><br><span class="line">              if nums[left] &lt;&#x3D; target, target &lt; nums[mid] &#123;</span><br><span class="line">                  right &#x3D; mid - 1</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                  left &#x3D; mid + 1</span><br><span class="line">              &#125;</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">              right -&#x3D; 1</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      return false</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-  </entry>
-  <entry>
     <title>236. 二叉树的最近公共祖先 - 中等</title>
     <url>/2021/02/24/2000-015-236.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</url>
     <content><![CDATA[<h1 id="236-二叉树的最近公共祖先"><a href="#236-二叉树的最近公共祖先" class="headerlink" title="236. 二叉树的最近公共祖先"></a><a class="link"   href="https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/" >236. 二叉树的最近公共祖先<i class="fas fa-external-link-alt"></i></a></h1><p><img  
@@ -1944,6 +1923,27 @@
 <h1 id="Container-BoxDecoration-属性生成-圆图"><a href="#Container-BoxDecoration-属性生成-圆图" class="headerlink" title="Container BoxDecoration 属性生成 圆图"></a>Container BoxDecoration 属性生成 圆图</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Container(</span><br><span class="line">      &#x2F;&#x2F; child: networkImage,</span><br><span class="line">      decoration: BoxDecoration(</span><br><span class="line">        borderRadius: BorderRadius.circular(150),</span><br><span class="line">        image: DecorationImage(</span><br><span class="line">          image: NetworkImage(imageUrl),</span><br><span class="line">          fit: BoxFit.cover,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      width: 300,</span><br><span class="line">      height: 300,</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Flutter</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>81. 搜索旋转排序数组 II - 中等</title>
+    <url>/2021/02/24/2000-014-81.%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%20II/</url>
+    <content><![CDATA[<h1 id="81-搜索旋转排序数组-II"><a href="#81-搜索旋转排序数组-II" class="headerlink" title="81. 搜索旋转排序数组 II"></a><a class="link"   href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/" >81. 搜索旋转排序数组 II<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/pwhsby.png"
+                      alt="81. 搜索旋转排序数组 II"
+                ></p>
+<h1 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h1><ul>
+<li><p>时间复杂度<br>O(n) 大多情况下每次都减少一般的数据</p>
+</li>
+<li><p>空间复杂度<br>O(1)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func search(_ nums: [Int], _ target: Int) -&gt; Bool &#123;</span><br><span class="line">      if nums.isEmpty &#123;</span><br><span class="line">          return false</span><br><span class="line">      &#125;</span><br><span class="line">      if nums.count &#x3D;&#x3D; 1 &#123;</span><br><span class="line">          return nums[0] &#x3D;&#x3D; target</span><br><span class="line">      &#125;</span><br><span class="line">      var left &#x3D; 0</span><br><span class="line">      var right &#x3D; nums.count - 1</span><br><span class="line">      &#x2F;&#x2F; [1, 2]</span><br><span class="line">      &#x2F;&#x2F; 必须是 &gt;&#x3D; 会存在 到最后左右指针相遇 才找到 目标值的情况</span><br><span class="line">      while right &gt;&#x3D; left &#123;</span><br><span class="line">          let mid &#x3D; (right - left) &#x2F; 2 + left</span><br><span class="line">          if nums[mid] &#x3D;&#x3D; target &#123;</span><br><span class="line">              return true</span><br><span class="line">          &#125;</span><br><span class="line">          if nums[mid] &lt; nums[right] &#123;</span><br><span class="line">              if nums[mid] &lt; target, target &lt;&#x3D; nums[right] &#123;</span><br><span class="line">                  left &#x3D; mid + 1</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                  right &#x3D; mid - 1</span><br><span class="line">              &#125;</span><br><span class="line">          &#125; else if nums[mid] &gt; nums[right] &#123;</span><br><span class="line">              if nums[left] &lt;&#x3D; target, target &lt; nums[mid] &#123;</span><br><span class="line">                  right &#x3D; mid - 1</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                  left &#x3D; mid + 1</span><br><span class="line">              &#125;</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">              right -&#x3D; 1</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      return false</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
       </categories>
   </entry>
   <entry>
@@ -2653,6 +2653,15 @@
       </categories>
   </entry>
   <entry>
+    <title>iOS 代理检测</title>
+    <url>/2021/04/14/500-iOS%E6%A3%80%E6%B5%8B%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NSDictionary *proxySettings &#x3D; CFBridgingRelease(CFNetworkCopySystemProxySettings());</span><br><span class="line">    NSArray *proxies &#x3D; CFBridgingRelease(CFNetworkCopyProxiesForURL((__bridge CFURLRef)[NSURL URLWithString:@&quot;https:&#x2F;&#x2F;www.baidu.com&quot;], (__bridge CFDictionaryRef)proxySettings));</span><br><span class="line">    if (proxies.count &gt; 0) &#123;</span><br><span class="line">        NSDictionary *settings &#x3D; proxies[0];</span><br><span class="line">        NSString *type &#x3D; [settings objectForKey:(NSString *)kCFProxyTypeKey];</span><br><span class="line">        if (![type isEqualToString:(NSString *)kCFProxyTypeNone]) &#123;</span><br><span class="line">            NSLog(@&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 开启代理&quot;);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 未开启代理&quot;);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+  </entry>
+  <entry>
     <title>iOS mask 遮罩，彩色文本</title>
     <url>/2020/11/20/500-iOS%E6%B8%90%E5%8F%98%E5%BD%A9%E8%89%B2%E6%96%87%E5%AD%97%E3%80%81iOS-mask-%E9%81%AE%E7%BD%A9/</url>
     <content><![CDATA[<h1 id="iOS-渐变彩色文字、iOS-mask-遮罩"><a href="#iOS-渐变彩色文字、iOS-mask-遮罩" class="headerlink" title="iOS 渐变彩色文字、iOS mask 遮罩"></a>iOS 渐变彩色文字、iOS mask 遮罩</h1><p><img  
@@ -2994,7 +3003,7 @@
 <li><p>class_rw_t 运行时添加的方法将会存储在运行时生成的 class_rw_t 中。 rw = read write</p>
 </li>
 </ul>
-<h1 id="5-category-如何被加载的-两个-category-的-load-方法的加载顺序，两个-category-的同名方法的加载顺序"><a href="#5-category-如何被加载的-两个-category-的-load-方法的加载顺序，两个-category-的同名方法的加载顺序" class="headerlink" title="5.category 如何被加载的,两个 category 的 load 方法的加载顺序，两个 category 的同名方法的加载顺序"></a>5.category 如何被加载的,两个 category 的 load 方法的加载顺序，两个 category 的同名方法的加载顺序</h1><p>+load 方法是 images 加载的时候调用，先调用父类的方法然后才是本类的方法。 category 的 +load 则是按照编译顺序来的，先编译的先调用，后编译的后调用，可在 Xcode 的 BuildPhase 中查看<br>分类添加到了 rw = cls-&gt;data() 中的 methods/properties/protocols 中，实际上并无覆盖，只是查找到就返回了，导致本类函数无法加载。</p>
+<h1 id="5-category-如何被加载的-两个-category-的-load-方法的加载顺序，两个-category-的同名方法的加载顺序"><a href="#5-category-如何被加载的-两个-category-的-load-方法的加载顺序，两个-category-的同名方法的加载顺序" class="headerlink" title="5.category 如何被加载的,两个 category 的 load 方法的加载顺序，两个 category 的同名方法的加载顺序"></a>5.category 如何被加载的,两个 category 的 load 方法的加载顺序，两个 category 的同名方法的加载顺序</h1><p>+load 方法是 images 加载的时候调用，先调用父类的方法然后才是本类的方法。 category 的 +load 则是按照编译顺序来的，先编译的先调用，后编译的后调用，可在 Xcode 的 BuildPhase 中查看<br>分类添加到了 rw = cls-&gt;data() 中的 methods/properties/protocols 中，实际上并无覆盖，只是查找到就返回了，导致本类函数无法加载。同名方法调用后编译的。</p>
 <h1 id="6-initialize-amp-amp-Load"><a href="#6-initialize-amp-amp-Load" class="headerlink" title="6.initialize &amp;&amp; Load"></a>6.initialize &amp;&amp; Load</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+ (void)load &#123;</span><br><span class="line">    NSLog(@&quot; load &quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)initialize</span><br><span class="line">&#123;</span><br><span class="line">    if (self &#x3D;&#x3D; [self class]) &#123;</span><br><span class="line">        NSLog(@&quot; initialize &quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>load 方法会先调用，initialize 方法 当前对象第一次初始化创建时才会调用，<strong>如果该对象的父类的 initialize 方法还未调用，会先调用父类的方法。父类再初始化创建时不再调用。</strong>。这两个方法在 App 生命周期内仅调用一次。 category 的 load 方法按照编译顺序，先编译先调用。category 实现 initialize 方法那么本类的不会调用，多个 category 都实现调用最后编译的(这时走的是消息发送流程)。编译顺序在 BuildPhase 中查看。</p>
@@ -3062,7 +3071,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AFNetworking 源码涉及代码</span><br><span class="line">static inline void af_swizzleSelector(Class theClass, SEL originalSelector, SEL swizzledSelector) &#123;</span><br><span class="line">    Method originalMethod &#x3D; class_getInstanceMethod(theClass, originalSelector);</span><br><span class="line">    Method swizzledMethod &#x3D; class_getInstanceMethod(theClass, swizzledSelector);</span><br><span class="line">    method_exchangeImplementations(originalMethod, swizzledMethod);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline BOOL af_addMethod(Class theClass, SEL selector, Method method) &#123;</span><br><span class="line">    return class_addMethod(theClass, selector,  method_getImplementation(method),  method_getTypeEncoding(method));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)swizzleResumeAndSuspendMethodForClass:(Class)theClass &#123;</span><br><span class="line">    Method afResumeMethod &#x3D; class_getInstanceMethod(self, @selector(af_resume));</span><br><span class="line">    Method afSuspendMethod &#x3D; class_getInstanceMethod(self, @selector(af_suspend));</span><br><span class="line"></span><br><span class="line">    if (af_addMethod(theClass, @selector(af_resume), afResumeMethod)) &#123;</span><br><span class="line">        af_swizzleSelector(theClass, @selector(resume), @selector(af_resume));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (af_addMethod(theClass, @selector(af_suspend), afSuspendMethod)) &#123;</span><br><span class="line">        af_swizzleSelector(theClass, @selector(suspend), @selector(af_suspend));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="19-iOS-中内省的几个方法有哪些？内部实现原理是什么"><a href="#19-iOS-中内省的几个方法有哪些？内部实现原理是什么" class="headerlink" title="19. iOS 中内省的几个方法有哪些？内部实现原理是什么"></a>19. iOS 中内省的几个方法有哪些？内部实现原理是什么</h1><p>对象在运行时获取其类型的能力称为内省</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-(BOOL) isKindOfClass:            判断是否是这个类或者这个类的子类的实例</span><br><span class="line">-(BOOL) isMemberOfClass:      判断是否是这个类的实例</span><br><span class="line">-(BOOL) respondsToSelector:                      判读实例是否有这样方法</span><br><span class="line">+(BOOL) instancesRespondToSelector:      判断类是否有这个方法</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-(BOOL) isKindOfClass:            判断是否是这个类或者这个类的子类的实例</span><br><span class="line">-(BOOL) isMemberOfClass:      判断是否是这个类的实例</span><br><span class="line">-(BOOL) respondsToSelector:            判读实例是否实现了该方法</span><br><span class="line">+(BOOL) instancesRespondToSelector:    判断类的实例是否实现了这个方法</span><br></pre></td></tr></table></figure>
 
 <h1 id="20-属性修饰符-atomic-的内部实现是怎么样的-能保证线程安全吗"><a href="#20-属性修饰符-atomic-的内部实现是怎么样的-能保证线程安全吗" class="headerlink" title="20. 属性修饰符 atomic 的内部实现是怎么样的?能保证线程安全吗"></a>20. 属性修饰符 atomic 的内部实现是怎么样的?能保证线程安全吗</h1><ul>
 <li><p>实现机制：atomic 是 property 的修饰词之一，表示是原子性的，使用方式为@property(atomic)int age;,此时编译器会自动生成 getter/setter 方法，最终会调用 objc_getProperty 和 objc_setProperty 方法来进行存取属性。若此时属性用 atomic 修饰的话，在这两个方法内部使用 os_unfair_lock 来进行加锁，来保证读写的原子性。锁都在 PropertyLocks 中保存着（在 iOS 平台会初始化 8 个，mac 平台 64 个），在用之前，会把锁都初始化好，在需要用到时，用对象的地址加上成员变量的偏移量为 key，去 PropertyLocks 中去取。因此存取时用的是同一个锁，所以 atomic 能保证属性的存取时是线程安全的。注：由于锁是有限的，不用对象，不同属性的读取用的也可能是同一个锁</p>
@@ -3083,7 +3092,7 @@
 <li>self.class:当 self 是实例对象的时候，返回的是类对象，否则则返回自身。</li>
 <li>类方法 class，返回的是 self，所以当查找 meta class 时，需要对类对象调用 object_getClass 方法</li>
 </ul>
-<h1 id="22-NSNotification"><a href="#22-NSNotification" class="headerlink" title="22.NSNotification"></a>22.NSNotification</h1><h2 id="1-通知的发送时同步的，还是异步的"><a href="#1-通知的发送时同步的，还是异步的" class="headerlink" title="1. 通知的发送时同步的，还是异步的"></a>1. 通知的发送时同步的，还是异步的</h2><p>同步发送</p>
+<h1 id="22-NSNotification"><a href="#22-NSNotification" class="headerlink" title="22.NSNotification"></a>22.NSNotification</h1><h2 id="1-通知的发送时同步的，还是异步的"><a href="#1-通知的发送时同步的，还是异步的" class="headerlink" title="1. 通知的发送时同步的，还是异步的"></a>1. 通知的发送时同步的，还是异步的</h2><p>同步发送，所有接受者处理完后，才会走发送后下边的代码。</p>
 <h2 id="2-NSNotificationCenter-接受消息和发送消息是在一个线程里吗？如何异步发送消息"><a href="#2-NSNotificationCenter-接受消息和发送消息是在一个线程里吗？如何异步发送消息" class="headerlink" title="2. NSNotificationCenter 接受消息和发送消息是在一个线程里吗？如何异步发送消息"></a>2. NSNotificationCenter 接受消息和发送消息是在一个线程里吗？如何异步发送消息</h2><p>NSNotificationQueue</p>
 <h2 id="3-NSNotificationQueue-是异步还是同步发送？在哪个线程响应"><a href="#3-NSNotificationQueue-是异步还是同步发送？在哪个线程响应" class="headerlink" title="3.NSNotificationQueue 是异步还是同步发送？在哪个线程响应"></a>3.NSNotificationQueue 是异步还是同步发送？在哪个线程响应</h2><p>通知队列，用于异步发送消息，这个异步并不是开启线程，而是把通知存到双向链表实现的队列里面，等待某个时机触发时调用 NSNotificationCenter 的发送接口进行发送通知，这么看 NSNotificationQueue 最终还是调用 NSNotificationCenter 进行消息的分发。</p>
 <ul>
