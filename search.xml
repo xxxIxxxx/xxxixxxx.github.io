@@ -244,17 +244,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Swift获取值的类型</title>
-    <url>/2020/11/19/100-Swift%E8%8E%B7%E5%8F%96%E5%80%BC%E7%9A%84%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>使用 <code>type(of:)</code> 函数</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">let a &#x3D; type(of:&quot;😄&quot;)</span><br><span class="line"></span><br><span class="line">print(a) &#x2F;&#x2F;String</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><a class="link"   href="https://developer.apple.com/documentation/swift/2885064-type" >直达文档<i class="fas fa-external-link-alt"></i></a></p>
-]]></content>
-      <categories>
-        <category>Swift</category>
-      </categories>
-  </entry>
-  <entry>
     <title>在Swift中使用 NSClassFromString</title>
     <url>/2020/11/02/100-%E5%9C%A8Swift%E4%B8%AD%E4%BD%BF%E7%94%A8-NSClassFromString/</url>
     <content><![CDATA[<p>在Swift中使用 NSClassFromString</p>
@@ -264,6 +253,17 @@
 <h3 id="每次写这些很麻烦-所以简单封装下"><a href="#每次写这些很麻烦-所以简单封装下" class="headerlink" title="每次写这些很麻烦,所以简单封装下"></a>每次写这些很麻烦,所以简单封装下</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public func GetClassFromString(_ classString: String) -&gt; AnyClass? &#123;</span><br><span class="line">    </span><br><span class="line">    guard let bundleName: String &#x3D; Bundle.main.object(forInfoDictionaryKey: &quot;CFBundleName&quot;) as? String else &#123;</span><br><span class="line">        return nil</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    var anyClass: AnyClass? &#x3D; NSClassFromString(bundleName + &quot;.&quot; + classString)</span><br><span class="line">    if (anyClass &#x3D;&#x3D; nil) &#123;</span><br><span class="line">        anyClass &#x3D; NSClassFromString(classString)</span><br><span class="line">    &#125;</span><br><span class="line">    return anyClass</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="以后就可以直接调用"><a href="#以后就可以直接调用" class="headerlink" title="以后就可以直接调用"></a>以后就可以直接调用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GetClassFromString(&quot;cellName&quot;)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Swift获取值的类型</title>
+    <url>/2020/11/19/100-Swift%E8%8E%B7%E5%8F%96%E5%80%BC%E7%9A%84%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>使用 <code>type(of:)</code> 函数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">let a &#x3D; type(of:&quot;😄&quot;)</span><br><span class="line"></span><br><span class="line">print(a) &#x2F;&#x2F;String</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><a class="link"   href="https://developer.apple.com/documentation/swift/2885064-type" >直达文档<i class="fas fa-external-link-alt"></i></a></p>
 ]]></content>
       <categories>
         <category>Swift</category>
@@ -859,7 +859,22 @@
   <entry>
     <title>简述 http 1.0，1.1，2.0 的主要区别</title>
     <url>/2021/02/22/1000-018%E7%AE%80%E8%BF%B0%20HTTP%201.0%EF%BC%8C1.1%EF%BC%8C2.0%20%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><p>http1.0 到 http1.1 的主要区别，就是从无连接到长连接。<br>http2.0 对比 1.X 版本主要区别就是多路复用。</p>
+    <content><![CDATA[<h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><ul>
+<li>http1.0 到 http1.1 的主要区别<ol>
+<li>从无连接到长连接，可连续发送请求。在一个 TCP 连接上可以传送多个 HTTP 请求和响应，减少了建立和关闭连接的消耗和延迟，在 HTTP1.1 中默认开启 Connection： keep-alive，一定程度上弥补了 HTTP1.0 每次请求都要创建连接的缺点。</li>
+<li>具有 range 头可请求部分数据。</li>
+<li>host 头处理，在 HTTP1.0 中认为每台服务器都绑定一个唯一的 IP 地址，因此，请求消息中的 URL 并没有传递主机名（hostname）。但随着虚拟主机技术的发展，在一台物理服务器上可以存在多个虚拟主机（Multi-homed Web Servers），并且它们共享一个 IP 地址。HTTP1.1 的请求消息和响应消息都应支持 Host 头域，且请求消息中如果没有 Host 头域会报告一个错误（400 Bad Request）。</li>
+<li>错误通知的管理，在 HTTP1.1 中新增了 24 个错误状态响应码。</li>
+</ol>
+</li>
+<li>http2.0 对比 1.X 版本主要区别<ol>
+<li>多路复用即连接共享，即每一个 request 都是用作连接共享机制的。一个 request 对应一个 id，这样一个连接上可以有多个 request。</li>
+<li>服务端推送</li>
+<li>header 压缩，HTTP1.x 的 header 带有大量信息，而且每次都要重复发送，HTTP2.0 使用 encoder 来减少需要传输的 header 大小，通讯双方各自 cache 一份 header fields 表，既避免了重复 header 的传输，又减小了需要传输的大小。</li>
+<li>新的二进制格式， HTTP1.x 的解析是基于文本。基于文本协议的格式解析存在天然缺陷，文本的表现形式有多样性，要做到健壮性考虑的场景必然很多，二进制则不同，只认 0 和 1 的组合。基于这种考虑 HTTP2.0 的协议解析决定采用二进制格式。</li>
+</ol>
+</li>
+</ul>
 <h1 id="http-1-0-特性"><a href="#http-1-0-特性" class="headerlink" title="http 1.0 特性"></a>http 1.0 特性</h1><h2 id="1-无状态"><a href="#1-无状态" class="headerlink" title="1. 无状态"></a>1. 无状态</h2><p>服务器不跟踪不记录请求过的状态<br>对于无状态的特性可以借助 cookie/session 机制来做身份认证和状态记录</p>
 <h2 id="2-无连接"><a href="#2-无连接" class="headerlink" title="2. 无连接"></a>2. 无连接</h2><p>浏览器每次请求都需要建立 tcp 连接</p>
 <p>无连接导致的性能缺陷有两种：</p>
@@ -1445,6 +1460,27 @@
       </categories>
   </entry>
   <entry>
+    <title>81. 搜索旋转排序数组 II - 中等</title>
+    <url>/2021/02/24/2000-014-81.%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%20II/</url>
+    <content><![CDATA[<h1 id="81-搜索旋转排序数组-II"><a href="#81-搜索旋转排序数组-II" class="headerlink" title="81. 搜索旋转排序数组 II"></a><a class="link"   href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/" >81. 搜索旋转排序数组 II<i class="fas fa-external-link-alt"></i></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://files.catbox.moe/pwhsby.png"
+                      alt="81. 搜索旋转排序数组 II"
+                ></p>
+<h1 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h1><ul>
+<li><p>时间复杂度<br>O(n) 大多情况下每次都减少一般的数据</p>
+</li>
+<li><p>空间复杂度<br>O(1)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func search(_ nums: [Int], _ target: Int) -&gt; Bool &#123;</span><br><span class="line">      if nums.isEmpty &#123;</span><br><span class="line">          return false</span><br><span class="line">      &#125;</span><br><span class="line">      if nums.count &#x3D;&#x3D; 1 &#123;</span><br><span class="line">          return nums[0] &#x3D;&#x3D; target</span><br><span class="line">      &#125;</span><br><span class="line">      var left &#x3D; 0</span><br><span class="line">      var right &#x3D; nums.count - 1</span><br><span class="line">      &#x2F;&#x2F; [1, 2]</span><br><span class="line">      &#x2F;&#x2F; 必须是 &gt;&#x3D; 会存在 到最后左右指针相遇 才找到 目标值的情况</span><br><span class="line">      while right &gt;&#x3D; left &#123;</span><br><span class="line">          let mid &#x3D; (right - left) &#x2F; 2 + left</span><br><span class="line">          if nums[mid] &#x3D;&#x3D; target &#123;</span><br><span class="line">              return true</span><br><span class="line">          &#125;</span><br><span class="line">          if nums[mid] &lt; nums[right] &#123;</span><br><span class="line">              if nums[mid] &lt; target, target &lt;&#x3D; nums[right] &#123;</span><br><span class="line">                  left &#x3D; mid + 1</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                  right &#x3D; mid - 1</span><br><span class="line">              &#125;</span><br><span class="line">          &#125; else if nums[mid] &gt; nums[right] &#123;</span><br><span class="line">              if nums[left] &lt;&#x3D; target, target &lt; nums[mid] &#123;</span><br><span class="line">                  right &#x3D; mid - 1</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                  left &#x3D; mid + 1</span><br><span class="line">              &#125;</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">              right -&#x3D; 1</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      return false</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>236. 二叉树的最近公共祖先 - 中等</title>
     <url>/2021/02/24/2000-015-236.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</url>
     <content><![CDATA[<h1 id="236-二叉树的最近公共祖先"><a href="#236-二叉树的最近公共祖先" class="headerlink" title="236. 二叉树的最近公共祖先"></a><a class="link"   href="https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/" >236. 二叉树的最近公共祖先<i class="fas fa-external-link-alt"></i></a></h1><p><img  
@@ -1923,27 +1959,6 @@
 <h1 id="Container-BoxDecoration-属性生成-圆图"><a href="#Container-BoxDecoration-属性生成-圆图" class="headerlink" title="Container BoxDecoration 属性生成 圆图"></a>Container BoxDecoration 属性生成 圆图</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Container(</span><br><span class="line">      &#x2F;&#x2F; child: networkImage,</span><br><span class="line">      decoration: BoxDecoration(</span><br><span class="line">        borderRadius: BorderRadius.circular(150),</span><br><span class="line">        image: DecorationImage(</span><br><span class="line">          image: NetworkImage(imageUrl),</span><br><span class="line">          fit: BoxFit.cover,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      width: 300,</span><br><span class="line">      height: 300,</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Flutter</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>81. 搜索旋转排序数组 II - 中等</title>
-    <url>/2021/02/24/2000-014-81.%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%20II/</url>
-    <content><![CDATA[<h1 id="81-搜索旋转排序数组-II"><a href="#81-搜索旋转排序数组-II" class="headerlink" title="81. 搜索旋转排序数组 II"></a><a class="link"   href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/" >81. 搜索旋转排序数组 II<i class="fas fa-external-link-alt"></i></a></h1><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://files.catbox.moe/pwhsby.png"
-                      alt="81. 搜索旋转排序数组 II"
-                ></p>
-<h1 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h1><ul>
-<li><p>时间复杂度<br>O(n) 大多情况下每次都减少一般的数据</p>
-</li>
-<li><p>空间复杂度<br>O(1)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func search(_ nums: [Int], _ target: Int) -&gt; Bool &#123;</span><br><span class="line">      if nums.isEmpty &#123;</span><br><span class="line">          return false</span><br><span class="line">      &#125;</span><br><span class="line">      if nums.count &#x3D;&#x3D; 1 &#123;</span><br><span class="line">          return nums[0] &#x3D;&#x3D; target</span><br><span class="line">      &#125;</span><br><span class="line">      var left &#x3D; 0</span><br><span class="line">      var right &#x3D; nums.count - 1</span><br><span class="line">      &#x2F;&#x2F; [1, 2]</span><br><span class="line">      &#x2F;&#x2F; 必须是 &gt;&#x3D; 会存在 到最后左右指针相遇 才找到 目标值的情况</span><br><span class="line">      while right &gt;&#x3D; left &#123;</span><br><span class="line">          let mid &#x3D; (right - left) &#x2F; 2 + left</span><br><span class="line">          if nums[mid] &#x3D;&#x3D; target &#123;</span><br><span class="line">              return true</span><br><span class="line">          &#125;</span><br><span class="line">          if nums[mid] &lt; nums[right] &#123;</span><br><span class="line">              if nums[mid] &lt; target, target &lt;&#x3D; nums[right] &#123;</span><br><span class="line">                  left &#x3D; mid + 1</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                  right &#x3D; mid - 1</span><br><span class="line">              &#125;</span><br><span class="line">          &#125; else if nums[mid] &gt; nums[right] &#123;</span><br><span class="line">              if nums[left] &lt;&#x3D; target, target &lt; nums[mid] &#123;</span><br><span class="line">                  right &#x3D; mid - 1</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                  left &#x3D; mid + 1</span><br><span class="line">              &#125;</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">              right -&#x3D; 1</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      return false</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
       </categories>
   </entry>
   <entry>
