@@ -244,6 +244,17 @@
       </categories>
   </entry>
   <entry>
+    <title>Swift获取值的类型</title>
+    <url>/2020/11/19/100-Swift%E8%8E%B7%E5%8F%96%E5%80%BC%E7%9A%84%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>使用 <code>type(of:)</code> 函数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">let a &#x3D; type(of:&quot;😄&quot;)</span><br><span class="line"></span><br><span class="line">print(a) &#x2F;&#x2F;String</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><a class="link"   href="https://developer.apple.com/documentation/swift/2885064-type" >直达文档<i class="fas fa-external-link-alt"></i></a></p>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+  </entry>
+  <entry>
     <title>在Swift中使用 NSClassFromString</title>
     <url>/2020/11/02/100-%E5%9C%A8Swift%E4%B8%AD%E4%BD%BF%E7%94%A8-NSClassFromString/</url>
     <content><![CDATA[<p>在Swift中使用 NSClassFromString</p>
@@ -253,17 +264,6 @@
 <h3 id="每次写这些很麻烦-所以简单封装下"><a href="#每次写这些很麻烦-所以简单封装下" class="headerlink" title="每次写这些很麻烦,所以简单封装下"></a>每次写这些很麻烦,所以简单封装下</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public func GetClassFromString(_ classString: String) -&gt; AnyClass? &#123;</span><br><span class="line">    </span><br><span class="line">    guard let bundleName: String &#x3D; Bundle.main.object(forInfoDictionaryKey: &quot;CFBundleName&quot;) as? String else &#123;</span><br><span class="line">        return nil</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    var anyClass: AnyClass? &#x3D; NSClassFromString(bundleName + &quot;.&quot; + classString)</span><br><span class="line">    if (anyClass &#x3D;&#x3D; nil) &#123;</span><br><span class="line">        anyClass &#x3D; NSClassFromString(classString)</span><br><span class="line">    &#125;</span><br><span class="line">    return anyClass</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="以后就可以直接调用"><a href="#以后就可以直接调用" class="headerlink" title="以后就可以直接调用"></a>以后就可以直接调用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GetClassFromString(&quot;cellName&quot;)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Swift</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Swift获取值的类型</title>
-    <url>/2020/11/19/100-Swift%E8%8E%B7%E5%8F%96%E5%80%BC%E7%9A%84%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>使用 <code>type(of:)</code> 函数</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">let a &#x3D; type(of:&quot;😄&quot;)</span><br><span class="line"></span><br><span class="line">print(a) &#x2F;&#x2F;String</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><a class="link"   href="https://developer.apple.com/documentation/swift/2885064-type" >直达文档<i class="fas fa-external-link-alt"></i></a></p>
 ]]></content>
       <categories>
         <category>Swift</category>
@@ -2693,6 +2693,21 @@
       <categories>
         <category>iOS</category>
       </categories>
+  </entry>
+  <entry>
+    <title>在 M1 芯片的 Mac 上使用 CocoaPods</title>
+    <url>/2021/05/17/500-%E5%9C%A8%20M1%E8%8A%AF%E7%89%87%E7%9A%84%20Mac%20%E4%B8%8A%E4%BD%BF%E7%94%A8%20CocoaPods/</url>
+    <content><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>最近换了 M1 芯片的 MacBook Pro，在配置环境完成后 <code>pod install</code> 操作发现出错了。</p>
+<h1 id="在-M1-上使用-CocoaPods-的方法。"><a href="#在-M1-上使用-CocoaPods-的方法。" class="headerlink" title="在 M1 上使用 CocoaPods 的方法。"></a>在 M1 上使用 CocoaPods 的方法。</h1><h2 id="1-首先执行一次"><a href="#1-首先执行一次" class="headerlink" title="1. 首先执行一次"></a>1. 首先执行一次</h2><p><code>sudo arch -x86_64 gem install ffi</code></p>
+<h2 id="2-然后再替换之前-pod-install"><a href="#2-然后再替换之前-pod-install" class="headerlink" title="2. 然后再替换之前 pod install"></a>2. 然后再替换之前 pod install</h2><p><code>arch -x86_64 pod install</code></p>
+<h1 id="如何查找解决方案"><a href="#如何查找解决方案" class="headerlink" title="如何查找解决方案"></a>如何查找解决方案</h1><p>第一时间想到去 <a class="link"   href="https://github.com/CocoaPods/CocoaPods/issues" >CocoaPods issues<i class="fas fa-external-link-alt"></i></a> 搜索相关问题。<br>然后果然在 <a class="link"   href="https://github.com/CocoaPods/CocoaPods/issues/10220" >Got error while trying pod install<i class="fas fa-external-link-alt"></i></a> 中找到了解决方案。</p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>CocoaPods</tag>
+      </tags>
   </entry>
   <entry>
     <title>微信小程序引入模块，App.js</title>
