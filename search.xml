@@ -947,6 +947,131 @@
       </categories>
   </entry>
   <entry>
+    <title>ARP 地址解析协议的原理和地址解析过程</title>
+    <url>/2021/06/02/1000-ARP%20%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="ARP-地址解析协议的原理和地址解析过程"><a href="#ARP-地址解析协议的原理和地址解析过程" class="headerlink" title="ARP 地址解析协议的原理和地址解析过程"></a>ARP 地址解析协议的原理和地址解析过程</h1><p>ARP（Address Resolution Protocol）是地址解析协议的缩写，该协议提供根据 IP 地址获取物理地址的功能，它工作在第二层，是一个数据链路层协议，其在本层和物理层进行联系，同时向上层提供服务。当通过以太网发送 IP 数据包时，需要先封装 32 位的 IP 地址和 48 位 MAC 地址。在局域网中两台主机进行通信时需要依靠各自的物理地址进行标识，但由于发送方只知道目标 IP 地址，不知道其 MAC 地址，因此需要使用地址解析协议。 ARP 协议的解析过程如下：</p>
+<p>① 首先，每个主机都会在自己的 ARP 缓冲区中建立一个 ARP 列表，以表示 IP 地址和 MAC 地址之间的对应关系；</p>
+<p>② 当源主机要发送数据时，首先检查 ARP 列表中是否有 IP 地址对应的目的主机 MAC 地址，如果存在，则可以直接发送数据，否则就向同一子网的所有主机发送 ARP 数据包。该数据包包括的内容有源主机的 IP 地址和 MAC 地址，以及目的主机的 IP 地址。</p>
+<p>③ 当本网络中的所有主机收到该 ARP 数据包时，首先检查数据包中的 目的 主机 IP 地址是否是自己的 IP 地址，如果不是，则忽略该数据包，如果是，则首先从数据包中取出源主机的 IP 和 MAC 地址写入到 ARP 列表中，如果已经存在，则覆盖，然后将自己的 MAC 地址写入 ARP 响应包中，告诉源主机自己是它想要找的 MAC 地址。</p>
+<p>④ 源主机收到 ARP 响应包后。将目的主机的 IP 和 MAC 地址写入 ARP 列表，并利用此信息发送数据。如果源主机一直没有收到 ARP 响应数据包，表示 ARP 查询失败。</p>
+<p>使用 ARP 的 4 种情况：</p>
+<ol>
+<li>发送方是主机，要把 IP 数据报发送到本网络上的另一个主机。这时用 ARP 找到目的主机的硬件地址。</li>
+<li>发送方是主机，要把 IP 数据报发送到另一个网络上的一个主机。这时用 ARP 找到本网络上的一个路由器的硬件地址。剩下的工作由这个路由器来完成。</li>
+<li>发送方是路由器，要把 IP 数据报转发到本网络上的一个主机。这时用 ARP 找到目的主机的硬件地址。</li>
+<li>发送方是路由器，要把 IP 数据报转发到另一个网络上的一个主机。这时用 ARP 找到本网络上另一个路由器的硬件地址。剩下的工作由这个路由器来完成。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>IP 协议的定义和作用</title>
+    <url>/2021/06/02/1000-IP%20%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E4%BD%9C%E7%94%A8/</url>
+    <content><![CDATA[<p>IP 协议（Internet Protocol）又称互联网协议，是支持网间互联的数据包协议。该协议工作在网络层，主要目的就是为了提高网络的可扩展性，和传输层 TCP 相比，IP 协议提供一种无连接/不可靠、尽力而为的数据包传输服务，其与 TCP 协议（传输控制协议）一起构成了 TCP/IP 协议族的核心。</p>
+<p>IP 协议主要有以下几个作用：</p>
+<ul>
+<li>寻址和路由：在 IP 数据包中会携带源 IP 地址和目的 IP 地址来标识该数据包的源主机和目的主机。IP 数据报在传输过程中，每个中间节点（IP 网关、路由器）只根据网络地址进行转发，如果中间节点是路由器，则路由器会根据路由表选择合适的路径。IP 协议根据路由选择协议提供的路由信息对 IP 数据报进行转发，直至抵达目的主机。</li>
+<li>分段与重组：IP 数据包在传输过程中可能会经过不同的网络，在不同的网络中数据包的最大长度限制是不同的，IP 协议通过给每个 IP 数据包分配一个标识符以及分段与组装的相关信息，使得数据包在不同的网络中能够传输，被分段后的 IP 数据报可以独立地在网络中进行转发，在到达目的主机后由目的主机完成重组工作，恢复出原来的 IP 数据包。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>IP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IPV4 地址不够如何解决</title>
+    <url>/2021/06/02/1000-IPV4%20%E5%9C%B0%E5%9D%80%E4%B8%8D%E5%A4%9F%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<h1 id="IPV4-地址不够如何解决"><a href="#IPV4-地址不够如何解决" class="headerlink" title="IPV4 地址不够如何解决"></a>IPV4 地址不够如何解决</h1><ul>
+<li><p><strong>DHCP：</strong> 动态主机配置协议。动态分配 IP 地址，只给接入网络的设备分配 IP 地址，因此同一个 MAC 地址的设备，每次接入互联网时，得到的 IP 地址不一定是相同的，该协议使得空闲的 IP 地址可以得到充分利用。</p>
+</li>
+<li><p><strong>CIDR：</strong> 无类别域间路由。CIDR 消除了传统的 A 类、B 类、C 类地址以及划分子网的概念，因而更加有效的分配 IPv4 的地址空间，但无法从根本上解决地址耗尽问题。</p>
+</li>
+<li><p><strong>NAT：</strong> 网络地址转换协议。我们知道属于不同局域网的主机可以使用相同的 IP 地址，从而一定程度上缓解了 IP 资源枯竭的问题。然而主机在局域网中使用的 IP 地址是不能在公网中使用的，当局域网主机想要与公网进行通信时， NAT 方法可以将该主机 IP 地址转换成全球 IP 地址。该协议能够有效解决 IP 地址不足的问题。</p>
+</li>
+<li><p><strong>IPv6 ：</strong> 作为接替 IPv4 的下一代互联网协议，其可以实现 2 的 128 次方个地址，而这个数量级，即使是给地球上每一颗沙子都分配一个 IP 地址，该协议能够从根本上解决 IPv4 地址不够用的问题。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+      <tags>
+        <tag>IPV4</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络地址转换 NAT</title>
+    <url>/2021/06/02/1000-%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%20NAT/</url>
+    <content><![CDATA[<h1 id="网络地址转换-NAT"><a href="#网络地址转换-NAT" class="headerlink" title="网络地址转换 NAT"></a>网络地址转换 NAT</h1><p>NAT（Network Address Translation），即网络地址转换，它是一种把内部私有网络地址翻译成公有网络 IP 地址的技术。该技术不仅能解决 IP 地址不足的问题，而且还能隐藏和保护网络内部主机，从而避免来自外部网络的攻击。</p>
+<p>NAT 的实现方式主要有三种：</p>
+<ul>
+<li><p>端口多路复用：该方式将外出数据包的源端口进行端口转换，通过端口多路复用的方式，实现内部网络所有主机共享一个合法的外部 IP 地址进行 Internet 访问，从而最大限度地节约 IP 地址资源。同时，该方案可以隐藏内部网络中的主机，从而有效避免来自 Internet 的攻击。</p>
+</li>
+<li><p>静态转换：内部私有 IP 地址和公有 IP 地址是一对一的关系，并且不会发生改变。通过静态转换，可以实现外部网络对内部网络特定设备的访问，这种方式原理简单，但当某一共有 IP 地址被占用时，跟这个 IP 绑定的内部主机将无法访问 Internet。</p>
+</li>
+<li><p>动态转换：采用动态转换的方式时，私有 IP 地址每次转化成的公有 IP 地址是不唯一的。当私有 IP 地址被授权访问 Internet 时会被随机转换成一个合法的公有 IP 地址。当 ISP 通过的合法 IP 地址数量略少于网络内部计算机数量时，可以采用这种方式。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>路由器和交换机的区别</title>
+    <url>/2021/06/02/1000-%E8%B7%AF%E7%94%B1%E5%99%A8%E5%92%8C%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h1 id="路由器和交换机的区别"><a href="#路由器和交换机的区别" class="headerlink" title="路由器和交换机的区别"></a>路由器和交换机的区别</h1><ul>
+<li><strong>交换机：</strong> 交换机用于局域网，利用主机的物理地址（MAC 地址）确定数据转发的目的地址，它工作于数据链路层。</li>
+</ul>
+<ul>
+<li><strong>路由器：</strong> 路由器通过数据包中的目的 IP 地址识别不同的网络从而确定数据转发的目的地址，网络号是唯一的。路由器根据路由选择协议和路由表信息从而确定数据的转发路径，直到到达目的网络，它工作于网络层。</li>
+</ul>
+<ul>
+<li>交换机的端口不具有实际的 MAC 地址,因此交换机只是把接收到的消息转发出去而已，它的各端口并不以实际的发送方或接收方的身份参与到以太网包的传递过程；而路由器的端口具有 MAC 地址 IP 地址，所以它的端口是作为以太网包实际的接收方与发送方的身份存在的。</li>
+<li>当交换机不知道将包转发到哪一个端口时，它会将包转发到除了源端口以外的所有端口；而当路由器不知道将包转发到哪一端口时，它就直接丢弃这个包。产生这种区别的原因是他们所连接的网络的规模不同——交换机工作在局域网，它所连接的网络规模比较小，向所有端口转发也不会造成多大问题；但路由器工作的环境是互联网，它的规模是远大于互联网的，若向所有端口转发则会产生大量的网络包，造成网络拥塞。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>路由器的分组转发流程</title>
+    <url>/2021/06/02/1000-%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%88%86%E7%BB%84%E8%BD%AC%E5%8F%91%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="路由器的分组转发流程"><a href="#路由器的分组转发流程" class="headerlink" title="路由器的分组转发流程"></a>路由器的分组转发流程</h1><ol>
+<li><p>从 IP 数据包中提取出目的主机的 IP 地址，找到其所在的网络；</p>
+</li>
+<li><p>判断目的 IP 地址所在的网络是否与本路由器直接相连，如果是，则不需要经过其它路由器直接交付，否则执行 2.；</p>
+</li>
+<li><p>检查路由表中是否有目的 IP 地址的特定主机路由。如果有，则按照路由表传送到下一跳路由器中，否则执行 4.；</p>
+</li>
+<li><p>逐条检查路由表，若找到匹配路由，则按照路由表转发到下一跳路由器中，否则执行步骤 5.；</p>
+</li>
+<li><p>若路由表中设置有默认路由，则按照默认路由转发到默认路由器中，否则执行步骤 6.；</p>
+</li>
+<li><p>无法找到合适路由，向源主机报错。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>运输层协议和网络层协议的区别</title>
+    <url>/2021/06/02/1000-%E8%BF%90%E8%BE%93%E5%B1%82%E5%8D%8F%E8%AE%AE%E5%92%8C%E7%BD%91%E7%BB%9C%E5%B1%82%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h1 id="运输层协议和网络层协议的区别"><a href="#运输层协议和网络层协议的区别" class="headerlink" title="运输层协议和网络层协议的区别"></a>运输层协议和网络层协议的区别</h1><p>网络层协议负责提供主机间的逻辑通信；运输层协议负责提供进程间的逻辑通信。</p>
+]]></content>
+      <categories>
+        <category>网络协议</category>
+      </categories>
+  </entry>
+  <entry>
     <title>RxSwift-Observable订阅、监听</title>
     <url>/2020/11/12/200-RxSwift-Observable%E8%AE%A2%E9%98%85%E3%80%81%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let ob &#x3D; Observable.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br><span class="line">&#x2F;&#x2F;&#x2F; 直接订阅所有的</span><br><span class="line">ob.subscribe &#123; event in</span><br><span class="line">    print(&quot;事件&quot;, event)</span><br><span class="line">&#x2F;&#x2F; 通过 event.element 可以获取值</span><br><span class="line">    print(&quot;值是&quot;, event.element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;分开订阅</span><br><span class="line">ob.subscribe &#123; element in</span><br><span class="line">    print(&quot;onNext&quot;, element)</span><br><span class="line">&#125; onError: &#123; error in</span><br><span class="line">    print(&quot;onError&quot;, error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">    print(&quot;onCompleted&quot;)</span><br><span class="line">&#125; onDisposed: &#123;</span><br><span class="line">    print(&quot;onDisposed&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F;仅订阅 onNext</span><br><span class="line">ob.subscribe(onNext: &#123; element in</span><br><span class="line">    print(element)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -1764,20 +1889,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Dart abstract 抽象类</title>
-    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%805/</url>
-    <content><![CDATA[<h1 id="抽象类-相当于协议-接口"><a href="#抽象类-相当于协议-接口" class="headerlink" title="抽象类 相当于协议 接口"></a>抽象类 相当于协议 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">  &#x2F;&#x2F;抽象方法 只有方法名 没有具体实现</span><br><span class="line">  run();</span><br><span class="line"></span><br><span class="line">  String name;</span><br><span class="line"></span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;普通方法&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Animal-an-Animal-抽象类-不能被实例化"><a href="#Animal-an-Animal-抽象类-不能被实例化" class="headerlink" title="Animal an = Animal();   //抽象类 不能被实例化"></a>Animal an = Animal();   //抽象类 不能被实例化</h2><h1 id="继承抽象类"><a href="#继承抽象类" class="headerlink" title="继承抽象类"></a>继承抽象类</h1><blockquote>
-<p>继承自抽象类必须实现抽象方法     继承自抽象类的属性不是必须实现</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Dog extends Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小狗跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="implements-声明、with"><a href="#implements-声明、with" class="headerlink" title="implements 声明、with"></a>implements 声明、with</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Cat implements Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;我是🐱&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小🐱跑的快&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  String name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Duck with Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小鸭跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Dart</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Dart 多继承</title>
     <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%806/</url>
     <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">  printA() &#123;</span><br><span class="line">    print(&#39;AAAAA&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;A run&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B &#123;</span><br><span class="line">  printB() &#123;</span><br><span class="line">    print(&#39;BBBBBBBBB&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; B.bbb()&#123;&#125;    作为 minxins 的类不能有构造函数</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;B run&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1800,6 +1911,20 @@
 
 <h1 id="泛型-接口"><a href="#泛型-接口" class="headerlink" title="泛型 接口"></a>泛型 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class ABC&lt;T&gt; &#123;</span><br><span class="line">  addObject(String key);</span><br><span class="line">  setValue(String key, T value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="实现泛型接口"><a href="#实现泛型接口" class="headerlink" title="实现泛型接口"></a>实现泛型接口</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Wq&lt;T&gt; implements ABC&lt;T&gt; &#123;</span><br><span class="line">  @override</span><br><span class="line">  addObject(String key) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  setValue(String key, T value) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Dart abstract 抽象类</title>
+    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%805/</url>
+    <content><![CDATA[<h1 id="抽象类-相当于协议-接口"><a href="#抽象类-相当于协议-接口" class="headerlink" title="抽象类 相当于协议 接口"></a>抽象类 相当于协议 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">  &#x2F;&#x2F;抽象方法 只有方法名 没有具体实现</span><br><span class="line">  run();</span><br><span class="line"></span><br><span class="line">  String name;</span><br><span class="line"></span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;普通方法&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Animal-an-Animal-抽象类-不能被实例化"><a href="#Animal-an-Animal-抽象类-不能被实例化" class="headerlink" title="Animal an = Animal();   //抽象类 不能被实例化"></a>Animal an = Animal();   //抽象类 不能被实例化</h2><h1 id="继承抽象类"><a href="#继承抽象类" class="headerlink" title="继承抽象类"></a>继承抽象类</h1><blockquote>
+<p>继承自抽象类必须实现抽象方法     继承自抽象类的属性不是必须实现</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Dog extends Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小狗跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="implements-声明、with"><a href="#implements-声明、with" class="headerlink" title="implements 声明、with"></a>implements 声明、with</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Cat implements Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;我是🐱&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小🐱跑的快&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  String name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Duck with Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小鸭跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Dart</category>
       </categories>
