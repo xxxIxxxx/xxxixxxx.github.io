@@ -9,7 +9,7 @@
     
     <title>
         
-            Categories |
+            Swift 实用技巧 |
         
         今日营业中
     </title>
@@ -76,7 +76,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/categories"
                             >
                                 分类
@@ -123,7 +123,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/categories">分类</a>
                 </li>
             
@@ -148,13 +148,178 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="category-list-container">
-        <div class="category-list-content">
-            <ul class="all-category-list"><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/Dart/">Dart</a><span class="all-category-list-count">8</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/Flutter/">Flutter</a><span class="all-category-list-count">17</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/LeetCode/">LeetCode</a><span class="all-category-list-count">21</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/Swift/">Swift</a><span class="all-category-list-count">26</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/Xcode/">Xcode</a><span class="all-category-list-count">1</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/iOS/">iOS</a><span class="all-category-list-count">18</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/iOS-%E7%9F%A5%E8%AF%86%E7%82%B9/">iOS 知识点</a><span class="all-category-list-count">1</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a><span class="all-category-list-count">3</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="all-category-list-count">5</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a><span class="all-category-list-count">28</span></li></ul>
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Swift 实用技巧</span>
         </div>
-        <div class="category-comments">
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://files.catbox.moe/elmpn1.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">xxxixxxx</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-06-05 16:13:00
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Swift/">Swift</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="1-protocol-extension-初始化后直接配置相应属性"><a href="#1-protocol-extension-初始化后直接配置相应属性" class="headerlink" title="1. protocol + extension 初始化后直接配置相应属性"></a>1. protocol + extension 初始化后直接配置相应属性</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">protocol XXXBuilder &#123;&#125;</span><br><span class="line"></span><br><span class="line">extension XXXBuilder &#123;</span><br><span class="line">    public func with(configure: (inout Self) -&gt; Void) -&gt; Self &#123;</span><br><span class="line">        var this &#x3D; self</span><br><span class="line">        configure(&amp;this)</span><br><span class="line">        return this</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension NSObject: XXXBuilder &#123;&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 使用</span><br><span class="line">let tipLab &#x3D; UILabel().with &#123; lab in</span><br><span class="line">            lab.textColor &#x3D; .red</span><br><span class="line">            lab.backgroundColor &#x3D; .black</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Swift 实用技巧</li>
+        <li>Post author：xxxixxxx</li>
+        <li>Create time：2021-06-05 16:13:00</li>
+        <li>
+            Post link：https://xxxixxx.github.io/2021/06/05/100-Swift实用技巧/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/06/05/100-Swift%E4%B8%ADString%E6%89%A9%E5%B1%95/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">在 Swift 中为 String 添加扩展</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
             
-        </div>
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '1zMbU0F6CLL5EFJNQOkNJSSP-gzGzoHsz',
+                    appKey: 'zCB8Eokt3Assyi0cPe2SgDOD',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '来交流吧～',
+                    lang: 'en'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'xxxixxxx';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
     </div>
 </div>
 
@@ -185,6 +350,27 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -240,6 +426,14 @@
     </div>
 
     
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-protocol-extension-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%90%8E%E7%9B%B4%E6%8E%A5%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%BA%94%E5%B1%9E%E6%80%A7"><span class="nav-text">1. protocol + extension 初始化后直接配置相应属性</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
 
     <div class="image-viewer-container">
     <img src="">
@@ -294,6 +488,8 @@
 
 
 <div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/toc.js"></script>
     
 </div>
 

@@ -9,7 +9,7 @@
     
     <title>
         
-            运输层协议和网络层协议的区别 |
+            在 Swift 中为 String 添加扩展 |
         
         今日营业中
     </title>
@@ -151,7 +151,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">运输层协议和网络层协议的区别</span>
+            <span class="title-hover-animation">在 Swift 中为 String 添加扩展</span>
         </div>
 
         
@@ -167,7 +167,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-06-02 22:42:00
+        <i class="fas fa-edit"></i>&nbsp;2021-06-05 15:55:00
     </span>
     
         <span class="article-categories article-meta-item">
@@ -175,7 +175,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a>&nbsp;
+                        <a href="/categories/Swift/">Swift</a>&nbsp;
                     </li>
                 
             </ul>
@@ -195,7 +195,9 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="运输层协议和网络层协议的区别"><a href="#运输层协议和网络层协议的区别" class="headerlink" title="运输层协议和网络层协议的区别"></a>运输层协议和网络层协议的区别</h1><p>网络层协议负责提供主机间的逻辑通信；运输层协议负责提供进程间的逻辑通信。</p>
+            <h1 id="String-extension-代码"><a href="#String-extension-代码" class="headerlink" title="String extension 代码"></a>String extension 代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">extension String &#123;</span><br><span class="line">    func index(from: Int) -&gt; Index &#123;</span><br><span class="line">        &#x2F;&#x2F; 增加越界防护， 负数就不考虑了吧</span><br><span class="line">        if from &lt; count &#123;</span><br><span class="line">            return index(startIndex, offsetBy: from)</span><br><span class="line">        &#125;</span><br><span class="line">        return endIndex</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func substring(from: Int) -&gt; String &#123;</span><br><span class="line">        let fromIndex &#x3D; index(from: from)</span><br><span class="line">        return String(self[fromIndex...])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func substring(to: Int) -&gt; String &#123;</span><br><span class="line">        String(prefix(to))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func substring(with r: Range&lt;Int&gt;) -&gt; String &#123;</span><br><span class="line">        let startIndex &#x3D; index(from: r.lowerBound)</span><br><span class="line">        let endIndex &#x3D; index(from: r.upperBound)</span><br><span class="line">        return String(self[startIndex ..&lt; endIndex])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let str &#x3D; &quot;01234567&quot;</span><br><span class="line"></span><br><span class="line">_ &#x3D; str.substring(from: 0) &#x2F;&#x2F; &quot;01234567&quot;</span><br><span class="line">_ &#x3D; str.substring(from: 4) &#x2F;&#x2F; &quot;4567&quot;</span><br><span class="line">_ &#x3D; str.substring(from: 100) &#x2F;&#x2F; &quot;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">_ &#x3D; str.substring(to: 0) &#x2F;&#x2F; &quot;&quot;</span><br><span class="line">_ &#x3D; str.substring(to: 1) &#x2F;&#x2F; &quot;0&quot;</span><br><span class="line">_ &#x3D; str.substring(to: 100) &#x2F;&#x2F; &quot;01234567&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">_ &#x3D; str.substring(with: 0 ..&lt; 1) &#x2F;&#x2F; &quot;0&quot;</span><br><span class="line">_ &#x3D; str.substring(with: 0 ..&lt; 100) &#x2F;&#x2F; &quot;01234567&quot;</span><br></pre></td></tr></table></figure>
 
         </div>
 
@@ -203,11 +205,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：运输层协议和网络层协议的区别</li>
+        <li>Post title：在 Swift 中为 String 添加扩展</li>
         <li>Post author：xxxixxxx</li>
-        <li>Create time：2021-06-02 22:42:00</li>
+        <li>Create time：2021-06-05 15:55:00</li>
         <li>
-            Post link：https://xxxixxx.github.io/2021/06/02/1000-运输层协议和网络层协议的区别/
+            Post link：https://xxxixxx.github.io/2021/06/05/100-Swift中String扩展/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -224,13 +226,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2021/06/05/100-Swift%E4%B8%ADString%E6%89%A9%E5%B1%95/"
+                           href="/2021/06/05/100-Swift%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">在 Swift 中为 String 添加扩展</span>
+                                <span class="post-nav-title-item">Swift 实用技巧</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -240,10 +242,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/06/02/1000-%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%20NAT/"
+                           href="/2021/06/02/1000-%E8%BF%90%E8%BE%93%E5%B1%82%E5%8D%8F%E8%AE%AE%E5%92%8C%E7%BD%91%E7%BB%9C%E5%B1%82%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%8C%BA%E5%88%AB/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">网络地址转换 NAT</span>
+                                <span class="post-nav-title-item">运输层协议和网络层协议的区别</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -444,7 +446,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%BE%93%E5%B1%82%E5%8D%8F%E8%AE%AE%E5%92%8C%E7%BD%91%E7%BB%9C%E5%B1%82%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">运输层协议和网络层协议的区别</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#String-extension-%E4%BB%A3%E7%A0%81"><span class="nav-text">String extension 代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-text">使用</span></a></li></ol>
     </div>
 </div>
         </aside>

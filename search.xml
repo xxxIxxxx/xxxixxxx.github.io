@@ -197,6 +197,17 @@
       </categories>
   </entry>
   <entry>
+    <title>在 Swift 中为 String 添加扩展</title>
+    <url>/2021/06/05/100-Swift%E4%B8%ADString%E6%89%A9%E5%B1%95/</url>
+    <content><![CDATA[<h1 id="String-extension-代码"><a href="#String-extension-代码" class="headerlink" title="String extension 代码"></a>String extension 代码</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extension String &#123;</span><br><span class="line">    func index(from: Int) -&gt; Index &#123;</span><br><span class="line">        &#x2F;&#x2F; 增加越界防护， 负数就不考虑了吧</span><br><span class="line">        if from &lt; count &#123;</span><br><span class="line">            return index(startIndex, offsetBy: from)</span><br><span class="line">        &#125;</span><br><span class="line">        return endIndex</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func substring(from: Int) -&gt; String &#123;</span><br><span class="line">        let fromIndex &#x3D; index(from: from)</span><br><span class="line">        return String(self[fromIndex...])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func substring(to: Int) -&gt; String &#123;</span><br><span class="line">        String(prefix(to))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func substring(with r: Range&lt;Int&gt;) -&gt; String &#123;</span><br><span class="line">        let startIndex &#x3D; index(from: r.lowerBound)</span><br><span class="line">        let endIndex &#x3D; index(from: r.upperBound)</span><br><span class="line">        return String(self[startIndex ..&lt; endIndex])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let str &#x3D; &quot;01234567&quot;</span><br><span class="line"></span><br><span class="line">_ &#x3D; str.substring(from: 0) &#x2F;&#x2F; &quot;01234567&quot;</span><br><span class="line">_ &#x3D; str.substring(from: 4) &#x2F;&#x2F; &quot;4567&quot;</span><br><span class="line">_ &#x3D; str.substring(from: 100) &#x2F;&#x2F; &quot;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">_ &#x3D; str.substring(to: 0) &#x2F;&#x2F; &quot;&quot;</span><br><span class="line">_ &#x3D; str.substring(to: 1) &#x2F;&#x2F; &quot;0&quot;</span><br><span class="line">_ &#x3D; str.substring(to: 100) &#x2F;&#x2F; &quot;01234567&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">_ &#x3D; str.substring(with: 0 ..&lt; 1) &#x2F;&#x2F; &quot;0&quot;</span><br><span class="line">_ &#x3D; str.substring(with: 0 ..&lt; 100) &#x2F;&#x2F; &quot;01234567&quot;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Swift 协议与扩展</title>
     <url>/2020/12/25/100-Swift%E5%8D%8F%E8%AE%AE%E4%B8%8E%E6%89%A9%E5%B1%95/</url>
     <content><![CDATA[<h1 id="协议-Protocol"><a href="#协议-Protocol" class="headerlink" title="协议 Protocol"></a>协议 Protocol</h1><h2 id="使用-Protocol-关键字创建一个协议"><a href="#使用-Protocol-关键字创建一个协议" class="headerlink" title="使用 Protocol 关键字创建一个协议"></a>使用 Protocol 关键字创建一个协议</h2><blockquote>
@@ -229,6 +240,15 @@
         <tag>Protocol</tag>
         <tag>Extension</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Swift 实用技巧</title>
+    <url>/2021/06/05/100-Swift%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h1 id="1-protocol-extension-初始化后直接配置相应属性"><a href="#1-protocol-extension-初始化后直接配置相应属性" class="headerlink" title="1. protocol + extension 初始化后直接配置相应属性"></a>1. protocol + extension 初始化后直接配置相应属性</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">protocol XXXBuilder &#123;&#125;</span><br><span class="line"></span><br><span class="line">extension XXXBuilder &#123;</span><br><span class="line">    public func with(configure: (inout Self) -&gt; Void) -&gt; Self &#123;</span><br><span class="line">        var this &#x3D; self</span><br><span class="line">        configure(&amp;this)</span><br><span class="line">        return this</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension NSObject: XXXBuilder &#123;&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 使用</span><br><span class="line">let tipLab &#x3D; UILabel().with &#123; lab in</span><br><span class="line">            lab.textColor &#x3D; .red</span><br><span class="line">            lab.backgroundColor &#x3D; .black</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
   </entry>
   <entry>
     <title>第三方库提示</title>
@@ -1889,6 +1909,20 @@
       </categories>
   </entry>
   <entry>
+    <title>Dart abstract 抽象类</title>
+    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%805/</url>
+    <content><![CDATA[<h1 id="抽象类-相当于协议-接口"><a href="#抽象类-相当于协议-接口" class="headerlink" title="抽象类 相当于协议 接口"></a>抽象类 相当于协议 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">  &#x2F;&#x2F;抽象方法 只有方法名 没有具体实现</span><br><span class="line">  run();</span><br><span class="line"></span><br><span class="line">  String name;</span><br><span class="line"></span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;普通方法&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Animal-an-Animal-抽象类-不能被实例化"><a href="#Animal-an-Animal-抽象类-不能被实例化" class="headerlink" title="Animal an = Animal();   //抽象类 不能被实例化"></a>Animal an = Animal();   //抽象类 不能被实例化</h2><h1 id="继承抽象类"><a href="#继承抽象类" class="headerlink" title="继承抽象类"></a>继承抽象类</h1><blockquote>
+<p>继承自抽象类必须实现抽象方法     继承自抽象类的属性不是必须实现</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Dog extends Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小狗跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="implements-声明、with"><a href="#implements-声明、with" class="headerlink" title="implements 声明、with"></a>implements 声明、with</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Cat implements Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;我是🐱&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小🐱跑的快&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  String name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Duck with Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小鸭跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Dart</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Dart 多继承</title>
     <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%806/</url>
     <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">  printA() &#123;</span><br><span class="line">    print(&#39;AAAAA&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;A run&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B &#123;</span><br><span class="line">  printB() &#123;</span><br><span class="line">    print(&#39;BBBBBBBBB&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; B.bbb()&#123;&#125;    作为 minxins 的类不能有构造函数</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;B run&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1911,20 +1945,6 @@
 
 <h1 id="泛型-接口"><a href="#泛型-接口" class="headerlink" title="泛型 接口"></a>泛型 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class ABC&lt;T&gt; &#123;</span><br><span class="line">  addObject(String key);</span><br><span class="line">  setValue(String key, T value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="实现泛型接口"><a href="#实现泛型接口" class="headerlink" title="实现泛型接口"></a>实现泛型接口</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Wq&lt;T&gt; implements ABC&lt;T&gt; &#123;</span><br><span class="line">  @override</span><br><span class="line">  addObject(String key) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  setValue(String key, T value) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Dart</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Dart abstract 抽象类</title>
-    <url>/2020/12/27/300-Dart%E5%9F%BA%E7%A1%805/</url>
-    <content><![CDATA[<h1 id="抽象类-相当于协议-接口"><a href="#抽象类-相当于协议-接口" class="headerlink" title="抽象类 相当于协议 接口"></a>抽象类 相当于协议 接口</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">  &#x2F;&#x2F;抽象方法 只有方法名 没有具体实现</span><br><span class="line">  run();</span><br><span class="line"></span><br><span class="line">  String name;</span><br><span class="line"></span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;普通方法&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Animal-an-Animal-抽象类-不能被实例化"><a href="#Animal-an-Animal-抽象类-不能被实例化" class="headerlink" title="Animal an = Animal();   //抽象类 不能被实例化"></a>Animal an = Animal();   //抽象类 不能被实例化</h2><h1 id="继承抽象类"><a href="#继承抽象类" class="headerlink" title="继承抽象类"></a>继承抽象类</h1><blockquote>
-<p>继承自抽象类必须实现抽象方法     继承自抽象类的属性不是必须实现</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Dog extends Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小狗跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="implements-声明、with"><a href="#implements-声明、with" class="headerlink" title="implements 声明、with"></a>implements 声明、with</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Cat implements Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  getInfo() &#123;</span><br><span class="line">    print(&#39;我是🐱&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小🐱跑的快&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  String name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Duck with Animal &#123;</span><br><span class="line">  @override</span><br><span class="line">  run() &#123;</span><br><span class="line">    print(&#39;小鸭跑&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Dart</category>
       </categories>
