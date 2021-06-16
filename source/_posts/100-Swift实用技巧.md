@@ -27,3 +27,13 @@ let tipLab = UILabel().with { lab in
             lab.backgroundColor = .black
         }
 ```
+
+# 2. Double 转 String,限制小数位数
+
+```
+extension Double {
+    func format(_ count: Int) -> String {
+        String(format: "%.\(count)f", self)
+    }
+}
+```
