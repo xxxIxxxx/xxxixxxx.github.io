@@ -2906,6 +2906,43 @@
       </categories>
   </entry>
   <entry>
+    <title>shell 配置</title>
+    <url>/2021/08/11/700-shell/</url>
+    <content><![CDATA[<h1 id="安装-iterm2"><a href="#安装-iterm2" class="headerlink" title="安装 iterm2"></a>安装 iterm2</h1><p><strong><a class="link"   href="https://iterm2.com/" >前往官网 https://iterm2.com<i class="fas fa-external-link-alt"></i></a></strong></p>
+<h1 id="安装-ohmyzsh"><a href="#安装-ohmyzsh" class="headerlink" title="安装 ohmyzsh"></a>安装 ohmyzsh</h1><p><strong><a class="link"   href="https://github.com/ohmyzsh/ohmyzsh" >ohmyzsh 介绍<i class="fas fa-external-link-alt"></i></a></strong></p>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p><a class="link"   href="https://github.com/ohmyzsh/ohmyzsh/wiki/Themes" >主题预览列表<i class="fas fa-external-link-alt"></i></a></p>
+<ol>
+<li>打开 zshrc，推荐 VSCode 可格式化<br><code>open ~/.zshrc</code></li>
+<li>添加主题<br><code>ZSH_THEME=&quot;robbyrussell&quot;</code></li>
+<li>保存<br><code>source ~/.zshrc</code></li>
+</ol>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="高亮插件"><a href="#高亮插件" class="headerlink" title="高亮插件"></a>高亮插件</h3><ol>
+<li><p>下载<br><code>git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</code></p>
+</li>
+<li><p>打开 zshrc，推荐 VSCode 可格式化<br><code>open ~/.zshrc</code></p>
+</li>
+<li><p>添加插件描述</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">plugins&#x3D;(</span><br><span class="line">#高亮</span><br><span class="line">zsh-syntax-highlighting)</span><br></pre></td></tr></table></figure></li>
+<li><p>保存<br> <code>source ~/.zshrc</code></p>
+</li>
+</ol>
+<h3 id="输入建议插件"><a href="#输入建议插件" class="headerlink" title="输入建议插件"></a>输入建议插件</h3><ol>
+<li><p>下载<br><code>git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</code></p>
+</li>
+<li><p>打开 zshrc，推荐 VSCode 可格式化<br><code>open ~/.zshrc</code></p>
+</li>
+<li><p>添加插件描述</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">plugins&#x3D;(</span><br><span class="line">#高亮</span><br><span class="line">zsh-syntax-highlighting</span><br><span class="line">#输入建议</span><br><span class="line">zsh-autosuggeestions)</span><br></pre></td></tr></table></figure></li>
+<li><p>保存<br> <code>source ~/.zshrc</code></p>
+</li>
+</ol>
+<h1 id="zshrc-样例"><a href="#zshrc-样例" class="headerlink" title=".zshrc 样例"></a>.zshrc 样例</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Path to your oh-my-zsh installation.</span><br><span class="line">export ZSH&#x3D;&quot;&#x2F;Users&#x2F;z&#x2F;.oh-my-zsh&quot;</span><br><span class="line"></span><br><span class="line"># See https:&#x2F;&#x2F;github.com&#x2F;ohmyzsh&#x2F;ohmyzsh&#x2F;wiki&#x2F;Themes</span><br><span class="line">ZSH_THEME&#x3D;&quot;robbyrussell&quot;</span><br><span class="line"></span><br><span class="line">plugins&#x3D;(git</span><br><span class="line">    #自动建议</span><br><span class="line">    zsh-autosuggestions</span><br><span class="line">    #高亮</span><br><span class="line">    zsh-syntax-highlighting)</span><br><span class="line"></span><br><span class="line">source $ZSH&#x2F;oh-my-zsh.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+  </entry>
+  <entry>
     <title>从输入 URL 到展现页面的全过程</title>
     <url>/2021/02/03/1000-000%E4%BB%8E%E8%BE%93%E5%85%A5%20URL%20%E5%88%B0%E5%B1%95%E7%8E%B0%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%85%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="从输入-URL-到展现页面的全过程"><a href="#从输入-URL-到展现页面的全过程" class="headerlink" title="从输入 URL 到展现页面的全过程"></a>从输入 URL 到展现页面的全过程</h1><blockquote>
